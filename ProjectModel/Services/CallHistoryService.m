@@ -26,7 +26,6 @@
     NSLog(@"%@",urlString);
     [Call_history_Model getModelFromURLWithString:urlString  completion:^(Call_history_Model *object,JSONModelError *error){
         [SharedAction commonActionWithUrl:urlString andStatus:object.status andError:object.error andJSONModelError:error andObject:object.info withDone:done];
-          
     }];
 
 

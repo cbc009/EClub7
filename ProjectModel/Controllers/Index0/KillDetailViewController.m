@@ -109,7 +109,7 @@
     if (indexPath.section==0) {
           return 400;
     }else if (indexPath.section==2){
-        return 100;
+        return 80;
     }else
     {
         return 34;

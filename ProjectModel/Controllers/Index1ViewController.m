@@ -210,6 +210,7 @@
                     }
                     dispatch_sync(dispatch_get_main_queue(), ^{
                         NSLog(@"ss:%lu",(unsigned long)resultValue);
+                        resultValue=13;
                         [self endChoujiang];
                     });
                 }

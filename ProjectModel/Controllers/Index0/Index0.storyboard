@@ -91,7 +91,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="67" height="89"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="581AC22E-1A51-4B05-8FBF-8358EA018497" translatesAutoresizingMaskIntoConstraints="NO" id="MzM-4p-edY">
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1D737FF2-525B-4235-9C21-D4829EB61364" translatesAutoresizingMaskIntoConstraints="NO" id="MzM-4p-edY">
                                                                         <rect key="frame" x="1" y="0.0" width="65" height="65"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="65" id="vfI-sW-coq"/>
@@ -2274,17 +2274,21 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.3803921938" green="0.79215693470000004" blue="0.51372551919999998" alpha="1" colorSpace="deviceRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleAspectFit" selectionStyle="default" indentationWidth="10" reuseIdentifier="KillSercessViewCell" rowHeight="96" id="y2x-Ru-plY" customClass="KillSercessViewCell">
+                                    <tableViewCell contentMode="scaleAspectFit" selectionStyle="default" indentationWidth="10" reuseIdentifier="KillSercessViewCell" rowHeight="80" id="y2x-Ru-plY" customClass="KillSercessViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="y2x-Ru-plY" id="PA7-pQ-kmn">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dl9-TI-xQ6">
-                                                    <rect key="frame" x="15" y="8" width="108" height="74"/>
+                                                    <rect key="frame" x="16" y="13" width="80" height="53"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="80" id="Dh1-iP-gaP"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="NPU-aV-xbs"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12345678901" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Du4-cm-6c4">
-                                                    <rect key="frame" x="177" y="33" width="138" height="32"/>
+                                                    <rect key="frame" x="150" y="33" width="138" height="16"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="138" id="Qbo-Sp-fpe"/>
                                                     </constraints>
@@ -2295,12 +2299,12 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Du4-cm-6c4" firstAttribute="top" secondItem="PA7-pQ-kmn" secondAttribute="topMargin" constant="25" id="GO1-sC-pFb"/>
-                                                <constraint firstItem="dl9-TI-xQ6" firstAttribute="leading" secondItem="PA7-pQ-kmn" secondAttribute="leadingMargin" constant="7" id="GUc-jf-JlS"/>
+                                                <constraint firstItem="dl9-TI-xQ6" firstAttribute="top" secondItem="PA7-pQ-kmn" secondAttribute="topMargin" constant="5" id="Jmr-ld-e5h"/>
+                                                <constraint firstItem="dl9-TI-xQ6" firstAttribute="leading" secondItem="PA7-pQ-kmn" secondAttribute="leadingMargin" constant="8" id="OGt-ZR-aK8"/>
                                                 <constraint firstItem="Du4-cm-6c4" firstAttribute="leading" secondItem="dl9-TI-xQ6" secondAttribute="trailing" constant="54" id="fMe-4S-MLE"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Du4-cm-6c4" secondAttribute="trailing" constant="-3" id="fyz-s6-pgk"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="Du4-cm-6c4" secondAttribute="bottom" constant="22" id="gPL-j1-TNh"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="dl9-TI-xQ6" secondAttribute="bottom" constant="5" id="hHI-6D-Z5X"/>
-                                                <constraint firstItem="dl9-TI-xQ6" firstAttribute="top" secondItem="PA7-pQ-kmn" secondAttribute="topMargin" id="s3F-T9-zAe"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="dl9-TI-xQ6" secondAttribute="bottom" constant="5" id="wzI-bF-tJW"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -2552,7 +2556,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="581AC22E-1A51-4B05-8FBF-8358EA018497" width="200" height="200">
+        <image name="1D737FF2-525B-4235-9C21-D4829EB61364" width="200" height="200">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

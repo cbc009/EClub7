@@ -19,7 +19,6 @@
 
 -(void)loadPush_historyWithsid:(NSInteger )sid andPage:(NSString *)page InViewController:(MorePush_history *)viewController
 {
-    
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
     NSString *urlString = [NSString stringWithFormat:Push_History,user.mid,page];
