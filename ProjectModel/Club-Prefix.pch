@@ -1,0 +1,199 @@
+//
+//  Prefix header
+//
+//  The contents of this file are implicitly included at the beginning of every source file.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_5_0
+#warning "This project uses features only available in iOS SDK 5.0 and later."
+#endif
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#endif
+
+#define IOS_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
+
+#define DeviceFrame [UIScreen mainScreen].bounds
+#define StatusBarFrame [[UIApplication sharedApplication] statusBarFrame]
+#define NavigationBarFrame self.navigationController.navigationBar.frame
+#define TabBarFrame self.tabBarController.tabBar.frame
+#define UMengKEY @"540a742dfd98c5505f013088"
+#define WeiXinAppID @"wx5189b838a4d16d8b"
+#define WeiXinAppSecret @"421410d78db22d85d7f811938ff3d172"
+#define QQAppID @"1103541927"
+#define QQAppKEY @"1USiSoOIDP1GFPR7"
+#define SinaAppKEY @"274015286"
+#define AppDownLoadURL @"https://itunes.apple.com/cn/app/e-xiao-qu/id914487546?mt=8"
+#define ItemHeight 40.0
+
+#import "SharedAction.h"
+#import "SharedData.h"
+#import "Login.h"
+typedef void (^completion)(BOOL completed, NSDictionary *data);
+typedef void (^done)(BOOL completed,id object);
+typedef void (^doneWithObject)(id object);
+typedef void (^doneWithObjectAndStatus)(int status,id object);
+typedef void (^finished)(NSDictionary *info);
+
+
+#define MainGreenColor [UIColor colorWithRed:64.0/255 green:198.0/255 blue:119.0/255 alpha:1]
+
+//#define IP @"http://scope.stcyclub.com"
+#define IP @"http://www.greenwh.com"
+
+#define MainPrexURL [NSString stringWithFormat:@"%@/wap.php/",IP]
+#define PrexImgPath [NSString stringWithFormat:@"%@/Static/Uploads/img/",IP]
+#define PrexURL [NSString stringWithFormat:@"%@/wap.php/",IP]
+//登录
+#define LoginURL [PrexURL stringByAppendingString: @"Base/member_login/loginname/%@/password/%@/from/IOS"]
+#define UserinfosURL [PrexURL stringByAppendingString: @"Member/userinfo?loginname=%@"]
+#define ValicodeURL [PrexURL stringByAppendingString: @"Base/valid_code/loginname/%@"]
+//协议
+#define ProtocolURL [PrexURL stringByAppendingString: @"Member/agree"]
+//注册
+#define RegisterURL [PrexURL stringByAppendingString: @"Base/member_regist/loginname/%@/password/%@/code/%@/guide/%@/from/IOS"]
+//选择省份
+#define ChooseProvinceURL [PrexURL stringByAppendingString: @"Base/province/token/%@/form/IOS"]
+#define ChooseCityURL [PrexURL stringByAppendingString: @"Base/city/province/%@/token/%@/form/IOS"]
+#define ChooseAreaURL [PrexURL stringByAppendingString: @"Base/area/city/%@/token/%@/form/IOS"]
+//#define ChooseEareaURL [PrexURL stringByAppendingString: @"Member/earea?area=%@"]
+#define ChooseScopeURL [PrexURL stringByAppendingString: @"Base/scope/from/IOS/area/%@/token/%@"]
+//选择生活馆
+#define ChooseLifehallURL [PrexURL stringByAppendingString: @"Base/lifehall/from/IOS/city/%@/token/%@"]
+//关联区域
+#define ContcatURL [PrexURL stringByAppendingString: @"Base/contcat/from/IOS/area/%@/sid/%@/lifehall_id/%@/token/%@"]
+//上传图片
+#define UploadImageURL [PrexURL stringByAppendingString: @"Member/head/"]
+
+//抽奖
+#define LottryURL [PrexURL stringByAppendingString: @"Prize/prize_lucky/from/IOS/token/%@/user_type/%d"]
+#define NewluckyURL [PrexURL stringByAppendingString: @"Prize/newlucky/from/IOS"]
+#define PrizeIndexURL [PrexURL stringByAppendingString: @"Prize/prize_index/from/IOS/token/%@/user_type/%d"]
+//抽奖记录
+#define RewardRecordURL [PrexURL stringByAppendingString: @"Prize/myluckies/from/IOS/token/%@/user_type/%d/page/%@"]
+//抽奖规则
+#define RewardRuleURL [PrexURL stringByAppendingString: @"Prize/latest_rules/from/IOS/token/%@/user_type/%d"]
+
+//每次一抢的菜
+#define RobModelURL [PrexURL stringByAppendingString: @"Rob/index/from/IOS/token/%@/user_type/%d"]
+//抢菜记录
+#define Robuy_member_URL [PrexURL stringByAppendingString: @"Rob/robuy_member/from/IOS/token/%@/user_type/%d/page/%@"]
+//单商品的抢菜记录
+#define One_Robuy_member_URL [PrexURL stringByAppendingString: @"Rob/robuy_member/from/IOS/token/%@/user_type/%d/gid/%@/page/%@"]
+//往期抢购商品
+#define Rob_goods_history_URL [PrexURL stringByAppendingString: @"Rob/goods_history/from/IOS/token/%@/user_type/%d/page/%@"]
+//抢菜action
+#define RobActionURL [PrexURL stringByAppendingString: @"Rob/robuy_order/from/IOS/token/%@/user_type/%d/gid/%@"]
+//我的抢菜记录
+#define RobOrderModelURL [PrexURL stringByAppendingString: @"Robuy/myorder/from/IOS/mid/%d/page/%@"]
+
+//获取菜的类别
+#define GoodsTypeURL [MainPrexURL stringByAppendingString: @"Goods/goods_type/from/IOS/token/%@/user_type/%d"]
+//获取菜
+#define Type_goodsURL [MainPrexURL stringByAppendingString: @"Goods/type_goods/from/IOS/token/%@/user_type/%d/subid/%@/page/%@"]
+//搜索
+#define Goods_search_URL [MainPrexURL stringByAppendingString: @"Goods/goods_search/from/IOS"]
+
+#define GoodsURL [PrexURL stringByAppendingString: @"Trade/index/from/IOS/sid/%d/gtypeid/%@/page/%@"]
+//加入购物车
+#define InCartURL [PrexURL stringByAppendingString: @"Goods/incart/from/IOS/token/%@/gid/%@/user_type/%d/num/%@"]
+//购物车所有菜品
+#define ItemsInCar_URL [PrexURL stringByAppendingString: @"Goods/carts/from/IOS/token/%@/user_type/%d"]
+//商品详情
+#define GoodsDetail [PrexURL stringByAppendingString: @"Goods/goodsdetail/from/IOS/token/%@/user_type/%d/gid/%@"]
+//送货提示
+#define DeliveryURL [PrexURL stringByAppendingString: @"Goods/delivery/from/IOS/token/%@/user_type/%d"]
+//提交订单
+#define SubmitItemsURL [PrexURL stringByAppendingString: @"Goods/buying/from/IOS"]
+
+//账户明细
+#define AmountURL [PrexURL stringByAppendingString: @"Base/account/from/IOS/token/%@/user_type/%d/page/%@"]
+//我购买的订单
+#define TradeOrderURL [PrexURL stringByAppendingString: @"Goods/myorder/from/IOS/token/%@/user_type/%d/page/%@"]
+//我抢到的订单
+#define RobOrderURL [PrexURL stringByAppendingString: @"Robuy/myorder/from/IOS/mid/%d/page/%@"]
+//订单详情
+#define DetailTradeOrderURL [PrexURL stringByAppendingString: @"Goods/order_detail/from/IOS/orderid/%@/token/%@/user_type/%d/page/%@"]
+
+//意见反馈
+#define FeedBackURL [PrexURL stringByAppendingString: @"Base/advice/from/IOS"]
+
+//团购
+#define Groups_Goods_future_URL [PrexURL stringByAppendingString: @"Team/goods_future/from/IOS/token/%@/user_type/%d/page/%@"]
+//团购商品详情
+#define GroupDetail [PrexURL stringByAppendingString: @"Team/goods_detail/from/IOS/token/%@/user_type/%d/gid/%@"]
+
+//团购报名
+#define GroupSignUp [PrexURL stringByAppendingString: @"Team/group_sign/from/IOS/token/%@/user_type/%d/gid/%@/nums/%@/paypassword/%@"]
+//我的团购
+#define MyGroupsURL [PrexURL stringByAppendingString: @"Team/mygroup/from/IOS/token/%@/user_type/%d/page/%@"]
+
+//秒杀
+#define Kill_Goods_future [PrexURL stringByAppendingString: @"Instant/goods_future/from/IOS/token/%@/user_type/%d"]
+#define KillActionURL [PrexURL stringByAppendingString: @"Instant/secondkill/from/IOS/token/%@/user_type/%d/gid/%@"]
+//倒计时
+#define Kill_CountDown_URL [PrexURL stringByAppendingString: @"Instant/countdown/from/IOS/token/%@/user_type/%d/gid/%@"]
+//历史秒杀记录
+#define Kill_Goods_history_URL [PrexURL stringByAppendingString: @"Instant/goods_history/from/IOS/token/%@/user_type/%d"]
+
+//我的秒杀订单
+#define KillOrderURL [PrexURL stringByAppendingString: @"Instant/mysecond/from/IO/token/%@/user_type/%d/page/%@"]
+//充值信息
+#define Create_pay_orderURL [PrexURL stringByAppendingString: @"Pay/create_pay_order/from/IOS/mid/%d/price/%@"]
+
+//修改登录密码
+#define ChangePassword [MainPrexURL stringByAppendingString: @"Base/password/frome/ios/token/%@/user_type/%d/password/%@/passwordold/%@"]
+//修改支付密码
+#define ChangePayPassword [MainPrexURL stringByAppendingString: @"Base/paypasswd/from/IOS/token/%@/user_type/%d/paypassword/%@/passwordold/%@"]
+//修改昵称
+#define ChangeUserName [MainPrexURL stringByAppendingString: @"Base/nick/from/IOS"]
+//修改地址
+#define ChangeAddress [MainPrexURL stringByAppendingString: @"Base/address/from/IOS"]
+//广告图片
+#define AdPictUrl [MainPrexURL stringByAppendingString: @"Advert/advert_pic/from/IOS/city/%d/pos/%d"]
+//push消息
+#define Push_History [MainPrexURL stringByAppendingString: @"Push/push_history/from/IOS/mid/%d/page/%@"]
+//积分商品列表
+#define PointGoodslist [MainPrexURL stringByAppendingString: @"Exchange/goodslist/from/IOS/token/%@/user_type/%d/page/%@"]
+//积分商品详情页
+#define PointDetial [MainPrexURL stringByAppendingString: @"Point/goodsdetail/from/IOS/gid/%d"]
+//积分兑换兑换
+#define PointSignUp [PrexURL stringByAppendingString: @"Exchange/exchange/from/ios/token/%@/user_type/%d/gid/%@/goods_num/%@/paypassword/%@"]
+//积分兑换订单
+#define PointDetialOrder [PrexURL stringByAppendingString: @"Exchange/myorder/from/IOS/token/%@/user_type/%d"]
+//通话记录
+#define Call_History_URL [PrexURL stringByAppendingString: @"Call/phonelist/from/IOS/token/%@/user_type/%d/page/%@"]
+//打电话
+#define Call [PrexURL stringByAppendingString: @"Call/makecall/from/IOS/token/%@/user_type/%d/phone/%@"]
+
+//签到领话费
+#define Sigin [PrexURL stringByAppendingString: @"Call/phonesign/from/IOS/token/%@/user_type/%d"]
+//获取各种余额信息
+#define BalanceURL [PrexURL stringByAppendingString: @"Member/balance/from/IOS/token/%@/user_type/%d"]
+//我的邻居
+#define MYneighbor [PrexURL stringByAppendingString: @"Neighbor/index/from/IOS/mid/%d/sid/%d/page/%@"]
+//上传头像
+#define MemberPhoto [PrexURL stringByAppendingString: @"/Base/head"]
+
+//二手交易
+#define SecondChangeURL [PrexURL stringByAppendingString: @"Second/transfer/from/IOS/sid/%d/page/%@"]
+//购买二手交易
+#define SecondBuyChangeURL [PrexURL stringByAppendingString: @"Second/buy/from/IOS/sid/%d/page/%@"]
+//发布二手信息
+#define PostSecondChangeURL [PrexURL stringByAppendingString: @"Second/transrelease/from/IOS"]
+
+//发布二手求购信息
+#define PostBuySecondChangeURL [PrexURL stringByAppendingString: @"Second/buyrelease/from/IOS"]
+//发布中得转让信息
+#define MySecondChangeURL [PrexURL stringByAppendingString: @"Second/mytrans/from/IOS/mid/%d/page/%@"]
+
+//发布中的求购信息
+#define MySecondBuyChangeURL [PrexURL stringByAppendingString: @"Second/mybuy/from/IOS/mid/%d/page/%@"]
+//生活圈
+#define LiveURL [PrexURL stringByAppendingString: @"Lifecircle/index/from/IOS/token/%@/user_type/%d"]
+//应用推荐二维码
+#define QRCode_Guide_code [PrexURL stringByAppendingString: @"Base/guide_code/from/IOS/token/%@/user_type/%d"]
