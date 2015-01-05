@@ -220,6 +220,7 @@
 		336FDC861A5A2F1C004CFD6A /* Index0.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 336FDC851A5A2F1C004CFD6A /* Index0.storyboard */; };
 		336FDC891A5A41CB004CFD6A /* AppQRocde.m in Sources */ = {isa = PBXBuildFile; fileRef = 336FDC881A5A41CB004CFD6A /* AppQRocde.m */; };
 		336FDC8D1A5A4269004CFD6A /* Guide_code.m in Sources */ = {isa = PBXBuildFile; fileRef = 336FDC8C1A5A4269004CFD6A /* Guide_code.m */; };
+		336FDC901A5A7E12004CFD6A /* KIllSuccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 336FDC8F1A5A7E12004CFD6A /* KIllSuccess.m */; };
 		3377183F1A50EB6A001D8CB6 /* LiveData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3377183E1A50EB6A001D8CB6 /* LiveData.m */; };
 		337F97391A27004700CC0D54 /* loding.png in Resources */ = {isa = PBXBuildFile; fileRef = 337F97381A27004700CC0D54 /* loding.png */; };
 		3391216A1A48F5DE00D8FA3D /* GroupAdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 339121691A48F5DE00D8FA3D /* GroupAdCell.m */; };
@@ -734,6 +735,8 @@
 		336FDC881A5A41CB004CFD6A /* AppQRocde.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppQRocde.m; sourceTree = "<group>"; };
 		336FDC8B1A5A4269004CFD6A /* Guide_code.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Guide_code.h; sourceTree = "<group>"; };
 		336FDC8C1A5A4269004CFD6A /* Guide_code.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Guide_code.m; sourceTree = "<group>"; };
+		336FDC8E1A5A7E12004CFD6A /* KIllSuccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KIllSuccess.h; sourceTree = "<group>"; };
+		336FDC8F1A5A7E12004CFD6A /* KIllSuccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KIllSuccess.m; sourceTree = "<group>"; };
 		3377183D1A50EB6A001D8CB6 /* LiveData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveData.h; sourceTree = "<group>"; };
 		3377183E1A50EB6A001D8CB6 /* LiveData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveData.m; sourceTree = "<group>"; };
 		337F97381A27004700CC0D54 /* loding.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loding.png; sourceTree = "<group>"; };
@@ -1376,8 +1379,8 @@
 				22F0974A199E0D55007B9E7B /* RewardRecordsViewController.m */,
 				22557A0819965276001B5FCC /* PastItemsTableViewController.h */,
 				22557A0919965276001B5FCC /* PastItemsTableViewController.m */,
-				2235054E1998BA700026B92F /* ItemDetailViewController.h */,
 				2235054F1998BA700026B92F /* ItemDetailViewController.m */,
+				2235054E1998BA700026B92F /* ItemDetailViewController.h */,
 				223505581998D0620026B92F /* RobedRecordsTableViewController.h */,
 				223505591998D0620026B92F /* RobedRecordsTableViewController.m */,
 				2267B42F1999E2F600FA9FED /* PurchaseCarItemsViewController.h */,
@@ -2062,6 +2065,8 @@
 				8FA4F4201A03A98F00B72665 /* MySecond.m */,
 				3391216E1A49440500D8FA3D /* KillHistorModel.h */,
 				3391216F1A49440500D8FA3D /* KillHistorModel.m */,
+				336FDC8E1A5A7E12004CFD6A /* KIllSuccess.h */,
+				336FDC8F1A5A7E12004CFD6A /* KIllSuccess.m */,
 			);
 			path = Kills;
 			sourceTree = "<group>";
@@ -2633,6 +2638,7 @@
 				33F73F3A1A1D8F1000EB73CB /* UserDefaults.m in Sources */,
 				33F73F221A1D8CEE00EB73CB /* index3_3Cell.m in Sources */,
 				8FA247E11A10B74700456468 /* Delivery.m in Sources */,
+				336FDC901A5A7E12004CFD6A /* KIllSuccess.m in Sources */,
 				336FDC891A5A41CB004CFD6A /* AppQRocde.m in Sources */,
 				8FEAA2011A19FB47001E792C /* CreatePayService.m in Sources */,
 				33DBE7411A30570700C7CCF5 /* PointViewController.m in Sources */,

@@ -12,6 +12,8 @@
 	<dict>
 		<key>258F9B2F1F5E1D74CA63206B91A06790D456D098</key>
 		<string>github.com:EClub2/Elub-master.git</string>
+		<key>3A51DA5C87313D78670124DC625987B3807B7CB7</key>
+		<string>https://github.com/ECLub5/EClub5.git</string>
 		<key>7A3F682DF33FFD29470C93B1B1681DEDD35C1289</key>
 		<string>github.com:EClub3/EClub4.git</string>
 		<key>9d6c210e-53c6-57e2-087c-ce57b7db7bff++505</key>
@@ -27,21 +29,23 @@
 	<dict>
 		<key>258F9B2F1F5E1D74CA63206B91A06790D456D098</key>
 		<string>../../Elub-master</string>
+		<key>3A51DA5C87313D78670124DC625987B3807B7CB7</key>
+		<string>..</string>
 		<key>7A3F682DF33FFD29470C93B1B1681DEDD35C1289</key>
 		<string>../..</string>
 		<key>9d6c210e-53c6-57e2-087c-ce57b7db7bff++505</key>
 		<string>../../Club4</string>
 		<key>B0808AE85C114AE1F387D3EFCC5CEC109AA60321</key>
-		<string>..</string>
+		<string>../../EClub-master</string>
 		<key>BD8BF37D48E52F4702C53EB99DD2E9DA97A1ABFC</key>
 		<string>../../Club4</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/EClub3/EClub.git</string>
+	<string>https://github.com/ECLub5/EClub5.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>B0808AE85C114AE1F387D3EFCC5CEC109AA60321</string>
+	<string>3A51DA5C87313D78670124DC625987B3807B7CB7</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -83,6 +87,14 @@
 			<string>B0808AE85C114AE1F387D3EFCC5CEC109AA60321</string>
 			<key>IDESourceControlWCCName</key>
 			<string>EClub-master</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3A51DA5C87313D78670124DC625987B3807B7CB7</string>
+			<key>IDESourceControlWCCName</key>
+			<string>EClub6</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>

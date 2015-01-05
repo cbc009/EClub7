@@ -11,3 +11,9 @@
 @implementation KIllSuccess
 
 @end
+@implementation Success_Member_info
+
+@end
+@implementation KillSuccess_Info
+
+@end

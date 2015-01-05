@@ -16,6 +16,7 @@
 #import "SharedData.h"
 #import "Login.h"
 #import "NSString+MT.h"
+#import "KIllSuccess.h"
 @implementation KillService
 
 
@@ -40,7 +41,17 @@
         [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info withDone:done];
     }];
 }
+-(void)kill_Second_MemberWithToken:(NSString *)token andUser_type:(NSInteger )user_type andGid:(NSString *)gid withDone:(doneWithObjectAndStatus)done
+{
+    NSString *urlString = [NSString stringWithFormat:Kill_Second_Member_URL,token,user_type,gid];
+    [KIllSuccess getModelFromURLWithString:urlString completion:^(KIllSuccess *model,JSONModelError *error){
+        NSLog(@"%@",urlString);
+        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info withDoneAndStatus:done];
+    }];
 
+
+
+}
 //秒杀
 -(void)killInViewController:(KillDetailViewController *)viewController{
     SharedData *sharedData = [SharedData sharedInstance];

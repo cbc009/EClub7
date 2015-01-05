@@ -32,6 +32,7 @@
     [service kill_Goods_historyWithToken:user.token andUser_type:user.user_type withDone:^(int status,KillGoodInfo1 *model){
         if (status==2) {
             self.datas = (NSMutableArray *)model.goods;
+            NSLog(@"%@",self.datas);
             [self.tableview reloadData];
         }
         [SharedAction showErrorWithStatus:status witViewController:self];

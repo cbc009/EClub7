@@ -141,6 +141,8 @@ typedef void (^finished)(NSDictionary *info);
 #define Kill_Goods_history_URL [PrexURL stringByAppendingString: @"Instant/goods_history/from/IOS/token/%@/user_type/%d"]
 //秒杀详情
 #define Kill_Goods_Detail_URL [PrexURL stringByAppendingString: @"Instant/goods_detail/from/IOS/token/%@/user_type/%d/gid/%@"]
+//秒杀到的人
+#define Kill_Second_Member_URL [PrexURL stringByAppendingString: @"Instant/second_member/from/IOS/token/%@/user_type/%d/gid/%@"]
 
 //我的秒杀订单
 #define KillOrderURL [PrexURL stringByAppendingString: @"Instant/mysecond/from/IO/token/%@/user_type/%d/page/%@"]

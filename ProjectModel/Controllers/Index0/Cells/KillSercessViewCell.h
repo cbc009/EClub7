@@ -11,5 +11,6 @@
 @interface KillSercessViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *nickname;
 @property (weak, nonatomic) IBOutlet UILabel *time;
+@property (weak, nonatomic) IBOutlet UIImageView *herad;
 
 @end

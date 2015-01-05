@@ -18,8 +18,8 @@
 #import "KillPromptCell.h"
 #import "Kill_CountDown.h"
 #import "WebViewController.h"
-#import "SharedData.h"
-#import "Login.h"
+#import "KIllSuccess.h"
+#import <UIImageView+WebCache.h>
 @interface KillDetailViewController ()<UITableViewDataSource,UITableViewDelegate,KillServiceDelegate>
 {
     NSTimer *timer;
@@ -29,6 +29,7 @@
     KillService *killService;
     WebViewController *target;
     UserInfo *user;
+
 }
 @end
 
@@ -48,10 +49,15 @@
     killService.delegate = self;
     self.tableview.scrollEnabled =YES;
     [killService kill_CountDownWithToken:user.token andUser_type:user.user_type andGid:self.good.gid withObject:^(Kill_CountDown_Info *model){
-//        self.datas = model.order;
         [self startCountDownActionWithSeconds:model.seconds];
         [self.tableview reloadData];
     }];
+    [killService kill_Second_MemberWithToken:user.token andUser_type:user.user_type andGid:self.good.gid withDone:^(int status,KillSuccess_Info *model){
+        [SharedAction showErrorWithStatus:status witViewController:self];
+        self.datas =(NSArray *)model.member;
+        [self.tableview reloadData];
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -86,9 +92,9 @@
     }else if (indexPath.section==2){
         NSInteger row = indexPath.row;
         KillSercessViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"KillSercessViewCell"forIndexPath:indexPath];
-        Kill_Order_Info *model =[[Kill_Order_Info alloc]initWithDictionary:self.datas[row] error:nil];
+        Success_Member_info *model = self.datas[row];
         cell.nickname.text  = model.nickname;
-        cell.time.text = model.regtime;
+        [cell.herad sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     } else {
@@ -102,11 +108,12 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
           return 400;
-    }else if (indexPath.section==0)
+    }else if (indexPath.section==2){
+        return 100;
+    }else
     {
         return 34;
     }
-    return 40;
 }
 #pragma KillServiceDelegate
 -(void)startCountDownActionWithSeconds:(NSInteger)seconds{

@@ -22,4 +22,5 @@
 -(void)killInViewController:(KillDetailViewController *)viewController;
 -(void)kill_Goods_historyWithToken:(NSString *)token andUser_type:(NSInteger)user_type withDone:(doneWithObjectAndStatus)done;
 -(void)goods_futureWithToken:(NSString *)token andUser_type:(NSInteger)user_type withDone:(doneWithObjectAndStatus)done;
+-(void)kill_Second_MemberWithToken:(NSString *)token andUser_type:(NSInteger )user_type andGid:(NSString *)gid withDone:(doneWithObjectAndStatus)done;
 @end
