@@ -118,7 +118,7 @@
 
 - (IBAction)buyAction:(id)sender {
     
-    if (initTime == 0) {
+    if (initTime == -1) {
         [SVProgressHUD showErrorWithStatus:@"商品已过期"];
     }else if (countDownSeconds==0) {
         [killService killInViewController:self];
@@ -130,7 +130,7 @@
 -(void)countDownTimer{
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     KillDetailCell *cell = (KillDetailCell *)[self.tableview cellForRowAtIndexPath:indexPath];
-        if (initTime<=0) {
+        if (initTime==-1) {
         cell.result.text = [NSString stringWithFormat:@"秒光了瞬间秒杀%@ %@",self.good.actual_num,self.good.unit];
         [self.buyButton setBackgroundColor:[UIColor grayColor]];
         [timer invalidate];
@@ -160,7 +160,6 @@
 }
 
 - (IBAction)segAction:(UISegmentedControl *)sender {
-    
     if (sender.selectedSegmentIndex==0) {
         [target.view removeFromSuperview];
         [target removeFromParentViewController];
@@ -168,7 +167,7 @@
         if (!target) {
             [SVProgressHUD show];
             target = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
-            target.urlString = [NSString stringWithFormat:GoodsDetail,user.token,user.user_type,self.good.gid];
+            target.urlString = [NSString stringWithFormat:Kill_Goods_Detail_URL,user.token,user.user_type,self.good.gid];
             target.view.frame = CGRectMake(0, NavigationBarFrame.size.height+StatusBarFrame.size.height, DeviceFrame.size.width, DeviceFrame.size.height-NavigationBarFrame.size.height+StatusBarFrame.size.height);
         }
         [self addChildViewController:target];

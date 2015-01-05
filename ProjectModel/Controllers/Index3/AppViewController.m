@@ -12,7 +12,9 @@
 #import "QRCodeGenerator.h"
 #import "AppQRocde.h"
 @interface AppViewController ()
-
+{
+    NSString *qrcodeURL;
+}
 @end
 
 @implementation AppViewController
@@ -32,6 +34,7 @@
     AppQRocde *appQRcodeService = [[AppQRocde alloc] init];
     [appQRcodeService loadDataWithToken:sharedData.user.token AndUser_type:sharedData.user.user_type withDone:^(GUIde_info *model){
         self.QRCode.image = [QRCodeGenerator qrImageForString:model.qrcode imageSize:self.QRCode.frame.size.width];
+        qrcodeURL = model.qrcode;
         NSLog(@"%@",model.qrcode);
     }];
 }
@@ -51,7 +54,7 @@
 }
 */
 - (IBAction)shareAction:(id)sender {
-    [SharedAction shareWithTitle:@"E小区" andDesinationUrl:AppDownLoadURL Text:@"最近在用'E小区'在线免费抢菜，抽奖，秒杀，买菜，感觉挺好的，小小的推荐一下。" andImageUrl:@"qrenCode.jpg" InViewController:self];
+    [SharedAction shareWithTitle:@"E小区" andDesinationUrl:qrcodeURL Text:@"最近在用'E小区'在线免费抢菜，抽奖，秒杀，买菜，感觉挺好的，小小的推荐一下。" andImageUrl:@"qrenCode.jpg" InViewController:self];
 }
 
 

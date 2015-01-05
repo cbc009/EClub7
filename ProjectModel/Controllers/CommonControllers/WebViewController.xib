@@ -16,12 +16,21 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rOZ-nm-ahi">
+                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rOZ-nm-ahi">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="KoM-IV-KvA"/>
+                        <constraint firstAttribute="height" constant="568" id="mux-g6-8dn"/>
+                    </constraints>
                 </webView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="rOZ-nm-ahi" secondAttribute="bottom" id="0Of-ZI-wyG"/>
+                <constraint firstItem="rOZ-nm-ahi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="96s-21-UeI"/>
+                <constraint firstAttribute="trailing" secondItem="rOZ-nm-ahi" secondAttribute="trailing" id="IPp-br-4r4"/>
+            </constraints>
             <point key="canvasLocation" x="267" y="349"/>
         </view>
     </objects>

@@ -102,7 +102,6 @@
     }else{
         if (!target) {
             target = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
-            
             target.urlString = self.goodModel.url;
             [target.view layoutSubviews];
             NSLog(@"%@",target.urlString);

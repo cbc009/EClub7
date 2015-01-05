@@ -12,4 +12,5 @@
 @property (weak, nonatomic) IBOutlet UIWebView *webview;
 @property(nonatomic,copy)NSString *urlString;
 -(void)loadWebPageWithString:(NSString *)urlString inWebView:(UIWebView *)webview;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewHeight;
 @end

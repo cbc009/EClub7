@@ -253,7 +253,6 @@
             alertView.alertViewStyle = UIAlertViewStyleSecureTextInput;
             [alertView show];
              [SVProgressHUD dismiss];
-
             break;
         case  807:
             [SVProgressHUD showErrorWithStatus:@"格式错误"];
@@ -425,15 +424,12 @@
     // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
     [tableview addHeaderWithTarget:target action:@selector(headerRereshing)];
     [tableview headerBeginRefreshing];
-    
     // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
     [tableview addFooterWithTarget:target action:@selector(footerRereshing)];
-    
     // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
     tableview.headerPullToRefreshText = @"下拉可以刷新了";
     tableview.headerReleaseToRefreshText = @"松开马上刷新了";
     tableview.headerRefreshingText = @"正在帮你刷新中";
-    
     tableview.footerPullToRefreshText = @"上拉可以加载更多数据了";
     tableview.footerReleaseToRefreshText = @"松开马上加载更多数据了";
     tableview.footerRefreshingText = @"正在帮你加载中";

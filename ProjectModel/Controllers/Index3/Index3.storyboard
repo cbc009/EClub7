@@ -1118,21 +1118,21 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qrenCode.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="nON-ea-rj7">
-                                <rect key="frame" x="10" y="104" width="300" height="300"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="joH-IB-L7Y">
+                                <rect key="frame" x="10" y="134" width="300" height="300"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="VdO-3l-Jjy"/>
-                                    <constraint firstAttribute="height" constant="300" id="efz-pR-gOR"/>
+                                    <constraint firstAttribute="width" constant="300" id="7Ge-Pp-KtK"/>
+                                    <constraint firstAttribute="height" constant="300" id="fUN-1D-Xjb"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="gHQ-Dd-btN" firstAttribute="top" secondItem="oXq-BK-DsV" secondAttribute="bottom" constant="8" id="1av-K8-6hC"/>
-                            <constraint firstItem="nON-ea-rj7" firstAttribute="top" secondItem="gHQ-Dd-btN" secondAttribute="bottom" constant="8" id="Gfi-BS-JLy"/>
+                            <constraint firstItem="joH-IB-L7Y" firstAttribute="leading" secondItem="ZaV-VN-Mer" secondAttribute="leadingMargin" constant="-6" id="5NI-ef-RaK"/>
+                            <constraint firstItem="D9G-Wk-qeJ" firstAttribute="top" secondItem="joH-IB-L7Y" secondAttribute="bottom" constant="134" id="8MD-JY-wPW"/>
                             <constraint firstItem="gHQ-Dd-btN" firstAttribute="trailing" secondItem="ZaV-VN-Mer" secondAttribute="trailingMargin" id="X2k-8a-hda"/>
                             <constraint firstItem="gHQ-Dd-btN" firstAttribute="leading" secondItem="ZaV-VN-Mer" secondAttribute="leadingMargin" id="Z5O-1Y-8Vj"/>
-                            <constraint firstAttribute="centerX" secondItem="nON-ea-rj7" secondAttribute="centerX" id="Zjr-RT-eLQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="应用推荐" id="1W8-1H-Sgh">
@@ -1143,7 +1143,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="QRCode" destination="nON-ea-rj7" id="Yxa-F1-78R"/>
+                        <outlet property="QRCode" destination="joH-IB-L7Y" id="Rim-lq-uWZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uvG-Nf-zLL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1883,7 +1883,6 @@
         <image name="account.png" width="48" height="48"/>
         <image name="main_me.png" width="28" height="28"/>
         <image name="mycard_front.png" width="480" height="302"/>
-        <image name="qrenCode.jpg" width="330" height="327"/>
         <image name="userIcon.jpg" width="69" height="65"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

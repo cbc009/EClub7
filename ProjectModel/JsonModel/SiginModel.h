@@ -13,5 +13,5 @@
 @interface SiginModel : JSONModel
 @property (nonatomic ,strong) NSString *error;
 @property (nonatomic ,assign) NSInteger status;
-@property (nonatomic ,strong) SiginIfo *info;
+@property (nonatomic ,strong) SiginIfo<Optional> *info;
 @end

@@ -11,7 +11,7 @@
 
 @interface WebViewController ()
 {
-//    __weak IBOutlet UIWebView *webview;
+    //    __weak IBOutlet UIWebView *webview;
     UIActivityIndicatorView *activityIndicatorView;
 }
 @end
@@ -35,11 +35,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
- 
-    _webview.frame=CGRectMake(0,166,DeviceFrame.size.width, DeviceFrame.size.height-66);
+    _webview.frame=CGRectMake(0,66,DeviceFrame.size.width, DeviceFrame.size.height-66);
     self.automaticallyAdjustsScrollViewInsets = YES;
     activityIndicatorView = [[UIActivityIndicatorView alloc] init];
-       NSLog(@"%@",NSStringFromCGRect(_webview.frame));
     [self loadWebPageWithString:self.urlString inWebView:_webview];
 }
 
@@ -53,19 +51,21 @@
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
     _webview.hidden = YES;
-// 由于contentsize是326 所以让contensize与scrollview的宽度相等
+    // 由于contentsize是326 所以让contensize与scrollview的宽度相等
     _webview.scrollView.contentSize =_webview.scrollView.frame.size;
+       [webView setScalesPageToFit:YES];
     [self showActivityIndicatorView: activityIndicatorView inView:self.view];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [activityIndicatorView stopAnimating];
+ 
     _webview.hidden = NO;
 }
 
 - (void)loadWebPageWithString:(NSString*)urlString inWebView:(UIWebView *)webView{
-    NSURL *url =[NSURL URLWithString:urlString];
+       NSURL *url =[NSURL URLWithString:urlString];
     NSLog(@"%@",urlString);
     NSURLRequest *request =[NSURLRequest requestWithURL:url];
     [webView loadRequest:request];
@@ -75,7 +75,7 @@
     
     [activityView stopAnimating];
     CGSize size = CGSizeMake(40, 40);
-      [activityView setFrame:CGRectMake((DeviceFrame.size.width-size.width)/2, (DeviceFrame.size.height-size.height)/2, size.width, size.height)];
+    [activityView setFrame:CGRectMake((DeviceFrame.size.width-size.width)/2, (DeviceFrame.size.height-size.height)/2, size.width, size.height)];
     activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
     [activityView hidesWhenStopped];
     activityView.color = [UIColor blackColor];
