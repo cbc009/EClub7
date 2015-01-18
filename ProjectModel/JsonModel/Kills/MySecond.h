@@ -22,11 +22,11 @@
 @end
 
 @interface MySecondInfo : JSONModel
-@property(nonatomic,strong)NSArray<MySecondOrder> *order;
+@property(nonatomic,strong)NSArray<MySecondOrder,Optional> *order;
 @end
 
 @interface MySecond : JSONModel
-@property(nonatomic,strong)MySecondInfo *info;
+@property(nonatomic,strong)MySecondInfo <Optional>*info;
 @property(nonatomic,assign)NSInteger status;
 @property(nonatomic,strong)NSString *error;
 @end

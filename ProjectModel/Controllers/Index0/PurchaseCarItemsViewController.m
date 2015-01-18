@@ -48,14 +48,16 @@
     [super viewDidLoad];
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
-    [puchaseCarItemsService ItemsInCarWithToken:user.token andUser_type:user.user_type withDoneObject:^(CartInfo *model){
-        self.datas = (NSMutableArray *)model.goods;
-        _tableview.showsVerticalScrollIndicator =NO;
-        self.datasStorage =(NSMutableArray<GoodForSubmit> *)[puchaseCarItemsService goodsForSubmitByItems:(NSMutableArray<Good> *)model.goods];
-        [_tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-        totalNum = [puchaseCarItemsService totalPriceByitems:model.goods];
-        self.totalPrice.text = [NSString stringWithFormat:@"总计:￥%0.1f",totalNum];
-        [self.tableview reloadData];
+    __block PurchaseCarItemsViewController *purchSelf =self;
+    [puchaseCarItemsService ItemsInCarWithToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDoneObject:^(CartInfo *model){
+            purchSelf.datas = (NSMutableArray *)model.goods;
+            _tableview.showsVerticalScrollIndicator =NO;
+            purchSelf.datasStorage =(NSMutableArray<GoodForSubmit> *)[puchaseCarItemsService goodsForSubmitByItems:(NSMutableArray<Good> *)model.goods];
+            [_tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+            totalNum = [puchaseCarItemsService totalPriceByitems:model.goods];
+            purchSelf.totalPrice.text = [NSString stringWithFormat:@"总计:￥%0.1f",totalNum];
+            [purchSelf.tableview reloadData];
+      
      }];
    
     self.title = @"购物篮";
@@ -105,6 +107,7 @@
     cell.addButton.tag = row;
     cell.deleteButton.tag = row;
     cell.tag = row;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -124,7 +127,8 @@
     }
 }
 
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+}
 
 #pragma PurchaseCarItemCellDelegate
 -(void)checkAction:(id)sender InCell:(UITableViewCell *)cell{
@@ -169,17 +173,22 @@
 
 #pragma UIAlertViewDelegate
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex==0) {
-    }else if(buttonIndex==1){
+    if (alertView.tag==5) {
+        if(buttonIndex==1){
+            [SharedAction loginAggane];
+            NSArray *viewControllers = self.navigationController.viewControllers;
+            [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
+        }
+    } else {
+      if(buttonIndex==1){
         NSInteger row = alertView.tag;
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
         Good *good = self.datas[row];
         [puchaseCarItemsService deleteItemByGid:good.gid inPurchaseViewController:(PurchaseCarItemsViewController *)self atIndexPath:(NSIndexPath *)indexPath];
     }
+    }
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
+
 
 
 @end

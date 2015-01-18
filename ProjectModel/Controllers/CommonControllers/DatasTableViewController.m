@@ -7,14 +7,15 @@
 //
 
 #import "DatasTableViewController.h"
-
+#import "ChooseAreaViewController.h"
 @interface DatasTableViewController ()
 {
     NSArray *ids;
     NSArray *names;
-    NSDictionary *dic;
     NSArray *array;
+    NSInteger market;
     NSDictionary *data;
+    ChooseAreaViewController *chose;
 }
 @end
 
@@ -23,6 +24,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    chose = [[ChooseAreaViewController alloc] init];
     [self propertiesByDatas:self.datas andIndex:self.index];
 }
 
@@ -84,16 +86,12 @@
             NSLog(@"%@",ids);
             break;
         case 2:
+            market =[[self.datas valueForKey:@"market"]integerValue];
             array = [self.datas valueForKey:@"arrarea"];
             ids = [self propertiesByDatas:array withKey:@"area"];
             names = [self propertiesByDatas:array withKey:@"name"];
-            NSLog(@"%@",ids);
             break;
         case 3:
-            ids = [self propertiesByDatas:datas withKey:@"sid"];
-            names = [self propertiesByDatas:datas withKey:@"name"];
-            break;
-        case 4:
             ids = [self propertiesByDatas:datas withKey:@"lifehall_id"];
             names = [self propertiesByDatas:datas withKey:@"name"];
             break;
@@ -101,7 +99,6 @@
         default:
             break;
     }
-    
     
 }
 

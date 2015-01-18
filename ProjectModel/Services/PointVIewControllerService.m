@@ -10,7 +10,7 @@
 #import "PointGoodViewController.h"
 #import "PointGoodViewControllerService.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "JSONModelLib.h"
 #import "PointGoodsModel.h"
 #import "SVProgressHUD.h"
@@ -23,46 +23,14 @@
     pointGoodVIewController.dict = dic;
     [viewController.navigationController pushViewController:pointGoodVIewController animated:YES];
 }
--(void)loadDataWithToken:(NSString *)token andUser_type:(NSInteger )user_type AndPage:(NSString *)page OnViewCOntroller:(PointViewController *)viewController
+-(void)loadDataWithToken:(NSString *)token andUser_type:(NSInteger )user_type AndPage:(NSString *)page intabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done
 {
-    
-
     NSString *urlString = [NSString stringWithFormat:PointGoodslist,token,user_type,page];
     NSLog(@"%@",urlString);
     [PointGoodsModel getModelFromURLWithString:urlString completion:^(PointGoodsModel *model,JSONModelError *error){
-        if (model.status==2) {
-            viewController.datas = model.info.goods;
-            [viewController.collectionview reloadData];
-            if (model.info.goods==nil||model.info.goods.count<1) {
-                [SVProgressHUD showErrorWithStatus:model.error];
-            }else{
-                NSLog(@"%@",model.error);
-                [SVProgressHUD dismiss];
-            }
-        }else{
-            NSLog(@"%@",model.error);
-            [SVProgressHUD showErrorWithStatus:model.error];
-        }
-    }];
+        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
+        }];
 }
--(void)loadMoreDataWithToken:(NSString *)token andUser_type:(NSInteger )user_type AndPage:(NSString *)page OnViewCOntroller:(PointViewController *)viewController
-{
-    NSString *urlString = [NSString stringWithFormat:PointGoodslist,token,user_type,page];
-    [PointGoodsModel getModelFromURLWithString:urlString completion:^(PointGoodsModel *model,JSONModelError *error){
-        if (model.status==2) {
-            [viewController.datas addObjectsFromArray: model.info.goods];
-            [viewController.collectionview reloadData];
-            if (model.info.goods==nil||model.info.goods.count<1) {
-                [SVProgressHUD showErrorWithStatus:@"暂时没有商品兑换"];
-            }else{
-                [SVProgressHUD dismiss];
-            }
-        }else{
-            [SVProgressHUD showErrorWithStatus:model.error];
-        }
-        
-    }];
 
-}
 
 @end

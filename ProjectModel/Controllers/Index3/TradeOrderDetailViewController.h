@@ -7,8 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface TradeOrderDetailViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tableview;
+#import "OrderDetailData.h"
+@interface TradeOrderDetailViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet UILabel *price;
+@property (weak, nonatomic) IBOutlet UILabel *totalPrice;
+@property (weak, nonatomic) IBOutlet UILabel *numbs;
+@property (weak, nonatomic) IBOutlet UIImageView *picture;
+- (IBAction)deleate:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *cancel;
 @property(nonatomic,strong)NSArray *items;
+@property(nonatomic,strong)NSString *orderid;
 @end

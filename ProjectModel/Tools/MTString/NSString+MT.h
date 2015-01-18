@@ -15,5 +15,6 @@
 +(NSString *)timeType4FromStamp:(NSString *)stamp;
 +(NSString *)dateStringByAddTimeInterval:(NSTimeInterval)timeInterval fromDateString:(NSString *)dateString withDateFormatter:(NSString *)format;
 -(NSComparisonResult)compareCurrentTimeWith:(NSString *)stamp;
++(float)heightWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize;
 -(BOOL) isValidateMobile:(NSString *)mobile;
 @end

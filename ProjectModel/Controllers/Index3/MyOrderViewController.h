@@ -17,7 +17,7 @@ enum{
 
 @interface MyOrderViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
-@property(nonatomic,strong)NSArray *items;
+@property(nonatomic,strong)NSMutableArray *items;
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segment;
 @property(nonatomic,assign)NSInteger orderType;

@@ -9,7 +9,7 @@
 #import "FinalConfirmService.h"
 #import "FinalConfirmViewController.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "GoodForSubmit.h"
 #import "MyMD5.h"
 #import "JSONModelLib.h"
@@ -144,6 +144,7 @@
     [SVProgressHUD show];
     [JSONHTTPClient postJSONFromURLWithString:SubmitItemsURL params:dict completion:^(id object, JSONModelError *err) {
         NSNumber *status1 = (NSNumber *)[object objectForKey:@"status"];
+        NSString *error1= (NSString *)[object objectForKey:@"error"];
         NSInteger status = [status1 integerValue];
         if (status==2) {
             UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"购买成功" message:@"请到小区所在生活馆及时提取物品" delegate:viewController cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
@@ -160,7 +161,7 @@
             [alertView show];
             [SVProgressHUD dismiss];
         } else {
-            [SharedAction showErrorWithStatus:status witViewController:viewController];
+            [SharedAction showErrorWithStatus:status andError:error1 witViewController:viewController];
         }
     }];
     

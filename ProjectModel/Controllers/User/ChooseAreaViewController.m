@@ -11,12 +11,12 @@
 #import "SVProgressHUD.h"
 #import "InternetRequest.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 @interface ChooseAreaViewController ()
 {
     __weak IBOutlet UITableView *tableview;
     NSMutableArray *titles;
-    
+    UITableViewCell *cell;
     NSString *provinceIdSelected;
     NSString *cityIdSelected;
     NSString *areaIdSelected;
@@ -38,6 +38,7 @@
 
 -(void)loadView{
     [super loadView];
+    lifeHallIdSelected =@"0";
     tableview.delegate = self;
     tableview.dataSource = self;
     
@@ -48,7 +49,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"选择小区";
-    titles = [[NSMutableArray alloc] initWithObjects:@"选择所在省份",@"选择所在城市",@"选择所在区域",@"选择所在小区",@"选择生活馆", nil];
+    titles = [[NSMutableArray alloc] initWithObjects:@"选择所在省份",@"选择所在城市",@"选择所在区域",@"选择生活馆", nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,7 +70,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row = indexPath.row;
     static NSString *identifier = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
@@ -93,9 +94,6 @@
             urlString = [NSString stringWithFormat:ChooseAreaURL,cityIdSelected,token];
             break;
         case 3:
-            urlString = [NSString stringWithFormat:ChooseScopeURL,areaIdSelected,token];
-            break;
-        case 4:
             urlString = [NSString stringWithFormat:ChooseLifehallURL,cityIdSelected,token];
             break;
         default:
@@ -103,11 +101,12 @@
     }
     
     [self loadDataOfProvinceWithURLString:urlString andRow:row];
-    
 }
 
+
 - (IBAction)submitAction:(id)sender {
-    NSString *urlString = [NSString stringWithFormat:ContcatURL,areaIdSelected,blockIdSelected,lifeHallIdSelected,self.user.token];
+    NSString *urlString = [NSString stringWithFormat:ContcatURL,areaIdSelected,lifeHallIdSelected,self.user.token];
+    NSLog(@"%@",urlString);
     [self bindScopeWithURLString:urlString];
 }
 
@@ -125,9 +124,6 @@
             areaIdSelected = [data objectForKey:@"area"];
             break;
         case 3:
-            blockIdSelected = [data objectForKey:@"sid"];
-            break;
-        case 4:
             lifeHallIdSelected = [data objectForKey:@"lifehall_id"];
             break;
         default:

@@ -14,22 +14,15 @@
 #import "SharedAction.h"
 @implementation CreatePayService
 
--(void)loadCreatePayOrderInfoWithMid:(NSInteger )mid andPrice:(NSString *)price finished:(doneWithObject)done{
+-(void)create_orderWithToken:(NSString *)token andUserType:(NSInteger)userType andPrice:(NSString *)price inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
     if (![self isPureInt:price]) {
         [SVProgressHUD showErrorWithStatus:@"金额必须是整数"];
     }else if([price floatValue]<20){
         [SVProgressHUD showErrorWithStatus:@"一次充值最少20元"];
     }else{
-        [SVProgressHUD show];
-        NSString *urlString = [NSString stringWithFormat:Create_pay_orderURL,mid,price];
-        NSLog(@"%@",urlString);
+        NSString *urlString = [NSString stringWithFormat:Create_pay_orderURL,token,userType,price];
         [Create_pay_order getModelFromURLWithString:urlString completion:^(Create_pay_order *model,JSONModelError *error){
-            if (model.status==2) {
-                done(model.info);
-                [SVProgressHUD dismiss];
-            }else{
-//                [SharedAction showErrorWithStatus:model.status witViewController:<#(UIViewController *)#>];
-            }
+            [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
         }];
     }
 }
@@ -41,11 +34,13 @@
     return [scan scanInt:&val] && [scan isAtEnd];
 }
 
--(void)reloadAmoutAfterPopToViewControllerInNav:(UINavigationController *)nav{
-    CreatePayViewController *viewController = [nav.viewControllers lastObject];
-    UIViewController<CreatePayViewDelegate> *popViewController = nav.viewControllers[nav.viewControllers.count-2];
-    viewController.delegate = popViewController;
-    [viewController.navigationController popViewControllerAnimated:YES];
-    [viewController.delegate reloadAmount];
+-(void)pushToMyWalletViewControllerInTabBarController:(UITabBarController *)tabBarController{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index3" bundle:nil];
+    UIViewController *walletViewController = [storyboard instantiateViewControllerWithIdentifier:@"MyWalletViewController"];
+    walletViewController.hidesBottomBarWhenPushed = YES;
+    tabBarController.selectedIndex = 0;
+    UINavigationController *nav = tabBarController.viewControllers[tabBarController.selectedIndex];
+    [nav popToRootViewControllerAnimated:YES];
+    [nav pushViewController:walletViewController animated:YES];
 }
 @end

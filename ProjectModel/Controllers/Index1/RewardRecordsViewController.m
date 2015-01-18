@@ -13,9 +13,10 @@
 #import "SVProgressHUD.h"
 #import "NSString+MT.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "JSONModelLib.h"
 #import "RewardRcord.h"
+#import "RewardRecordService.h"
 @interface RewardRecordsViewController ()
 {
     
@@ -24,6 +25,8 @@
     NSString *identifier;
     NSInteger page;
     NSDictionary *dic;
+    UserInfo *user;
+    RewardRecordService *rewardRecordService;
 }
 @end
 
@@ -49,53 +52,25 @@
 
 - (void)viewDidLoad
 {
+    datas =[[NSMutableArray alloc] init];
+    SharedData *shareData = [SharedData sharedInstance];
+    user = shareData.user;
+    rewardRecordService =[RewardRecordService new];
     [super viewDidLoad];
     self.title = @"中奖记录";
-    page = 0;
-    [self setupRefresh];
+    [SharedAction setupRefreshWithTableView:tableview toTarget:self];
 }
 
-/**
- *  集成刷新控件
- */
-- (void)setupRefresh
-{
-    // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
-    [tableview addHeaderWithTarget:self action:@selector(headerRereshing)];
-    [tableview headerBeginRefreshing];
-    
-    // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
-    [tableview addFooterWithTarget:self action:@selector(footerRereshing)];
-    
-    // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
-    tableview.headerPullToRefreshText = @"下拉可以刷新了";
-    tableview.headerReleaseToRefreshText = @"松开马上刷新了";
-    tableview.headerRefreshingText = @"正在帮你刷新中";
-    
-    tableview.footerPullToRefreshText = @"上拉可以加载更多数据了";
-    tableview.footerReleaseToRefreshText = @"松开马上加载更多数据了";
-    tableview.footerRefreshingText = @"正在帮你加载中";
-}
 
 #pragma mark 开始进入刷新状态
 - (void)headerRereshing
 {
     page = 1;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
-    SharedData *shareData = [SharedData sharedInstance];
-    UserInfo *user = shareData.user;
-    [SVProgressHUD show];
-    NSString *urlString = [NSString stringWithFormat:RewardRecordURL,user.token,user.user_type,pageString];
-    [RewardRcord getModelFromURLWithString:urlString completion:^(RewardRcord *model,JSONModelError *error){
-    NSLog(@"%@",urlString);
-        if (model.status==2) {
-            datas= (NSMutableArray *)model.info.lucky;
-            [tableview reloadData];
-            [tableview headerEndRefreshing];
-             [SVProgressHUD dismiss];
-        }else{
-        [SVProgressHUD showErrorWithStatus:@"您还没有抽奖记录"];
-        }
+    [rewardRecordService prizePrizeLuckyWithToken:user.token andUser_type:user.user_type andPageString:pageString andTabBarController:self.tabBarController witDone:^(RewardRcordInfo *model){
+        datas= (NSMutableArray *)model.lucky;
+        [tableview reloadData];
+        [tableview headerEndRefreshing];
     }];
 }
 
@@ -103,24 +78,11 @@
 {
     page++;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
-    SharedData *shareData = [SharedData sharedInstance];
-    UserInfo *user = shareData.user;
-    [SVProgressHUD show];
-    NSString *urlString = [NSString stringWithFormat:RewardRecordURL,user.token,user.user_type,pageString];
-    [RewardRcord getModelFromURLWithString:urlString completion:^(RewardRcord *model,JSONModelError *error){
-        NSLog(@"%@",urlString);
-        if (model.status==2) {
-            [datas addObjectsFromArray:model.info.lucky];
-            [tableview reloadData];
-            [tableview footerEndRefreshing];
-            [SVProgressHUD dismiss];
-            
-        }else{
-            [SVProgressHUD showErrorWithStatus:@"没有更多记录"];
-        }
-        
+    [rewardRecordService prizePrizeLuckyWithToken:user.token andUser_type:user.user_type andPageString:pageString andTabBarController:self.tabBarController witDone:^(RewardRcordInfo *model){
+        [datas addObjectsFromArray:model.lucky];
+        [tableview reloadData];
+        [tableview footerEndRefreshing];
     }];
-    
 }
 
 

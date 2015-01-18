@@ -78,5 +78,13 @@
     [userDefaults synchronize];
 }
 
-
+-(void)setCreatePayPrice:(float)createPayPrice{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setFloat:createPayPrice forKey:@"createPayPrice"];
+    [userDefaults synchronize];
+}
+-(float)createPayPrice{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults floatForKey:@"createPayPrice"];
+}
 @end

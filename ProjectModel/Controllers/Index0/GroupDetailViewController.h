@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Groups_Goods.h"
+#import "Group_History_Goods.h"
 @interface GroupDetailViewController : UIViewController<UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *goodPicture;
 
@@ -16,6 +17,7 @@
 @property(strong,nonatomic) NSArray *datas;
 //- (IBAction)segMented:(UISegmentedControl *)sender;
 @property(nonatomic,strong)Group_Good_Info *groupGood;
+@property(nonatomic,strong)Group_History_Goods_Info *historyGorupGood;
 - (IBAction)pay:(id)sender;
 @property(nonatomic,strong)NSString *number;
 @property(nonatomic,assign)NSInteger num;
@@ -31,5 +33,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *people;
 - (IBAction)reduce:(id)sender;
 - (IBAction)add:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *addBut;
+@property (weak, nonatomic) IBOutlet UIButton *reduceBut;
+@property (weak, nonatomic) IBOutlet UILabel *numbes;
 
 @end

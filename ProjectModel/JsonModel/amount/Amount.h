@@ -14,17 +14,13 @@
 @property(nonatomic,strong)NSString *regtime;
 @property(nonatomic,strong)NSString *type;
 @property(nonatomic,strong)NSString *amount;
-@property(nonatomic,strong)NSString *balance;
-
+@property(nonatomic,strong)NSString *orderid;
 @property(nonatomic,strong)NSString *demo;
+//@property(nonatomic,strong)NSString *status;
 @end
 
 
 @interface Info : JSONModel
-@property(nonatomic,strong)NSString *iccard;
-@property(nonatomic,strong)NSString *amount;
-@property(nonatomic,assign)CGFloat point;
-@property(nonatomic,assign)CGFloat redbag;
 @property(nonatomic,strong)NSArray<Trade> *trade;
 @end
 
@@ -32,5 +28,6 @@
 @interface Amount : JSONModel
 @property(nonatomic,strong)Info* info;
 @property(nonatomic,assign)NSInteger status;
+@property(nonatomic,strong)NSString *error;
 @end
 

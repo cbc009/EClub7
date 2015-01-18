@@ -8,13 +8,13 @@
 
 #import "ChangeAddressService.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "Status.h"
 #import "UserDefaults.h"
 #import "JSONModelLib.h"
 #import "SharedAction.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 @implementation ChangeAddressService
 -(void)ChangeAddressService:(NSString *)address onChangeAdressViewController:(ChangeAdressViewController *)ChangeAdressViewController
 {
@@ -29,16 +29,17 @@
         NSString *urlString = ChangeAddress;
         [JSONHTTPClient postJSONFromURLWithString:urlString params:dict completion:^(id object, JSONModelError *error) {
             NSNumber *stat = (NSNumber *)[object objectForKey:@"status"];
+            NSString *error1 = (NSString *)[object objectForKey:@"error"];
             NSInteger status = [stat integerValue];
             if (status==2) {
-                [SharedAction showErrorWithStatus:status witViewController:ChangeAdressViewController];
+                [SharedAction showErrorWithStatus:status andError:error1 witViewController:ChangeAdressViewController];
                 user.address = address;
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadData"object:nil];
                 [userDefaults ChangeAddressgo:address onChangeAddress:ChangeAdressViewController];
                 [ChangeAdressViewController.navigationController popViewControllerAnimated:YES];
             }
             else {
-                [SharedAction showErrorWithStatus:status witViewController:ChangeAdressViewController];
+               [SharedAction showErrorWithStatus:status andError:error1 witViewController:ChangeAdressViewController];
             }
         }];
     }

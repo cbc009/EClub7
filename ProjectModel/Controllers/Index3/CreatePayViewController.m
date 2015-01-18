@@ -9,7 +9,7 @@
 #import "CreatePayViewController.h"
 #import "CreatePayService.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "DataSigner.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "AlixPayOrder.h"
@@ -62,22 +62,27 @@
 - (IBAction)rechargeAction:(id)sender {
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
-    [service loadCreatePayOrderInfoWithMid:user.mid andPrice:self.price.text finished:^(Create_pay_orderInfo *model){
+    [service create_orderWithToken:user.token andUserType:user.user_type andPrice:self.price.text inTabBarController:self.tabBarController withDone:^(Create_pay_orderInfo *model){
         NSString *appScheme = @"Club";
         NSString* orderInfo = [self getOrderInfoWithCreate_pay_orderInfo:model andPrice:self.price.text];
         NSString* signedStr = [self doRsa:orderInfo andPrivateKey:model.private];
         NSString *orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
                                  orderInfo, signedStr, @"RSA"];
         //    NSLog(@"%@",orderString);
+        sharedData.createPayPrice = [self.price.text floatValue];
+        NSLog(@"sharedData.createPayPrice:%f",sharedData.createPayPrice);
+        
         [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-            NSLog(@"reslut = %@",resultDic);
-            NSString *status = [resultDic objectForKey:@"resultStatus"];
-            if ([status isEqualToString:@"9000"]) {
-                [SVProgressHUD showSuccessWithStatus:@"支付成功"];
-                [service reloadAmoutAfterPopToViewControllerInNav:self.navigationController];
-            }else{
-                [SVProgressHUD showErrorWithStatus:@"支付失败"];
-            }
+//            NSLog(@"reslut = %@",resultDic);
+//            NSString *status = [resultDic objectForKey:@"resultStatus"];
+//            if ([status isEqualToString:@"9000"]) {
+//                [SVProgressHUD showSuccessWithStatus:@"支付成功"];
+//                user.amount = user.amount+[self.price.text floatValue];
+//                [service pushToMyWalletViewControllerInTabBarController:self.tabBarController];
+////                [service reloadAmoutAfterPopToViewControllerInNav:self.navigationController];
+//            }else{
+//                [SVProgressHUD showErrorWithStatus:@"支付失败"];
+//            }
         }];
     }];
 }
@@ -110,5 +115,7 @@
     NSString *signedString = [signer signString:orderInfo];
     return signedString;
 }
+
+
 
 @end

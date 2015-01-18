@@ -14,7 +14,7 @@
 #import "JSONModelLib.h"
 #import "Amount.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "MyOrderViewController.h"
 #import "AppViewController.h"
 #import "SVProgressHUD.h"
@@ -27,6 +27,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index3" bundle:nil];
     UserDetailViewController *userDetailViewController = [storyboard instantiateViewControllerWithIdentifier:@"UserDetailViewController"];
     userDetailViewController.hidesBottomBarWhenPushed = YES;
+    userDetailViewController.navigationController.hidesBottomBarWhenPushed=YES;
     [viewController.navigationController pushViewController:userDetailViewController animated:YES];
 }
 
@@ -99,8 +100,8 @@
 /*
     联系我们
  */
--(void)callInViewController:(Index3ViewController *)viewController{
-    NSString *tel = [NSString stringWithFormat:@"tel:%@",@"4000909516"];
+-(void)callWithPhoneNumber:(NSString *)phoneNumber InViewController:(Index3ViewController *)viewController{
+    NSString *tel = [NSString stringWithFormat:@"tel:%@",phoneNumber];
     UIWebView *callWebview = [[UIWebView alloc] init];
     NSURL *telURL = [NSURL URLWithString:tel];
     [callWebview loadRequest:[NSURLRequest requestWithURL:telURL]];

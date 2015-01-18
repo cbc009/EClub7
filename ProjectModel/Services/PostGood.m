@@ -36,11 +36,12 @@
 
     [JSONHTTPClient postJSONFromURLWithString:PostBuySecondChangeURL params:parameters completion:^(id object, JSONModelError *error) {
         NSNumber *status = object[@"status"];
+        NSString *error1 = object[@"error"];
         if ([status isEqual:[NSNumber numberWithInt:2]]) {
-        
+
             [SVProgressHUD showSuccessWithStatus:@"操作成功"];
         }else{
-            [SharedAction showErrorWithStatus:[status integerValue] witViewController:viewcontroller];
+            [SharedAction showErrorWithStatus:[status integerValue] andError:error1 witViewController:viewcontroller];
         }
         
     }];

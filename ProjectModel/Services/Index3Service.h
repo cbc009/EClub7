@@ -15,7 +15,7 @@
 -(void)presentQRCodeViewControllerOnViewController:(UIViewController *)viewController;
 -(void)presentMyWalletViewControllerOnViewController:(UIViewController *)viewController;
 -(void)presentMyOrderViewControllerOnViewController:(UIViewController *)viewController;
--(void)callInViewController:(Index3ViewController *)viewController;
+-(void)callWithPhoneNumber:(NSString *)phoneNumber InViewController:(Index3ViewController *)viewController;
 -(void)presentAppViewControllerOnViewController:(UIViewController *)viewController;
 
 @end

@@ -14,10 +14,10 @@
 #import "RobedRecordsTableViewController.h"
 @implementation AddMorePasItem
 
--(void)rob_goods_historyWithToken:(NSString *)token andUser_type:(NSInteger)user_type andPage:(NSString *)page withDone:(doneWithObjectAndStatus)done{
+-(void)rob_goods_historyWithToken:(NSString *)token andUser_type:(NSInteger)user_type andPage:(NSString *)page inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
     NSString *urlString = [NSString stringWithFormat:Rob_goods_history_URL,token,user_type,page];
     [Rob_goods_history getModelFromURLWithString:urlString completion:^(Rob_goods_history *model,JSONModelError *error){
-        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info withDoneAndStatus:done];
+        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
     }];
 }
 

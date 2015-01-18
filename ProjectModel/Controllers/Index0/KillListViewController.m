@@ -13,6 +13,7 @@
 #import "Kills.h"
 #import "KillDetailViewController.h"
 #import "KillIconCell.h"
+#import "NSString+MT.h"
 @interface KillListViewController ()
 {
     KillService *service;
@@ -21,6 +22,11 @@
 
 @implementation KillListViewController
 
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [SVProgressHUD dismiss];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -29,14 +35,9 @@
     [_tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 //    [service loadKillListInViewController:self];
     SharedData *shareData = [SharedData sharedInstance];
-    [service goods_futureWithToken:shareData.user.token andUser_type:shareData.user.user_type withDone:^(int status,KillGoodInfo *model){
-        if (status ==2) {
-            self.datas = model.goods;
-            [self.tableview reloadData];
-        }else{
-            [SharedAction showErrorWithStatus:status witViewController:self];
-        }
-       
+    [service goods_futureWithToken:shareData.user.token andUser_type:shareData.user.user_type inTabBarController:self.tabBarController withDone:^(KillGoodInfo *model){
+        self.datas = model.goods;
+        [self.tableview reloadData];
     }];
 }
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{

@@ -18,7 +18,7 @@
 @end
 
 @interface TradeOrderInfo : JSONModel
-@property(nonatomic,strong)NSArray<TradeOrder>* order;
+@property(nonatomic,strong)NSArray<TradeOrder,Optional>* order;
 @end
 
 @interface TradeOrderData : JSONModel

@@ -109,9 +109,15 @@
             NSString *status = [resultDic objectForKey:@"resultStatus"];
             if ([status isEqualToString:@"9000"]) {
                 [SVProgressHUD showSuccessWithStatus:@"支付成功"];
+                
+                SharedData *sharedData = [SharedData sharedInstance];
+                UserInfo *user = [sharedData user];
+                user.amount = user.amount+sharedData.createPayPrice;
+                NSLog(@"sharedData.createPayPrice:%f",sharedData.createPayPrice);
                 UITabBarController *tab = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+                
                 CreatePayService *service = [[CreatePayService alloc] init];
-                [service reloadAmoutAfterPopToViewControllerInNav:(UINavigationController *)tab.selectedViewController];
+                [service pushToMyWalletViewControllerInTabBarController:tab];
             }else{
                 [SVProgressHUD showErrorWithStatus:@"支付失败"];
             }

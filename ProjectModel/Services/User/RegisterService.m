@@ -43,7 +43,7 @@
     if ([self validateRegisterName:name andCode:codeNumber andPasswd:passwd andPasswordConfirm:passwdConfirm inViewController:viewController]) {
         [SVProgressHUD show];
         NSString *password = [MyMD5 md5:passwd];
-        NSString *urlString = [NSString stringWithFormat:RegisterURL,name,password,codeNumber,guide];
+        NSString *urlString = [NSString stringWithFormat:Base_Member_Regist_URL,name,password,codeNumber,guide];
         [Status getModelFromURLWithString:urlString completion:^(Status *model,JSONModelError *error){
             if (model.status==2) {
                 [SVProgressHUD showSuccessWithStatus:@"注册成功"];

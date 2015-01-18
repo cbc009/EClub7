@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface index3_3Cell : UITableViewCell
+@interface Index3_3Cell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imageview;
-
+@property (weak, nonatomic) IBOutlet UILabel *nickname;
 @end

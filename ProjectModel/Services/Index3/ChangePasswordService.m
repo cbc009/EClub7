@@ -8,7 +8,7 @@
 
 #import "ChangePasswordService.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "MyMD5.h"
 #import "InternetRequest.h"
 #import "SVProgressHUD.h"

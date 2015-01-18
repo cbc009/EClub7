@@ -10,8 +10,6 @@
 #import "Index1ViewController.h"
 @interface Index1Service : NSObject
 
--(NSInteger)serialidBytakeLottery;
-
 -(UIImageView *)previewByCurrentView:(UIImageView *)curView andArray:(NSArray *)views;
 -(UIImageView *)nextViewByCurrentView:(UIImageView *)curView andArray:(NSArray *)views;
 
@@ -22,5 +20,6 @@
 
 -(void)loadWebViewWithURLString:(NSString *)URLString andTitle:(NSString *)title onViewContrller:(UIViewController *)viewController;
 -(void)presentRewardRecordViewControllerInViewController:(UIViewController *)viewController;
--(void)loadPrizeDataInViewController:(Index1ViewController *)viewController;
+-(void)prize_IndexWithToken:(NSString *)token andUser_type:(NSInteger)user_type withTabBarController:(UITabBarController *)tabBarController withdone:(doneWithObject)done;
+-(void)getPrizeLUckyWithToken:(NSString *)token andUser_Type:(NSInteger )user_type andTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 @end

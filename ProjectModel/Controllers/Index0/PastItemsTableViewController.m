@@ -13,7 +13,7 @@
 #import "NSString+MT.h"
 #import "MJRefresh.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "AddMorePasItem.h"
 #import "RobedRecordsTableViewController.h"
 @interface PastItemsTableViewController ()
@@ -71,15 +71,10 @@
 {
     _page =1;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
-    [addMorePasItem rob_goods_historyWithToken:user.token andUser_type:user.user_type andPage:pageString withDone:^(int status,Rob_goods_history_info *model){
-        if (status ==2) {
-            self.datas = (NSMutableArray *)model.goods;
-            [self.tableview reloadData];
-            [self.tableView headerEndRefreshing];
-        }else{
-            [SharedAction showErrorWithStatus:status witViewController:self];
-        }
-       
+    [addMorePasItem rob_goods_historyWithToken:user.token andUser_type:user.user_type andPage:pageString inTabBarController:self.tabBarController withDone:^(Rob_goods_history_info *model){
+        self.datas = (NSMutableArray *)model.goods;
+        [self.tableview reloadData];
+        [self.tableView headerEndRefreshing];
     }];
 }
 
@@ -87,14 +82,10 @@
 {
     _page++;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
-    [addMorePasItem rob_goods_historyWithToken:user.token andUser_type:user.user_type andPage:pageString withDone:^(int status,Rob_goods_history_info *model){
-        if (status ==2) {
-            [self.datas addObjectsFromArray:model.goods];
-            [self.tableview reloadData];
-            [self.tableView footerEndRefreshing];
-        }else{
-            [SharedAction showErrorWithStatus:status witViewController:self];
-        }
+    [addMorePasItem rob_goods_historyWithToken:user.token andUser_type:user.user_type andPage:pageString inTabBarController:self.tabBarController withDone:^(Rob_goods_history_info *model){
+        [self.datas addObjectsFromArray:model.goods];
+        [self.tableview reloadData];
+        [self.tableView footerEndRefreshing];
     }];
 }
 

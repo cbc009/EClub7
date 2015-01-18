@@ -16,9 +16,9 @@
 #import "PurchaseCarItemsViewController.h"
 #import "SearchService.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "Type_goods.h"
-@interface SerchViewController ()<UISearchBarDelegate>
+@interface SerchViewController ()<UISearchBarDelegate,UIScrollViewDelegate>
 @end
 
 @implementation SerchViewController
@@ -27,31 +27,19 @@
     [super viewDidLoad];
     self.title = @"商城搜索";
      [_tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
- }
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.search becomeFirstResponder];
+}
+
+-(void)viewDidDisappear:(BOOL)animated
 {
-    NSLog(@"11111dddd");
-
+    [super viewDidDisappear:animated];
+    [SVProgressHUD dismiss];
 }
-
--(void)viewDidDisappear:(BOOL)animated{
- [super viewWillAppear:animated];
-[self.search resignFirstResponder];
-
-}
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar                  
-{
-    SearchService *searchService = [[SearchService alloc] init];
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
-    searchBar.keyboardType = UIKeyboardTypeDefault;
-    [searchService goodsSearchWithToken:user.token andUser_type:user.user_type anName:self.search.text withDoneObject:^(Type_goods_info *model){
-        self.datas =(NSArray *)model;
-        [self.tableview reloadData];
-    }];
-    [searchBar resignFirstResponder];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -69,7 +57,6 @@
         viewController.goodModel = good;
     }
 }
-
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -99,12 +86,33 @@
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 100;
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self.search resignFirstResponder];
+}
+
+#pragma UISearchBarDelegate
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar;
+{
+    NSLog(@"searchBarTextDidBeginEditing");
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    SearchService *searchService = [[SearchService alloc] init];
+    SharedData *sharedData = [SharedData sharedInstance];
+    UserInfo *user = sharedData.user;
+    searchBar.keyboardType = UIKeyboardTypeDefault;
+    [searchService goodsSearchWithToken:user.token andUser_type:user.user_type anName:self.search.text inTabBarController:self.tabBarController withDoneObject:^(Type_goods_info *model){
+        self.datas =(NSArray *)model;
+        [self.tableview reloadData];
+    }];
+    [searchBar resignFirstResponder];
+}
 @end

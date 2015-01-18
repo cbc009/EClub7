@@ -11,7 +11,7 @@
 #import "FinalConfirmService.h"
 #import "GoodForSubmit.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 
 @interface FinalConfirmViewController ()
 {

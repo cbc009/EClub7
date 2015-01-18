@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "LoginViewController.h"
 #import "UMessage.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import <UMengSocial/UMSocialSnsService.h>
 #import <UMengSocial/UMSocialSnsPlatformManager.h>
 
@@ -26,7 +26,7 @@ typedef void (^doneWithObjectAndStatus)(int status,id object);
 
 +(void)presentLoginViewControllerInViewController:(UIViewController *)viewController;
 +(void)setUMessageTagsWithUser:(UserInfo *)user;
-+(void)showErrorWithStatus:(NSInteger)status witViewController:(UIViewController *)viewController;
++(void)showErrorWithStatus:(NSInteger)status andError:(NSString *)error witViewController:(UIViewController *)viewController;
 +(void)showErrorWithStatus:(NSInteger)status;
 +(void)showError;
 +(void)show;
@@ -42,5 +42,6 @@ typedef void (^doneWithObjectAndStatus)(int status,id object);
 +(void)commonActionWithUrl:(NSString *)url andStatus:(NSInteger)status andError:(NSString *)error andJSONModelError:(JSONModelError *)jsonError andObject:(id)object withDone:(doneWithObject)done;
 +(void)setupRefreshWithTableView:(UITableView *)tableview toTarget:(UIViewController *)target;
 +(void)commonActionWithUrl:(NSString *)url andStatus:(NSInteger)status andError:(NSString *)error andJSONModelError:(JSONModelError *)jsonError andObject:(id)object withDoneAndStatus:(doneWithObjectAndStatus)done;
++(void)commonActionWithUrl:(NSString *)url andStatus:(NSInteger)status andError:(NSString *)error andJSONModelError:(JSONModelError *)jsonError andObject:(id)object inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 +(void)loginAggane;
 @end

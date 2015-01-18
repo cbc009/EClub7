@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface LiveViewController : UIViewController
+#import "BodyCell.h"
+#import "LifeHallService.h"
+@interface LiveViewController : UIViewController <BodyTableViewCellDelegate>
 @property (nonatomic,strong)NSMutableArray *datas;
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
-@property (nonatomic, assign) CGFloat tableViewHeight;
-@property (nonatomic, assign) CGFloat labeHeight;
 @property (nonatomic, strong) NSMutableArray *heightArray;
 @property (nonatomic, strong) NSMutableArray *labeHeightlArray;
 @property (nonatomic, strong) NSMutableArray *cellHeightlArray;
-@property (nonatomic, strong)NSMutableArray *tableViewheightArray;
+@property (nonatomic,strong) NSMutableArray *tabelCellHeightArray;
+@property (weak, nonatomic) IBOutlet UITextView *content;
 @end

@@ -26,8 +26,6 @@
 @property(nonatomic,strong)NSString *province;
 @property(nonatomic,assign)NSInteger city;
 @property(nonatomic,strong)NSString *city_name;
-@property(nonatomic,assign)NSInteger sid;
-@property(nonatomic,strong)NSString *sname;
 @property(nonatomic,assign)NSInteger lifehall_id;
 @property(nonatomic,strong)NSString *lifehall_name;
 @property(nonatomic,strong)NSString *address;
@@ -38,7 +36,7 @@
 @end
 
 
-@interface Login : JSONModel
+@interface Member_Login : JSONModel
 @property(nonatomic,strong)UserInfo<Optional> *info;
 @property(nonatomic,assign)NSInteger status;
 @property(nonatomic,strong)NSString<Optional> *error;

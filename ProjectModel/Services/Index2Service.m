@@ -11,6 +11,7 @@
 #import "SecondeChangeViewController.h"
 #import "MyneighborViewController.h"
 #import "LiveViewController.h"
+#import "LifeHallViewController.h"
 @implementation Index2Service
 /*
  快递查询
@@ -37,6 +38,16 @@
     target.hidesBottomBarWhenPushed = YES;
     [viewController.navigationController pushViewController:target animated:YES];
 }
+/*
+ 生活体验馆
+ */
+-(void)presenterLifeHallViewControllerOnViewController:(UIViewController *)viewController{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index2" bundle:nil];
+    LifeHallViewController *lifeHallViewCOntroller = [storyboard instantiateViewControllerWithIdentifier:@"LifeHallViewController"];
+    lifeHallViewCOntroller.hidesBottomBarWhenPushed = YES;
+    [viewController.navigationController pushViewController:lifeHallViewCOntroller animated:YES];
+}
+
 //积分兑换
 -(void)presentSecondeChangeViewControllerOnViewController:(UIViewController *)viewController{
     NSLog(@"dd");

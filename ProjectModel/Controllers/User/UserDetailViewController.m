@@ -11,16 +11,19 @@
 #import "UserDetailService.h"
 #import "UserDefaults.h"
 #import "SharedData.h"
-#import "Login.h"
-#import "index3_3Cell.h"
+#import "Member_Login.h"
+#import "Index3_3Cell.h"
 #import "index3_4Cell.h"
 #import "index3_8Cell.h"
 #import "SharedAction.h"
 #import <UIImageView+WebCache.h>
-@interface UserDetailViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+#import "ChooseAreaViewController.h"
+#import <SVProgressHUD.h>
+@interface UserDetailViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,LoginViewControllerDelegate>
 {
     UserDetailService *userDetailService;
-    index3_3Cell *cell1;
+    Index3_3Cell *cell1;
+    UserInfo *user;
 }
 @end
 
@@ -41,13 +44,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.title = @"我的信息";
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.tableview reloadData];
+    SharedData *shareData = [SharedData sharedInstance];
+    user = shareData.user;
+    self.title = @"个人信息";
+//    [self.tableview reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,7 +63,6 @@
 
 #pragma UITableviewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    
     return 3;
 }
 
@@ -67,7 +70,7 @@
     if (section==0) {
         return 1;
     } else if (section ==1){
-        return 4;
+        return 2;
     } else{
         return 2;
     }
@@ -76,30 +79,34 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger section = indexPath.section;
     NSString *identifier;
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
     if (section==0) {
         identifier = @"index3_3Cell";
+        cell1.selectionStyle = UITableViewCellSelectionStyleNone;
         cell1= [tableView dequeueReusableCellWithIdentifier:identifier];
         [cell1.imageview sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
-        cell1.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell1.nickname.text=user.nickname;
+        cell1.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backgrount.jpg"]];
+        cell1.imageview.userInteractionEnabled =YES;
+        UITapGestureRecognizer *chageHead = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureRecognizer)];
+        [cell1.imageview addGestureRecognizer:chageHead];
+        cell1.imageview.layer.masksToBounds = YES;
+        cell1.imageview.layer.cornerRadius = 40;
         return cell1;
     }else  if (section==1) {
         identifier = @"index3_4Cell";
         index3_4Cell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-
         if (indexPath.row == 0) {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.userId.text = @"昵称";
-            cell.username.text = user.nickname;
+            cell.username.hidden=YES;
         } if (indexPath.row==1) {
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.userId.text = @"我的地址";
-            
-        } else if (indexPath.row == 2) {
-            cell.userId.text = @"小区";
-            cell.username.text = user.sname;
-            
+            if (user.lifehall_id==0) {
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.userId.text = @"关联区域";
+            }else{
+                cell.userId.text = user.lifehall_name;
+                cell.selectionStyle=UITableViewCellSelectionStyleNone;
+            }
         }else if (indexPath.row == 3) {
             cell.userId.text = @"账号";
             cell.username.text = user.mobile;
@@ -114,7 +121,6 @@
             cell.userId.text = @"修改登录密码";
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
         return cell;
     }
     else {
@@ -122,22 +128,30 @@
     }
 }
 
-
+-(void)tapGestureRecognizer
+{
+    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"更换头像" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"拍照" otherButtonTitles:@"相册", nil];
+    [action showInView:self.view.window];
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     NSInteger section = indexPath.section;
     if (section ==0) {
-       
-        UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"更换头像" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"拍照" otherButtonTitles:@"相册", nil];
-        [action showInView:self.view.window];
-    }if (section == 1) {
+      
+    }else if (section == 1) {
         if (indexPath.row ==0) {
             [userDetailService presentChangeNameViewControllerOnViewController:self];
-        } else if (indexPath.row==1)
-        {
-            [userDetailService presentChangeAdressViewControllerOnViewController:self];
+        }else if (indexPath.row==1){
+             if (user.lifehall_id==0) {
+                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"User" bundle:nil];
+                 ChooseAreaViewController *chooseAreaViewController = [storyboard instantiateViewControllerWithIdentifier:@"ChooseAreaViewController"];
+                 chooseAreaViewController.user = user;
+                 [self.navigationController pushViewController:chooseAreaViewController animated:YES];
+             }else{
+//                 [SVProgressHUD showErrorWithStatus:@"您以关联区域"];
+             }
         }
     }else if (section == 2) {
         if (indexPath.row ==1){
@@ -145,18 +159,18 @@
         } else {
             [userDetailService presentChangePayPasswordViewControllerOnViewController:self];
         }
-    }
+        }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger section = indexPath.section;
     switch (section) {
         case 0:
-            return 78;
+            return 145;
             break;
             
         default:
-            return 54;
+            return 59;
     }
 }
 
@@ -164,7 +178,7 @@
     if (section==0) {
         return 0;
     }
-    return 5;
+    return 8;
 }
 
 

@@ -8,7 +8,7 @@
 
 #import "RootTabBarViewController.h"
 
-@interface RootTabBarViewController ()
+@interface RootTabBarViewController ()<UIAlertViewDelegate>
 
 @end
 
@@ -47,4 +47,25 @@
 }
 */
 
+#pragma UIAlertViewDelegate
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag==5) {
+        if(buttonIndex==1){
+            self.selectedIndex = 0;
+            UINavigationController *nav = self.viewControllers[self.selectedIndex];
+             
+            [nav popToRootViewControllerAnimated:YES];
+            [SharedAction loginAggane];
+        }
+    }else if (alertView.tag==1){
+        if (buttonIndex==1) {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index3" bundle:nil];
+            UIViewController *target = [storyboard instantiateViewControllerWithIdentifier:@"CreatePayViewController"];
+            target.hidesBottomBarWhenPushed = YES;
+            self.selectedIndex = 0;
+            UINavigationController *nav = self.viewControllers[self.selectedIndex];
+            [nav pushViewController:target animated:YES];
+        }
+    }
+}
 @end

@@ -20,15 +20,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     webview.delegate = self;
     self.title = @"打电话帮助";
     activityIndicatorView = [[UIActivityIndicatorView alloc] init];
-    self.hidesBottomBarWhenPushed=YES;
-    self.urlString = @"http://www.greenwh.com/wap.php/Phone/phone_help";
    
+    self.urlString = @"http://www.greenwh.com/wap.php/Phone/phone_help";
     [self loadWebPageWithString:self.urlString inWebView:webview];
     
+}
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.tabBarController.tabBar.hidden=YES;
 }
 
 - (void)didReceiveMemoryWarning

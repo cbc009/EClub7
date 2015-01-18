@@ -10,7 +10,6 @@
 #import "PointViewController.h"
 @interface PointVIewControllerService : NSObject
 -(void)presentPointGoodViewControllerWithDatas:(NSDictionary *)dic OnPointViewController:(PointViewController *)viewController;
+-(void)loadDataWithToken:(NSString *)token andUser_type:(NSInteger )user_type AndPage:(NSString *)page intabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 
--(void)loadDataWithToken:(NSString *)token andUser_type:(NSInteger )user_type AndPage:(NSString *)page OnViewCOntroller:(PointViewController *)viewController;
--(void)loadMoreDataWithToken:(NSString *)token andUser_type:(NSInteger )user_type AndPage:(NSString *)page OnViewCOntroller:(PointViewController *)viewController;
 @end

@@ -9,7 +9,7 @@
 #import "MorePush_history.h"
 #import "MorePush_historyService.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "PushHistoryCell.h"
 #import "SVProgressHUD.h"
 #import "MJRefresh.h"
@@ -35,6 +35,13 @@
     page = 1;
     morePush_historyService = [[MorePush_historyService alloc] init];
 }
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [SVProgressHUD dismiss];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return self.datas.count;
@@ -86,7 +93,7 @@
     NSString *pageString = [NSString stringWithFormat:@"%d",page];
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
-    [morePush_historyService loadPush_historyWithsid:user.sid andPage:pageString InViewController:self];
+    [morePush_historyService loadPush_historyWithToken:user.token andUser_type:user.user_type andPage:pageString InViewController:self];
     
 }
 
@@ -98,7 +105,7 @@
     NSString *pageString = [NSString stringWithFormat:@"%d",page];
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
-    [morePush_historyService loadMorePush_historyWithsid:user.sid andPage:pageString InViewController:self];
+    [morePush_historyService loadMorePush_historyWithToken:user.token andUser_type:user.user_type andPage:pageString InViewController:self];
     [_tableView footerEndRefreshing];
 }
 

@@ -11,8 +11,7 @@
 @interface PointCollectionViewCell : UICollectionViewCell
 @property (assign ,nonatomic) NSInteger Hight;
 @property (weak, nonatomic) IBOutlet UILabel *name;
-@property (weak, nonatomic) IBOutlet UILabel *pasPrize;
 @property (weak, nonatomic) IBOutlet UILabel *EPrize;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIImageView *imgView;
 @property (assign ,nonatomic) NSInteger wight;
 @end

@@ -6,11 +6,15 @@
 //  Copyright (c) 2014年 martin. All rights reserved.
 //
 
-#import "index3_3Cell.h"
-
-@implementation index3_3Cell
-
+#import "Index3_3Cell.h"
+#import "UserDetailService.h"
+#import "UserDetailViewController.h"
+@implementation Index3_3Cell
+{
+    UserDetailViewController *user;
+}
 - (void)awakeFromNib {
+    user = [[UserDetailViewController alloc] init];
     // Initialization code
 }
 
@@ -19,5 +23,9 @@
 
     // Configure the view for the selected state
 }
+
+- (IBAction)changehead:(id)sender {
+   }
+
 
 @end

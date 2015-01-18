@@ -10,5 +10,5 @@
 #import "SerchViewController.h"
 @interface SearchService : NSObject
 
--(void)goodsSearchWithToken:(NSString *)token andUser_type:(NSInteger )user_type anName:(NSString *)name withDoneObject:(doneWithObject)done;
+-(void)goodsSearchWithToken:(NSString *)token andUser_type:(NSInteger )user_type anName:(NSString *)name inTabBarController:(UITabBarController *)tabBarController withDoneObject:(doneWithObject)done;
 @end

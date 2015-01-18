@@ -10,7 +10,7 @@
 #import "JSONModelLib.h"
 #import "SVProgressHUD.h"
 #import "Groups_Goods.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "SharedData.h"
 #import "MyMD5.h"
 #import "Status.h"
@@ -20,13 +20,21 @@
 #import "SharedAction.h"
 #import "Index0Service.h"
 #import "CreatePayViewController.h"
+#import "Group_History_Goods.h"
 @implementation GroupService
 
--(void)groupsGoodsfutureWithToken:(NSString*)token andUser_type:(NSInteger )user_type withDoneObject:(doneWithObject)done
+-(void)groupsGoodsHistoryWithToken:(NSString*)token andUser_type:(NSInteger )user_type withTabBarController:(UITabBarController *)tabBarController andPage:(NSString *)page withDone:(doneWithObject)done
+{
+    NSString *urlString = [NSString stringWithFormat:Team_Goods_History_URL,token,user_type,page];
+    [Group_History_Goods getModelFromURLWithString:urlString completion:^(Group_History_Goods *model,JSONModelError *error){
+        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
+    }];
+}
+-(void)groupsGoodsfutureWithToken:(NSString*)token andUser_type:(NSInteger )user_type intabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done
 {
     NSString *urlString = [NSString stringWithFormat:Groups_Goods_future_URL,token,user_type,@"1"];
     [Groups_Goods getModelFromURLWithString:urlString completion:^(Groups_Goods *model,JSONModelError *error){
-        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info withDone:done];
+        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
     }];
 }
 -(void)loadAdverPicFromUrl:(NSString *)urlString inViewController:(GroupsViewController *)viewController{
@@ -37,28 +45,16 @@
             viewController.pageviewDatas =pictures;
              [viewController.tableview reloadData];
         }else{
-            [SharedAction showErrorWithStatus:model.status witViewController:viewController];
+            [SharedAction showErrorWithStatus:model.status andError:model.error witViewController:viewController];
         }
     }];
 }
 
--(void)addToGroupInViewController:(GroupDetailViewController *)viewController withPassword:(NSString *)password{
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
-    NSString *gid = viewController.groupGood.gid;
-    NSString *nums =viewController.numbs.text;
-    NSString *passwd = [MyMD5 md5:password];
-    NSString *urlString = [NSString stringWithFormat:GroupSignUp,user.token,user.user_type,gid,nums,passwd];
-    [Status getModelFromURLWithString:urlString completion:^(Status *model,NSError *error){
-        if (model.status==2) {
-            user.amount = user.amount - [viewController.groupGood.discount floatValue]*[nums integerValue];
-            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"团购成功" message:@"请到小区所在生活馆及时提取物品" delegate:viewController cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-            alertView.tag=2;
-            alertView.alertViewStyle = UIAlertViewStyleDefault;
-            [alertView show];
-        }else {
-            [SharedAction showErrorWithStatus:model.status witViewController:viewController];
-        }
+-(void)addToGroupWithPassword:(NSString *)password andToken:(NSString *)token andUser_type:(NSInteger)user_type andGid:(NSString *)gid andNums:(NSString *)nums inTabBarController:(UITabBarController *)tabBarController withDoneObject:(doneWithObject)done{
+      NSString *passwd = [MyMD5 md5:password];
+    NSString *urlString = [NSString stringWithFormat:GroupSignUp,token,user_type,gid,nums,passwd];
+    [Status getModelFromURLWithString:urlString completion:^(Status *model,JSONModelError *error){
+        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
     }];
 }
 //跳到充值页面

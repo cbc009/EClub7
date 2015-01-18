@@ -9,7 +9,7 @@
 #import "NeighborService.h"
 #import "SVProgressHUD.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "SharedAction.h"
 #import "MyNeighbor.h"
 #import "JSONModelLib.h"
@@ -42,7 +42,7 @@
             [viewController.tableview reloadData];
             [SVProgressHUD dismiss];
         } else{
-            [SharedAction showErrorWithStatus:model.status witViewController:viewController];
+            [SharedAction showErrorWithStatus:model.status andError:model.error witViewController:viewController];
         }
     }];
 

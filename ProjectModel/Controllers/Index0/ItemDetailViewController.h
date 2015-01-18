@@ -11,13 +11,16 @@
 #import "Search_goods.h"
 #import "MLFloatButton.h"
 @interface ItemDetailViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollview;
+@property (weak, nonatomic) IBOutlet UIWebView *webview;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *webviewHeight;
 @property (weak, nonatomic) IBOutlet UIImageView *imgView;
 @property (weak, nonatomic) IBOutlet UILabel *currentPrice;
 @property (weak, nonatomic) IBOutlet UILabel *pastPrice;
 @property (weak, nonatomic) IBOutlet UILabel *count;
 @property (weak, nonatomic) IBOutlet UILabel *Ems;
 @property (strong, nonatomic) MLFloatButton *floatButton;
-- (IBAction)segMent:(UISegmentedControl *)sender;
 - (IBAction)buynow:(id)sender;
 //@property (weak, nonatomic) IBOutlet UILabel *ems;
 

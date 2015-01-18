@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *tipLabel;
 @property(nonatomic,strong)NSArray *rotatyCashes;
 @property(nonatomic,strong)NSArray *rotaty;
+
 @property(nonatomic,strong)PrizeIndexInfo *prizeIndexInfo;
 -(void)setLabelWithRotary:(NSArray *)rotary;
+
 @end

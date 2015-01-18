@@ -10,40 +10,31 @@
 	<string>Club</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>3AE63B5C-24E1-401F-A124-C2424DC14810</key>
-		<string>https://github.com/MartinLi841538513/Club2/trunk</string>
+		<key>3A51DA5C87313D78670124DC625987B3807B7CB7</key>
+		<string>https://github.com/ECLub5/EClub5.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Club.xcodeproj/project.xcworkspace</string>
+	<string>Club.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>3AE63B5C-24E1-401F-A124-C2424DC14810</key>
+		<key>3A51DA5C87313D78670124DC625987B3807B7CB7</key>
 		<string>../..</string>
 	</dict>
-	<key>IDESourceControlProjectRepositoryRootDictionary</key>
-	<dict>
-		<key>3AE63B5C-24E1-401F-A124-C2424DC14810</key>
-		<string>https://github.com/MartinLi841538513/Club2</string>
-	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/MartinLi841538513/Club2/trunk/Club.xcodeproj</string>
+	<string>https://github.com/ECLub5/EClub5.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>3AE63B5C-24E1-401F-A124-C2424DC14810</string>
+	<string>3A51DA5C87313D78670124DC625987B3807B7CB7</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
-			<key>IDESourceControlRepositoryBranchesRelativeLocationKey</key>
-			<string>branches</string>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.subversion</string>
-			<key>IDESourceControlRepositoryTrunkRelativeLocationKey</key>
-			<string>trunk</string>
+			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>3AE63B5C-24E1-401F-A124-C2424DC14810</string>
+			<string>3A51DA5C87313D78670124DC625987B3807B7CB7</string>
 			<key>IDESourceControlWCCName</key>
-			<string>Club2</string>
+			<string>EClub6</string>
 		</dict>
 	</array>
 </dict>

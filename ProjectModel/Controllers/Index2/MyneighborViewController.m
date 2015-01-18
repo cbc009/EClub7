@@ -10,7 +10,7 @@
 #import "NeighborViewCell.h"
 #import "NeighborService.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import <UIImageView+WebCache.h>
 #import "MJRefresh.h"
 @interface MyneighborViewController ()
@@ -37,7 +37,7 @@
     dic = [[NSMutableDictionary alloc] init];
     
     
-    [self setupRefresh];
+//    [self setupRefresh];
     
     identifier =@"NeighborViewCell";
     // Do any additional setup after loading the view.
@@ -77,46 +77,46 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 78;
 }
-- (void)setupRefresh
-{
-    // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
-    [_tableview addHeaderWithTarget:self action:@selector(headerRereshing)];
-    [_tableview headerBeginRefreshing];
-    
-    // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
-    [_tableview addFooterWithTarget:self action:@selector(footerRereshing)];
-    
-    // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
-    _tableview.headerPullToRefreshText = @"下拉可以刷新了";
-    _tableview.headerReleaseToRefreshText = @"松开马上刷新了";
-    _tableview.headerRefreshingText = @"正在帮你刷新中";
-    
-    _tableview.footerPullToRefreshText = @"上拉可以加载更多数据了";
-    _tableview.footerReleaseToRefreshText = @"松开马上加载更多数据了";
-    _tableview
-    .footerRefreshingText = @"正在帮你加载中";
-}
--(void)headerRereshing
-{
-    page=1;
-    NeighborService *neighborService = [[NeighborService alloc] init];
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
-    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
-    [neighborService loadNeighborPhoneWithMId:user.mid andSid:user.sid andPage:pageString OnViewController:self];
-    [_tableview headerEndRefreshing];
-    
-}
-
-
-- (void)footerRereshing
-{
-    page++;
-    NeighborService *neighborService = [[NeighborService alloc] init];
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
-    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
-    [neighborService loadMoreNeighborPhoneWithMId:user.mid andSid:user.sid andPage:pageString OnViewController:self];
-    [_tableview footerEndRefreshing];
-}
+//- (void)setupRefresh
+//{
+//    // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
+//    [_tableview addHeaderWithTarget:self action:@selector(headerRereshing)];
+//    [_tableview headerBeginRefreshing];
+//    
+//    // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
+//    [_tableview addFooterWithTarget:self action:@selector(footerRereshing)];
+//    
+//    // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
+//    _tableview.headerPullToRefreshText = @"下拉可以刷新了";
+//    _tableview.headerReleaseToRefreshText = @"松开马上刷新了";
+//    _tableview.headerRefreshingText = @"正在帮你刷新中";
+//    
+//    _tableview.footerPullToRefreshText = @"上拉可以加载更多数据了";
+//    _tableview.footerReleaseToRefreshText = @"松开马上加载更多数据了";
+//    _tableview
+//    .footerRefreshingText = @"正在帮你加载中";
+//}
+//-(void)headerRereshing
+//{
+//    page=1;
+//    NeighborService *neighborService = [[NeighborService alloc] init];
+//    SharedData *sharedData = [SharedData sharedInstance];
+//    UserInfo *user = sharedData.user;
+//    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
+////    [neighborService loadNeighborPhoneWithMId:user.mid andSid:user.sid andPage:pageString OnViewController:self];
+////    [_tableview headerEndRefreshing];
+//    
+//}
+//
+//
+//- (void)footerRereshing
+//{
+//    page++;
+//    NeighborService *neighborService = [[NeighborService alloc] init];
+//    SharedData *sharedData = [SharedData sharedInstance];
+//    UserInfo *user = sharedData.user;
+//    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
+////    [neighborService loadMoreNeighborPhoneWithMId:user.mid andSid:user.sid andPage:pageString OnViewController:self];
+////    [_tableview footerEndRefreshing];
+//}
 @end

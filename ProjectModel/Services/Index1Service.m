@@ -9,36 +9,28 @@
 #import "Index1Service.h"
 #import "WebViewController.h"
 #import "RewardRecordsViewController.h"
-#import "PrizeDao.h"
 #import "SVProgressHUD.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "JSONModelLib.h"
 #import "PrizeIndex.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import <MarqueeLabel.h>
+#import "Prize_Lucky_Model.h"
 #define HongbaoImg [UIImage imageNamed:@"hongbao.jpg"]
 #define CurImg nil
 
 @implementation Index1Service
 
--(NSInteger)serialidBytakeLottery{
-    NSInteger serialid;
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
-    PrizeDao *prizedao = [[PrizeDao alloc] init];
-    PrizeModel *model = [prizedao takeLotteryWithUser_type:user.user_type andToken:user.token];
-    if (model == nil) {
-        serialid = 0;
-    }else{
-        serialid = [model.serialid integerValue];
-    }
-    return serialid;
+
+-(void)getPrizeLUckyWithToken:(NSString *)token andUser_Type:(NSInteger )user_type andTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
+    NSString *urlString = [NSString stringWithFormat:Prize_Prize_Lucky_URL,token,user_type];
+    [Prize_Lucky_Model getModelFromURLWithString:urlString completion:^(Prize_Lucky_Model *model,JSONModelError *error){
+        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
+    }];
+    
 }
-
-
-
 //得到上一个view
 -(UIImageView *)previewByCurrentView:(UIImageView *)curView andArray:(NSArray *)views{
     NSUInteger count = views.count;
@@ -72,7 +64,6 @@
     NSUInteger count = views.count;
     float NSUIntegerervalTime = 0.1;
     NSUInteger endLength;
-    
     if (resultValue>currentIndex+1) {
         endLength = resultValue-currentIndex+count-1;
     }else{
@@ -84,7 +75,6 @@
 
 //红包移动一下
 -(void)moveCurrentView:(UIImageView *)curView inArray:(NSArray *)views{
-    
     UIImageView *preView = [self previewByCurrentView:curView andArray:views];
     preView.image = HongbaoImg;
     curView.image = CurImg;
@@ -133,45 +123,12 @@
 }
 
 //加载最新中奖的小伙伴信息
--(void)loadPrizeDataInViewController:(Index1ViewController *)viewController{
-    
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
-    NSString *urlString = [NSString stringWithFormat:PrizeIndexURL,user.token,user.user_type];
-    NSLog(@"%@",urlString);
+-(void)prize_IndexWithToken:(NSString *)token andUser_type:(NSInteger)user_type withTabBarController:(UITabBarController *)tabBarController withdone:(doneWithObject)done{
+    NSString *urlString = [NSString stringWithFormat:Prize_Prize_Index_URL,token,user_type];
     [SVProgressHUD showWithStatus:@"正在加载今日抽奖信息"];
     [PrizeIndex getModelFromURLWithString:urlString completion:^(PrizeIndex *object,JSONModelError *error){
-        
-        if (object.status == 2) {
-            NSArray *lucky = object.info.prize;
-            NSArray *rotary = object.info.rotary;
-            viewController.prizeIndexInfo = object.info;
-            [self loadPrizeDatas:lucky inViewController:viewController];
-            [self loadRotaryDatas:rotary inViewController:viewController];
-            viewController.tipLabel.text = [NSString stringWithFormat:@"您当前还有%d次机会，已有%ld人参与抽奖",object.info.nums,object.info.peoples];
-            
-            [SVProgressHUD showSuccessWithStatus:@"加载成功"];
-        }else{
-            [SVProgressHUD showErrorWithStatus:@"没有数据"];
-        }
+      [SharedAction commonActionWithUrl:urlString andStatus:object.status andError:object.error andJSONModelError:error andObject:object.info inTabBarController:tabBarController withDone:done];
     }];
-    
-}
-
-//加载中奖人信息
--(void)loadPrizeDatas:(NSArray *)prizes inViewController:(Index1ViewController *)viewController{
-    NSInteger count = prizes.count;
-    NSMutableString *content = [[NSMutableString alloc] init];
-    for (NSInteger i=0; i<count; i++) {
-        Prize *newlucky = [prizes objectAtIndex:i];
-        [content appendString:[NSString stringWithFormat:@"恭喜会员%@获得%@元红包    ",newlucky.nickname,newlucky.amount_red]];
-    }
-    viewController.marqueeLabel.text = content;
-}
-//加载奖品信息
--(void)loadRotaryDatas:(NSArray *)rotary inViewController:(Index1ViewController *)viewController{
-    viewController.rotaty = rotary;
-    [viewController setLabelWithRotary:rotary];
     
 }
 

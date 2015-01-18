@@ -11,7 +11,7 @@
 @interface GoodsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *seg;
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
-@property (strong ,nonatomic) MLFloatButton *floatButton;
 @property(nonatomic,strong)NSArray *subtypes;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *segment;
 @property(nonatomic,strong)NSMutableArray *datas;
 @end

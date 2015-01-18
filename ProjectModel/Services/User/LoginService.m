@@ -13,7 +13,7 @@
 #import "MyMD5.h"
 #import "InternetRequest.h"
 #import "ChooseAreaViewController.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "SVProgressHUD.h"
 #import "JSONModelLib.h"
 #import "SharedData.h"
@@ -24,31 +24,20 @@
 -(void)loginWithName:(NSString *)name andPasswd:(NSString *)passwd onViewController:(LoginViewController *)viewController{
     if ([self validateLoginInfosWithName:name andPasswd:passwd]) {
         NSString *password = [MyMD5 md5:passwd];
-        NSString *urlString = [NSString stringWithFormat:LoginURL,name,password];
+        NSString *urlString = [NSString stringWithFormat:Base_Member_Login_URL,name,password];
         NSLog(@"%@",urlString);
         [SVProgressHUD show];
-        [Login getModelFromURLWithString:urlString completion:^(Login *model,JSONModelError *error){
+        [Member_Login getModelFromURLWithString:urlString completion:^(Member_Login *model,JSONModelError *error){
             if (model.status==2) {
-                 NSInteger sid = model.info.sid;
                 [self setSharedDataWithUser:model.info andUserName:name andPassWord:password];
                 [SharedAction setUMessageTagsWithUser:model.info];
-                if (sid==0) {
-                    ChooseAreaViewController *chooseAreaViewController = [viewController.storyboard instantiateViewControllerWithIdentifier:@"ChooseAreaViewController"];
-                    chooseAreaViewController.user = model.info;
-                    chooseAreaViewController.loginViewController = viewController;
-                    [viewController.navigationController pushViewController:chooseAreaViewController animated:YES];
-                }else{
-                    [self handlesWhenDismissLoginViewController:viewController];
-                    }
+                [self handlesWhenDismissLoginViewController:viewController];
                 [SVProgressHUD dismiss];
-            }else{
-                
-                if (model==nil) {
+            }else if (model==nil) {
                     [SVProgressHUD showErrorWithStatus:@"服务器升级中"];
-                }else{
+            }else{
                     [SVProgressHUD showErrorWithStatus:model.error];
                 }
-            }
         }];
         
     }

@@ -10,9 +10,10 @@
 #import "InternetRequest.h"
 #import "Index1Service.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "SVProgressHUD.h"
 #import "SharedAction.h"
+#import "Prize_Lucky_Model.h"
 #define HongbaoImg [UIImage imageNamed:@"hongbao.jpg"]
 #define CurImg nil
 #define endTimerTotal 5
@@ -51,10 +52,12 @@
     UIImageView *currentView;
     float intervalTime;//变换时间差（用来表示速度）
     float accelerate;//减速度
-    NSUInteger resultValue;
+    NSInteger resultValue;
     Index1Service *index1Service;
     NSTimer *timerOut;//超时结束
     float outTime;
+    UserInfo *user;
+    
 }
 @end
 
@@ -67,12 +70,17 @@
     return self;
 }
 
-
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [SVProgressHUD dismiss];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-   
+    SharedData *sharedData = [SharedData sharedInstance];
+    user= sharedData.user;
     self.marqueeLabel.marqueeType = MLContinuous;
     self.marqueeLabel.scrollDuration = 30.0f;
     self.marqueeLabel.fadeLength = 10.0f;
@@ -81,8 +89,6 @@
     tapRecognizer.numberOfTapsRequired = 1;
     tapRecognizer.numberOfTouchesRequired = 1;
     [self.marqueeLabel addGestureRecognizer:tapRecognizer];
-    
-    
     array = [[NSArray alloc] initWithObjects:view1,view2,view3,view4,view5,view6,view7,view8,view9,view10,view11,view12,nil];
     NSUInteger count = array.count;
     for (int i=0; i<count; i++) {
@@ -91,13 +97,30 @@
     }
     resultValue = 13;//
     outTime = 0;
-    [index1Service loadPrizeDataInViewController:self];
+    [index1Service prize_IndexWithToken:user.token andUser_type:user.user_type withTabBarController:self.tabBarController withdone:^(PrizeIndexInfo *model){
+        self.prizeIndexInfo = model;
+        NSArray *lucky = (NSArray *)model.prize;
+        NSArray *rotary = (NSArray *)model.rotary;
+        [self loadPrizeDatas:lucky];
+        [self loadRotaryDatas:rotary];
+         self.tipLabel.text = [NSString stringWithFormat:@"您当前还有%d次机会，已有%ld人参与抽奖",model.nums,model.peoples];
+    }];
 }
 
--(void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    [SVProgressHUD dismiss];
+//加载中奖人信息
+-(void)loadPrizeDatas:(NSArray *)prizes{
+    NSInteger count = prizes.count;
+    NSMutableString *content = [[NSMutableString alloc] init];
+    for (NSInteger i=0; i<count; i++) {
+        Prize *newlucky = [prizes objectAtIndex:i];
+        [content appendString:[NSString stringWithFormat:@"恭喜会员%@获得%@元红包    ",newlucky.nickname,newlucky.amount_red]];
+    }
+    self.marqueeLabel.text = content;
+}
+//加载奖品信息
+-(void)loadRotaryDatas:(NSArray *)rotary{
+    self.rotaty = rotary;
+    [self setLabelWithRotary:rotary];
     
 }
 
@@ -168,7 +191,6 @@
     currentView.image = HongbaoImg;
     currentView = [array objectAtIndex:0];
     currentView.image = CurImg;
-    
     startButton.enabled = NO;
 }
 
@@ -178,7 +200,6 @@
     UIImageView *preView = (UIImageView *)myTimer.userInfo;
     NSUInteger index;
 //    static NSUInteger resultValue=13;
-    
     if (preView==nil) {
         index = 0;
     }else{
@@ -189,9 +210,7 @@
     }else{
         currentView = [array objectAtIndex:index+1];
     }
-    
     [index1Service moveCurrentView:currentView inArray:array];
-    
     NSLog(@"%f",intervalTime);
     if (intervalTime>0.1) {
         intervalTime = intervalTime - 0.1;
@@ -199,28 +218,30 @@
         static int rotateCount = 0;
         rotateCount ++;
         if (rotateCount==2*count) {
-            dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//                NSLog(@"aa:%lu",(unsigned long)resultValue);
-                if (resultValue==13) {
-                    resultValue++;//这里设置13，14主要是用来防止在一次抽奖，发送了2次请求
-                    resultValue= [index1Service serialidBytakeLottery];
+            if (resultValue==13) {
+                resultValue++;//这里设置13，14主要是用来防止在一次抽奖，发送了2次请求
+                NSInteger __block serialid;
+                [index1Service getPrizeLUckyWithToken:user.token andUser_Type:user.user_type andTabBarController:self.tabBarController withDone:^(Prize_Model_Info *model){
+                    if (model == nil) {
+                        serialid=0;
+                    }else{
+                        serialid= [model.serialid integerValue];
+                    }
+                    resultValue = serialid;
                     if (resultValue<1||resultValue>12) {
                         //后台有可能会返回0，但是对应的serialid没有0，6是“谢谢参与”
                         resultValue=6;
                     }
-                    dispatch_sync(dispatch_get_main_queue(), ^{
-                        NSLog(@"ss:%lu",(unsigned long)resultValue);
-                        resultValue=13;
-                        [self endChoujiang];
-                    });
-                }
-                
-            });
-            rotateCount = 0;
+                    [self endChoujiang];
+                    NSLog(@"ss:%lu",(unsigned long)resultValue);
+                }];
+                rotateCount = 0;
+            }
         }
     }
     timer = [NSTimer scheduledTimerWithTimeInterval:intervalTime target:self selector:@selector(startChoujiang:) userInfo:currentView repeats:NO];
 }
+
 
 -(void)timerOut{
     outTime += timerOut.timeInterval;
@@ -234,7 +255,6 @@
     }
 }
 
-
 -(void)endChoujiang{
     accelerate = [index1Service accelerateSpeedOfTimeMomentWithResultValue:resultValue andEndTimerTotal:endTimerTotal inViews:array whenCurrentView:currentView];
     [self moveToStopWithAccelerate];
@@ -242,7 +262,6 @@
 
 //减速至停止
 -(void)moveToStopWithAccelerate{
-    
     static float timeTotal = 0;
     if (timeTotal<endTimerTotal) {
         intervalTime = intervalTime+accelerate;
@@ -257,17 +276,15 @@
         outTime=0;
         timeTotal = 0;
         [index1Service showAwardViewWithDatas:self.rotaty andCurrentView:currentView andSerialid:resultValue inController:self];
+        resultValue=13;
         startButton.enabled = YES;
     }
     
 }
 
-
-
 #pragma UIAlertViewDelegate
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==0) {
-        
     }else if(buttonIndex==1) {
         [SharedAction shareWithTitle:alertView.title andDesinationUrl:AppDownLoadURL Text:alertView.message andImageUrl:@"hongbao.jpg" InViewController:self];
     }

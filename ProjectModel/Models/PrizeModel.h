@@ -11,5 +11,5 @@
 @interface PrizeModel : NSObject
 @property (copy, nonatomic) NSString *peoples;
 @property (assign, nonatomic) NSInteger nums;
-@property (copy, nonatomic) NSString *serialid;
+@property (strong, nonatomic) NSString *serialid;
 @end

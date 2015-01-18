@@ -12,9 +12,10 @@
 
 @interface GroupService : NSObject
 
--(void)addToGroupInViewController:(GroupDetailViewController *)viewController withPassword:(NSString *)password;
+-(void)addToGroupWithPassword:(NSString *)password andToken:(NSString *)token andUser_type:(NSInteger)user_type andGid:(NSString *)gid andNums:(NSString *)nums inTabBarController:(UITabBarController *)tabBarController withDoneObject:(doneWithObject)done;
 -(NSString *)toDetailTime:(NSInteger)seconds;
--(void)groupsGoodsfutureWithToken:(NSString*)token andUser_type:(NSInteger )user_type withDoneObject:(doneWithObject)done;
+-(void)groupsGoodsfutureWithToken:(NSString*)token andUser_type:(NSInteger )user_type intabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
+-(void)groupsGoodsHistoryWithToken:(NSString*)token andUser_type:(NSInteger )user_type withTabBarController:(UITabBarController *)tabBarController andPage:(NSString *)page withDone:(doneWithObject)done;
 -(void)loadAdverPicFromUrl:(NSString *)url inViewController:(GroupsViewController *)viewController;
 -(void)presentCreatePayViewControllerOnViewController:(UIViewController *)viewController;
 @end

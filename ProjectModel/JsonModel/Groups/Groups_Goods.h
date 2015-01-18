@@ -25,6 +25,7 @@
 @property(nonatomic,strong)NSString *actual_num;
 @property(nonatomic,strong)NSString *status;
 @property(nonatomic,strong)NSString *isrepeat;
+@property(nonatomic,strong)NSString *url;
 @property(nonatomic,assign)int seconds;
 @end
 

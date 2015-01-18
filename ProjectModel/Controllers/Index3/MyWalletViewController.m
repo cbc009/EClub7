@@ -11,8 +11,8 @@
 #import "CreatePayViewController.h"
 #import "Index3Service.h"
 #import "SharedData.h"
-#import "Login.h"
-@interface MyWalletViewController ()<CreatePayViewDelegate>
+#import "Member_Login.h"
+@interface MyWalletViewController ()
 {
     Index3Service *service;
 }
@@ -44,15 +44,11 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"tradeRecorders"]) {
-        TradeListViewController *viewController = segue.destinationViewController;
-       
-        viewController.items = self.datas;
+//        TradeListViewController *viewController = segue.destinationViewController;
+//        viewController.items = self.datas;
     }
 
 }
 
-#pragma mark -CreatePayViewDelegate
--(void)reloadAmount{
-}
 
 @end

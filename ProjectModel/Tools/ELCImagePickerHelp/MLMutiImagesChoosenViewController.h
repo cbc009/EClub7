@@ -12,7 +12,7 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import <AssetsLibrary/ALAsset.h>
 
-enum{
+enum ImagesMode{
     getImagesMode,
     browseImagesMode
 };
@@ -22,7 +22,7 @@ enum{
 @property(nonatomic,strong)UIViewController *fatherController;
 @property(nonatomic,strong)UIView *superView;
 @property(nonatomic,assign)float collectionviewHeight;
-@property(nonatomic)NSInteger imageMode;//必选
+@property(nonatomic)enum ImagesMode imageMode;//必选
 @property(nonatomic,strong)NSArray *imageUrls;
 @end
 

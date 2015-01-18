@@ -30,7 +30,11 @@
     [formatter setDateFormat:@"yyyy-MM-dd"];
     return [NSString timeFromStamp:stamp withFormatter:formatter];
 }
-
++(float)heightWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize{
+    NSDictionary *dict = @{NSFontAttributeName: font};
+    CGSize size = [str boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+    return size.height+3;
+}
 +(NSString *)timeType4FromStamp:(NSString *)stamp{
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"HH:mm:ss"];

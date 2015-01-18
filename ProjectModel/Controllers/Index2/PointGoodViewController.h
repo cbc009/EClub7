@@ -10,9 +10,7 @@
 
 @interface PointGoodViewController : UIViewController<UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *goodImage;
-@property (weak, nonatomic) IBOutlet UILabel *goodName;
-@property (weak, nonatomic) IBOutlet UILabel *pasPrize;
-@property (weak, nonatomic) IBOutlet UILabel *vipPrize;
+
 @property (weak, nonatomic) IBOutlet UILabel *ePrize;
 @property (weak, nonatomic) IBOutlet UILabel *num;
 @property (assign ,nonatomic) NSInteger gid;

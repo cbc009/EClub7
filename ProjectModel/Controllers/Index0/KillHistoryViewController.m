@@ -23,19 +23,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title= @"历史秒杀";
     // Do any additional setup after loading the view.
     service = [[KillService alloc] init];
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
     _tableview.showsVerticalScrollIndicator =NO;
     [_tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [service kill_Goods_historyWithToken:user.token andUser_type:user.user_type withDone:^(int status,KillGoodInfo1 *model){
-        if (status==2) {
-            self.datas = (NSMutableArray *)model.goods;
-            NSLog(@"%@",self.datas);
-            [self.tableview reloadData];
-        }
-        [SharedAction showErrorWithStatus:status witViewController:self];
+    [service kill_Goods_historyWithToken:user.token andUser_type:user.user_type intabBarController:self.tabBarController withDone:^(KillGoodInfo1 *model){
+        self.datas = (NSMutableArray *)model.goods;
+        [self.tableview reloadData];
     }];
 }
 
@@ -44,6 +41,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [SVProgressHUD dismiss];
+}
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.datas.count*2;

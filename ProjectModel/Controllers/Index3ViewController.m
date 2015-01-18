@@ -13,13 +13,14 @@
 #import "Index3_1Cell.h"
 #import "Index3_2Cell.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import <UIImageView+WebCache.h>
 
 @interface Index3ViewController () <UITableViewDelegate,UITableViewDataSource>
 {
     NSArray *images;
     NSArray *titles;
+    UserInfo *user;
     Index3Service *index3Service;
 }
 @end
@@ -33,7 +34,6 @@
     return self;
 }
 
-
 -(void)loadView{
     [super loadView];
     
@@ -43,18 +43,18 @@
 {
     [super viewDidLoad];
     _tableview.showsVerticalScrollIndicator =NO;
-   
     _tableview.tableFooterView = [[UIView alloc] init];
     // Do any additional setup after loading the view.
     images = [[NSArray alloc]
               initWithObjects:@"account",@"qr_code",@"order",@"jiaoyi",@"return_suggest",@"app_load",@"ic_update",nil];
     titles = [[NSArray alloc] initWithObjects:@"我的钱包",@"我的二维码",@"我的订单",@"联系我们",@"意见反馈",@"应用推荐",@"版本更新",nil];
-    
     [self.tableview reloadData];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    SharedData *sharedData = [SharedData sharedInstance];
+    user = sharedData.user;
     [self.tableview reloadData];
 }
 
@@ -93,10 +93,9 @@
     if (section==0) {
         identifier = @"Index3_2Cell";
         Index3_2Cell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        SharedData *sharedData = [SharedData sharedInstance];
-        UserInfo *user = sharedData.user;
+        
         [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
-        cell.address.text = user.sname;
+//        cell.address.text = user.sname;
         cell.nickname.text = user.nickname;
         return cell;
         
@@ -129,7 +128,7 @@
                 [index3Service presentMyOrderViewControllerOnViewController:self];
                 break;
             case 3:
-                [index3Service callInViewController:self];
+                [index3Service callWithPhoneNumber:user.phone InViewController:self];
                 break;
             case 4:
                 [index3Service presentFeedBackViewControllerOnViewController:self];
@@ -158,6 +157,12 @@
         default:
             return 54;
     }
+}
+#pragma LoginViewControllerDelegate
+-(void)loginSuccessedActionWithViewController:(UIViewController *)viewController{
+    
+    [_tableview reloadData];
+    [viewController.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

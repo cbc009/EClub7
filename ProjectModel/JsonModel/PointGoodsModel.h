@@ -28,5 +28,5 @@
 @interface PointGoodsModel : JSONModel
 @property (copy,nonatomic)NSString *error;
 @property (assign,nonatomic)NSInteger status;
-@property (strong,nonatomic)GoodInfo *info;
+@property (strong,nonatomic)GoodInfo<Optional> *info;
 @end

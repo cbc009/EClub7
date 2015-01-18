@@ -14,4 +14,5 @@
 -(void)presentSecondeChangeViewControllerOnViewController:(UIViewController *)viewController;
 -(void)presentMyneighborViewControllerOnViewController:(UIViewController *)viewController;
 -(void)presentLiveViewControllerOnViewController:(UIViewController *)viewController;
+-(void)presenterLifeHallViewControllerOnViewController:(UIViewController *)viewController;
 @end

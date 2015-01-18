@@ -10,7 +10,7 @@
 #import "MLMutiImagesChoosenViewController.h"
 #import "PostGood.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 @interface PostbuyViewController ()
 {
     MLMutiImagesChoosenViewController *mutiImagesContoller;
@@ -40,9 +40,9 @@
 
 - (IBAction)postbuy:(id)sender {
     NSLog(@"%@",mutiImagesContoller.chooseImages);
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user= sharedData.user;
-    [postGood postGoodWithmid:user.mid andSid:user.sid andTitle:self.name.text andContent:self.content.text andDegree:self.newold.text andPrice:self.price.text andName:user.nickname andMobile:self.phone.text onViewController:self];
+//    SharedData *sharedData = [SharedData sharedInstance];
+//    UserInfo *user= sharedData.user;
+//    [postGood postGoodWithmid:user.mid andSid:user.sid andTitle:self.name.text andContent:self.content.text andDegree:self.newold.text andPrice:self.price.text andName:user.nickname andMobile:self.phone.text onViewController:self];
 
 }
 @end

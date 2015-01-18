@@ -28,7 +28,11 @@
 -(void)loadView{
     [super loadView];
    }
-
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [SVProgressHUD dismiss];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     index0Service = [[Index0Service alloc] init];
@@ -37,15 +41,24 @@
     user = sharedData.user;
     _tableview.showsVerticalScrollIndicator =NO;
     [_tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [groupService groupsGoodsfutureWithToken:user.token andUser_type:user.user_type withDoneObject:^(Groups_Info *model){
+    [groupService groupsGoodsfutureWithToken:user.token andUser_type:user.user_type intabBarController:self.tabBarController withDone:^(Groups_Info *model){
         self.datas = model.goods;
         [self.tableview reloadData];
+
     }];
     self.automaticallyAdjustsScrollViewInsets = YES;
     NSString *urlString = [NSString stringWithFormat:AdPictUrl,user.city,1];
     [groupService loadAdverPicFromUrl:urlString inViewController:self];
 }
-
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+ if (alertView.tag==5) {
+    if(buttonIndex==1){
+        [SharedAction loginAggane];
+        NSArray *viewControllers = self.navigationController.viewControllers;
+        [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
+    }
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -95,8 +108,8 @@
     NSInteger row = indexPath.row;
     Group_Good_Info *model = [self.datas objectAtIndex:row];
     cell.name.text = model.name;
-    cell.price.text = [NSString stringWithFormat:@"%@%@",model.price,model.unit];
-    cell.discount.text = [NSString stringWithFormat:@"%@%@",model.discount,model.unit];
+    cell.price.text = [NSString stringWithFormat:@"原价:%@%@",model.price,model.unit];
+    cell.discount.text = [NSString stringWithFormat:@"会员价:%@%@",model.discount,model.unit];
     cell.endTime.text = [NSString stringWithFormat:@"%@截止",model.end_time];
     cell.number.text = [NSString stringWithFormat:@"当前参团人数:%@",model.actual_num];
     cell.expectNumber.text = [NSString stringWithFormat:@"%@人起团",model.expect_num];
@@ -113,7 +126,6 @@
     }
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSInteger row = indexPath.row;
     Group_Good_Info *groupGood = [self.datas objectAtIndex:row];

@@ -10,7 +10,7 @@
 #import "MySecondTableViewCell.h"
 #import "SecondeService.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 @interface MysecondeViewController ()
 {
     SecondeService *secondeService;
@@ -47,7 +47,6 @@
 {
     MySecondTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MySecondTableViewCell" forIndexPath:indexPath];
     NSDictionary *dic = self.datas[indexPath.section];
-     NSLog(@"%@",dic);
     cell.name.text = [dic valueForKey:@"name"];
     cell.time.text = [dic valueForKey:@"regtime"];
     return cell;

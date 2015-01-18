@@ -11,10 +11,7 @@
 #import "TradeOrderData.h"
 #import "TradeOrderDetailViewController.h"
 @interface MyOrderService : NSObject
--(void)loadTradeWithPage:(NSInteger )page OrderInViewController:(MyOrderViewController *)viewController;
--(void)loadRobOrderInViewController:(MyOrderViewController *)viewController;
--(void)loadGroupOrderInViewController:(MyOrderViewController *)viewController;
--(void)pushToDetailViewControllerWithItem:(TradeOrder *)item onViewController:(MyOrderViewController *)myOrderViewController;
--(void)loadKillOrderInViewController:(MyOrderViewController *)viewController;
-
+-(void)goodsOrderDetailWithToken:(NSString *)token andUser_type:(NSInteger )user_type andTabViewController:(UITabBarController *)tabbarController andOrderid:(NSString *)orderid witdone:(doneWithObject)done;
+-(void)goodsOrderReturnwithToken:(NSString *)token andUser_type:(NSInteger )user_type andOrderid:(NSString *)orderid inTabbarViewController:(UITabBarController *)tabbarController withDone:(doneWithObject)done;
+-(void)loadOrderWithPage:(NSString *)pageString andToken:(NSString *)token andUser_type:(NSInteger)user_type andSelectedSegmentIndex:(NSInteger)selectedSegmentIndex inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 @end

@@ -24,11 +24,12 @@
 @end
 
 @interface MyGroupOrderInfo : JSONModel
-@property(strong,nonatomic)NSArray<MyGroupOrder>* order;
+@property(strong,nonatomic)NSArray<MyGroupOrder,Optional>* order;
 @end
 
 @interface MyGroups : JSONModel
-@property(nonatomic,strong)MyGroupOrderInfo *info;
+@property(nonatomic,strong)MyGroupOrderInfo <Optional>*info;
 @property(nonatomic,assign)NSInteger status;
+@property(nonatomic,strong)NSString *error;
 @end
 

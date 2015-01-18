@@ -28,6 +28,6 @@
 -(void)checkActionInViewController:(PurchaseCarItemsViewController *)viewController atCell:(PurchaseCarItemCell *)cell andRow:(NSInteger)row withDatas:(NSMutableArray *)datas;
 -(void)selectAllButton:(UIButton *)button InViewController:(PurchaseCarItemsViewController *)viewController;
 -(void)pushToFinamConfirmViewControllerWithSegue:(UIStoryboardSegue *)segue fromViewController:(PurchaseCarItemsViewController *)cartViewController;
--(void)ItemsInCarWithToken:(NSString *)token andUser_type:(NSInteger )user_type withDoneObject:(doneWithObject)doneWithObject;
+-(void)ItemsInCarWithToken:(NSString *)token andUser_type:(NSInteger )user_type inTabBarController:(UITabBarController *)tabBarController withDoneObject:(doneWithObject)done;
 -(void)addToPurchaseCarWithGid:(NSString *)gid andNum:(NSString *)num inPurchaseViewController:(PurchaseCarItemsViewController *)viewController atIndexPath:(NSIndexPath *)indexPath;
 @end

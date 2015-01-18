@@ -10,7 +10,7 @@
 #import "PurchaseCarItemsViewController.h"
 #import "SVProgressHUD.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "JSONModelLib.h"
 #import "Cart.h"
 #import "Status.h"
@@ -57,7 +57,7 @@
             PurchaseCarItemsViewController *target = [viewController.storyboard instantiateViewControllerWithIdentifier:@"PurchaseCarItemsViewController"];
             [viewController.navigationController pushViewController:target animated:YES];
         }else{
-            [SharedAction showErrorWithStatus:object.status witViewController:viewController];
+            [SharedAction showErrorWithStatus:object.status andError:object.error witViewController:viewController];
             NSLog(@"%@",error);
         }
     }];
@@ -67,18 +67,13 @@
 /*
  加入购物车
  */
--(void)addToPurchaseCarWithGid:(NSString *)gid andNum:(NSString *)num{
+-(void)addToPurchaseCarWithGid:(NSString *)gid andNum:(NSString *)num inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
     [SVProgressHUD show];
      NSString *urlString = [NSString stringWithFormat:InCartURL,user.token,gid,user.user_type,num];
     [Status getModelFromURLWithString:urlString completion:^(Status *object,JSONModelError *error){
-        if (object.status == 2) {
-            [SVProgressHUD showSuccessWithStatus:@"加入购物车成功"];
-        }else{
-            [SharedAction showErrorWithStatus:object.status];
-            NSLog(@"%@",error);
-        }
+        [SharedAction commonActionWithUrl:urlString andStatus:object.status andError:object.error andJSONModelError:error andObject:object inTabBarController:tabBarController withDone:done];
     }];
 }
 

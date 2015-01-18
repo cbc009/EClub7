@@ -51,29 +51,25 @@
 //    NSLog(@"%@",imageArray);
     NSMutableArray *imgs = [[NSMutableArray alloc] init];
      AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:@"http://www.greenwh.com"]];
-    for (int i=0; i<imageArray.count; i++) {
+    for (int i=0; i<imageArray.count-1; i++) {
            NSData *imageData1 = UIImageJPEGRepresentation(imageArray[i], 0.5);
         [imgs addObject:imageData1];
     }
     NSLog(@"%@",parameters);
-    AFHTTPRequestOperation *op = [manager POST:@"/wap.php/Second/transrelease" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    AFHTTPRequestOperation *op = [manager POST:Lifecircle_info_URL parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         //do not put image inside parameters dictionary as I did, but append it!
         //这里的name是服务器接收图片的字段。
         for (int i=0; i<imgs.count; i++) {
 
             [formData appendPartWithFileData:imgs[i] name:[NSString stringWithFormat:@"picture[%d]",i] fileName:[NSString stringWithFormat:@"photo%d.jpg",i] mimeType:@"image/jpeg"];
         }
-
-
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
-
+        [SVProgressHUD showSuccessWithStatus:@"发布成功"];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@ ***** %@", operation.responseString, error);
     }];
     [op start];
-    
-    //http://www.greenwh.com/wap.php/Second/transfer?sid=6&page=1  这个链接是测试你是否上传成功
 }
 
 
@@ -158,77 +154,77 @@
 {
     [SVProgressHUD showErrorWithStatus:@"没有更多的数据"];
 }
-+(void)showErrorWithStatus:(NSInteger)status
-{
-    switch (status) {
-        case 2:
-            [SVProgressHUD showSuccessWithStatus:@"操作成功"];
-            break;
-        case 1:
-            [SVProgressHUD showErrorWithStatus:@"操作失败"];
-            break;
-        case 801:
-            [SVProgressHUD showErrorWithStatus:@"用户不存在"];
-            break;
-        case  802:
-            [SVProgressHUD showErrorWithStatus:@"用户已存在"];
-            break;
-        case  805:
-            [SVProgressHUD showErrorWithStatus:@"验证码错误"];
-            break;
-        case  807:
-            [SVProgressHUD showErrorWithStatus:@"格式错误"];
-            break;
-        case  808:
-            [SVProgressHUD showErrorWithStatus:@"无记录"];
-            break;
-        case  809:
-            [SVProgressHUD showErrorWithStatus:@"密记录已存在"];
-            break;
-        case  810:
-            [SVProgressHUD showErrorWithStatus:@"不存在"];
-            break;
-        case  811:
-            [SVProgressHUD showErrorWithStatus:@"操作数据失败"];
-            break;
-        case  820:
-            [SVProgressHUD showErrorWithStatus:@"商品不存在"];
-            break;
-        case  821:
-            [SVProgressHUD showErrorWithStatus:@"重复请求"];
-            break;
-        case  822:
-            [SVProgressHUD showErrorWithStatus:@"数量已满"];
-            break;
-        case  823:
-            [SVProgressHUD showErrorWithStatus:@"不在操作时间内"];
-            break;
-        case  824:
-            [SVProgressHUD showErrorWithStatus:@"所在区域未开通此功能"];
-            break;
-        case  826:
-            [SVProgressHUD showErrorWithStatus:@"完善个人信息"];
-            break;
-        default:
-            [SVProgressHUD showErrorWithStatus:@"操作失败"];
-            break;
-    }
-}
+//+(void)showErrorWithStatus:(NSInteger)status
+//{
+//    switch (status) {
+//        case 2:
+//            [SVProgressHUD showSuccessWithStatus:@"操作成功"];
+//            break;
+//        case 1:
+//            [SVProgressHUD showErrorWithStatus:@"操作失败"];
+//            break;
+//        case 801:
+//            [SVProgressHUD showErrorWithStatus:@"用户不存在"];
+//            break;
+//        case  802:
+//            [SVProgressHUD showErrorWithStatus:@"用户已存在"];
+//            break;
+//        case  805:
+//            [SVProgressHUD showErrorWithStatus:@"验证码错误"];
+//            break;
+//        case  807:
+//            [SVProgressHUD showErrorWithStatus:@"格式错误"];
+//            break;
+//        case  808:
+//            [SVProgressHUD showErrorWithStatus:@"无记录"];
+//            break;
+//        case  809:
+//            [SVProgressHUD showErrorWithStatus:@"密记录已存在"];
+//            break;
+//        case  810:
+//            [SVProgressHUD showErrorWithStatus:@"不存在"];
+//            break;
+//        case  811:
+//            [SVProgressHUD showErrorWithStatus:@"操作数据失败"];
+//            break;
+//        case  820:
+//            [SVProgressHUD showErrorWithStatus:@"商品不存在"];
+//            break;
+//        case  821:
+//            [SVProgressHUD showErrorWithStatus:@"重复请求"];
+//            break;
+//        case  822:
+//            [SVProgressHUD showErrorWithStatus:@"数量已满"];
+//            break;
+//        case  823:
+//            [SVProgressHUD showErrorWithStatus:@"不在操作时间内"];
+//            break;
+//        case  824:
+//            [SVProgressHUD showErrorWithStatus:@"所在区域未开通此功能"];
+//            break;
+//        case  826:
+//            [SVProgressHUD showErrorWithStatus:@"完善个人信息"];
+//            break;
+//        default:
+//            [SVProgressHUD showErrorWithStatus:@"操作失败"];
+//            break;
+//    }
+//}
 //下面的alertview的tag 1是余额不足2是无会员卡 4是密码错误
-+(void)showErrorWithStatus:(NSInteger)status witViewController:(UIViewController *)viewController{
++(void)showErrorWithStatus:(NSInteger)status andError:(NSString *)error witViewController:(UIViewController *)viewController{
      UIAlertView *alertView;
     switch (status) {
         case 2:
-            [SVProgressHUD showSuccessWithStatus:@"操作成功"];
+            [SVProgressHUD showSuccessWithStatus:error];
             break;
         case 1:
-            [SVProgressHUD showErrorWithStatus:@"操作失败"];
+            [SVProgressHUD showErrorWithStatus:error];
             break;
         case 801:
-            [SVProgressHUD showErrorWithStatus:@"用户不存在"];
+            [SVProgressHUD showErrorWithStatus:error];
             break;
         case  802:
-            [SVProgressHUD showErrorWithStatus:@"用户已存在"];
+            [SVProgressHUD showErrorWithStatus:error];
             break;
         case  803:
             alertView = [[UIAlertView alloc]initWithTitle:@"余额不足" message:@"请到小区所在生活馆及时充值" delegate:viewController cancelButtonTitle:@"取消" otherButtonTitles:@"现在去充值", nil];
@@ -245,7 +241,7 @@
              [SVProgressHUD dismiss];
             break;
         case  805:
-            [SVProgressHUD showErrorWithStatus:@"验证码错误"];
+            [SVProgressHUD showErrorWithStatus:error];
             break;
         case  806:
             alertView = [[UIAlertView alloc]initWithTitle:@"密码错误" message:@"支付密码错误请重新输入" delegate:viewController cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
@@ -255,34 +251,34 @@
              [SVProgressHUD dismiss];
             break;
         case  807:
-            [SVProgressHUD showErrorWithStatus:@"格式错误"];
+            [SVProgressHUD showErrorWithStatus:error];
             break;
         case  808:
-            [SVProgressHUD showErrorWithStatus:@"无记录"];
+            [SVProgressHUD showErrorWithStatus:error];
             break;
         case  809:
-            [SVProgressHUD showErrorWithStatus:@"密记录已存在"];
+            [SVProgressHUD showErrorWithStatus:error];
             break;
         case  810:
-            [SVProgressHUD showErrorWithStatus:@"不存在"];
+            [SVProgressHUD showErrorWithStatus:error];
             break;
         case  811:
-            [SVProgressHUD showErrorWithStatus:@"操作数据失败"];
+            [SVProgressHUD showErrorWithStatus:error];
             break;
         case  820:
-            [SVProgressHUD showErrorWithStatus:@"商品不存在"];
+            [SVProgressHUD showErrorWithStatus:error];
             break;
         case  821:
-            [SVProgressHUD showErrorWithStatus:@"重复请求"];
+            [SVProgressHUD showErrorWithStatus:error];
             break;
         case  822:
-            [SVProgressHUD showErrorWithStatus:@"数量已满"];
+            [SVProgressHUD showErrorWithStatus:error];
             break;
         case  823:
-            [SVProgressHUD showErrorWithStatus:@"不在操作时间内"];
+            [SVProgressHUD showErrorWithStatus:error];
             break;
         case  824:
-            [SVProgressHUD showErrorWithStatus:@"所在区域未开通此功能"];
+            [SVProgressHUD showErrorWithStatus:error];
             break;
         case  825:
             alertView = [[UIAlertView alloc]initWithTitle:@"您的账号在其他设备上登录" message:@"是否要重新登录" delegate:viewController cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
@@ -292,10 +288,10 @@
             [SVProgressHUD dismiss];
         break;
         case  826:
-            [SVProgressHUD showErrorWithStatus:@"完善个人信息"];
+            [SVProgressHUD showErrorWithStatus:error];
             break;
         default:
-            [SVProgressHUD showErrorWithStatus:@"操作失败"];
+            [SVProgressHUD showErrorWithStatus:error];
             break;
     }
 }
@@ -304,7 +300,7 @@
 +(void)setLocalNotifyWithAlertBody:(NSString *)alertBody andType:(NSString *)type andFireDate:(NSString *)notifyTime{
     //chuagjian一个本地推送
     UIApplication *app = [UIApplication sharedApplication];
-    [app cancelAllLocalNotifications];
+//    [app cancelAllLocalNotifications];
     UILocalNotification *noti = [[UILocalNotification alloc] init];
     //设置推送时间
     noti.fireDate = [SharedAction notifyTime:notifyTime];
@@ -324,6 +320,17 @@
     //添加推送到uiapplication
     [app scheduleLocalNotification:noti];
     NSLog(@"alertBody:%@,type:%@,notifyTime:%@",alertBody,type,notifyTime);
+    
+    //获取本地推送数组
+    NSArray *localArr = [app scheduledLocalNotifications];
+    if (localArr) {
+        for (int i=0;i<localArr.count;i++) {
+            UILocalNotification *noti = localArr[i];
+            NSLog(@"UILocalNotification[%d].userInfo:%@",i,noti.userInfo);
+
+        }
+
+    }
 }
 
 //若time ealier now 则设置notifyTime==time；若time later now ，则设置notifyTime = time+one day；
@@ -380,9 +387,9 @@
     SharedData *sharedData = [SharedData sharedInstance];
     NSString *name = sharedData.loginname;
     NSString *password = sharedData.password;
-    NSString *urlString = [NSString stringWithFormat:LoginURL,name,password];
+    NSString *urlString = [NSString stringWithFormat:Base_Member_Login_URL,name,password];
     [SVProgressHUD showWithStatus:@"正在加载用户信息"];
-    [Login getModelFromURLWithString:urlString completion:^(Login *model,JSONModelError *error){
+    [Member_Login getModelFromURLWithString:urlString completion:^(Member_Login *model,JSONModelError *error){
         if (model.status==2) {
             sharedData.user=model.info;
             [SharedAction setUMessageTagsWithUser:model.info];
@@ -419,6 +426,26 @@
         NSLog(@"%@",jsonError);
     }
 }
+
++(void)commonActionWithUrl:(NSString *)url andStatus:(NSInteger)status andError:(NSString *)error andJSONModelError:(JSONModelError *)jsonError andObject:(id)object inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
+    NSLog(@"status=%ld url=%@ message=%@",(long)status,url,error);
+    if (!jsonError) {
+        if (status==2||status==808) {
+            done(object);
+            [SVProgressHUD showSuccessWithStatus:error];
+        }else{
+            if (error==nil||[error isEqualToString:@""])
+            {
+                [SVProgressHUD dismiss];
+            }else{
+                [SharedAction showErrorWithStatus:status andError:error witViewController:tabBarController];
+            }
+        }
+    }else{
+        NSLog(@"%@",jsonError);
+    }
+}
+
 +(void)setupRefreshWithTableView:(UITableView *)tableview toTarget:(UIViewController *)target
 {
     // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)

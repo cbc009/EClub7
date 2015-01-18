@@ -15,6 +15,6 @@
 
 -(void)presentPurchaseCarViewControllerOnViewController:(ItemDetailViewController *)viewController andItemCount:(NSString *)count;
 
--(void)addToPurchaseCarWithGid:(NSString *)gid andNum:(NSString *)num;
+-(void)addToPurchaseCarWithGid:(NSString *)gid andNum:(NSString *)num inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 //-(void)presentGoodDetaiViewControllerWithGid:(NSString *)gid AndName:(NSString *)name OnViewController:(UIViewController *)viewController;
 @end

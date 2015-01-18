@@ -8,7 +8,7 @@
 
 #import "QRCodeViewController.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import <UIImageView+WebCache.h>
 #import "QRCodeGenerator.h"
 #import "UserDefaults.h"
@@ -43,7 +43,7 @@
     else {
         self.name.text = value;
     }
-    self.address.text = user.sname;
+//    self.address.text = user.sname;
     self.QRImgView.image = [QRCodeGenerator qrImageForString:sharedData.password imageSize:self.QRImgView.frame.size.width];
     [self.userIcon sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]]  placeholderImage:[UIImage imageNamed:@"e"]];
 }

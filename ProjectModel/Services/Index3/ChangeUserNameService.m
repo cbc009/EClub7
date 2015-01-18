@@ -8,7 +8,7 @@
 
 #import "ChangeUserNameService.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "UserDefaults.h"
 #import "Status.h"
 #import "JSONModelLib.h"
@@ -30,12 +30,13 @@
         NSString *urlString = ChangeUserName;
         [JSONHTTPClient postJSONFromURLWithString:urlString params:dict completion:^(id object, JSONModelError *error) {
             NSNumber *status = object[@"status"];
+            NSString *error1 = object[@"error"];
             if ([status isEqual:[NSNumber numberWithInt:2]]) {
                 user.nickname = nicname;
                 [ChangeNameViewController.navigationController popViewControllerAnimated:YES];
                 [SVProgressHUD showSuccessWithStatus:@"操作成功"];
             }else{
-                [SharedAction showErrorWithStatus:[status integerValue] witViewController:ChangeNameViewController];
+                [SharedAction showErrorWithStatus:[status integerValue] andError:error1 witViewController:ChangeNameViewController];
             }
           
         }];

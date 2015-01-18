@@ -18,7 +18,7 @@
 #import "PurchaseCarItemsViewController.h"
 #import "MLFloatButton.h"
 #import "SVProgressHUD.h"
-#import "Login.h"
+#import "Member_Login.h"
 @interface GoodsViewController ()<MLFloatButtonDelegate>
 {
     BuyService *buyService;
@@ -135,8 +135,7 @@ if (alertView.tag==5) {
     Goods_type_subType *subtype = self.subtypes[index];
     subtypeId = subtype.subid;
     page = 1;
-    [self headerRereshing];
-    
+    [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
 }
 
 /*
@@ -145,6 +144,7 @@ if (alertView.tag==5) {
 -(void)setSegmentedControl:(UISegmentedControl *)seg WithArray:(NSArray *)array{
     NSInteger num = array.count;
     if (num<=1) {
+        self.segment.constant=0;
         [self.seg setHidden:YES];
     }else{
         for (NSInteger i=0; i<num; i++) {
@@ -158,16 +158,14 @@ if (alertView.tag==5) {
     }
 }
 
-
-
 #pragma mark 开始进入刷新状态
 - (void)headerRereshing
 {
     page = 1;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
-    [buyService type_goodsWithToken:user.token andUser_type:user.user_type andSubtypeId:subtypeId andPageString:pageString withDoneAndStatus:^(int status,Type_goods_info *model){
+    [SVProgressHUD show];
+    [buyService type_goodsWithToken:user.token andUser_type:user.user_type andSubtypeId:subtypeId andPageString:pageString inTabBarController:self.tabBarController withDone:^(Type_goods_info *model){
         self.datas =(NSMutableArray *)model.goods;
-        [SharedAction showErrorWithStatus:status witViewController:self];
         [self.tableview reloadData];
         [self.tableview headerEndRefreshing];
         
@@ -178,9 +176,8 @@ if (alertView.tag==5) {
 {
     page++;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
-    [buyService type_goodsWithToken:user.token andUser_type:user.user_type andSubtypeId:subtypeId andPageString:pageString withDoneAndStatus:^(int status,Type_goods_info *model){
+    [buyService type_goodsWithToken:user.token andUser_type:user.user_type andSubtypeId:subtypeId andPageString:pageString inTabBarController:self.tabBarController withDone:^(Type_goods_info *model){
         [self.datas addObjectsFromArray:model.goods];
-        [SharedAction showErrorWithStatus:status witViewController:self];
         [self.tableview reloadData];
         [self.tableview footerEndRefreshing];
     }];

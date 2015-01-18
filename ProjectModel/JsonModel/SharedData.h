@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Login.h"
+#import "Member_Login.h"
 @interface SharedData : NSObject
 
 @property(nonatomic,strong)UserInfo *user;
@@ -18,6 +18,8 @@
 @property(nonatomic,strong)NSString *iccard;
 @property(nonatomic,strong)NSString *amount;
 @property(nonatomic,assign)CGFloat redbag;
+
+@property(nonatomic,assign)float createPayPrice;
 +(id)sharedInstance;
 
 @end

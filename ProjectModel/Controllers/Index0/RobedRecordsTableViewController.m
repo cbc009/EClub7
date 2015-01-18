@@ -16,7 +16,7 @@
 #import "InternetRequest.h"
 #import "SVProgressHUD.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "Member_History.h"
 #import "Index0Service.h"
 @interface RobedRecordsTableViewController ()
@@ -51,7 +51,7 @@
     [_tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     addMoreRobeRecord = [[AddMoreRobedRecordService alloc] init];
     _page= 1;
-    self.title = @"抢菜记录";
+    self.title = @"抢购记录";
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,22 +77,12 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (alertView.tag==5) {
-    if(buttonIndex==1){
-        [SharedAction loginAggane];
-        NSArray *viewControllers = self.navigationController.viewControllers;
-        [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
-    }
-    }
-}
 -(void)headerRereshing
 {
     _page =1;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
-    [addMoreRobeRecord robuy_memberWithToken:user.token andUser_type:user.user_type andGId:self.gid andPage:pageString WithDownwithDone:^(int status,Rob_Record_Info *model){
+    [addMoreRobeRecord robuy_memberWithToken:user.token andUser_type:user.user_type andGId:self.gid andPage:pageString inTabBarController:self.tabBarController withDone:^(Rob_Record_Info *model){
         self.datas = (NSMutableArray *)model.member;
-        [SharedAction showErrorWithStatus:status witViewController:self];
         [self.tableview reloadData];
         [self.tableview headerEndRefreshing];
     }];
@@ -103,7 +93,7 @@
 {
     _page++;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
-    [addMoreRobeRecord robuy_memberWithToken:user.token andUser_type:user.user_type andGId:self.gid andPage:pageString WithDownwithDone:^(int status,Rob_Record_Info *model){
+    [addMoreRobeRecord robuy_memberWithToken:user.token andUser_type:user.user_type andGId:self.gid andPage:pageString inTabBarController:self.tabBarController withDone:^(Rob_Record_Info *model){
         [self.datas addObjectsFromArray:model.member];
         [self.tableview reloadData];
         [self.tableview footerEndRefreshing];

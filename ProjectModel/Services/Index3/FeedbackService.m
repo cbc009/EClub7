@@ -8,7 +8,7 @@
 
 #import "FeedbackService.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "SVProgressHUD.h"
 #import "Status.h"
 #import "JSONModelLib.h"
@@ -34,7 +34,7 @@
             NSLog(@"%ld",(long)status);
             [SharedAction showErrorWithStatus:status];
         }else{
-             NSNumber *sta = (NSNumber*)[object objectForKey:@"status"];
+            NSNumber *sta = (NSNumber*)[object objectForKey:@"status"];
             NSInteger status = [sta integerValue];
 
             NSLog(@"%ld",(long)status);

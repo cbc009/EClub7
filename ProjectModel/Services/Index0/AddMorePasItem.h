@@ -10,5 +10,5 @@
 #import "PastItemsTableViewController.h"
 #import "RewardRecordsViewController.h"
 @interface AddMorePasItem : NSObject
--(void)rob_goods_historyWithToken:(NSString *)token andUser_type:(NSInteger)user_type andPage:(NSString *)page withDone:(doneWithObjectAndStatus)done;
+-(void)rob_goods_historyWithToken:(NSString *)token andUser_type:(NSInteger)user_type andPage:(NSString *)page inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 @end

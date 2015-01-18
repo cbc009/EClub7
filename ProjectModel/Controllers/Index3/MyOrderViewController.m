@@ -24,34 +24,29 @@
 {
     MyOrderService *myOrderService;
     NSInteger page;
+    UserInfo *user;
+    NSInteger selectedSegmentIndex1;
+    NSInteger rereshinType;
+    
+   
 }
 @end
 
 @implementation MyOrderViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    page=1;
-    // Do any additional setup after loading the view.
+    SharedData *sharedData = [SharedData sharedInstance];
+    user = sharedData.user;
+    selectedSegmentIndex1=0;
     myOrderService = [[MyOrderService alloc] init];
-    [myOrderService loadTradeWithPage:page OrderInViewController:self];
+    self.items=[[NSMutableArray alloc] init];
+    [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
+
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -63,11 +58,11 @@
     if (self.orderType==TradeOrderType) {
         TradeOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TradeOrderCell"];
         NSInteger row = indexPath.row;
-        TradeOrder *order = [self.items objectAtIndex:row];
-        cell.demo.text = order.demo;
-        NSString *stamp = order.regtime;
-        cell.time.text = [stamp timeType3FromStamp:stamp];
-//        cell.total.text = [NSString stringWithFormat:@"￥:%@元",order.totals];
+         TradeOrder *order1 = [self.items objectAtIndex:row];
+        cell.demo.text = order1.demo;
+        cell.time.text = [order1.regtime substringToIndex:10];
+//        cell.total.hidden = YES;
+        cell.total.text = order1.status;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
     }else if(self.orderType==RobOrderType){
@@ -75,7 +70,6 @@
         NSInteger row = indexPath.row;
         RobOrder *order = [self.items objectAtIndex:row];
         [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,order.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
-        NSLog(@"%@",[NSString stringWithFormat:@"%@%@",IP,order.picture]);
         cell.name.text = order.name;
         NSString *stamp = order.regtime;
         cell.time.text = [stamp timeType3FromStamp:stamp];
@@ -86,7 +80,6 @@
         NSInteger row = indexPath.row;
         MyGroupOrder *order = [self.items objectAtIndex:row];
         [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,order.picture]]];
-        NSLog(@"%@",[NSString stringWithFormat:@"%@%@",IP,order.picture]);
         cell.name.text = order.name;
         cell.discount.text = [NSString stringWithFormat:@"%@元/%@",order.discount,order.unit];
 //        cell.price.text = [NSString stringWithFormat:@"%@元/%@",order.price,order.unit];
@@ -104,7 +97,6 @@
         cell.time.text = order.regtime;
         cell.status.text = order.status;
         return cell;
-    
     }else{
         return nil;
     }
@@ -125,59 +117,96 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath  {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-    if (self.orderType == TradeOrderType) {
-        NSInteger row = indexPath.row;
-        TradeOrder *order = [self.items objectAtIndex:row];
-        [myOrderService pushToDetailViewControllerWithItem:order onViewController:self];
-    }
 }
-
 
 - (IBAction)swicthAction:(id)sender {
     UISegmentedControl *seg = (UISegmentedControl *)sender;
-    if (seg.selectedSegmentIndex==0) {
-        [myOrderService loadTradeWithPage:page OrderInViewController:self];
-    }else if(seg.selectedSegmentIndex==1){
-        [myOrderService loadRobOrderInViewController:self];
-    }else if (seg.selectedSegmentIndex==2){
-        [myOrderService loadGroupOrderInViewController:self];
-    }else if(seg.selectedSegmentIndex==3){
-        [myOrderService loadKillOrderInViewController:self];
-    }
+    selectedSegmentIndex1=seg.selectedSegmentIndex;
+    [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
 }
 
-- (void)setupRefresh
-{
-    // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
-    [_tableview addHeaderWithTarget:self action:@selector(headerRereshing)];
-    [_tableview headerBeginRefreshing];
-    
-    // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
-    [_tableview addFooterWithTarget:self action:@selector(footerRereshing)];
-    
-    // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
-    _tableview.headerPullToRefreshText = @"下拉可以刷新了";
-    _tableview.headerReleaseToRefreshText = @"松开马上刷新了";
-    _tableview.headerRefreshingText = @"正在帮你刷新中";
-    
-    _tableview.footerPullToRefreshText = @"上拉可以加载更多数据了";
-    _tableview.footerReleaseToRefreshText = @"松开马上加载更多数据了";
-    _tableview
-    .footerRefreshingText = @"正在帮你加载中";
-}
 -(void)headerRereshing
 {
     page=1;
-    [_tableview headerEndRefreshing];
+    rereshinType=0;
+    [SVProgressHUD show];
+     NSString *pageString =[NSString stringWithFormat:@"%ld",(long)(long)page];
+    [self rereShingWithPageString:pageString andRereShingType:rereshinType];
 }
-
 
 - (void)footerRereshing
 {
     page++;
-    
-    [_tableview footerEndRefreshing];
+    rereshinType=1;
+     [SVProgressHUD show];
+    NSString *pageString =[NSString stringWithFormat:@"%ld",(long)(long)page];
+    [self rereShingWithPageString:pageString andRereShingType:rereshinType];
+}
+
+-(void)rereShingWithPageString:(NSString *)pageString andRereShingType:(NSInteger )rereshinType1{
+       if (selectedSegmentIndex1==0) {
+        [myOrderService loadOrderWithPage:pageString andToken:user.token andUser_type:user.user_type andSelectedSegmentIndex:selectedSegmentIndex1 inTabBarController:self.tabBarController withDone:^(TradeOrderInfo *model){
+            if (rereshinType1==0) {
+                 self.items = (NSMutableArray *)model.order;
+                 [_tableview headerEndRefreshing];
+            }else{
+                 [self.items addObjectsFromArray:model.order];
+                 [_tableview footerEndRefreshing];
+            }
+            self.orderType=TradeOrderType;
+            [self.tableview reloadData];
+        }];
+    }else if (selectedSegmentIndex1==1){
+        [myOrderService loadOrderWithPage:pageString andToken:user.token andUser_type:user.user_type andSelectedSegmentIndex:selectedSegmentIndex1 inTabBarController:self.tabBarController withDone:^(RobOrderInfo *model){
+            if (rereshinType1==0) {
+                self.items = (NSMutableArray *)model.order;
+                [_tableview headerEndRefreshing];
+            }else{
+                [self.items addObjectsFromArray:model.order];
+                  [_tableview footerEndRefreshing];
+            }
+            self.orderType=RobOrderType;
+            [self.tableview reloadData];
+        }];
+    }else if(selectedSegmentIndex1==2){
+        [myOrderService loadOrderWithPage:pageString andToken:user.token andUser_type:user.user_type andSelectedSegmentIndex:selectedSegmentIndex1 inTabBarController:self.tabBarController withDone:^(MyGroupOrderInfo *model){
+            if (rereshinType1==0) {
+                self.items = (NSMutableArray *)model.order;
+                [_tableview headerEndRefreshing];
+            }else{
+                [self.items addObjectsFromArray:model.order];
+                  [_tableview footerEndRefreshing];
+            }
+            self.orderType=GroupOrderType;
+            [self.tableview reloadData];
+        }];
+    }else{
+        [myOrderService loadOrderWithPage:pageString andToken:user.token andUser_type:user.user_type andSelectedSegmentIndex:selectedSegmentIndex1 inTabBarController:self.tabBarController withDone:^(MySecondInfo *model){
+            if (rereshinType1==0) {
+                self.items = (NSMutableArray *)model.order;
+                [_tableview headerEndRefreshing];
+            }else{
+                [self.items addObjectsFromArray:model.order];
+                  [_tableview footerEndRefreshing];
+            }
+            self.orderType=KillOrderType;
+            [self.tableview reloadData];
+        }];
+    }
+}
+
+#pragma mark - Navigation
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"goodToDetail"]) {
+        if (self.orderType==TradeOrderType){
+        NSIndexPath *indexPath = [self.tableview indexPathForSelectedRow];
+        NSInteger row = indexPath.row;
+        TradeOrder *order1 = [self.items objectAtIndex:row];
+        TradeOrderDetailViewController *viewController = segue.destinationViewController;
+        viewController.orderid = order1.orderid;
+        }
+    }
 }
 
 

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Guide_code.h"
 @interface AppViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UIImageView *QRCode;
-@property(nonatomic,retain)GUIde_info *guide;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property(nonatomic,strong)NSString *qrCode;
+@property(nonatomic,strong)NSArray *datas;
 @end

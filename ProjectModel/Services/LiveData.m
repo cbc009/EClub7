@@ -9,5 +9,8 @@
 #import "LiveData.h"
 
 @implementation LiveData
-
+-(void)countSizeWithData:(NSMutableArray *)data inBodyCell:(BodyCell *)bodyCell
+{
+    
+}
 @end

@@ -35,7 +35,12 @@
 @end
 @interface LiveModelInfo : JSONModel
 @property (nonatomic,strong)NSArray<DataInfo> *data;
+@property (nonatomic,strong)NSString <Optional>*life_picture;
+@property(nonatomic,strong)NSString <Optional>*mid;
+@property(nonatomic,strong)NSString <Optional>*nickname;
+@property(nonatomic,strong)NSString <Optional>*headpic;
 @end
+
 @interface LiveModel : JSONModel
 @property(nonatomic,strong)NSString *error;
 @property(nonatomic,assign)NSInteger status;

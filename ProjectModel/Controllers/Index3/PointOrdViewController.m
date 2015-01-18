@@ -38,8 +38,6 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"%@",self.datas);
-
      return self.datas.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -47,8 +45,6 @@
     PointOdrCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PointOdrCell" forIndexPath:indexPath];
     NSInteger row = indexPath.row;
     PointOrder *order = [self.datas objectAtIndex:row];
-    NSLog(@"%@",order);
-    NSLog(@"%@,%@,%@",order.point,order.demo,order.regtime);
     cell.name.text = order.demo;
     
     cell.price.text = [NSString stringWithFormat:@"E币:%@", order.point];
@@ -62,7 +58,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 55;
+    return 65;
 }
 
 /*

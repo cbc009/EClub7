@@ -10,7 +10,7 @@
 #import "SecondItemCell.h"
 #import "SecondeService.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import <UIImageView+WebCache.h>
 #import "SecondeChange.h"
 @interface SecondeChangeViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
@@ -25,12 +25,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    page =1;
-    SharedData *sharedData = [SharedData sharedInstance];
-    user = sharedData.user;
-    secondService = [[SecondeService alloc] init];
-    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
-    [secondService loadDataWithSid:user.sid andPage:pageString onSecondeChangeViewController:self];
+//    page =1;
+//    SharedData *sharedData = [SharedData sharedInstance];
+//    user = sharedData.user;
+//    secondService = [[SecondeService alloc] init];
+//    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
+//    [secondService loadDataWithSid:user.sid andPage:pageString onSecondeChangeViewController:self];
     // Do any additional setup after loading the view.
 }
 
@@ -68,16 +68,16 @@
  设置segmentedControl
  */
 - (IBAction)segAction:(UISegmentedControl *)sender {
-    page = 1;
-    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
-    if (sender.selectedSegmentIndex==1) {
-       
-        [secondService loadBuyDataWithSid:user.sid andPage:pageString onSecondeChangeViewController:self];
-
-    }else{
-        [secondService loadDataWithSid:user.sid andPage:pageString onSecondeChangeViewController:self];
-    }
-    
+//    page = 1;
+//    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
+//    if (sender.selectedSegmentIndex==1) {
+//       
+////        [secondService loadBuyDataWithSid:user.sid andPage:pageString onSecondeChangeViewController:self];
+//
+//    }else{
+////        [secondService loadDataWithSid:user.sid andPage:pageString onSecondeChangeViewController:self];
+//    }
+//    
 }
 
 

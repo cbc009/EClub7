@@ -6,13 +6,13 @@
 //  Copyright (c) 2014年 martin. All rights reserved.
 //
 
-#import "Login.h"
+#import "Member_Login.h"
 
 @implementation UserInfo
 
 
 @end
 
-@implementation Login
+@implementation Member_Login
 
 @end

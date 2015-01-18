@@ -10,6 +10,6 @@
 #import "RobedRecordsTableViewController.h"
 @interface AddMoreRobedRecordService : NSObject
 
--(void)robuy_memberWithToken:(NSString *)token andUser_type:(NSInteger )user_type andGId:(NSString *)gid andPage:(NSString *)page WithDownwithDone:(doneWithObjectAndStatus)done;
+-(void)robuy_memberWithToken:(NSString *)token andUser_type:(NSInteger )user_type andGId:(NSString *)gid andPage:(NSString *)page inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 
 @end

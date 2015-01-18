@@ -13,7 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *collectionview;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionviewHeight;
-- (IBAction)post:(id)sender;
+//- (IBAction)post:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *name;
 @property (weak, nonatomic) IBOutlet UITextField *price;
 @property (weak, nonatomic) IBOutlet UITextField *phone;

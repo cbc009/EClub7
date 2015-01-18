@@ -19,7 +19,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T73-jd-ptl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="710" y="-1794"/>
+            <point key="canvasLocation" x="878" y="-1966"/>
         </scene>
         <!--Rob View Controller-->
         <scene sceneID="VGt-kI-jmB">
@@ -33,7 +33,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="免费抢商品于每日下午公布" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5rj-ky-nxN">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="抢购商品于每日下午公布" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5rj-ky-nxN">
                                 <rect key="frame" x="0.0" y="142" width="320" height="31"/>
                                 <color key="backgroundColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -163,7 +163,7 @@
                                     <constraint firstAttribute="height" constant="30" id="x2c-cA-RMy"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                <state key="normal" title="查看往期免费商品"/>
+                                <state key="normal" title="查看往期抢购商品"/>
                                 <connections>
                                     <segue destination="SkP-qp-ZGt" kind="push" identifier="pastItems" id="eyN-dX-9iX"/>
                                 </connections>
@@ -182,7 +182,7 @@
                                     <constraint firstAttribute="width" constant="66" id="zZa-kG-T8C"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="抢菜记录">
+                                <state key="normal" title="抢购记录">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -248,12 +248,13 @@
                         <outlet property="itemNameLabel" destination="JQf-QB-RQH" id="Dnc-1P-Kk0"/>
                         <outlet property="itemPastPriceLabel" destination="Wpy-hl-eCk" id="RE5-G6-dcs"/>
                         <outlet property="pageView" destination="Acw-wB-Wdw" id="fpj-HJ-WNv"/>
+                        <outlet property="rob" destination="EQX-di-zyl" id="y1k-F1-Xo5"/>
                         <outlet property="startTimeButton" destination="69P-Ws-vrI" id="Md3-nN-O17"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hkM-ng-s3G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1370" y="-1850"/>
+            <point key="canvasLocation" x="1374" y="-1980"/>
         </scene>
         <!--Past Items Table View Controller-->
         <scene sceneID="hAT-ct-22i">
@@ -271,12 +272,12 @@
                     <navigationItem key="navigationItem" id="IEX-by-zX7"/>
                     <connections>
                         <outlet property="tableview" destination="Xff-IU-m4d" id="lIL-2D-IB1"/>
-                        <segue destination="T4S-jK-7uy" kind="push" id="CJx-ht-3Ug"/>
+                        <segue destination="T4S-jK-7uy" kind="push" identifier="robedRecords" id="CJx-ht-3Ug"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5FE-Y2-chp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1925" y="-1055"/>
+            <point key="canvasLocation" x="1917" y="-1159"/>
         </scene>
         <!--Robed Records Table View Controller-->
         <scene sceneID="YOC-h4-LZO">
@@ -310,6 +311,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="U3M-2K-Qz6"/>
+        <segue reference="CJx-ht-3Ug"/>
     </inferredMetricsTieBreakers>
 </document>

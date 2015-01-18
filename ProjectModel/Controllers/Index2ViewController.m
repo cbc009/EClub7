@@ -30,8 +30,8 @@
     [super viewDidLoad];
     index2Service = [[Index2Service alloc] init];
     // Do any additional setup after loading the view.
-    images = [[NSArray alloc] initWithObjects:@"order",@"order",@"jiaoyi",nil];
-    titles = [[NSArray alloc]initWithObjects:@"生活圈",@"快递查询",@"水煤电缴费",nil];
+    images = [[NSArray alloc] initWithObjects:@"main_custom_manage",@"project",@"order",@"jiaoyi",nil];
+    titles = [[NSArray alloc]initWithObjects:@"生活圈",@"生活体验馆",@"快递查询",@"水煤电缴费",nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,7 +52,6 @@
     NSUInteger row = indexPath.row;
     static NSString *identifier = @"Index3_1Cell";
     Index3_1Cell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
-    
     cell.imgView.image = [UIImage imageNamed:[images objectAtIndex:row]];
     cell.title.text = [titles objectAtIndex:row];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -65,22 +64,18 @@
     NSInteger row = indexPath.row;
     switch (row) {
         case 1:
-            [index2Service presentEmsViewControllerOnViewController:self];
-            break;
-        case 2:
-            [index2Service presentAlipayViewControllerOnViewController:self];
-            break;
-        case 3:
-            [index2Service presentMyneighborViewControllerOnViewController:self];
-            break;
-        case 4:
-            [index2Service presentSecondeChangeViewControllerOnViewController:self];
+            [index2Service presenterLifeHallViewControllerOnViewController:self];
             break;
         case 0:
             [index2Service presentLiveViewControllerOnViewController:self];
             break;
-
-               default:
+        case 2:
+             [index2Service presentEmsViewControllerOnViewController:self];
+            break;
+        case 3:
+            [index2Service presentAlipayViewControllerOnViewController:self];
+            break;
+        default:
             NSLog(@"didSelect:%ld",(long)section);
             [SVProgressHUD showImage:nil status:@"功能尚未开放，敬请期待"];
             break;

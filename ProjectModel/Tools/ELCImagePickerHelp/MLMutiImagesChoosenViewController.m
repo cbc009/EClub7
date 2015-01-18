@@ -30,7 +30,12 @@ static NSString * const reuseIdentifier = @"ChoosenImageCell2";
 
 -(void)setupCollectionview{
     UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];
-    float space = 10;
+    float space ;
+    if (self.imageMode==getImagesMode) {
+        space = 10;
+    }else if (self.imageMode==browseImagesMode){
+        space = 0;
+    }
     flowlayout.itemSize = CGSizeMake(self.collectionviewHeight-space*2, self.collectionviewHeight-space*2);
     flowlayout.sectionInset = UIEdgeInsetsMake(space, space, space, space);
 //    flowlayout.minimumInteritemSpacing = 10.0f;
@@ -40,8 +45,8 @@ static NSString * const reuseIdentifier = @"ChoosenImageCell2";
     self.collectionView.showsHorizontalScrollIndicator = NO;
     CGRect frame = self.superView.frame;
     frame.origin.y=0;
+    frame.origin.x=0;
     self.collectionView.frame = frame;
-    NSLog(@"%@",NSStringFromCGRect(self.collectionView.frame));
     self.chooseImages = [NSMutableArray arrayWithObject:[UIImage imageNamed:@"bg_uploadimage_addimage_takephoto.png"]];
 }
 #pragma UIActionSheetDelegate
@@ -109,6 +114,7 @@ static NSString * const reuseIdentifier = @"ChoosenImageCell2";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ChoosenImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+   
     if (self.imageMode==getImagesMode) {
         cell.imgView.image = self.chooseImages[indexPath.row];
     }else if(self.imageMode == browseImagesMode){
@@ -128,7 +134,7 @@ static NSString * const reuseIdentifier = @"ChoosenImageCell2";
             MLImagesBrowserViewController *target = [[MLImagesBrowserViewController alloc] initWithNibName:@"MLImagesBrowserViewController" bundle:nil];
             target.imageType = UIImageType;
             target.images = [self.chooseImages subarrayWithRange:NSMakeRange(0, self.chooseImages.count-1)];//（必填）
-            //        target.titles = [NSArray arrayWithObjects:@"1",@"2",@"3", @"4",nil];//设置图片对应的title（可选）
+            // target.titles = [NSArray arrayWithObjects:@"1",@"2",@"3", @"4",nil];//设置图片对应的title（可选）
             target.defaultLocationIndex = indexPath.row;//这一步必须放在最后。（可选）
             [self.navigationController pushViewController:target animated:YES];
             
@@ -137,11 +143,10 @@ static NSString * const reuseIdentifier = @"ChoosenImageCell2";
         MLImagesBrowserViewController *target = [[MLImagesBrowserViewController alloc] initWithNibName:@"MLImagesBrowserViewController" bundle:nil];
         target.imageType = UIImageUrlType;
         target.imgUrls = self.imageUrls;//（必填）
-        //        target.titles = [NSArray arrayWithObjects:@"1",@"2",@"3", @"4",nil];//设置图片对应的title（可选）
+        // target.titles = [NSArray arrayWithObjects:@"1",@"2",@"3", @"4",nil];//设置图片对应的title（可选）
         target.defaultLocationIndex = indexPath.row;//这一步必须放在最后。（可选）
         [self.navigationController pushViewController:target animated:YES];
     }
-    
 }
 
 -(void)insertImage:(UIImage *)image toChooseImages:(NSMutableArray *)images withUpdateCollectionView:(UICollectionView *)collectionView{

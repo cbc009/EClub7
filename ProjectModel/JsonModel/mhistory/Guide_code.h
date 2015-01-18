@@ -16,7 +16,7 @@
 @property (nonatomic,retain)NSString *regtime;
 @end
 @interface GUIde_info : JSONModel
-@property(nonatomic,strong)NSArray <Member_info>*member;
+@property(nonatomic,strong)NSArray <Member_info,Optional>*member;
 @property(nonatomic,strong)NSString *qrcode;
 @end
 @interface Guide_code : JSONModel

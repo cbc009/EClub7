@@ -16,14 +16,14 @@
 #import "AdvertPic.h"
 #import "Index0Service.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "WebViewController.h"
 #import "MJRefresh.h"
+#import "BalanceModel.h"
 @implementation CallHistoryService
 
 -(void)call_historyWithToken:(NSString *)token andUser_type:(NSInteger )user_type andPageString:(NSString *)pageString withDoneObject:(doneWithObject)done{
     NSString *urlString = [NSString stringWithFormat:Call_History_URL,token,user_type,pageString];
-    NSLog(@"%@",urlString);
     [Call_history_Model getModelFromURLWithString:urlString  completion:^(Call_history_Model *object,JSONModelError *error){
         [SharedAction commonActionWithUrl:urlString andStatus:object.status andError:object.error andJSONModelError:error andObject:object.info withDone:done];
     }];
@@ -39,7 +39,7 @@
             
             [self loadAdPictureWithImgInfos:pictures InViewController:viewController];
         }else{
-            [SharedAction showErrorWithStatus:model.status witViewController:viewController];
+            [SharedAction showErrorWithStatus:model.status andError:model.error witViewController:viewController];
         }
         
     }];
@@ -65,5 +65,12 @@
     WebViewController *target = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
         [viewController.navigationController pushViewController:target animated:YES];
 }
-
+//获取话费剩余分钟
+-(void)baseBalanceWithToken:(NSString *)token andUser_type:(NSInteger)user_type withTabBarViewController:(UITabBarController*)tabBarController doneObject:(doneWithObject)done
+{
+    NSString *urlString = [NSString stringWithFormat:Base_Balance_URL,token,user_type];
+    [BalanceModel getModelFromURLWithString:urlString completion:^(BalanceModel *model,JSONModelError *error){
+        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
+    }];
+}
 @end

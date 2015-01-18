@@ -11,9 +11,10 @@
 #import "PointViewControllerService.h"
 #import <UIImageView+WebCache.h>
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "MJRefresh.h"
 #import "SVProgressHUD.h"
+#import "PointGoodsModel.h"
 @interface PointViewController () <UICollectionViewDataSource,UICollectionViewDelegate>
 {
     NSString *identifier;
@@ -29,15 +30,13 @@
     [super viewDidLoad];
     self.title = @"商品兑换";
     self.page = 1;
-    identifier = @"PointCollectionViewCell";
     pointViewControllerService  = [[PointVIewControllerService alloc] init];
     dic = [[NSMutableDictionary alloc] init];
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.itemSize = CGSizeMake(self.view.frame.size.width/2, ItemHeight*5);
+    layout.itemSize = CGSizeMake(122,  149);
     layout.minimumInteritemSpacing = 0;
     self.collectionview.collectionViewLayout = layout;
-    UINib *nib = [UINib nibWithNibName:@"PointCollectionViewCell" bundle:nil];
-    [self.collectionview registerNib:nib forCellWithReuseIdentifier:identifier];
+    identifier = @"PointCollectionViewCell";
     [self setupRefresh];
 }
 
@@ -47,39 +46,43 @@
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
+    [super viewDidDisappear:animated];
     [SVProgressHUD dismiss];
 }
 #pragma UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return self.datas.count;
-    NSLog(@"%ld",(long)self.datas.count);
 }
-//- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-//{
-//    return 1;
-//}
+
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     PointCollectionViewCell *Cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PointCollectionViewCell" forIndexPath:indexPath];
     dic = self.datas[indexPath.row];
-    NSLog(@"%@",dic);
     Cell.name.text = [dic valueForKey:@"name"];
-    NSLog(@"%@",[dic valueForKey:@"picture"]);
-    Cell.pasPrize.text = [NSString stringWithFormat:@"%@元/%@",[dic valueForKey:@"price"],[dic valueForKey:@"unit"]];
-    [Cell.imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,[dic valueForKey:@"picture"]]] placeholderImage:[UIImage imageNamed:@"e"]];
+    [Cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,[dic valueForKey:@"picture"]]] placeholderImage:[UIImage imageNamed:@"e"]];
     Cell.EPrize.text =[NSString stringWithFormat:@"E: %@",[dic valueForKey:@"point"]];
     return Cell;
 }
 #pragma UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+//    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     NSInteger row = indexPath.row;
     NSLog(@"didSelect:%ld",(long)row);
     dic = self.datas[row];
     [pointViewControllerService presentPointGoodViewControllerWithDatas:dic OnPointViewController:self];
    
 }
+- (void)collectionView:(UICollectionView *)colView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell* cell = [colView cellForItemAtIndexPath:indexPath];
+    cell.contentView.backgroundColor = [UIColor colorWithRed:238/255.0 green:238/255.0  blue:238/255.0  alpha:1];
+}
+
+- (void)collectionView:(UICollectionView *)colView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell* cell = [colView cellForItemAtIndexPath:indexPath];
+    cell.contentView.backgroundColor = nil;
+}
+
 - (void)setupRefresh
 {
     // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
@@ -105,9 +108,11 @@
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
-    [pointViewControllerService loadDataWithToken:user.token andUser_type:user.user_type AndPage:pageString OnViewCOntroller:self];
-    [_collectionview headerEndRefreshing];
-    
+    [pointViewControllerService loadDataWithToken:user.token andUser_type:user.user_type AndPage:pageString intabBarController:self.tabBarController withDone:^(GoodInfo *model){
+        self.datas = (NSMutableArray *)model.goods;
+        [self.collectionview reloadData];
+        [_collectionview headerEndRefreshing];
+    }];
 }
 
 
@@ -117,10 +122,24 @@
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
-    [pointViewControllerService loadMoreDataWithToken:user.token andUser_type:user.user_type AndPage:pageString OnViewCOntroller:self];
-    [_collectionview footerEndRefreshing];
+    [pointViewControllerService loadDataWithToken:user.token andUser_type:user.user_type AndPage:pageString intabBarController:self.tabBarController withDone:^(GoodInfo *model){
+        [self.datas addObjectsFromArray:model.goods];
+        [self.collectionview reloadData];
+        [_collectionview footerEndRefreshing];
+    }];
 }
-
+#pragma UIAlertDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag==5) {
+        if(buttonIndex==1){
+            [SharedAction loginAggane];
+            NSArray *viewControllers = self.navigationController.viewControllers;
+            [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
+            
+        }
+    }
+}
 //-(void)setSelectedColorInCollectionView:(UICollectionView *)collectionView withSelectedRow:(NSInteger)row withDatas:(NSArray *)datas{
 //    NSInteger count = 2;
 //}

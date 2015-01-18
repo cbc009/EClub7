@@ -10,7 +10,7 @@
 #import "SVProgressHUD.h"
 #import "LoginViewController.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "JSONModelLib.h"
 #import "SharedAction.h"
 #import "AdvertPic.h"
@@ -18,7 +18,7 @@
 #import "CallPhoneViewController.h"
 #import "BalanceModel.h"
 #import "BalanceData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "BuyService.h"
 @implementation Index0Service
 
@@ -33,9 +33,9 @@
         SharedData *sharedData = [SharedData sharedInstance];
         NSString *name = sharedData.loginname;
         NSString *password = sharedData.password;
-        NSString *urlString = [NSString stringWithFormat:LoginURL,name,password];
+        NSString *urlString = [NSString stringWithFormat:Base_Member_Login_URL,name,password];
         [SVProgressHUD showWithStatus:@"正在加载用户信息"];
-        [Login getModelFromURLWithString:urlString completion:^(Login *model,JSONModelError *error){
+        [Member_Login getModelFromURLWithString:urlString completion:^(Member_Login *model,JSONModelError *error){
             if (model.status==2) {
                 sharedData.user=model.info;
 //                [self GetBalanceWithToken:sharedData.user.token andUser_type:sharedData.user.user_type onViewController:viewController];
@@ -66,7 +66,7 @@
             viewController.pageviewDatas = pictures;
             [viewController.tableview reloadData];
         }else{
-            [SharedAction showErrorWithStatus:model.status witViewController:viewController];
+            [SharedAction showErrorWithStatus:model.status andError:model.error witViewController:viewController];
         }
     }];
 }

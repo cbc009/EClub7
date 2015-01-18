@@ -7,11 +7,15 @@
 //
 
 #import "TradeOrderDetailViewController.h"
-#import "TradeOrderDetailCell.h"
+//#import "TradeOrderDetailCell.h"
 #import "OrderDetailData.h"
 #import <UIImageView+WebCache.h>
+#import "MyOrderService.h"
 @interface TradeOrderDetailViewController ()
-
+{
+    UserInfo *user;
+    MyOrderService *myOrderService;
+}
 @end
 
 @implementation TradeOrderDetailViewController
@@ -28,7 +32,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    SharedData *sharedData = [SharedData sharedInstance];
+    user = sharedData.user;
+     myOrderService= [[MyOrderService alloc] init];
+    [myOrderService goodsOrderDetailWithToken:user.token andUser_type:user.user_type andTabViewController:self.tabBarController andOrderid:self.orderid witdone:^(OrderDetailInfo *order){
+         OrderDetail *model = order.goods[0];
+        [self.picture sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+        self.name.text = model.name;
+        self.numbs.text= [NSString stringWithFormat:@"数量:%@",model.num];
+        self.price.text = [NSString stringWithFormat:@"单价:%@",model.discount];
+        self.totalPrice.text = [NSString stringWithFormat:@"总价:%@",model.total];
+        if ([order.status isEqualToString:@"2"]) {
+            self.cancel.hidden =NO;
+        }else{
+         self.cancel.hidden =YES;
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -38,26 +58,7 @@
 }
 
 
-#pragma UITableViewDataSource
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.items.count;
-}
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    TradeOrderDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TradeOrderDetailCell"];
-    NSInteger row = indexPath.row;
-    OrderDetail *order = [self.items objectAtIndex:row];
-    [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,order.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
-    cell.name.text = order.name;
-    cell.num.text = [NSString stringWithFormat:@"数量:%@",order.num];
-    cell.discount.text = [NSString stringWithFormat:@"单价:%@",order.discount];
-    cell.total.text = [NSString stringWithFormat:@"总价:%@",order.total];
-    return cell;
-}
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -66,6 +67,12 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
 
+- (IBAction)deleate:(id)sender {
+    [myOrderService goodsOrderReturnwithToken:user.token andUser_type:user.user_type andOrderid:self.orderid inTabbarViewController:self.tabBarController withDone:^(id model){
+    
+    }];
+    
+    
+}
 @end

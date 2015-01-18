@@ -23,5 +23,6 @@
 @property (weak, nonatomic) IBOutlet MartinLiPageScrollView *pageView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *height;
 @property (copy, nonatomic ) NSString *itemPic;
+@property (weak, nonatomic) IBOutlet UIButton *rob;
 
 @end

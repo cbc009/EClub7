@@ -9,7 +9,7 @@
 #import "PointOrderService.h"
 #import "SharedAction.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "PointOrder.h"
 #import "JSONModelLib.h"
 #import "SVProgressHUD.h"

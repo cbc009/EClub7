@@ -11,17 +11,17 @@
 #import "Push_history.h"
 #import "SVProgressHUD.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "SharedAction.h"
 #import "MJRefresh.h"
 @implementation MorePush_historyService
 
 
--(void)loadPush_historyWithsid:(NSInteger )sid andPage:(NSString *)page InViewController:(MorePush_history *)viewController
+-(void)loadPush_historyWithToken:(NSString *)token andUser_type:(NSInteger )user_type andPage:(NSString *)page InViewController:(MorePush_history *)viewController
 {
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
-    NSString *urlString = [NSString stringWithFormat:Push_History,user.mid,page];
+    NSString *urlString = [NSString stringWithFormat:Push_History,user.token,user_type,page];
     [SVProgressHUD show];
     NSLog(@"%@",urlString);
     [Push_history getModelFromURLWithString:urlString completion:^(Push_history *model,JSONModelError *error){
@@ -36,11 +36,9 @@
     }];
     
 }
--(void)loadMorePush_historyWithsid:(NSInteger )sid andPage:(NSString *)page InViewController:(MorePush_history *)viewController
+-(void)loadMorePush_historyWithToken:(NSString *)token andUser_type:(NSInteger )user_type andPage:(NSString *)page InViewController:(MorePush_history *)viewController
 {
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
-    NSString *urlString = [NSString stringWithFormat:Push_History,user.mid,page];
+    NSString *urlString = [NSString stringWithFormat:Push_History,token,user_type,page];
     [SVProgressHUD show];
     [Push_history getModelFromURLWithString:urlString completion:^(Push_history *model,JSONModelError *error){
         if (model.status == 2) {

@@ -53,7 +53,7 @@
     _webview.hidden = YES;
     // 由于contentsize是326 所以让contensize与scrollview的宽度相等
     _webview.scrollView.contentSize =_webview.scrollView.frame.size;
-       [webView setScalesPageToFit:YES];
+//       [webView setScalesPageToFit:YES];
     [self showActivityIndicatorView: activityIndicatorView inView:self.view];
 }
 

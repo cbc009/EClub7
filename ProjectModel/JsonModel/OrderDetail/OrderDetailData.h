@@ -23,8 +23,8 @@
 @property(nonatomic,strong)NSString *amount;
 @property(nonatomic,strong)NSString *shipping_fee;
 @property(nonatomic,assign)float totals;
-@property(nonatomic,strong)NSArray<OrderDetail>* goods;
-
+@property(nonatomic,strong)NSString *status;
+@property(nonatomic,strong)NSArray<OrderDetail>*goods;
 @end
 
 @interface OrderDetailData : JSONModel

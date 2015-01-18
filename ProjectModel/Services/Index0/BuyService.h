@@ -16,5 +16,5 @@
 -(void)setSelectedColorInCollectionView:(UICollectionView *)collectionView withSelectedRow:(NSInteger)row withDatas:(NSArray *)datas;
 -(void)loadGoodTypesWithToken:(NSString *)token andUser_type:(NSInteger )user_type InViewController:(UIViewController *)viewController;
 //-(void)type_goodsWithToken:(NSString *)token andUser_type:(NSInteger )user_type andSubtypeId:(NSString *)subtypeId andPageString:(NSString *)pageString withDone:(doneWithObject)done;
--(void)type_goodsWithToken:(NSString *)token andUser_type:(NSInteger )user_type andSubtypeId:(NSString *)subtypeId andPageString:(NSString *)pageString withDoneAndStatus:(doneWithObjectAndStatus)done;
+-(void)type_goodsWithToken:(NSString *)token andUser_type:(NSInteger )user_type andSubtypeId:(NSString *)subtypeId andPageString:(NSString *)pageString inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 @end

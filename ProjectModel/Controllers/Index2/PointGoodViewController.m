@@ -7,12 +7,13 @@
 //
 
 #import "PointGoodViewController.h"
-
-
 #import "PointGoodViewControllerService.h"
+#import "Status.h"
+#import <UIImageView+WebCache.h>
 @interface PointGoodViewController ()
 {
     NSInteger sum;
+    UserInfo *user;
     PointGoodViewControllerService *pointGoodViewControllerService;
 }
 @end
@@ -23,18 +24,27 @@
     [super viewDidLoad];
     self.title = @"商品兑换详情";
     pointGoodViewControllerService = [[PointGoodViewControllerService alloc] init];
-    
-    [pointGoodViewControllerService LoadDataInPointGoodViewController:self];
+    self.title = [self.dict valueForKey:@"name"];
+    [self.goodImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,[self.dict valueForKey:@"bigpicture"]]] placeholderImage:[UIImage imageNamed:@"e"]];
+//    self.pasPrize.text = [NSString stringWithFormat:@"%@/%@",[self.dict valueForKey:@"price"],[self.dict valueForKey:@"unit"]];
+//    self.vipPrize.text = [NSString stringWithFormat:@"%@/%@",[self.dict valueForKey:@"price"],[self.dict valueForKey:@"unit"]];
+    self.ePrize.text = [NSString stringWithFormat:@"%@/份",[self.dict valueForKey:@"point"]];;
+    self.gid = [[self.dict valueForKey:@"gid"]integerValue];
     sum = 1;
     self.num.text = [NSString stringWithFormat:@"%ld",(long)sum];
-        
+    SharedData *sharedData = [SharedData sharedInstance];
+    user = sharedData.user;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
 }
-
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [SVProgressHUD dismiss];
+}
 /*
 #pragma mark - Navigation
 
@@ -46,18 +56,32 @@
 */
 #pragma UIAlertDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    NSString *password = [[alertView textFieldAtIndex:0] text];
-    if (buttonIndex==0) {
-        
-    }else if(buttonIndex == 1){
-        [pointGoodViewControllerService addOderInPointGoodViewController:self WithPassword:password AndSum:sum];
+    if (alertView.tag==5) {
+        if(buttonIndex==1){
+            [SharedAction loginAggane];
+            NSArray *viewControllers = self.navigationController.viewControllers;
+            [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
+        }
+    }else
+        if (alertView.tag==4){
+             NSString *password = [[alertView textFieldAtIndex:0] text];
+            if (buttonIndex==0) {
+            }else if(buttonIndex == 1){
+            [pointGoodViewControllerService addOderINPointGoodWithToken:user.token andUser_type:user.user_type andGId:self.gid andNus:self.num.text andPassword:password inTabBarController:self.tabBarController withDone:^(Status *model){
+            }];
+            }
+    } else {
+         NSString *password = [[alertView textFieldAtIndex:0] text];
+       if(buttonIndex == 1){
+           [pointGoodViewControllerService addOderINPointGoodWithToken:user.token andUser_type:user.user_type andGId:self.gid andNus:self.num.text andPassword:password inTabBarController:self.tabBarController withDone:^(Status *model){
+           }];
+       }
     }
 }
 
 - (IBAction)Add:(id)sender {
     sum ++;
     self.num.text = [NSString stringWithFormat:@"%ld",(long)sum];
-    
 }
 
 - (IBAction)Releas:(id)sender {

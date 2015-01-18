@@ -14,6 +14,7 @@
 #import "CallHistoryService.h"
 #import "CallHistoryViewCell.h"
 #import "Call_history_Model.h"
+#import "CallPhone.h"
 #import "SharedData.h"
 #import "BalanceData.h"
 #import "BalanceModel.h"
@@ -21,6 +22,8 @@
 #import "MJRefresh.h"
 #import "WebViewController.h"
 #import "Index0Service.h"
+#import "Base_Balance_Model.h"
+#import "SiginModel.h"
 #define width self.view.frame.size.width
 #define height1 self.view.frame.size.height
 @interface CallPhoneViewController ()<ABPeoplePickerNavigationControllerDelegate>
@@ -33,35 +36,42 @@
     ButtonVIew *btnView;
     UIButton *btn2;
     UserInfo *user;
-    int j;
+    int j;//0键盘隐藏状态，1键盘显示状态
 }
 @end
 
 @implementation CallPhoneViewController
 
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden=NO;
+    [SharedAction setupRefreshWithTableView:self.tableView toTarget:self];
+    SharedData *sharedData = [SharedData sharedInstance];
+    user = sharedData.user;
+    self.minutes.text = [NSString stringWithFormat:@"%ld分钟",(long)user.phone_minute];
+    NSString *urlString = [NSString stringWithFormat:AdPictUrl,user.city,2];
+    [callhistoryservice loadAdverPicFromUrl:urlString inViewController:self];
+}
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [SVProgressHUD dismiss];
+}
 -(void)loadView
 {
     [super loadView];
     [self.minutes setEnabled:NO];
     dic = [[NSDictionary alloc] init];
-    SharedData *sharedData = [SharedData sharedInstance];
-    user = sharedData.user;
-    self.minutes.text = [NSString stringWithFormat:@"%ld分钟",(long)user.phone_minute];
+   
     page =1;
     callhistoryservice = [[CallHistoryService alloc] init];
     self.automaticallyAdjustsScrollViewInsets = NO;
-   
+    
 }
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    NSString *urlString = [NSString stringWithFormat:AdPictUrl,user.city,2];
-    [callhistoryservice loadAdverPicFromUrl:urlString inViewController:self];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [SharedAction setupRefreshWithTableView:self.tableView toTarget:self];
-    call = [[CallService alloc] init];
+       call = [[CallService alloc] init];
     [self addButton];
     [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
@@ -130,6 +140,23 @@
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 60;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    return 0;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    dic = self.datas[indexPath.section];
+    [self keyboardUp];
+    self.phone.text = [dic valueForKey:@"phone"];
+    
+}
+
 -(void)load:(UIButton *)sender
 {
     if (sender.tag == 0) {
@@ -151,6 +178,7 @@
 }
 -(void)keyboardUp{
     
+    j=1;
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
     [btn2 setImage:[UIImage imageNamed:@"call_menu_downs"] forState:UIControlStateNormal];
@@ -159,6 +187,7 @@
 }
 -(void)keyboardDown
 {
+    j=0;
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
     self.phone.text = @"";
@@ -176,7 +205,9 @@
             if (self.phone.text.length<3) {
                 [SVProgressHUD showErrorWithStatus:@"请输入有效的电话号码"];
             }else {
-                [call CallPhoneWithToken:user.token andUser_type:user.user_type AndPhone:self.phone.text OnViewCOntroller:self];
+                [call CallPhoneWithToken:user.token andUser_type:user.user_type AndPhone:self.phone.text intabBarController:self.tabBarController withdone:^(Phones_Info *model){
+                    [SVProgressHUD showErrorWithStatus:@"转接成功请注意接听"];
+                }];
             }
             break;
         case 1:
@@ -237,7 +268,6 @@
     //    [call CallPhoneWithMid:mid AndPhone:phone1 OnViewCOntroller:self];
     self.phone.text = phone1;
     [self keyboardUp];
-    j =0;
     [peoplePicker dismissViewControllerAnimated:YES completion:nil];
     return NO;
 }
@@ -245,22 +275,7 @@
     [peoplePicker dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 60;
-}
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    
-    return 0;
-}
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    dic = self.datas[indexPath.section];
-    [self keyboardUp];
-    self.phone.text = [dic valueForKey:@"phone"];
-    
-}
 
 -(void)headerRereshing
 {
@@ -300,9 +315,17 @@
         NSLog(@"第%ld张图片暂无url",(long)index);
     }
 }
-
+#pragma mark - Navigation
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    if ([segue.identifier isEqualToString:@"ToHelp"]) {
+//        self.hidesBottomBarWhenPushed=YES;
+//    }
+//}
 - (IBAction)qiandao:(id)sender {
-    [call SiginWithToken:user.token andUser_Type:user.user_type OnViewController:self];
+    [call SiginWithToken:user.token andUser_Type:user.user_type intabBarController:self.tabBarController withdone:^(SiginIfo *model){
+    self.minutes.text =[NSString stringWithFormat:@"%ld分钟",(long)model.minutes];
+    }];
 
 }
 @end

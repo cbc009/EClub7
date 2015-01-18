@@ -21,10 +21,11 @@
 @end
 
 @interface RobOrderInfo : JSONModel
-@property(nonatomic,strong)NSArray<RobOrder>* order;
+@property(nonatomic,strong)NSArray<RobOrder,Optional>* order;
 @end
 
 @interface RobOrderData : JSONModel
-@property(nonatomic,strong)RobOrderInfo* info;
+@property(nonatomic,strong)RobOrderInfo<Optional>*info;
 @property(nonatomic,assign)NSInteger status;
+@property(nonatomic,strong)NSString *error;
 @end

@@ -16,16 +16,17 @@
 
 @implementation SearchService
 
--(void)goodsSearchWithToken:(NSString *)token andUser_type:(NSInteger )user_type anName:(NSString *)name withDoneObject:(doneWithObject)done
+-(void)goodsSearchWithToken:(NSString *)token andUser_type:(NSInteger )user_type anName:(NSString *)name inTabBarController:(UITabBarController *)tabBarController withDoneObject:(doneWithObject)done
 {
     NSString *user_type1 =  [NSString stringWithFormat: @"%ld",(long)user_type];;
-    NSDictionary *dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:user_type1,token,name,nil] forKeys:[NSArray arrayWithObjects:@"user_type1",@"token",@"name", nil]];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:user_type1,token,name,nil] forKeys:[NSArray arrayWithObjects:@"user_type",@"token",@"name", nil]];
     [JSONHTTPClient postJSONFromURLWithString:Goods_search_URL params:dict completion:^(id object ,JSONModelError *error){
         NSInteger status1 =[ (NSNumber *)[object objectForKey:@"status"] integerValue];
         NSString *error1 = (NSString *)[object objectForKey:@"error"];
         NSDictionary *modelInfo = (NSDictionary *)[object objectForKey:@"info"];
           NSArray *array = (NSArray *)[modelInfo objectForKey:@"goods"];
-        [SharedAction commonActionWithUrl:Goods_search_URL andStatus:status1 andError:error1 andJSONModelError:error andObject:array withDone:done];
+        [SharedAction commonActionWithUrl:Goods_search_URL andStatus:status1 andError:error1 andJSONModelError:error andObject:array inTabBarController:tabBarController withDone:done];
     }];
 }
+
 @end

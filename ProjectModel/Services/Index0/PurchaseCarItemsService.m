@@ -18,11 +18,11 @@
 
 //加载数据
 
--(void)ItemsInCarWithToken:(NSString *)token andUser_type:(NSInteger )user_type withDoneObject:(doneWithObject)done
+-(void)ItemsInCarWithToken:(NSString *)token andUser_type:(NSInteger )user_type inTabBarController:(UITabBarController *)tabBarController withDoneObject:(doneWithObject)done
 {
     NSString *urlString = [NSString stringWithFormat:ItemsInCar_URL,token,user_type];
       [Cart getModelFromURLWithString:urlString completion:^(Cart *object,JSONModelError *error){
-          [SharedAction commonActionWithUrl:urlString andStatus:object.status andError:object.error andJSONModelError:error andObject:object.info withDone:done];
+          [SharedAction commonActionWithUrl:urlString andStatus:object.status andError:object.error andJSONModelError:error andObject:object.info inTabBarController:tabBarController withDone:done];
         }];
 }
 /*
@@ -177,7 +177,7 @@
             [SVProgressHUD showSuccessWithStatus:@"删除成功"];
             [self deleteCellInPurchaseViewController:viewController atIndexPath:indexPath];
         }else{
-            [SharedAction showErrorWithStatus:object.status];
+            [SharedAction showErrorWithStatus:object.status andError:object.error witViewController:viewController];
             NSLog(@"%@",error);
         }
     }];

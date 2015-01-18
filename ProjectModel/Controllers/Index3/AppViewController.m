@@ -11,10 +11,11 @@
 #import <UIImageView+WebCache.h>
 #import "QRCodeGenerator.h"
 #import "AppQRocde.h"
+#import "APPQRCodeCell.h"
+#import "JoinMemberCell.h"
+#import "RecommendCell.h"
 @interface AppViewController ()
-{
-    NSString *qrcodeURL;
-}
+
 @end
 
 @implementation AppViewController
@@ -32,13 +33,55 @@
      self.title = @"应用推荐";
     SharedData *sharedData = [SharedData sharedInstance];
     AppQRocde *appQRcodeService = [[AppQRocde alloc] init];
+    [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [appQRcodeService loadDataWithToken:sharedData.user.token AndUser_type:sharedData.user.user_type withDone:^(GUIde_info *model){
-        self.QRCode.image = [QRCodeGenerator qrImageForString:model.qrcode imageSize:self.QRCode.frame.size.width];
-        qrcodeURL = model.qrcode;
-        NSLog(@"%@",model.qrcode);
+        self.qrCode = model.qrcode;
+        self.datas = (NSArray*)model.member;
+        [self.tableView reloadData];
     }];
+    
+}
+#pragma UITableViewDataSource
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (section==2) {
+        return self.datas.count;
+    }else{
+        return 1;
+    }
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 3;
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section==0) {
+        APPQRCodeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"APPQRCodeCell" forIndexPath:indexPath];
+         cell.QRCimage.image = [QRCodeGenerator qrImageForString:self.qrCode imageSize:cell.QRCimage.frame.size.width];
+        return cell;
+    }else if (indexPath.section==2){
+        NSInteger row = indexPath.row;
+        JoinMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"JoinMemberCell" forIndexPath:indexPath];
+        Member_info *model =self.datas[row];
+        cell.name.text =model.nickname;
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+        return cell;
+    }else{
+        RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RecommendCell" forIndexPath:indexPath];
+        return cell;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section==0) {
+        return 270;
+    }else{
+        return 60;
+    }
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -54,7 +97,7 @@
 }
 */
 - (IBAction)shareAction:(id)sender {
-    [SharedAction shareWithTitle:@"E小区" andDesinationUrl:qrcodeURL Text:@"最近在用'E小区'在线免费抢菜，抽奖，秒杀，买菜，感觉挺好的，小小的推荐一下。" andImageUrl:@"qrenCode.jpg" InViewController:self];
+    [SharedAction shareWithTitle:@"E小区" andDesinationUrl:self.qrCode  Text:@"最近在用'E小区'在线免费抢菜，抽奖，秒杀，买菜，感觉挺好的，小小的推荐一下。" andImageUrl:@"qrenCode.jpg" InViewController:self];
 }
 
 

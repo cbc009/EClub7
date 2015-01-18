@@ -31,7 +31,7 @@
                 <constraint firstItem="rOZ-nm-ahi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="96s-21-UeI"/>
                 <constraint firstAttribute="trailing" secondItem="rOZ-nm-ahi" secondAttribute="trailing" id="IPp-br-4r4"/>
             </constraints>
-            <point key="canvasLocation" x="267" y="349"/>
+            <point key="canvasLocation" x="267" y="276"/>
         </view>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

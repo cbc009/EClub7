@@ -195,7 +195,7 @@
                     <navigationItem key="navigationItem" title="E电话" id="6wS-Yk-Q22">
                         <barButtonItem key="rightBarButtonItem" title="帮助" id="iMs-fi-CPY">
                             <connections>
-                                <segue destination="XXA-xp-i2Q" kind="push" id="7xf-zO-af1"/>
+                                <segue destination="XXA-xp-i2Q" kind="push" identifier="ToHelp" id="7xf-zO-af1"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -461,7 +461,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zHS-g7-Ygn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-558" y="-153"/>
+            <point key="canvasLocation" x="-966" y="-621"/>
         </scene>
         <!--Reward Records View Controller-->
         <scene sceneID="Xu8-wa-7ER">
@@ -501,7 +501,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Xd-hO-PEp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-117" y="351"/>
+            <point key="canvasLocation" x="-525" y="-117"/>
         </scene>
         <!--活动规则-->
         <scene sceneID="2iT-4O-Mtg">
@@ -559,7 +559,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QRh-Mv-Qum" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-117" y="-460"/>
+            <point key="canvasLocation" x="-525" y="-928"/>
         </scene>
     </scenes>
     <resources>

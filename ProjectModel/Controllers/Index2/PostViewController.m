@@ -9,7 +9,7 @@
 #import "PostViewController.h"
 #import "PostGood.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "MLMutiImagesChoosenViewController.h"
 #import "SVProgressHUD.h"
 #import "PostbuyViewController.h"
@@ -44,12 +44,12 @@
 }
 
 
-- (IBAction)post:(id)sender {
-    NSLog(@"%@",mutiImagesContoller.chooseImages);
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user= sharedData.user;
-    [postGood postGoodWithmid:user.mid andSid:user.sid andTitle:self.name.text andContent:self.content.text andDegree:self.newold.text andPrice:self.price.text andName:user.nickname andMobile:self.phone.text andImageArray:mutiImagesContoller.chooseImages onViewController:self];
-}
+//- (IBAction)post:(id)sender {
+//    NSLog(@"%@",mutiImagesContoller.chooseImages);
+//    SharedData *sharedData = [SharedData sharedInstance];
+////    UserInfo *user= sharedData.user;
+////    [postGood postGoodWithmid:user.mid andSid:user.sid andTitle:self.name.text andContent:self.content.text andDegree:self.newold.text andPrice:self.price.text andName:user.nickname andMobile:self.phone.text andImageArray:mutiImagesContoller.chooseImages onViewController:self];
+//}
 
 - (IBAction)segment:(UISegmentedControl *)sender {
     if (sender.selectedSegmentIndex==1) {

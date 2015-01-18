@@ -82,8 +82,7 @@ enum {
 	CGImageRelease(qrCGImage);
 	CGColorSpaceRelease(colorSpace);
 	QRcode_free(code);
-	
-	return qrImage;
+    return qrImage;
 }
 
 @end

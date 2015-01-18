@@ -45,7 +45,7 @@
         [index0Service loadUserDefaultsInViewController:self];
     }
 
-    self.collectionDatas = [NSArray arrayWithObjects:@"抢菜",@"充值",@"秒杀",@"抽奖",@"团购",@"兑换",@"购物车",@"钱包", nil];
+    self.collectionDatas = [NSArray arrayWithObjects:@"抢购",@"充值",@"秒杀",@"抽奖",@"团购",@"兑换",@"购物车",@"钱包", nil];
     self.collectionImgs = [NSArray arrayWithObjects:@"rob.jpg",@"recharge.jpg",@"seckill.jpg",@"lotterydraw.jpg",@"team_buy.jpg",@"exchange.jpg",@"buy.jpg",@"wallet.jpg", nil];
     
   

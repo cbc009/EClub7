@@ -9,8 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface CreatePayService : NSObject
--(void)loadCreatePayOrderInfoWithMid:(NSInteger )mid andPrice:(NSString *)price finished:(doneWithObject)done;
-
--(void)reloadAmoutAfterPopToViewControllerInNav:(UINavigationController *)nav;
-
+//-(void)loadCreatePayOrderInfoWithMid:(NSInteger )mid andPrice:(NSString *)price finished:(doneWithObject)done;
+-(void)create_orderWithToken:(NSString *)token andUserType:(NSInteger)userType andPrice:(NSString *)price inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
+-(void)pushToMyWalletViewControllerInTabBarController:(UITabBarController *)tabBarController;
 @end

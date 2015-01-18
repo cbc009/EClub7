@@ -30,4 +30,5 @@
 @interface MyNeighbor : JSONModel
 @property (nonatomic ,strong) MyNeighborInfo<Optional> *info;
 @property (nonatomic ,assign) NSInteger status;
+@property (nonatomic, strong)NSString <Optional>*error;
 @end

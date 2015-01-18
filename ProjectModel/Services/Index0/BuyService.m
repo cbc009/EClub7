@@ -9,7 +9,7 @@
 #import "BuyService.h"
 #import "SVProgressHUD.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "MenuListViewController.h"
 #import "MenuCollectionCell.h"
 #import "Goods_type.h"
@@ -49,7 +49,7 @@
             [viewController.tableview reloadData];
             [SVProgressHUD dismiss];
         }else{
-            [SharedAction  showErrorWithStatus:model.status witViewController:viewController];
+            [SharedAction  showErrorWithStatus:model.status andError:model.error witViewController:viewController];
         }
     }];
     
@@ -59,17 +59,10 @@
     刷新商品
  */
 
-//-(void)type_goodsWithToken:(NSString *)token andUser_type:(NSInteger )user_type andSubtypeId:(NSString *)subtypeId andPageString:(NSString *)pageString withDone:(doneWithObject)done
-//{
-////      NSString *urlString = [NSString stringWithFormat:Type_goodsURL,token,user_type,subtypeId,pageString];
-////    [Type_goods getModelFromURLWithString:urlString completion:^(Type_goods *model,JSONModelError *error){
-////        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info withDone:done];
-////    }];
-//}
--(void)type_goodsWithToken:(NSString *)token andUser_type:(NSInteger )user_type andSubtypeId:(NSString *)subtypeId andPageString:(NSString *)pageString withDoneAndStatus:(doneWithObjectAndStatus)done{
+-(void)type_goodsWithToken:(NSString *)token andUser_type:(NSInteger )user_type andSubtypeId:(NSString *)subtypeId andPageString:(NSString *)pageString inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
     NSString *urlString = [NSString stringWithFormat:Type_goodsURL,token,user_type,subtypeId,pageString];
     [Type_goods getModelFromURLWithString:urlString completion:^(Type_goods *model,JSONModelError *error){
-        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info withDoneAndStatus:done];
+        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
     }];
 }
 @end

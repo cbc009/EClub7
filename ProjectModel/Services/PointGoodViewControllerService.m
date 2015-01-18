@@ -8,10 +8,10 @@
 
 #import "PointGoodViewControllerService.h"
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import <UIImageView+WebCache.h>
 #import "SharedData.h"
-#import "Login.h"
+#import "Member_Login.h"
 #import "MyMD5.h"
 #import "JSONModelLib.h"
 #import "Status.h"
@@ -20,17 +20,20 @@
 
 -(void)LoadDataInPointGoodViewController:(PointGoodViewController *)viewController
 {
-    viewController.title = [viewController.dict valueForKey:@"name"];
-    [viewController.goodImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,[viewController.dict valueForKey:@"bigpicture"]]] placeholderImage:[UIImage imageNamed:@"e"]];
-    viewController.pasPrize.text = [NSString stringWithFormat:@"%@/%@",[viewController.dict valueForKey:@"price"],[viewController.dict valueForKey:@"unit"]];
-    viewController.vipPrize.text = [NSString stringWithFormat:@"%@/%@",[viewController.dict valueForKey:@"price"],[viewController.dict valueForKey:@"unit"]];
-    viewController.ePrize.text = [NSString stringWithFormat:@"%@/份",[viewController.dict valueForKey:@"point"]];;
+    
 
     
 }
+-(void)addOderINPointGoodWithToken:(NSString *)token andUser_type:(NSInteger )user_type andGId:(NSInteger )gid andNus:(NSString *)nums andPassword:(NSString *)passwd inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done
+{
+     NSString *password = [MyMD5 md5:passwd];
+    NSString *urlString = [NSString stringWithFormat:PointSignUp,token,user_type,gid,nums,password];
+    [Status getModelFromURLWithString:urlString completion:^(Status *model,JSONModelError *error){
+        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model inTabBarController:tabBarController withDone:done];
+    }];
+}
 -(void)addOderInPointGoodViewController:(PointGoodViewController *)viewController WithPassword:(NSString *)password AndSum:(NSInteger )sum
 {
-    NSLog(@"%@,%ld",password,(long)sum);
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
     NSString *gid = [viewController.dict valueForKey:@"gid"];

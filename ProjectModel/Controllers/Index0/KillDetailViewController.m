@@ -23,7 +23,7 @@
 @interface KillDetailViewController ()<UITableViewDataSource,UITableViewDelegate,KillServiceDelegate>
 {
     NSTimer *timer;
-    NSInteger initTime;
+//    NSInteger initTime;
     NSInteger countDownSeconds;
     GroupService *groupService;
     KillService *killService;
@@ -48,16 +48,22 @@
     killService = [[KillService alloc] init];
     killService.delegate = self;
     self.tableview.scrollEnabled =YES;
-    [killService kill_CountDownWithToken:user.token andUser_type:user.user_type andGid:self.good.gid withObject:^(Kill_CountDown_Info *model){
+    [killService kill_CountDownWithToken:user.token andUser_type:user.user_type andGid:self.good.gid intabBarController:self.tabBarController withObject:^(Kill_CountDown_Info *model){
         [self startCountDownActionWithSeconds:model.seconds];
         [self.tableview reloadData];
     }];
-    [killService kill_Second_MemberWithToken:user.token andUser_type:user.user_type andGid:self.good.gid withDone:^(int status,KillSuccess_Info *model){
-        [SharedAction showErrorWithStatus:status witViewController:self];
+    [killService kill_Second_MemberWithToken:user.token andUser_type:user.user_type andGid:self.good.gid inTabBarController:self.tabBarController withDone:^(KillSuccess_Info *model){
+       
         self.datas =(NSArray *)model.member;
         [self.tableview reloadData];
     }];
     
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [SVProgressHUD dismiss];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -95,6 +101,8 @@
         Success_Member_info *model = self.datas[row];
         cell.nickname.text  = model.nickname;
         [cell.herad sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+        cell.herad.layer.masksToBounds = YES;
+        cell.herad.layer.cornerRadius = 30;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     } else {
@@ -117,7 +125,7 @@
 }
 #pragma KillServiceDelegate
 -(void)startCountDownActionWithSeconds:(NSInteger)seconds{
-    initTime = seconds;
+//    initTime = seconds;
     countDownSeconds = seconds;
     timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDownTimer) userInfo:nil repeats:YES];
 }
@@ -125,7 +133,7 @@
 
 - (IBAction)buyAction:(id)sender {
     
-    if (initTime == -1) {
+    if (countDownSeconds == -1) {
         [SVProgressHUD showErrorWithStatus:@"商品已过期"];
     }else if (countDownSeconds==0) {
         [killService killInViewController:self];
@@ -137,7 +145,8 @@
 -(void)countDownTimer{
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     KillDetailCell *cell = (KillDetailCell *)[self.tableview cellForRowAtIndexPath:indexPath];
-        if (initTime==-1) {
+    if (countDownSeconds==-1) {
+        self.buyButton.hidden=YES;
         cell.result.text = [NSString stringWithFormat:@"秒光了瞬间秒杀%@ %@",self.good.actual_num,self.good.unit];
         [self.buyButton setBackgroundColor:[UIColor grayColor]];
         [timer invalidate];
