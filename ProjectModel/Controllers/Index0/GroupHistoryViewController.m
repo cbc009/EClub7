@@ -32,7 +32,7 @@
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
     self.tableView.showsVerticalScrollIndicator =NO;
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    self.tableView.tableFooterView=[UIView new];
     [SharedAction setupRefreshWithTableView:self.tableView toTarget:self];
       self.automaticallyAdjustsScrollViewInsets = YES;
 

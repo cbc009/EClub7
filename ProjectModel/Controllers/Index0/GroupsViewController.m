@@ -40,7 +40,7 @@
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
     _tableview.showsVerticalScrollIndicator =NO;
-    [_tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    self.tableview.tableFooterView =[UIView new];
     [groupService groupsGoodsfutureWithToken:user.token andUser_type:user.user_type intabBarController:self.tabBarController withDone:^(Groups_Info *model){
         self.datas = model.goods;
         [self.tableview reloadData];

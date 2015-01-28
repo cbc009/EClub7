@@ -118,7 +118,7 @@
         }else{
             cell.deleteContent.hidden=YES;
         }
-        cell.lableHeight.constant =[self.labeHeightlArray[indexPath.row]floatValue];
+        cell.lableHeight.constant =[NSString heightWithString:model.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-84-7, 600)];
         cell.tableFarm.constant = 8;
         cell.herad.layer.masksToBounds = YES;
         cell.herad.layer.cornerRadius = 30;
@@ -244,14 +244,16 @@
         }
     }];
 }
+
+
 -(void)someoneDetailInCell:(BodyCell *)cell
 {
     NSIndexPath *indexpath = [self.tableview indexPathForCell:cell];
-    model = self.datas[indexpath.row];
+    DataInfo *object = self.datas[indexpath.row];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index2" bundle:nil];
     PeopleDetailViewController *peopleDetailViewController = [storyboard instantiateViewControllerWithIdentifier:@"PeopleDetailViewController"];
     peopleDetailViewController.hidesBottomBarWhenPushed = YES;
-    peopleDetailViewController.mid= [model.mid integerValue];
+    peopleDetailViewController.model=object;
     [self.navigationController pushViewController:peopleDetailViewController animated:YES];
 }
 //修改背景图片
@@ -267,7 +269,10 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index2" bundle:nil];
     PeopleDetailViewController *peopleDetailViewController = [storyboard instantiateViewControllerWithIdentifier:@"PeopleDetailViewController"];
     peopleDetailViewController.hidesBottomBarWhenPushed = YES;
-    peopleDetailViewController.mid = user.mid;
+    DataInfo *object = [DataInfo new];
+    object.mid = [NSString stringWithFormat:@"%ld",(long)user.mid];
+    object.nickname = user.nickname;
+    peopleDetailViewController.model = object;
     [self.navigationController pushViewController:peopleDetailViewController animated:YES];
 }
 //相机相关

@@ -29,7 +29,7 @@
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
     _tableview.showsVerticalScrollIndicator =NO;
-    [_tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    self.tableview.tableFooterView =[UIView new];
     [service kill_Goods_historyWithToken:user.token andUser_type:user.user_type intabBarController:self.tabBarController withDone:^(KillGoodInfo1 *model){
         self.datas = (NSMutableArray *)model.goods;
         [self.tableview reloadData];

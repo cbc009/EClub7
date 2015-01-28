@@ -28,10 +28,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tableview.tableFooterView = [UIView new];
     index2Service = [[Index2Service alloc] init];
     // Do any additional setup after loading the view.
     images = [[NSArray alloc] initWithObjects:@"living_circle",@"project",@"main_custom_manage",@"order",@"jiaoyi",nil];
     titles = [[NSArray alloc]initWithObjects:@"生活圈",@"生活体验馆",@"合作商家",@"快递查询",@"水煤电缴费",nil];
+    
 }
 
 - (void)didReceiveMemoryWarning

@@ -29,11 +29,9 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.tableview.tableFooterView =[UIView new];
     service = [[KillService alloc] init];
     _tableview.showsVerticalScrollIndicator =NO;
-    [_tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-//    [service loadKillListInViewController:self];
     SharedData *shareData = [SharedData sharedInstance];
     [service goods_futureWithToken:shareData.user.token andUser_type:shareData.user.user_type inTabBarController:self.tabBarController withDone:^(KillGoodInfo *model){
         self.datas = model.goods;

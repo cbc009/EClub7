@@ -98,7 +98,8 @@
     CGSize mWebViewTextSize = [webView sizeThatFits:CGSizeMake(1.0f, 1.0f)];
     frame.size = mWebViewTextSize;
     self.webview.frame = frame;
-    [self.scrollview setContentSize:CGSizeMake(DeviceFrame.size.width, mWebViewTextSize.height+1)];
+    [self.scrollview setContentSize:CGSizeMake(DeviceFrame.size.width, mWebViewTextSize.height+480)];
+    NSLog(@"%f",self.scrollview.frame.size.height);
     self.webviewHeight.constant = mWebViewTextSize.height+50;
 }
 //- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request   navigationType:(UIWebViewNavigationType)navigationType {
@@ -111,35 +112,31 @@
 - (IBAction)shareAction:(id)sender {
     [SharedAction shareWithTitle:self.groupGood.name andDesinationUrl:AppDownLoadURL Text:@"在E小区中团购了我偶喜欢的宝贝好开心" andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.groupGood.bigpicture] InViewController:self];
 }
-
+//tag ==1 余额不足 tag==2//没有会员卡 tag==4密码错误 tag==5异地登陆
 #pragma UIAlertDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (alertView.tag==5) {
-        if(buttonIndex==1){
-            [SharedAction loginAggane];
-            NSArray *viewControllers = self.navigationController.viewControllers;
-            [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
-        
-        }
-    }else if (alertView.tag==2) {
-        if (buttonIndex==0) {
-        }else if(buttonIndex == 1){
-           
-        }
-    }else  if (alertView.tag==1) {
+   if (alertView.tag==1) {
         if (buttonIndex==0) {
         }else if(buttonIndex == 1){
             [groupService presentCreatePayViewControllerOnViewController:self];
         }
-    }else if (alertView.tag==4){
+   }else  if (alertView.tag==2) {
+       if (buttonIndex==0) {
+       }else if(buttonIndex == 1){
+       }
+   }else if (alertView.tag==4){
         NSString *password = [[alertView textFieldAtIndex:0] text]; 
         if (buttonIndex==0) {
-         
         }else if(buttonIndex == 1){
             [groupService addToGroupWithPassword:password andToken:user.token andUser_type:user.user_type andGid:gid andNums:self.numbs.text inTabBarController:self.tabBarController withDoneObject:^(Status *model){
-           
             }];
+        }
+    }else  if (alertView.tag==5) {
+        if(buttonIndex==1){
+            [SharedAction loginAggane];
+            NSArray *viewControllers = self.navigationController.viewControllers;
+            [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
         }
     }else {
             NSString *password = [[alertView textFieldAtIndex:0] text];

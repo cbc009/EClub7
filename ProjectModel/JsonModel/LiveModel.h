@@ -27,8 +27,8 @@
 @property(nonatomic,strong)NSString *mid;
 @property(nonatomic,strong)NSString *nickname;
 @property(nonatomic,strong)NSString *headpic;
-@property(nonatomic,strong)NSString *xid;
-@property(nonatomic,strong)NSString *content;
+@property(nonatomic,strong)NSString <Optional>*xid;
+@property(nonatomic,strong)NSString <Optional>*content;
 @property(nonatomic,strong)NSString *regtime;
 @property(nonatomic,strong)NSArray<Picture_Info,Optional>*picture;
 @property(nonatomic,strong)NSArray<CommentInfo,Optional>*comment;

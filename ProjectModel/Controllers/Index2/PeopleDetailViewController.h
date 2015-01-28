@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "LiveModel.h"
 @interface PeopleDetailViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray *cellHeightArray;
 @property (nonatomic,strong)NSMutableArray *labelHeightArrar;
 @property(nonatomic,strong)NSMutableArray *datas;
-@property(nonatomic,assign)NSInteger mid;
+@property(nonatomic,strong)DataInfo *model;
 @end

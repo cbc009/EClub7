@@ -11,6 +11,7 @@
 #import "ButtonVIew.h"
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
+#include <AddressBook/ABRecord.h>
 #import "CallHistoryService.h"
 #import "CallHistoryViewCell.h"
 #import "Call_history_Model.h"
@@ -74,7 +75,8 @@
     [super viewDidLoad];
        call = [[CallService alloc] init];
     [self addButton];
-    [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+ 
+    self.tableView.tableFooterView =[UIView new];
 }
 
 -(void)addButton
@@ -134,9 +136,11 @@
 {
     CallHistoryViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CallHistoryViewCell" forIndexPath:indexPath];
     Data_Info* model = self.datas[indexPath.section];
-    cell.name.text = model.name;
+    cell.name.text = [self getNameBytel:model.phone];
+    NSLog(@"namedsr:%@",cell.name.text);
     cell.time.text =[NSString stringWithFormat:@"%@分",model.minutes];
     cell.phone.text = model.phone;
+   
     cell.regtime.text = model.regtime;
     return cell;
 }
@@ -263,10 +267,8 @@
     ABMultiValueRef multiValue = ABRecordCopyValue(person,property);
     CFIndex index = ABMultiValueGetIndexForIdentifier(multiValue, identifier);
     NSString *phone1 = (__bridge NSString *)ABMultiValueCopyValueAtIndex(multiValue, index);
-    NSString *name = (__bridge NSString *)ABRecordCopyValue(person, kABPersonFirstNameProperty);
-    NSString *name1 =(__bridge NSString *)ABRecordCopyValue(person, kABPersonLastNameProperty);
-    NSLog(@"%@,%@",name,name1);
-    //    [call CallPhoneWithMid:mid AndPhone:phone1 OnViewCOntroller:self];
+//    NSString *name = (__bridge NSString *)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+//    NSString *name1 =(__bridge NSString *)ABRecordCopyValue(person, kABPersonLastNameProperty);
     self.phone.text = phone1;
     [self keyboardUp];
     [peoplePicker dismissViewControllerAnimated:YES completion:nil];
@@ -275,7 +277,46 @@
 - (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker{
     [peoplePicker dismissViewControllerAnimated:YES completion:nil];
 }
-
+#pragma mark - 根据电话查出姓名
+-(NSString *)getNameBytel:(NSString *)telstr
+{
+    NSMutableArray* personArray = [[NSMutableArray alloc] init];
+    //打开电话本数据库
+    ABAddressBookRef addressRef=ABAddressBookCreate();
+    NSString *firstName, *lastName, *fullName;
+    //返回所有联系人到一个数组中
+    personArray = (__bridge NSMutableArray *)ABAddressBookCopyArrayOfAllPeople(addressRef);
+    //返回联系人数量
+    //    CFIndex personCount = ABAddressBookGetPersonCount(addressRef);
+    for (id person in personArray)
+    {
+        firstName = (__bridge NSString *)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonFirstNameProperty);
+        firstName = [firstName stringByAppendingFormat:@" "];
+        lastName = (__bridge NSString *)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonLastNameProperty);
+        if (lastName !=nil)
+        {
+            fullName = [firstName stringByAppendingFormat:@"%@",lastName];
+        }
+        else
+        {
+            fullName = firstName;
+        }
+        ABMultiValueRef phones = (ABMultiValueRef) ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonPhoneProperty);
+        for(int i = 0 ;i < ABMultiValueGetCount(phones); i++)
+        {
+            NSString *phone = (__bridge NSString *)ABMultiValueCopyValueAtIndex(phones, i);
+            phone = [phone stringByReplacingOccurrencesOfString:@"(" withString:@""];
+            phone = [phone stringByReplacingOccurrencesOfString:@")" withString:@""];
+            phone = [phone stringByReplacingOccurrencesOfString:@"-" withString:@""];
+            phone = [phone stringByReplacingOccurrencesOfString:@" " withString:@""];
+            if ([phone isEqualToString:telstr])
+            {
+                return fullName;
+            }
+        }
+    }
+    return nil;
+}
 
 
 -(void)headerRereshing

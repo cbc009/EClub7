@@ -34,7 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"商城搜索";
-    self.colorPool = @[@"#7ecef4", @"#84ccc9", @"#88abda",@"#7dc1dd",@"#b6b8de"];
+//    self.colorPool = @[@"#7ecef4", @"#84ccc9", @"#88abda",@"#7dc1dd",@"#b6b8de"];
     
     [self setupTagView];
     [self.search becomeFirstResponder];
@@ -131,15 +131,16 @@
 }
 - (void)setupTagView
 {
+    SKTagView *view;
     self.tagView = ({
-        SKTagView *view = [SKTagView new];
-        view.backgroundColor = UIColor.cyanColor;
+        view = [SKTagView new];
+        view.backgroundColor = [UIColor clearColor];
         view.padding    = UIEdgeInsetsMake(10, 25, 10, 25);
         view.insets    = 5;
-        view.lineSpace = 2;
+        view.lineSpace = 3;
         view;
     });
-    self.tagView.frame = CGRectMake(0, 120, self.view.frame.size.width, 80);
+    self.tagView.frame = CGRectMake(0, 120, self.view.frame.size.width, view.lineSpace*40);
     [self.view addSubview:self.tagView];
 //    [self.tagView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        UIView *superView = self.view;
@@ -148,7 +149,7 @@
 //        make.trailing.equalTo(superView.mas_trailing);
 //    }];
     //Add Tags
-    [@[@"青椒", @"小红椒", @"地板油", @"五花肉", @"芦花鸡",@"有机大豆", @"大米"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
+    [@[@"青椒", @"小红椒", @"地板油", @"五花肉", @"芦花鸡",@"有机大豆", @"大米",@"韭菜",@"青椒", @"小红椒", @"地板油", @"五花肉", @"芦花鸡"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
      {
          SKTag *tag = [SKTag tagWithText:obj];
          tag.textColor = UIColor.whiteColor;

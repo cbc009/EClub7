@@ -38,6 +38,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tableview.tableFooterView = [UIView new];
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
     selectedSegmentIndex1=0;

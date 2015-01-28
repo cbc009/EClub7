@@ -46,6 +46,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tableview.tableFooterView =[UIView new];
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
     __block PurchaseCarItemsViewController *purchSelf =self;
@@ -53,7 +54,6 @@
             purchSelf.datas = (NSMutableArray *)model.goods;
             _tableview.showsVerticalScrollIndicator =NO;
             purchSelf.datasStorage =(NSMutableArray<GoodForSubmit> *)[puchaseCarItemsService goodsForSubmitByItems:(NSMutableArray<Good> *)model.goods];
-            [_tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
             totalNum = [puchaseCarItemsService totalPriceByitems:model.goods];
             purchSelf.totalPrice.text = [NSString stringWithFormat:@"总计:￥%0.1f",totalNum];
             [purchSelf.tableview reloadData];

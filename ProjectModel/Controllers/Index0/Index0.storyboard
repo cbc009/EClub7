@@ -92,7 +92,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="67" height="89"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="928E05D4-E2E1-442B-8C6F-D22CF26BC8F4" translatesAutoresizingMaskIntoConstraints="NO" id="MzM-4p-edY">
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="C870EECE-8315-42B8-B55F-D2572560B0A8" translatesAutoresizingMaskIntoConstraints="NO" id="MzM-4p-edY">
                                                                         <rect key="frame" x="1" y="0.0" width="65" height="65"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="65" id="vfI-sW-coq"/>
@@ -1697,10 +1697,10 @@
                                 </connections>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JYY-Vh-F23">
-                                <rect key="frame" x="0.0" y="519" width="320" height="49"/>
+                                <rect key="frame" x="0.0" y="474" width="320" height="45"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ss1-18-JZR">
-                                        <rect key="frame" x="65" y="11" width="206" height="30"/>
+                                        <rect key="frame" x="65" y="8" width="206" height="30"/>
                                         <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="购买">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1712,19 +1712,19 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="49" id="UWY-Sk-rH1"/>
+                                    <constraint firstAttribute="height" constant="45" id="5TX-Pu-s35"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="5cD-Jl-cvJ" firstAttribute="top" secondItem="lft-Ft-G1p" secondAttribute="bottom" id="HKt-fw-ajo"/>
-                            <constraint firstItem="JYY-Vh-F23" firstAttribute="leading" secondItem="5cD-Jl-cvJ" secondAttribute="leading" id="VXc-O4-osp"/>
-                            <constraint firstItem="JYY-Vh-F23" firstAttribute="trailing" secondItem="5cD-Jl-cvJ" secondAttribute="trailing" id="X5R-8s-bgW"/>
+                            <constraint firstItem="64B-1e-J9S" firstAttribute="top" secondItem="JYY-Vh-F23" secondAttribute="bottom" id="LRf-SH-cf1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="JYY-Vh-F23" secondAttribute="trailing" constant="-16" id="Rzu-Nb-zt8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5cD-Jl-cvJ" secondAttribute="trailing" constant="-16" id="cgw-3q-7Ds"/>
                             <constraint firstItem="64B-1e-J9S" firstAttribute="top" secondItem="5cD-Jl-cvJ" secondAttribute="bottom" id="jCb-0y-yf1"/>
                             <constraint firstItem="5cD-Jl-cvJ" firstAttribute="leading" secondItem="5RO-Ln-PZi" secondAttribute="leadingMargin" constant="-16" id="q1y-5X-3no"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="JYY-Vh-F23" secondAttribute="bottom" id="wFx-NT-QGd"/>
+                            <constraint firstItem="JYY-Vh-F23" firstAttribute="leading" secondItem="5RO-Ln-PZi" secondAttribute="leadingMargin" constant="-16" id="rY5-W8-d7R"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cHj-1N-1T6">
@@ -2801,7 +2801,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="928E05D4-E2E1-442B-8C6F-D22CF26BC8F4" width="200" height="200">
+        <image name="Apple.jpg" width="600" height="450"/>
+        <image name="C870EECE-8315-42B8-B55F-D2572560B0A8" width="200" height="200">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -5521,7 +5522,6 @@ Anr+AAJ7AwACewUAAnsHAAJ7DAACexQAAnsXAAJ7HAACeyQAAnsnAAJ7OQACezwAAntBAAAAAAAABAEA
 AAAAAAAAQgAAAAAAAAAAAAAAAAACe0M
 </mutableData>
         </image>
-        <image name="Apple.jpg" width="600" height="450"/>
         <image name="all_man_img.png" width="80" height="80"/>
         <image name="checked_false.png" width="32" height="32"/>
         <image name="checked_true.png" width="32" height="32"/>

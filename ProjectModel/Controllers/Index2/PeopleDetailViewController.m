@@ -30,13 +30,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [SharedAction setupRefreshWithTableView:self.tableView toTarget:self];
-    self.automaticallyAdjustsScrollViewInsets =YES;
+    self.automaticallyAdjustsScrollViewInsets =NO;
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     self.cellHeightArray = [[NSMutableArray alloc] init];
      self.labelHeightArrar = [[NSMutableArray alloc] init];
     peopleDetailService = [[PeopleDetailService alloc] init];
-    }
+    self.title = self.model.nickname;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -88,6 +90,7 @@
         cell.message.text = model.content;
         cell.time.text=model.regtime;
         cell.lableHeight.constant = [NSString heightWithString:model.content font:[UIFont systemFontOfSize:13] maxSize:CGSizeMake(DeviceFrame.size.width-(85-8), 600)];
+
         if (model.picture.count>0) {
             cell.collectoonHeight.constant=64;
         }else{
@@ -113,7 +116,7 @@
     page = 1;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
     [SVProgressHUD show];
-    [peopleDetailService lifecircleMyinfoWithMid:self.mid andToken:user.token andUser_type:user.user_type andPageString:pageString withTabBarController:self.tabBarController witDoneObject:^(LiveModelInfo *model1){
+    [peopleDetailService lifecircleMyinfoWithMid:[self.model.mid integerValue] andToken:user.token andUser_type:user.user_type andPageString:pageString withTabBarController:self.tabBarController witDoneObject:^(LiveModelInfo *model1){
         object =model1;
         self.datas=(NSMutableArray *)model1.data;
         [self.tableView reloadData];
@@ -125,7 +128,7 @@
 {
     page++;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
-    [peopleDetailService lifecircleMyinfoWithMid:self.mid andToken:user.token andUser_type:user.user_type andPageString:pageString withTabBarController:self.tabBarController witDoneObject:^(LiveModelInfo *model1){
+    [peopleDetailService lifecircleMyinfoWithMid:[self.model.mid integerValue] andToken:user.token andUser_type:user.user_type andPageString:pageString withTabBarController:self.tabBarController witDoneObject:^(LiveModelInfo *model1){
         object =model1;
         [self.datas addObjectsFromArray:model1.data];
         [self.tableView reloadData];

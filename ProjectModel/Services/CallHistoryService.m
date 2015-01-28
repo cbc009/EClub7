@@ -35,6 +35,7 @@
             NSArray *pictures = model.info.picture;
             [self loadAdPictureWithImgInfos:pictures InViewController:viewController];
         }else if (model.status==808){
+            //如果第4个位置没有广告图就加在第1个位置的广告图
             SharedData *sharedData = [SharedData sharedInstance];
             UserInfo *user = sharedData.user;
             NSString *urlString = [NSString stringWithFormat:AdPictUrl,user.city,1];
