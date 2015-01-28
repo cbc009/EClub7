@@ -109,7 +109,7 @@
   
 }
 - (IBAction)shareAction:(id)sender {
-    [SharedAction shareWithTitle:self.groupGood.name andDesinationUrl:AppDownLoadURL Text:@"在E小区中团购了我偶喜欢的宝贝好开心" andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.groupGood.bigpicture] InViewController:self];
+    [SharedAction shareWithTitle:self.groupGood.name andDesinationUrl:AppDownLoadURL Text:@"在E小区中团购了我喜欢的宝贝好开心" andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.groupGood.bigpicture] InViewController:self];
 }
 
 #pragma UIAlertDelegate

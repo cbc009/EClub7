@@ -18,6 +18,7 @@
 #import "Member_Login.h"
 #import <MarqueeLabel.h>
 #import "Prize_Lucky_Model.h"
+#import <BmobSDK/Bmob.h>
 #define HongbaoImg [UIImage imageNamed:@"hongbao.jpg"]
 #define CurImg nil
 
@@ -97,11 +98,19 @@
             user.amount_red = user.amount_red+[data.cash floatValue];
         }
         
+        //存储到Bmob后台
+        BmobObject *object = [BmobObject objectWithClassName:@"Reward"];
+        [object setObject:user.loginname forKey:@"loginname"];
+        [object setObject:data.cash forKey:@"cash"];
+        [object saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+            //进行操作
+        }];
     }
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"中奖信息" message:result delegate:viewController cancelButtonTitle:@"取消" otherButtonTitles:@"告诉朋友", nil];
     [alertView show];
     NSLog(@"你中了：%@元红包",result);
 }
+
 
 //加载网络webview（活动规则）
 -(void)loadWebViewWithURLString:(NSString *)URLString andTitle:(NSString *)title onViewContrller:(UIViewController *)viewController{

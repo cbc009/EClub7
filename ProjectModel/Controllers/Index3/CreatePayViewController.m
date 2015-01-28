@@ -115,6 +115,7 @@
             
             uppayViewController= [[UPPayViewController alloc] init];
             uppayViewController.tn=model.tn;
+            sharedData.createPayPrice = [self.price.text floatValue];
             NSLog(@"%@",uppayViewController.tn);
             [self addChildViewController:uppayViewController];
             [self.view addSubview:uppayViewController.view];

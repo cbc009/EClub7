@@ -27,10 +27,11 @@
 #define QQAppID @"1103541927"
 #define QQAppKEY @"1USiSoOIDP1GFPR7"
 #define SinaAppKEY @"274015286"
+#define BmobAppID @"019f3ec90485e83c760b66c08c8704a1"
 #define AppDownLoadURL @"https://itunes.apple.com/cn/app/e-xiao-qu/id914487546?mt=8"
 #define ItemHeight 40.0
 #define kMode_Development             @"00"//正式上线的时候要改为00千万要记住
-#define kResult           @"支付结果：%@"    //支付结果
+//#define kResult           @"支付结果：%@"    //支付结果
 
 
 #import "SharedAction.h"

@@ -18,6 +18,7 @@
 #import "NSString+MT.h"
 #import "Delivery.h"
 #import "SharedAction.h"
+#import <BmobSDK/Bmob.h>
 @implementation FinalConfirmService
 
 //显示pickerview
@@ -160,6 +161,15 @@
             alertView.alertViewStyle = UIAlertViewStyleDefault;
             [alertView show];
             [SVProgressHUD dismiss];
+            
+            //存储到Bmob后台
+            BmobObject *model = [BmobObject objectWithClassName:@"TestTable"];
+            [model setObject:user.loginname forKey:@"loginname"];
+            [model setObject:datas forKey:@"info"];
+            [model setObject:[NSNumber numberWithFloat:[viewController.bottomTotalPrice.text floatValue]] forKey:@"price"];
+            [model saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                //进行操作
+            }];
         } else {
             [SharedAction showErrorWithStatus:status andError:error1 witViewController:viewController];
         }
