@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface Index3ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+#import "LoginViewController.h"
+@interface Index3ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,LoginViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @end

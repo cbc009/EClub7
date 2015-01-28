@@ -113,7 +113,7 @@
     NSMutableString *content = [[NSMutableString alloc] init];
     for (NSInteger i=0; i<count; i++) {
         Prize *newlucky = [prizes objectAtIndex:i];
-        [content appendString:[NSString stringWithFormat:@"恭喜会员%@获得%@元红包    ",newlucky.nickname,newlucky.amount_red]];
+        [content appendString:[NSString stringWithFormat:@"恭喜会员%@获得%@红包    ",newlucky.nickname,newlucky.amount_red]];
     }
     self.marqueeLabel.text = content;
 }
@@ -221,7 +221,7 @@
             if (resultValue==13) {
                 resultValue++;//这里设置13，14主要是用来防止在一次抽奖，发送了2次请求
                 NSInteger __block serialid;
-                [index1Service getPrizeLUckyWithToken:user.token andUser_Type:user.user_type andTabBarController:self.tabBarController withDone:^(Prize_Model_Info *model){
+                [index1Service getPrizeLUckyWithToken:user.token andUser_Type:user.user_type withDone:^(Prize_Model_Info *model){
                     if (model == nil) {
                         serialid=0;
                     }else{

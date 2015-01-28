@@ -27,7 +27,6 @@ typedef void (^doneWithObjectAndStatus)(int status,id object);
 +(void)presentLoginViewControllerInViewController:(UIViewController *)viewController;
 +(void)setUMessageTagsWithUser:(UserInfo *)user;
 +(void)showErrorWithStatus:(NSInteger)status andError:(NSString *)error witViewController:(UIViewController *)viewController;
-+(void)showErrorWithStatus:(NSInteger)status;
 +(void)showError;
 +(void)show;
 +(void)dismiss;
@@ -41,7 +40,6 @@ typedef void (^doneWithObjectAndStatus)(int status,id object);
 +(void)call1API:(NSString *)url parameters:(NSDictionary *)parameters name:(NSString *)name imageArray:(NSArray *)imageArray withCompletion:(completion) completed;
 +(void)commonActionWithUrl:(NSString *)url andStatus:(NSInteger)status andError:(NSString *)error andJSONModelError:(JSONModelError *)jsonError andObject:(id)object withDone:(doneWithObject)done;
 +(void)setupRefreshWithTableView:(UITableView *)tableview toTarget:(UIViewController *)target;
-+(void)commonActionWithUrl:(NSString *)url andStatus:(NSInteger)status andError:(NSString *)error andJSONModelError:(JSONModelError *)jsonError andObject:(id)object withDoneAndStatus:(doneWithObjectAndStatus)done;
 +(void)commonActionWithUrl:(NSString *)url andStatus:(NSInteger)status andError:(NSString *)error andJSONModelError:(JSONModelError *)jsonError andObject:(id)object inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 +(void)loginAggane;
 @end

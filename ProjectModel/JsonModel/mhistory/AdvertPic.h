@@ -18,11 +18,11 @@
 @end
 
 @interface AdvertPicInfo : JSONModel
-@property(nonatomic,strong)NSArray<Picture> *picture;
+@property(nonatomic,strong)NSArray<Picture,Optional> *picture;
 @end
 
 @interface AdvertPic : JSONModel
-@property (nonatomic,strong)AdvertPicInfo *info;
+@property (nonatomic,strong)AdvertPicInfo<Optional> *info;
 @property (nonatomic,assign) NSInteger status;
 @property (nonatomic,strong)NSString *error;
 @end

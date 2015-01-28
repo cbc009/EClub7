@@ -13,9 +13,8 @@
     NSArray *ids;
     NSArray *names;
     NSArray *array;
-    NSInteger market;
     NSDictionary *data;
-    ChooseAreaViewController *chose;
+    ChooseAreaViewController *chaose;
 }
 @end
 
@@ -24,7 +23,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    chose = [[ChooseAreaViewController alloc] init];
+    NSArray *viewControllers = self.navigationController.viewControllers;
+    chaose= viewControllers[viewControllers.count-2];
     [self propertiesByDatas:self.datas andIndex:self.index];
 }
 
@@ -83,10 +83,10 @@
         case 1:
             ids = [self propertiesByDatas:datas withKey:@"city"];
             names = [self propertiesByDatas:datas withKey:@"name"];
-            NSLog(@"%@",ids);
             break;
         case 2:
-            market =[[self.datas valueForKey:@"market"]integerValue];
+            chaose.market =[[self.datas valueForKey:@"market"]integerValue];
+            NSLog(@"%ld",(long)chaose.market);
             array = [self.datas valueForKey:@"arrarea"];
             ids = [self propertiesByDatas:array withKey:@"area"];
             names = [self propertiesByDatas:array withKey:@"name"];

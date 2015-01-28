@@ -7,8 +7,10 @@
 //
 
 #import "RootTabBarViewController.h"
-
-@interface RootTabBarViewController ()<UIAlertViewDelegate>
+#import "LoginViewController.h"
+#import "BuyService.h"
+#import "Index0Service.h"
+@interface RootTabBarViewController ()<UIAlertViewDelegate,LoginViewControllerDelegate>
 
 @end
 
@@ -53,10 +55,8 @@
         if(buttonIndex==1){
             self.selectedIndex = 0;
             UINavigationController *nav = self.viewControllers[self.selectedIndex];
-             
             [nav popToRootViewControllerAnimated:YES];
-            [SharedAction loginAggane];
-        }
+            [SharedAction loginAggane];        }
     }else if (alertView.tag==1){
         if (buttonIndex==1) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index3" bundle:nil];
@@ -64,8 +64,24 @@
             target.hidesBottomBarWhenPushed = YES;
             self.selectedIndex = 0;
             UINavigationController *nav = self.viewControllers[self.selectedIndex];
+           
             [nav pushViewController:target animated:YES];
         }
     }
+}
+
+#pragma LoginViewControllerDelegate
+-(void)loginSuccessedActionWithViewController:(UIViewController *)viewController{
+    self.selectedIndex = 0;
+    [viewController.navigationController dismissViewControllerAnimated:YES completion:^{
+        UINavigationController *nav = self.viewControllers[0];
+        UIViewController *index0ViewController = nav.topViewController;
+        SharedData *sharedData = [SharedData sharedInstance];
+        BuyService *buyService = [[BuyService alloc] init];
+        Index0Service *index0Service = [Index0Service new];
+        [buyService loadGoodTypesWithToken:sharedData.user.token andUser_type:sharedData.user.user_type InViewController:index0ViewController];
+        [index0Service loadAdverPicWithPos:1 andCity:sharedData.user.city inViewController:index0ViewController];
+    }];
+
 }
 @end

@@ -47,7 +47,7 @@
 
     }];
     self.automaticallyAdjustsScrollViewInsets = YES;
-    NSString *urlString = [NSString stringWithFormat:AdPictUrl,user.city,1];
+    NSString *urlString = [NSString stringWithFormat:AdPictUrl,user.city,2];
     [groupService loadAdverPicFromUrl:urlString inViewController:self];
 }
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{

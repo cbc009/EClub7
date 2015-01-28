@@ -60,7 +60,12 @@
     self.title = @"中奖记录";
     [SharedAction setupRefreshWithTableView:tableview toTarget:self];
 }
-
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [SVProgressHUD dismiss];
+    [tableview headerEndRefreshing];
+}
 
 #pragma mark 开始进入刷新状态
 - (void)headerRereshing

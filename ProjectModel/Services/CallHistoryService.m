@@ -22,22 +22,23 @@
 #import "BalanceModel.h"
 @implementation CallHistoryService
 
--(void)call_historyWithToken:(NSString *)token andUser_type:(NSInteger )user_type andPageString:(NSString *)pageString withDoneObject:(doneWithObject)done{
+-(void)call_historyWithToken:(NSString *)token andUser_type:(NSInteger )user_type andPageString:(NSString *)pageString inTabBarController:(UITabBarController *)tabBarController withDoneObject:(doneWithObject)done{
     NSString *urlString = [NSString stringWithFormat:Call_History_URL,token,user_type,pageString];
     [Call_history_Model getModelFromURLWithString:urlString  completion:^(Call_history_Model *object,JSONModelError *error){
-        [SharedAction commonActionWithUrl:urlString andStatus:object.status andError:object.error andJSONModelError:error andObject:object.info withDone:done];
+        [SharedAction commonActionWithUrl:urlString andStatus:object.status andError:object.error andJSONModelError:error andObject:object.info inTabBarController:tabBarController withDone:done];
     }];
-
-
 }
--(void)loadAdverPicFromUrl:(NSString *)urlString inViewController:(CallPhoneViewController *)viewController{
 
+-(void)loadAdverPicFromUrl:(NSString *)urlString inViewController:(CallPhoneViewController *)viewController{
     [AdvertPic getModelFromURLWithString:urlString completion:^(AdvertPic *model,JSONModelError *err){
-        
-        if (model.status) {
+        if (model.status==2) {
             NSArray *pictures = model.info.picture;
-            
             [self loadAdPictureWithImgInfos:pictures InViewController:viewController];
+        }else if (model.status==808){
+            SharedData *sharedData = [SharedData sharedInstance];
+            UserInfo *user = sharedData.user;
+            NSString *urlString = [NSString stringWithFormat:AdPictUrl,user.city,1];
+            [self loadAdverPicFromUrl:urlString inViewController:viewController];
         }else{
             [SharedAction showErrorWithStatus:model.status andError:model.error witViewController:viewController];
         }

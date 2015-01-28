@@ -62,11 +62,19 @@
     return [dateFormatter stringFromDate:date];
 }
 
+//NSDate to NSString
++(NSString *)dateStringFromDate0:(NSDate *)date{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    return dateString;
+}
+
 /*手机号码验证 MODIFIED BY HELENSONG*/
 -(BOOL) isValidateMobile:(NSString *)mobile
 {
     //手机号以13， 15，18开头11个 \d 数字字符
-    NSString *phoneRegex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+    NSString *phoneRegex = @"^((13[0-9])|(147)|(15[0-9])|(18[0-9]))\\d{8}$";
     NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
     //    NSLog(@"phoneTest is %@",phoneTest);
     return [phoneTest evaluateWithObject:mobile];

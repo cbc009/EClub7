@@ -38,7 +38,12 @@
     user = sharedData.user;
     [SharedAction setupRefreshWithTableView:self.tableView toTarget:self];
 }
-
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [SVProgressHUD dismiss];
+    [self.tableview headerEndRefreshing];
+}
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

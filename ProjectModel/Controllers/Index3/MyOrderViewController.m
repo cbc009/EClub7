@@ -46,7 +46,12 @@
     [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
 
 }
-
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [SVProgressHUD dismiss];
+    [self.tableview headerEndRefreshing];
+}
 
 #pragma UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -61,7 +66,6 @@
          TradeOrder *order1 = [self.items objectAtIndex:row];
         cell.demo.text = order1.demo;
         cell.time.text = [order1.regtime substringToIndex:10];
-//        cell.total.hidden = YES;
         cell.total.text = order1.status;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
@@ -82,7 +86,6 @@
         [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,order.picture]]];
         cell.name.text = order.name;
         cell.discount.text = [NSString stringWithFormat:@"%@元/%@",order.discount,order.unit];
-//        cell.price.text = [NSString stringWithFormat:@"%@元/%@",order.price,order.unit];
         cell.time.text = order.regtime;
         cell.number.text = order.nums;
         cell.status.text = order.status;

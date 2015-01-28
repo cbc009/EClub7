@@ -51,7 +51,7 @@
     SharedData *shareData = [SharedData sharedInstance];
     user = shareData.user;
     self.title = @"个人信息";
-//    [self.tableview reloadData];
+    [self.tableview reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -83,9 +83,10 @@
         identifier = @"index3_3Cell";
         cell1.selectionStyle = UITableViewCellSelectionStyleNone;
         cell1= [tableView dequeueReusableCellWithIdentifier:identifier];
-        [cell1.imageview sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+        [cell1.imageview sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]] placeholderImage:[UIImage imageNamed:@"userIcon.jpg"]];
         cell1.nickname.text=user.nickname;
-        cell1.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backgrount.jpg"]];
+        [cell1.backImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.life_picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+//        cell1.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backgrount.jpg"]];
         cell1.imageview.userInteractionEnabled =YES;
         UITapGestureRecognizer *chageHead = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureRecognizer)];
         [cell1.imageview addGestureRecognizer:chageHead];
@@ -170,7 +171,7 @@
             break;
             
         default:
-            return 59;
+            return 50;
     }
 }
 
@@ -183,14 +184,9 @@
 
 
 - (IBAction)loginout:(id)sender {
-    [userDetailService loginoutActionInViewController:self];
+    [userDetailService loginoutActionInViewController:self inTabBarController:self.tabBarController];
 }
 
-#pragma LoginViewControllerDelegate
--(void)loginSuccessedActionWithViewController:(UIViewController *)viewController{
-    [_tableview reloadData];
-    [viewController.navigationController dismissViewControllerAnimated:YES completion:nil];
-}
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==0) {
         [self showImagePickerControllerWithSourceType:UIImagePickerControllerSourceTypeCamera];
@@ -208,6 +204,7 @@
     }else{
         image = info[UIImagePickerControllerOriginalImage];
     }
+    
     [userDetailService updateHeaderImage:image withCompletion:^(NSDictionary *info){
         [picker dismissViewControllerAnimated:YES completion:^{
             NSString *picture = info[@"picture"];

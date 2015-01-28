@@ -29,6 +29,7 @@
     [self setupUmengAnalyticsPlatform];
     [self setupSocialSharePlatform];
     [self setUMessageWithLaunchOptions:launchOptions];
+//    [[UIApplication sharedApplication] cancelAllLocalNotifications];
     return YES;
 }
 
@@ -88,6 +89,7 @@
     [alert show];
     //这里，你就可以通过notification的useinfo，干一些你想做的事情了
     application.applicationIconBadgeNumber -= 1;
+//    [[UIApplication sharedApplication] cancelLocalNotification:notification];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo

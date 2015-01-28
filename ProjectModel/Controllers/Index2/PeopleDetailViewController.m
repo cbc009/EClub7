@@ -12,10 +12,16 @@
 #import "PeopleDetailService.h"
 #import "LiveModel.h"
 #import <UIImageView+WebCache.h>
+#import "NSString+MT.h"
+#import "MLMutiImagesChoosenViewController.h"
+#import "MJRefresh.h"
 @interface PeopleDetailViewController ()
 {
     UserInfo *user;
     LiveModelInfo *object;
+    MLMutiImagesChoosenViewController *mutiImagesContoller;
+    PeopleDetailService *peopleDetailService ;
+    NSInteger page;
 }
 @end
 
@@ -23,17 +29,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [SharedAction setupRefreshWithTableView:self.tableView toTarget:self];
+    self.automaticallyAdjustsScrollViewInsets =YES;
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
     self.cellHeightArray = [[NSMutableArray alloc] init];
      self.labelHeightArrar = [[NSMutableArray alloc] init];
-    PeopleDetailService *peopleDetailService = [[PeopleDetailService alloc] init];
-    [peopleDetailService LifecircleMyinfoWithMid:self.mid andToken:user.token andUser_type:user.user_type withTabBarController:self.tabBarController witDoneObject:^(LiveModelInfo *model1){
-        object =model1;
-        self.datas=(NSArray *)model1.data;
-        [peopleDetailService countSizeWithData:self.datas inViewController:self];
-    }];
-}
+    peopleDetailService = [[PeopleDetailService alloc] init];
+    }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -54,33 +57,82 @@
         
     }
 }
+-(NSArray *)imgUrlsFromTopic:(DataInfo *)object1{
+    NSString *urlString;
+    NSMutableArray *array=[[NSMutableArray alloc]init];
+    for (int i=0; i<object1.picture.count; i++) {
+        Picture_Info *info=object1.picture[i];
+        urlString = [NSString stringWithFormat:@"%@%@",IP,info.picture];
+        [array addObject:urlString];
+    }
+    return array;
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section==0) {
         BackGroundCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BackGroundCell" forIndexPath:indexPath];
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
-       [cell.herad sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,object.headpic]] placeholderImage:[UIImage imageNamed:@"e"]];
-        NSLog(@"%@",object.life_picture);
+       [cell.herad sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,object.headpic]] placeholderImage:[UIImage imageNamed:@"userIcon.jpg"]];
+        cell.herad.layer.masksToBounds = YES;
+        cell.herad.layer.cornerRadius = 30;
         [cell.back sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,object.life_picture]] placeholderImage:[UIImage imageNamed:@"e"]];
         return cell;
     }else{
         static NSString *CellIdentifier =@"PeopleDetailCell";
         PeopleDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
         if (cell==nil) {
             cell = [[PeopleDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
         DataInfo *model = self.datas[indexPath.row];
         cell.message.text = model.content;
         cell.time.text=model.regtime;
-        cell.lableHeight.constant = [self.labelHeightArrar[indexPath.row] floatValue];
-        cell.collectionDatas = (NSArray *)model.picture;
-        if (cell.collectionDatas.count<1) {
-            cell.collection.hidden=YES;
+        cell.lableHeight.constant = [NSString heightWithString:model.content font:[UIFont systemFontOfSize:13] maxSize:CGSizeMake(DeviceFrame.size.width-(85-8), 600)];
+        if (model.picture.count>0) {
+            cell.collectoonHeight.constant=64;
+        }else{
+            cell.collectoonHeight.constant=0;
         }
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MLMutiImagesViewController" bundle:nil];
+        mutiImagesContoller = [storyboard instantiateViewControllerWithIdentifier:@"MLMutiImagesChoosenViewController"];
+        mutiImagesContoller.fatherController = self;
+        mutiImagesContoller.imageMode = browseImagesMode;//（必选）
+        mutiImagesContoller.imageUrls = [self imgUrlsFromTopic:model];
+        mutiImagesContoller.superView = cell.collectionView;
+        mutiImagesContoller.collectionviewHeight = cell.collectoonHeight.constant;
+        [self addChildViewController:mutiImagesContoller];
+        [cell.collectionView addSubview: mutiImagesContoller.collectionView];
         return cell;
     }
 }
+
+
+#pragma mark 开始进入刷新状态
+- (void)headerRereshing
+{
+    page = 1;
+    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
+    [SVProgressHUD show];
+    [peopleDetailService lifecircleMyinfoWithMid:self.mid andToken:user.token andUser_type:user.user_type andPageString:pageString withTabBarController:self.tabBarController witDoneObject:^(LiveModelInfo *model1){
+        object =model1;
+        self.datas=(NSMutableArray *)model1.data;
+        [self.tableView reloadData];
+        [self.tableView headerEndRefreshing];
+    }];
+}
+
+- (void)footerRereshing
+{
+    page++;
+    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
+    [peopleDetailService lifecircleMyinfoWithMid:self.mid andToken:user.token andUser_type:user.user_type andPageString:pageString withTabBarController:self.tabBarController witDoneObject:^(LiveModelInfo *model1){
+        object =model1;
+        [self.datas addObjectsFromArray:model1.data];
+        [self.tableView reloadData];
+        [self.tableView footerEndRefreshing];
+    }];
+}
+
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag==5) {
         if(buttonIndex==1){
@@ -90,14 +142,23 @@
         }
     }
 }
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
-        return 150;
-    }else if (indexPath.section==1){
-        return [self.cellHeightArray[indexPath.row] floatValue];
-    }else {
-        return 0;
+        return 156;
+    }else{
+        CGFloat topic_height = 0.0;
+        CGFloat pictureHeight =0.0;
+        DataInfo *dataInfo = self.datas[indexPath.row];
+        topic_height = [NSString heightWithString:dataInfo.content font:[UIFont systemFontOfSize:13] maxSize:CGSizeMake(DeviceFrame.size.width-(85-8), 600)]+24;
+        if (dataInfo.picture.count>0) {
+            pictureHeight =64+8;
+        }else{
+            pictureHeight =0;
+        }
+        return topic_height+pictureHeight;
     }
+
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

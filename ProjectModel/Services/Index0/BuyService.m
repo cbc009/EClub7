@@ -52,7 +52,6 @@
             [SharedAction  showErrorWithStatus:model.status andError:model.error witViewController:viewController];
         }
     }];
-    
 }
 
 /*

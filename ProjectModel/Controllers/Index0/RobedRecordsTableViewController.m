@@ -53,7 +53,12 @@
     _page= 1;
     self.title = @"抢购记录";
 }
-
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [SVProgressHUD dismiss];
+    [self.tableview headerEndRefreshing];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -108,8 +113,7 @@
     RobedRecordCell *cell = [tableView dequeueReusableCellWithIdentifier:identifer forIndexPath:indexPath];
     Member_Info *record = [self.datas objectAtIndex:row];
     cell.nickname.text = record.nickname;
-    NSString *stamp = record.regtime;
-    cell.time.text = [stamp timeType1FromStamp:stamp];
+    cell.time.text = record.regtime;
     return cell;
 }
 

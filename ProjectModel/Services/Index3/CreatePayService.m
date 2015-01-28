@@ -12,20 +12,26 @@
 #import "SVProgressHUD.h"
 #import "CreatePayViewController.h"
 #import "SharedAction.h"
+#import "UPay_Order.h"
 @implementation CreatePayService
 
--(void)create_orderWithToken:(NSString *)token andUserType:(NSInteger)userType andPrice:(NSString *)price inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
+-(void)create_orderWithToken:(NSString *)token andUserType:(NSInteger)userType andPrice:(NSString *)price andPayModel:(NSString *)payModel inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
+    NSString *urlString = [NSString stringWithFormat:Create_pay_orderURL,token,userType,price,payModel];
     if (![self isPureInt:price]) {
         [SVProgressHUD showErrorWithStatus:@"金额必须是整数"];
     }else if([price floatValue]<20){
         [SVProgressHUD showErrorWithStatus:@"一次充值最少20元"];
-    }else{
-        NSString *urlString = [NSString stringWithFormat:Create_pay_orderURL,token,userType,price];
+    }else if ([payModel isEqualToString:@"PAY_BAO"]) {
         [Create_pay_order getModelFromURLWithString:urlString completion:^(Create_pay_order *model,JSONModelError *error){
+            [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
+        }];
+    }else if([payModel isEqualToString:@"PAY_UNION"]){
+        [UPay_Order getModelFromURLWithString:urlString completion:^(UPay_Order *model,JSONModelError *error){
             [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
         }];
     }
 }
+
 
 //判断是否微整型
 - (BOOL)isPureInt:(NSString*)string{

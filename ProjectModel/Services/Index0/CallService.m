@@ -17,16 +17,15 @@
 #import "SVProgressHUD.h"
 #import "Status.h"
 @implementation CallService
--(void)CallPhoneWithToken:(NSString *)token andUser_type:(NSInteger )user_type AndPhone:(NSString *)phone intabBarController:(UITabBarController *)tabBarCOntroller withdone:(doneWithObject)done
+-(void)callPhoneWithToken:(NSString *)token andUser_type:(NSInteger )user_type AndPhone:(NSString *)phone intabBarController:(UITabBarController *)tabBarCOntroller withdone:(doneWithObject)done
 {
     NSString *urlString = [NSString stringWithFormat:Call,token,user_type,phone];
     [SVProgressHUD show];
     [CallPhone getModelFromURLWithString:urlString completion:^(CallPhone *object,JSONModelError *err){
         [SharedAction commonActionWithUrl:urlString andStatus:object.status andError:object.error andJSONModelError:err andObject:object inTabBarController:tabBarCOntroller withDone:done];
     }];
- 
 }
--(void)SiginWithToken:(NSString *)token andUser_Type:(NSInteger )user_type intabBarController:(UITabBarController *)tabBarCOntroller withdone:(doneWithObject)done
+-(void)siginWithToken:(NSString *)token andUser_Type:(NSInteger )user_type intabBarController:(UITabBarController *)tabBarCOntroller withdone:(doneWithObject)done
 {
     NSString *urlString = [NSString stringWithFormat:Sigin,token,user_type];
     NSLog(@"%@",urlString);
@@ -35,5 +34,15 @@
         [SharedAction commonActionWithUrl:urlString andStatus:object.status andError:object.error andJSONModelError:err andObject:object.info inTabBarController:tabBarCOntroller withDone:done];
     }];
 }
+-(void)callPhoneTopupWithToken:(NSString *)token andUser_type:(NSInteger)user_type andMobile:(NSString *)mobile andMinutes:(NSString *)minutes inTabBarcontroller:(UITabBarController *)tabBarController withDone:(doneWithObject)done
+{
+    NSString *urlString = [NSString stringWithFormat:Call_Phone_Topup_URL,token,user_type,mobile,minutes];
+    [SVProgressHUD show];
+    [Status getModelFromURLWithString:urlString completion:^(Status *object,JSONModelError *err){
+        [SharedAction commonActionWithUrl:urlString andStatus:object.status andError:object.error andJSONModelError:err andObject:object inTabBarController:tabBarController withDone:done];
+    }];
 
+
+
+}
 @end

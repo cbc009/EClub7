@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BodyCell.h"
 #import "LifeHallService.h"
-@interface LiveViewController : UIViewController <BodyTableViewCellDelegate>
+@interface LiveViewController : UIViewController<BodyTableViewCellDelegate>
 @property (nonatomic,strong)NSMutableArray *datas;
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (nonatomic, strong) NSMutableArray *heightArray;

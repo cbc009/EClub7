@@ -10,5 +10,5 @@
 #import "ChangeAdressViewController.h"
 
 @interface ChangeAddressService : NSObject
--(void)ChangeAddressService:(NSString *)address onChangeAdressViewController:(ChangeAdressViewController *)ChangeAdressViewController;
+-(void)changeAddressService:(NSString *)address withToken:(NSString *)token andUser_type:(NSInteger)user_type inTabBarController:(UITabBarController *)tabBarController withdone:(doneWithObject)done;
 @end

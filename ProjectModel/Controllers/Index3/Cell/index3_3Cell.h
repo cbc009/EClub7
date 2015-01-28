@@ -10,5 +10,6 @@
 
 @interface Index3_3Cell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imageview;
+@property (weak, nonatomic) IBOutlet UIImageView *backImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nickname;
 @end

@@ -57,6 +57,7 @@
         [SVProgressHUD showErrorWithStatus:@"输入内容不能为空"];
     }else{
         [lifecircleService lifecircleWitkToken:user.token andUser_Type:user.user_type withContent:self.content.text andImageArray:mutiImagesContoller.chooseImages withTabBarController:self.tabBarController withDone:^(Status *model){
+            [self.navigationController popViewControllerAnimated:YES];
         }];
     }
     

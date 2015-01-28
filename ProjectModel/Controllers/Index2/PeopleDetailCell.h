@@ -10,9 +10,11 @@
 
 @interface PeopleDetailCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *message;
-@property (weak, nonatomic) IBOutlet UICollectionView *collection;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionHeight;
+
 @property (nonatomic,strong)NSArray *collectionDatas;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *lableHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectoonHeight;
+
+@property (weak, nonatomic) IBOutlet UIView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *time;
 @end

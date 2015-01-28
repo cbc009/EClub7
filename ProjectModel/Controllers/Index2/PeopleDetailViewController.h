@@ -9,10 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface PeopleDetailViewController : UIViewController
-@property(nonatomic,strong)NSArray *collectionDatas;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray *cellHeightArray;
 @property (nonatomic,strong)NSMutableArray *labelHeightArrar;
-@property(nonatomic,strong)NSArray *datas;
+@property(nonatomic,strong)NSMutableArray *datas;
 @property(nonatomic,assign)NSInteger mid;
 @end

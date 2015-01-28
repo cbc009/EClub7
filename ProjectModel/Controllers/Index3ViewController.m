@@ -15,8 +15,8 @@
 #import "SharedData.h"
 #import "Member_Login.h"
 #import <UIImageView+WebCache.h>
-
-@interface Index3ViewController () <UITableViewDelegate,UITableViewDataSource>
+#import "LoginViewController.h"
+@interface Index3ViewController () <UITableViewDelegate,UITableViewDataSource,LoginViewControllerDelegate>
 {
     NSArray *images;
     NSArray *titles;
@@ -42,11 +42,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    LoginViewController *login = [[LoginViewController alloc] init];
+    login.delegate=self;
     _tableview.showsVerticalScrollIndicator =NO;
+    
     _tableview.tableFooterView = [[UIView alloc] init];
     // Do any additional setup after loading the view.
     images = [[NSArray alloc]
-              initWithObjects:@"account",@"qr_code",@"order",@"jiaoyi",@"return_suggest",@"app_load",@"ic_update",nil];
+              initWithObjects:@"account",@"qr_code",@"order",@"main_call_light",@"return_suggest",@"app_load",@"ic_update",nil];
     titles = [[NSArray alloc] initWithObjects:@"我的钱包",@"我的二维码",@"我的订单",@"联系我们",@"意见反馈",@"应用推荐",@"版本更新",nil];
     [self.tableview reloadData];
 }
@@ -55,6 +59,7 @@
     [super viewWillAppear:animated];
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
+    self.tabBarController.tabBar.hidden=NO;
     [self.tableview reloadData];
 }
 
@@ -94,8 +99,9 @@
         identifier = @"Index3_2Cell";
         Index3_2Cell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         
-        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]] placeholderImage:[UIImage imageNamed:@"userIcon.jpg"]];
 //        cell.address.text = user.sname;
+        cell.address.hidden=YES;
         cell.nickname.text = user.nickname;
         return cell;
         
@@ -147,8 +153,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
     NSInteger section = indexPath.section;
     switch (section) {
         case 0:
@@ -160,7 +164,6 @@
 }
 #pragma LoginViewControllerDelegate
 -(void)loginSuccessedActionWithViewController:(UIViewController *)viewController{
-    
     [_tableview reloadData];
     [viewController.navigationController dismissViewControllerAnimated:YES completion:nil];
 }

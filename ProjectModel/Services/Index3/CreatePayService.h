@@ -10,6 +10,6 @@
 
 @interface CreatePayService : NSObject
 //-(void)loadCreatePayOrderInfoWithMid:(NSInteger )mid andPrice:(NSString *)price finished:(doneWithObject)done;
--(void)create_orderWithToken:(NSString *)token andUserType:(NSInteger)userType andPrice:(NSString *)price inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
+-(void)create_orderWithToken:(NSString *)token andUserType:(NSInteger)userType andPrice:(NSString *)price andPayModel:(NSString *)payModel  inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 -(void)pushToMyWalletViewControllerInTabBarController:(UITabBarController *)tabBarController;
 @end

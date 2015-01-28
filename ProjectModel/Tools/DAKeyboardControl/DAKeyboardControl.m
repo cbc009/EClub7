@@ -93,7 +93,7 @@ static char UIViewKeyboardPanRecognizer;
     {
         // Register for gesture recognizer calls
         self.keyboardPanRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
-                                                                            action:@selector(panGestureDidChange:)];
+                                                                             action:@selector(panGestureDidChange:)];
         [self.keyboardPanRecognizer setMinimumNumberOfTouches:1];
         [self.keyboardPanRecognizer setDelegate:self];
         [self addGestureRecognizer:self.keyboardPanRecognizer];

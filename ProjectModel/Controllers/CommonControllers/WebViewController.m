@@ -35,7 +35,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _webview.frame=CGRectMake(0,66,DeviceFrame.size.width, DeviceFrame.size.height-66);
     self.automaticallyAdjustsScrollViewInsets = YES;
     activityIndicatorView = [[UIActivityIndicatorView alloc] init];
     [self loadWebPageWithString:self.urlString inWebView:_webview];
@@ -53,7 +52,6 @@
     _webview.hidden = YES;
     // 由于contentsize是326 所以让contensize与scrollview的宽度相等
     _webview.scrollView.contentSize =_webview.scrollView.frame.size;
-//       [webView setScalesPageToFit:YES];
     [self showActivityIndicatorView: activityIndicatorView inView:self.view];
 }
 
@@ -62,10 +60,12 @@
     [activityIndicatorView stopAnimating];
  
     _webview.hidden = NO;
+    _webview.frame=CGRectMake(0,0,DeviceFrame.size.width, DeviceFrame.size.height);
+
 }
 
 - (void)loadWebPageWithString:(NSString*)urlString inWebView:(UIWebView *)webView{
-       NSURL *url =[NSURL URLWithString:urlString];
+    NSURL *url =[NSURL URLWithString:urlString];
     NSLog(@"%@",urlString);
     NSURLRequest *request =[NSURLRequest requestWithURL:url];
     [webView loadRequest:request];

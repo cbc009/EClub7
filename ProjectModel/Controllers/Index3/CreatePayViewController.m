@@ -15,20 +15,42 @@
 #import "AlixPayOrder.h"
 #import "Create_pay_order.h"
 #import "SVProgressHUD.h"
+#import "UPay_Order.h"
+#import "UPPayViewController.h"
 
 @interface CreatePayViewController ()
 {
+    UPPayViewController *uppayViewController;
     CreatePayService *service;
+    NSInteger payType;
 }
 @property(nonatomic,strong)Create_pay_orderInfo *info;
 @end
 
 @implementation CreatePayViewController
 
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [uppayViewController.view removeFromSuperview];
+    [uppayViewController removeFromParentViewController];
+    [super viewWillAppear:animated];
+     payType = ailpayType;
+    [self.ali setBackgroundImage:[UIImage imageNamed:@"checked_true.png"] forState:UIControlStateNormal];
+    [self.upaypay setBackgroundImage:[UIImage imageNamed:@"checked_false.png"] forState:UIControlStateNormal];
+    [self.weipaypay setBackgroundImage:[UIImage imageNamed:@"checked_false.png"] forState:UIControlStateNormal];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"在线充值";
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardHide:)];
+    //设置成NO表示当前控件响应后会传播到其他控件上，默认为YES。
+    tapGestureRecognizer.cancelsTouchesInView = NO;
+    //将触摸事件添加到当前view
+    [self.view addGestureRecognizer:tapGestureRecognizer];
     service = [[CreatePayService alloc] init];
 
 }
@@ -62,30 +84,50 @@
 - (IBAction)rechargeAction:(id)sender {
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
-    [service create_orderWithToken:user.token andUserType:user.user_type andPrice:self.price.text inTabBarController:self.tabBarController withDone:^(Create_pay_orderInfo *model){
-        NSString *appScheme = @"Club";
-        NSString* orderInfo = [self getOrderInfoWithCreate_pay_orderInfo:model andPrice:self.price.text];
-        NSString* signedStr = [self doRsa:orderInfo andPrivateKey:model.private];
-        NSString *orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
-                                 orderInfo, signedStr, @"RSA"];
-        //    NSLog(@"%@",orderString);
-        sharedData.createPayPrice = [self.price.text floatValue];
-        NSLog(@"sharedData.createPayPrice:%f",sharedData.createPayPrice);
-        
-        [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-//            NSLog(@"reslut = %@",resultDic);
-//            NSString *status = [resultDic objectForKey:@"resultStatus"];
-//            if ([status isEqualToString:@"9000"]) {
-//                [SVProgressHUD showSuccessWithStatus:@"支付成功"];
-//                user.amount = user.amount+[self.price.text floatValue];
-//                [service pushToMyWalletViewControllerInTabBarController:self.tabBarController];
-////                [service reloadAmoutAfterPopToViewControllerInNav:self.navigationController];
-//            }else{
-//                [SVProgressHUD showErrorWithStatus:@"支付失败"];
-//            }
+    if (user.user_type==3) {
+         [SVProgressHUD showErrorWithStatus:@"请前往 “我”页面中的“个人信息”“关联区域”完善资料"];
+    }else{
+    if (payType==ailpayType) {
+        [service create_orderWithToken:user.token andUserType:user.user_type andPrice:self.price.text andPayModel:@"PAY_BAO" inTabBarController:self.tabBarController withDone:^(Create_pay_orderInfo *model){
+            NSString *appScheme = @"Club";
+            NSString* orderInfo = [self getOrderInfoWithCreate_pay_orderInfo:model andPrice:self.price.text];
+            NSString* signedStr = [self doRsa:orderInfo andPrivateKey:model.private];
+            NSString *orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
+                                     orderInfo, signedStr, @"RSA"];
+            sharedData.createPayPrice = [self.price.text floatValue];
+            NSLog(@"sharedData.createPayPrice:%f",sharedData.createPayPrice);
+            [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+                //            NSLog(@"reslut = %@",resultDic);
+                //            NSString *status = [resultDic objectForKey:@"resultStatus"];
+                //            if ([status isEqualToString:@"9000"]) {
+                //                [SVProgressHUD showSuccessWithStatus:@"支付成功"];
+                //                user.amount = user.amount+[self.price.text floatValue];
+                //                [service pushToMyWalletViewControllerInTabBarController:self.tabBarController];
+                ////                [service reloadAmoutAfterPopToViewControllerInNav:self.navigationController];
+                //            }else{
+                //                [SVProgressHUD showErrorWithStatus:@"支付失败"];
+                //            }
+            }];
         }];
-    }];
+    }else if(payType==UPPayType){
+        NSLog(@"银联支付");
+        [service create_orderWithToken:user.token andUserType:user.user_type andPrice:self.price.text andPayModel:@"PAY_UNION" inTabBarController:self.tabBarController withDone:^(UPay_Order_info *model){
+            
+            uppayViewController= [[UPPayViewController alloc] init];
+            uppayViewController.tn=model.tn;
+            NSLog(@"%@",uppayViewController.tn);
+            [self addChildViewController:uppayViewController];
+            [self.view addSubview:uppayViewController.view];
+        }];
+    }else{
+        NSLog(@"微信支付");
+
+        [SVProgressHUD showErrorWithStatus:@"暂未开通微信支付，敬请期待！"];
+    }
+    }
 }
+
+
 
 -(NSString*)getOrderInfoWithCreate_pay_orderInfo:(Create_pay_orderInfo *)model andPrice:(NSString *)price
 {
@@ -118,4 +160,30 @@
 
 
 
+- (IBAction)alipay:(id)sender {
+    payType=ailpayType;
+    [self.ali setBackgroundImage:[UIImage imageNamed:@"checked_true.png"] forState:UIControlStateNormal];
+    [self.upaypay setBackgroundImage:[UIImage imageNamed:@"checked_false.png"] forState:UIControlStateNormal];
+    [self.weipaypay setBackgroundImage:[UIImage imageNamed:@"checked_false.png"] forState:UIControlStateNormal];
+}
+
+- (IBAction)uppay:(id)sender {
+    payType=UPPayType;
+    [self.ali setBackgroundImage:[UIImage imageNamed:@"checked_false.png"] forState:UIControlStateNormal];
+    [self.upaypay setBackgroundImage:[UIImage imageNamed:@"checked_true.png"] forState:UIControlStateNormal];
+    [self.weipaypay setBackgroundImage:[UIImage imageNamed:@"checked_false.png"] forState:UIControlStateNormal];
+}
+
+- (IBAction)weipay:(id)sender {
+    payType=WeiPayType;
+    [self.ali setBackgroundImage:[UIImage imageNamed:@"checked_false.png"] forState:UIControlStateNormal];
+    [self.upaypay setBackgroundImage:[UIImage imageNamed:@"checked_false.png"] forState:UIControlStateNormal];
+    [self.weipaypay setBackgroundImage:[UIImage imageNamed:@"checked_true.png"] forState:UIControlStateNormal];
+}
+
+
+-(void)keyboardHide:(UITapGestureRecognizer*)tap{
+//    [self.view removeGestureRecognizer:tap];
+    [self.price resignFirstResponder];
+}
 @end

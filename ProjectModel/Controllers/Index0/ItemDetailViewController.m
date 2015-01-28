@@ -60,6 +60,7 @@
     [self.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.goodModel.bigpicture]] placeholderImage:[UIImage imageNamed:@"e"]];
     self.currentPrice.text = [NSString stringWithFormat:@"%@元/%@",self.goodModel.discount,self.goodModel.unit];
     self.pastPrice.text = [NSString stringWithFormat:@"%@元/%@",self.goodModel.price,self.goodModel.unit];
+    self.people.text = [NSString stringWithFormat:@"已购买人数%@",self.goodModel.nums];
     self.count.text = self.goodModel.unit_num;
     self.Ems.text = self.goodModel.logistics;
     self.floatButton = [MLFloatButton loadFromNibAddTarget :self InSuperView:self.view];
@@ -83,8 +84,7 @@
     CGSize mWebViewTextSize = [webView sizeThatFits:CGSizeMake(1.0f, 1.0f)];
     frame.size = mWebViewTextSize;
     self.webview.frame = frame;
-    [self.scrollview setContentSize:CGSizeMake(DeviceFrame.size.width, mWebViewTextSize.height+240+100)];
-    NSLog(@"%f",self.webviewHeight.constant);
+    [self.scrollview setContentSize:CGSizeMake(DeviceFrame.size.width, mWebViewTextSize.height+240+250)];
      self.webviewHeight.constant = mWebViewTextSize.height+240;
 }
 

@@ -9,7 +9,7 @@
 #import "ChangeNameViewController.h"
 #import "ChangeUserNameService.h"
 #import "UserDetailViewController.h"
-
+#import "Status.h"
 #import "SVProgressHUD.h"
 
 @interface ChangeNameViewController ()
@@ -17,6 +17,7 @@
     ChangeUserNameService *changeUserName;
     UserDetailViewController *user;
     UIKeyboardViewController *keyBoardController;
+    UserInfo *user1;
 
 }
 
@@ -27,6 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"修改昵称";
+    SharedData *sharedData = [SharedData sharedInstance];
+    user1 = sharedData.user;
     keyBoardController = [[UIKeyboardViewController alloc] initWithControllerDelegate:self];
     [keyBoardController addToolbarToKeyboard];
     changeUserName = [[ChangeUserNameService alloc] init];
@@ -43,9 +46,9 @@
 - (IBAction)OK:(id)sender {
     NSString *nicname = _newname.text;
     [SVProgressHUD show];
-   
-    [changeUserName ChangeUserNameService:nicname onChangeNameViewcontroller:self];
-    
-    
+    [changeUserName changeUserNameService:nicname withToken:user1.token andUser_type:user1.user_type inTabBarController:self.tabBarController withdone:^(Status *model){
+        user1.nickname = nicname;
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
 }
 @end

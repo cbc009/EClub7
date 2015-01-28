@@ -21,9 +21,11 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - ELCImagePickerController (0.2.0)
-  - JSONModel (1.0.1)
+  - HexColors (2.2.1)
+  - JSONModel (1.0.2)
   - libqrencode (3.4.2)
   - MarqueeLabel (2.0.9)
+  - Masonry (0.6.0)
   - SDWebImage (3.7.1):
     - SDWebImage/Core (= 3.7.1)
   - SDWebImage/Core (3.7.1)
@@ -31,16 +33,18 @@ PODS:
   - TPKeyboardAvoiding (1.2.4)
   - UMengAnalytics (3.1.8)
   - UMengAnalytics-NO-IDFA (3.1.11)
-  - UMengFeedback (2.0.3)
+  - UMengFeedback (2.1)
   - UMengMessage (1.1.0.2)
   - UMengSocial (4.2.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5.0)
   - ELCImagePickerController (~> 0.2.0)
+  - HexColors
   - JSONModel
   - libqrencode (~> 3.4.2)
   - MarqueeLabel (~> 2.0.5)
+  - Masonry
   - SDWebImage (~> 3.7.1)
   - SVProgressHUD (~> 1.1.1)
   - TPKeyboardAvoiding (~> 1.2.4)
@@ -53,15 +57,17 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
   ELCImagePickerController: 4dc83bb6ce995f4964b0080d77ad5a01141e6db2
-  JSONModel: 634100aaacbd89811bc8a03da209356e5989c569
+  HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
+  JSONModel: cbdef0fdff1cc70e913a860861d3072860efd3a1
   libqrencode: ebfece8f6983de7a4a6d33c3a30e2910ecf43b7c
   MarqueeLabel: 47891091616ec81b68805181e61694bc140abd74
+  Masonry: 0bc111d6902e3a55ff8423bcbdf7155261806547
   SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
   SVProgressHUD: da7a49e789af645d9279ffbca62318945a832438
   TPKeyboardAvoiding: 925e1e1912597d1a4956697eec3bd9656552153c
   UMengAnalytics: c263b4e0f27e91551b7e79eacdf812f1bae0e256
   UMengAnalytics-NO-IDFA: 9072529f7ac9d9b063eede39ad58661cbcd7c643
-  UMengFeedback: eb0fb8f89ee8280ad7368787488261a91c73941c
+  UMengFeedback: 39ad590db2195efb0f3d748032209efb6a322f83
   UMengMessage: 9cc3861519f1f08e5e0457b6a656f2ff6ffd13d5
   UMengSocial: c53282eaf74fbb41aebe431b497ed6b634cf357f
 

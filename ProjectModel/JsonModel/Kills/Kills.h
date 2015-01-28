@@ -27,11 +27,11 @@
 @end
 
 @interface KillGoodInfo : JSONModel
-@property(nonatomic,strong)NSArray<KillGood>* goods;
+@property(nonatomic,strong)NSArray<KillGood,Optional>* goods;
 @end
 
 @interface Kills : JSONModel
-@property(nonatomic,strong)KillGoodInfo *info;
+@property(nonatomic,strong)KillGoodInfo <Optional>*info;
 @property(nonatomic,assign)NSInteger status;
 @property(nonatomic,strong)NSString *error;
 @end

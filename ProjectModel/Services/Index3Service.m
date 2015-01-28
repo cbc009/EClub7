@@ -24,10 +24,10 @@
     用户详情
  */
 -(void)presentUserDetailViewControllerOnViewController:(UIViewController *)viewController{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index3" bundle:nil];
-    UserDetailViewController *userDetailViewController = [storyboard instantiateViewControllerWithIdentifier:@"UserDetailViewController"];
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index3" bundle:nil];
+    UserDetailViewController *userDetailViewController = [viewController.storyboard instantiateViewControllerWithIdentifier:@"UserDetailViewController"];
     userDetailViewController.hidesBottomBarWhenPushed = YES;
-    userDetailViewController.navigationController.hidesBottomBarWhenPushed=YES;
+//    userDetailViewController.navigationController.hidesBottomBarWhenPushed=YES;
     [viewController.navigationController pushViewController:userDetailViewController animated:YES];
 }
 

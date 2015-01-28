@@ -12,6 +12,7 @@
 #import "MyneighborViewController.h"
 #import "LiveViewController.h"
 #import "LifeHallViewController.h"
+#import "PartnerViewController.h"
 @implementation Index2Service
 /*
  快递查询
@@ -33,7 +34,7 @@
     WebViewController *target = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
     target.urlString = @"http://fun.alipay.com/exprodJF/jiaofeiBD.htm";
     target.title =@"水电缴费";
-    target.view.frame = CGRectMake(0, 66, DeviceFrame.size.width, DeviceFrame.size.height-100);
+//    target.view.frame = CGRectMake(0, 66, DeviceFrame.size.width, DeviceFrame.size.height-100);
 //    target.view.frame = CGRectMake(0,90, DeviceFrame.size.width, DeviceFrame.size.height-90);
     target.hidesBottomBarWhenPushed = YES;
     [viewController.navigationController pushViewController:target animated:YES];
@@ -47,10 +48,17 @@
     lifeHallViewCOntroller.hidesBottomBarWhenPushed = YES;
     [viewController.navigationController pushViewController:lifeHallViewCOntroller animated:YES];
 }
-
+/*
+ 合作商家
+ */
+-(void)presenterPartnerViewControllerOnViewController:(UIViewController *)viewController{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index2" bundle:nil];
+    PartnerViewController *partnerViewController = [storyboard instantiateViewControllerWithIdentifier:@"PartnerViewController"];
+    partnerViewController.hidesBottomBarWhenPushed = YES;
+    [viewController.navigationController pushViewController:partnerViewController animated:YES];
+}
 //积分兑换
 -(void)presentSecondeChangeViewControllerOnViewController:(UIViewController *)viewController{
-    NSLog(@"dd");
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index2" bundle:nil];
     SecondeChangeViewController *searchangeViewController = [storyboard instantiateViewControllerWithIdentifier:@"SecondeChangeViewController"];
     searchangeViewController.hidesBottomBarWhenPushed = YES;

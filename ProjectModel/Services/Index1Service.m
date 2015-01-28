@@ -24,10 +24,10 @@
 @implementation Index1Service
 
 
--(void)getPrizeLUckyWithToken:(NSString *)token andUser_Type:(NSInteger )user_type andTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
+-(void)getPrizeLUckyWithToken:(NSString *)token andUser_Type:(NSInteger )user_type withDone:(doneWithObject)done{
     NSString *urlString = [NSString stringWithFormat:Prize_Prize_Lucky_URL,token,user_type];
     [Prize_Lucky_Model getModelFromURLWithString:urlString completion:^(Prize_Lucky_Model *model,JSONModelError *error){
-        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
+        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info withDone:done];
     }];
     
 }
@@ -85,7 +85,6 @@
     Rotary *data = [datas objectAtIndex:index-1];
     serialid = 13;
     NSString *result = nil;
-    NSLog(@"%@",data.cash);
     if ([data.cash isEqualToString:@"谢谢参与"]) {
         result = @"这次没有中奖";
     }else{

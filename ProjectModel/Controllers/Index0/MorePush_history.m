@@ -13,11 +13,12 @@
 #import "PushHistoryCell.h"
 #import "SVProgressHUD.h"
 #import "MJRefresh.h"
+#import "Push_history.h"
 @interface MorePush_history ()
 {
     MorePush_historyService *morePush_historyService;
-    NSMutableDictionary *dic;
     int page;
+    UserInfo *user;
 }
 @end
 
@@ -25,13 +26,13 @@
 
 -(void)loadView{
     [super loadView];
-    [self setupRefresh];
-
+   [SharedAction setupRefreshWithTableView:self.tableView toTarget:self];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    dic = [[NSMutableDictionary alloc] init];
+    SharedData *sharedData = [SharedData sharedInstance];
+    user= sharedData.user;
     page = 1;
     morePush_historyService = [[MorePush_historyService alloc] init];
 }
@@ -40,6 +41,7 @@
 {
     [super viewDidDisappear:animated];
     [SVProgressHUD dismiss];
+    [self.tableView headerEndRefreshing];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -52,64 +54,42 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     PushHistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PushHistoryCell" forIndexPath:indexPath];
-    dic = self.datas[indexPath.section];
-    cell.news.text = [dic valueForKey:@"content"];
-    cell.time.text = [dic valueForKey:@"regtime"];
+   push *model = self.datas[indexPath.section];
+    cell.news.text = model.content;
+    cell.time.text = model.regtime;
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    dic = self.datas[indexPath.section];
-    NSString *news = [dic valueForKey:@"content"];
+    push *model = self.datas[indexPath.section];
+    NSString *news =model.content;
     [SVProgressHUD showSuccessWithStatus:news];
     
 }
 
-- (void)setupRefresh
-{
-    // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
-    [_tableView addHeaderWithTarget:self action:@selector(headerRereshing)];
-    [_tableView headerBeginRefreshing];
-    
-    // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
-    [_tableView addFooterWithTarget:self action:@selector(footerRereshing)];
-    
-    // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
-    _tableView.headerPullToRefreshText = @"下拉可以刷新了";
-    _tableView.headerReleaseToRefreshText = @"松开马上刷新了";
-    _tableView.headerRefreshingText = @"正在帮你刷新中";
-    
-    _tableView.footerPullToRefreshText = @"上拉可以加载更多数据了";
-    _tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
-    _tableView
-    .footerRefreshingText = @"正在帮你加载中";
-}
 -(void)headerRereshing
 {
     page=1;
     NSString *pageString = [NSString stringWithFormat:@"%d",page];
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
-    [morePush_historyService loadPush_historyWithToken:user.token andUser_type:user.user_type andPage:pageString InViewController:self];
-    
+    [morePush_historyService loadPush_historyWithToken:user.token andUser_type:user.user_type andPage:pageString inTabBarcontroller:self.tabBarController withdon:^(PushInfo *model){
+        self.datas =(NSMutableArray *)model.push;
+        [self.tableView reloadData];
+        [self.tableView headerEndRefreshing];
+    }];
 }
-
-
 
 - (void)footerRereshing
 {
     page++;
     NSString *pageString = [NSString stringWithFormat:@"%d",page];
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
-    [morePush_historyService loadMorePush_historyWithToken:user.token andUser_type:user.user_type andPage:pageString InViewController:self];
-    [_tableView footerEndRefreshing];
+    [morePush_historyService loadPush_historyWithToken:user.token andUser_type:user.user_type andPage:pageString inTabBarcontroller:self.tabBarController withdon:^(PushInfo *model){
+        [self.datas addObjectsFromArray:model.push ];
+        [self.tableView reloadData];
+        [self.tableView footerEndRefreshing];
+    }];
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

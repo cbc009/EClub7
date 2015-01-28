@@ -91,7 +91,7 @@
             </objects>
             <point key="canvasLocation" x="141" y="-137"/>
         </scene>
-        <!--选择小区-->
+        <!--关联区域-->
         <scene sceneID="wYe-1I-swE">
             <objects>
                 <viewController storyboardIdentifier="ChooseAreaViewController" id="ivK-B0-1WW" customClass="ChooseAreaViewController" sceneMemberID="viewController">
@@ -103,7 +103,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="温馨提示：小区选择后不能修改" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dag-dt-kQx">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dag-dt-kQx">
                                 <rect key="frame" x="0.0" y="72" width="320" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="F9U-UY-N1P"/>
@@ -146,7 +146,7 @@
                             <constraint firstItem="WOE-LO-qzY" firstAttribute="leading" secondItem="RkE-7v-33L" secondAttribute="leadingMargin" constant="-16" id="oQg-3y-64q"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="选择小区" id="rxK-wl-v8I"/>
+                    <navigationItem key="navigationItem" title="关联区域" id="rxK-wl-v8I"/>
                     <connections>
                         <outlet property="tableview" destination="WOE-LO-qzY" id="sHn-Wn-UBf"/>
                     </connections>

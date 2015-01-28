@@ -26,8 +26,6 @@
     pointGoodViewControllerService = [[PointGoodViewControllerService alloc] init];
     self.title = [self.dict valueForKey:@"name"];
     [self.goodImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,[self.dict valueForKey:@"bigpicture"]]] placeholderImage:[UIImage imageNamed:@"e"]];
-//    self.pasPrize.text = [NSString stringWithFormat:@"%@/%@",[self.dict valueForKey:@"price"],[self.dict valueForKey:@"unit"]];
-//    self.vipPrize.text = [NSString stringWithFormat:@"%@/%@",[self.dict valueForKey:@"price"],[self.dict valueForKey:@"unit"]];
     self.ePrize.text = [NSString stringWithFormat:@"%@/份",[self.dict valueForKey:@"point"]];;
     self.gid = [[self.dict valueForKey:@"gid"]integerValue];
     sum = 1;
@@ -45,15 +43,7 @@
     [super viewDidDisappear:animated];
     [SVProgressHUD dismiss];
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 #pragma UIAlertDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag==5) {
@@ -62,8 +52,7 @@
             NSArray *viewControllers = self.navigationController.viewControllers;
             [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
         }
-    }else
-        if (alertView.tag==4){
+    }else if (alertView.tag==4){
              NSString *password = [[alertView textFieldAtIndex:0] text];
             if (buttonIndex==0) {
             }else if(buttonIndex == 1){
@@ -92,9 +81,11 @@
     self.num.text = [NSString stringWithFormat:@"%ld",(long)sum];
     }
 }
-
 - (IBAction)addGood:(id)sender {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"支付密码" message:@"支付密码默认为登陆密码" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    NSInteger totalPoint = [self.num.text integerValue]* [self.ePrize.text integerValue];
+    
+    NSString *message = [NSString stringWithFormat:@"您即将支付%ld积分购买%@",(long)totalPoint,self.title];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认支付" message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
     alertView.alertViewStyle = UIAlertViewStyleSecureTextInput;
     [alertView show];
 }

@@ -102,7 +102,6 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-
     if(buttonIndex==1) {
         [SharedAction shareWithTitle:_itemNameLabel.text andDesinationUrl:AppDownLoadURL Text:alertView.message andImageUrl:_itemPic InViewController:self];
     }

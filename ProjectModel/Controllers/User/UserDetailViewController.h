@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LoginViewController.h"
-@interface UserDetailViewController : UIViewController<LoginViewControllerDelegate>
+@interface UserDetailViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @end

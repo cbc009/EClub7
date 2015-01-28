@@ -101,7 +101,6 @@
 -(void)addImgViewsWithImgUrls:(NSArray *)imgUrls withTitles:(NSArray *)titles{
     for (int i=0; i<imgUrls.count+2; i++) {
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*self.frame.size.width, 0, self.frame.size.width, self.height)];
-        NSLog(@"%@",NSStringFromCGRect(self.frame));
         NSString *imgUrl = nil;
         NSString *title = nil;
         

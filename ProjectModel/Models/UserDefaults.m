@@ -33,9 +33,6 @@
 {
     [self.userDefaults1 setObject:address forKey:@"address"];
     [self.userDefaults1 synchronize];
-
 }
-
-
 
 @end

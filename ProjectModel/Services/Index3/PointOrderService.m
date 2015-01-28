@@ -17,29 +17,12 @@
 /*
  加载我积分兑换的订单
  */
--(void)loadTradeOrderInViewController:(PointOrdViewController *)viewController
+-(void)loadTradeOrderWithToken:(NSString *)token anduser_type:(NSInteger)user_type inTabBarController:(UITabBarController *)tabBarController withdone:(doneWithObject)done
 {
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
-    
-    NSString *urlString = [NSString stringWithFormat:PointDetialOrder,user.token,user.user_type];
-    NSLog(@"%@",urlString);
-    [SharedAction show];
+    NSString *urlString = [NSString stringWithFormat:PointDetialOrder,token,user_type];
+    [SVProgressHUD show];
     [PointOrderData getModelFromURLWithString:urlString completion:^(PointOrderData *object,JSONModelError *error){
-        if (!error) {
-            NSInteger status = object.status;
-            if (status==2) {
-                viewController.datas = [NSMutableArray arrayWithArray:object.info.order];
-            [SharedAction dismiss];
-            }else {
-                [SVProgressHUD showErrorWithStatus:object.error];
-            }
-        } else{
-                viewController.datas = nil;
-            [SVProgressHUD showErrorWithStatus:object.error];
-                NSLog(@"%@",error);
-            }
-        [viewController.tableView reloadData];
+        [SharedAction commonActionWithUrl:urlString andStatus:object.status andError:object.error andJSONModelError:error andObject:object.info inTabBarController:tabBarController withDone:done];
     }];
 }
 @end

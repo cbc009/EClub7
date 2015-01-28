@@ -10,6 +10,6 @@
 #import "LifeHallViewController.h"
 @interface LifecircleService : NSObject
 -(void)lifecircleWitkToken:(NSString *)token andUser_Type:(NSInteger )user_type withContent:(NSString *)content andImageArray:(NSArray *)imageArray withTabBarController:(UITabBarController*)tabBarController withDone:(doneWithObject)done;
--(void)LifecircleLifedeleteWithToken:(NSString *)token andUser_type:(NSInteger )user_type andXid:(NSString *)xid withDone:(doneWithObject)done;
--(void)LifecircleLifeCommentWithToken:(NSString *)token andUser_type:(NSInteger )user_type andContent:(NSString *)content andXid:(NSString *)xid withTabBarController:(UITabBarController*)tabBarController withDone:(doneWithObject)done;
+-(void)lifecircleLifedeleteWithToken:(NSString *)token andUser_type:(NSInteger )user_type andXid:(NSString *)xid withDone:(doneWithObject)done;
+-(void)lifecircleLifeCommentWithToken:(NSString *)token andUser_type:(NSInteger )user_type andContent:(NSString *)content andXid:(NSString *)xid withTabBarController:(UITabBarController*)tabBarController withDone:(doneWithObject)done;
 @end

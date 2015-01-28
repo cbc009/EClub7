@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 #import "PointOrdViewController.h"
 @interface PointOrderService : NSObject
--(void)loadTradeOrderInViewController:(PointOrdViewController *)viewController;
+-(void)loadTradeOrderWithToken:(NSString *)token anduser_type:(NSInteger)user_type inTabBarController:(UITabBarController *)tabBarController withdone:(doneWithObject)done;
 @end

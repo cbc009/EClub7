@@ -47,7 +47,12 @@
     service = [AccountService new];
     [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
 }
-
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [SVProgressHUD dismiss];
+    [self.tableview headerEndRefreshing];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

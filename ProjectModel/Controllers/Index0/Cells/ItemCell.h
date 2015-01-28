@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
 @property (weak, nonatomic) IBOutlet UILabel *discout;
 @property (weak, nonatomic) IBOutlet UIImageView *goodimage;
+@property (weak, nonatomic) IBOutlet UILabel *people;
 
 
 

@@ -24,6 +24,7 @@
 #import "Index0Service.h"
 #import "Base_Balance_Model.h"
 #import "SiginModel.h"
+#import "CallPhoneTopupViewController.h"
 #define width self.view.frame.size.width
 #define height1 self.view.frame.size.height
 @interface CallPhoneViewController ()<ABPeoplePickerNavigationControllerDelegate>
@@ -49,13 +50,14 @@
     [SharedAction setupRefreshWithTableView:self.tableView toTarget:self];
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
-    self.minutes.text = [NSString stringWithFormat:@"%ld分钟",(long)user.phone_minute];
-    NSString *urlString = [NSString stringWithFormat:AdPictUrl,user.city,2];
+    NSString *urlString = [NSString stringWithFormat:AdPictUrl,user.city,4];
     [callhistoryservice loadAdverPicFromUrl:urlString inViewController:self];
+    
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+    [self.tableView headerEndRefreshing];
     [SVProgressHUD dismiss];
 }
 -(void)loadView
@@ -63,7 +65,6 @@
     [super loadView];
     [self.minutes setEnabled:NO];
     dic = [[NSDictionary alloc] init];
-   
     page =1;
     callhistoryservice = [[CallHistoryService alloc] init];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -205,7 +206,7 @@
             if (self.phone.text.length<3) {
                 [SVProgressHUD showErrorWithStatus:@"请输入有效的电话号码"];
             }else {
-                [call CallPhoneWithToken:user.token andUser_type:user.user_type AndPhone:self.phone.text intabBarController:self.tabBarController withdone:^(Phones_Info *model){
+                [call callPhoneWithToken:user.token andUser_type:user.user_type AndPhone:self.phone.text intabBarController:self.tabBarController withdone:^(Phones_Info *model){
                     [SVProgressHUD showErrorWithStatus:@"转接成功请注意接听"];
                 }];
             }
@@ -281,7 +282,14 @@
 {
     page =1;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
-    [callhistoryservice call_historyWithToken:user.token andUser_type:user.user_type andPageString:pageString withDoneObject:^(Call_History_Info *model){
+    [callhistoryservice call_historyWithToken:user.token andUser_type:user.user_type andPageString:pageString inTabBarController:self.tabBarController withDoneObject:^(Call_History_Info *model){
+        [callhistoryservice baseBalanceWithToken:user.token andUser_type:user.user_type withTabBarViewController:self.tabBarController doneObject:^(BalanceIfo *model){
+            user.phone_minute = model.phone_minute;
+            user.amount = model.amount;
+            user.point = model.point;
+            user.amount_red = model.amount_red;
+             self.minutes.text = [NSString stringWithFormat:@"%ld分钟",(long)user.phone_minute];
+        }];
         self.datas =(NSMutableArray *)model.data;
         [self.tableView reloadData];
         [self.tableView headerEndRefreshing];
@@ -292,7 +300,7 @@
 {
     page++;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
-    [callhistoryservice call_historyWithToken:user.token andUser_type:user.user_type andPageString:pageString withDoneObject:^(Call_History_Info *model){
+    [callhistoryservice call_historyWithToken:user.token andUser_type:user.user_type andPageString:pageString inTabBarController:self.tabBarController withDoneObject:^(Call_History_Info *model){
        [self.datas addObjectsFromArray:model.data];
         [self.tableView reloadData];
         [self.tableView footerEndRefreshing];
@@ -317,14 +325,16 @@
 }
 #pragma mark - Navigation
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    if ([segue.identifier isEqualToString:@"ToHelp"]) {
-//        self.hidesBottomBarWhenPushed=YES;
-//    }
-//}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ToPhoneTopup"]) {
+        UIViewController *viewController = segue.destinationViewController;
+        viewController.hidesBottomBarWhenPushed = YES;
+    }
+}
 - (IBAction)qiandao:(id)sender {
-    [call SiginWithToken:user.token andUser_Type:user.user_type intabBarController:self.tabBarController withdone:^(SiginIfo *model){
+    [call siginWithToken:user.token andUser_Type:user.user_type intabBarController:self.tabBarController withdone:^(SiginIfo *model){
     self.minutes.text =[NSString stringWithFormat:@"%ld分钟",(long)model.minutes];
+        user.phone_minute=model.minutes;
     }];
 
 }

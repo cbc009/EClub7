@@ -16,31 +16,19 @@
 #import "SharedData.h"
 #import "Member_Login.h"
 @implementation ChangeAddressService
--(void)ChangeAddressService:(NSString *)address onChangeAdressViewController:(ChangeAdressViewController *)ChangeAdressViewController
+-(void)changeAddressService:(NSString *)address withToken:(NSString *)token andUser_type:(NSInteger)user_type inTabBarController:(UITabBarController *)tabBarController withdone:(doneWithObject)done
 {
-    UserDefaults *userDefaults = [[UserDefaults alloc] init];
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
     if (address.length<1) {
         [SharedAction showErrorInput];
     }else {
-        NSString *user_type =  [NSString stringWithFormat: @"%ld",(long)user.user_type];;
-        NSDictionary *dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:user.token,user_type,address,nil] forKeys:[NSArray arrayWithObjects:@"token",@"user_type",@"address", nil]];
+        NSString *user_type1 =  [NSString stringWithFormat: @"%ld",(long)user_type];;
+        NSDictionary *dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:token,user_type1,address,nil] forKeys:[NSArray arrayWithObjects:@"token",@"user_type",@"address", nil]];
         NSString *urlString = ChangeAddress;
         [JSONHTTPClient postJSONFromURLWithString:urlString params:dict completion:^(id object, JSONModelError *error) {
             NSNumber *stat = (NSNumber *)[object objectForKey:@"status"];
             NSString *error1 = (NSString *)[object objectForKey:@"error"];
             NSInteger status = [stat integerValue];
-            if (status==2) {
-                [SharedAction showErrorWithStatus:status andError:error1 witViewController:ChangeAdressViewController];
-                user.address = address;
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadData"object:nil];
-                [userDefaults ChangeAddressgo:address onChangeAddress:ChangeAdressViewController];
-                [ChangeAdressViewController.navigationController popViewControllerAnimated:YES];
-            }
-            else {
-               [SharedAction showErrorWithStatus:status andError:error1 witViewController:ChangeAdressViewController];
-            }
+            [SharedAction commonActionWithUrl:urlString andStatus:status andError:error1 andJSONModelError:error andObject:object inTabBarController:tabBarController withDone:done];
         }];
     }
     

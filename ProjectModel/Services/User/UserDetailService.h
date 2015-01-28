@@ -12,7 +12,7 @@
 @interface UserDetailService : NSObject
 
 
--(void)loginoutActionInViewController:(UserDetailViewController *)viewController;
+-(void)loginoutActionInViewController:(UserDetailViewController *)viewController inTabBarController:(UITabBarController *)tabBarController;
 -(void)updateHeaderImage:(UIImage *)image withCompletion:(finished)finished;
 -(void)presentChangePayPasswordViewControllerOnViewController:(UIViewController *)viewController;
 -(void)presentChangePasswordViewControllerOnViewController:(UIViewController *)viewController;

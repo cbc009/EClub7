@@ -233,7 +233,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Wq7-sA-Rg9">
-                        <barButtonItem key="rightBarButtonItem" title="分享" id="ijn-r0-dbp">
+                        <barButtonItem key="rightBarButtonItem" image="icon_merchant_share_highlighted.png" id="ijn-r0-dbp">
                             <connections>
                                 <action selector="shareAction:" destination="8ae-AZ-TOp" id="cll-vM-WTx"/>
                             </connections>
@@ -304,6 +304,7 @@
     </scenes>
     <resources>
         <image name="carota.jpg" width="268" height="178"/>
+        <image name="icon_merchant_share_highlighted.png" width="23" height="23"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -311,6 +312,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="CJx-ht-3Ug"/>
+        <segue reference="U3M-2K-Qz6"/>
     </inferredMetricsTieBreakers>
 </document>

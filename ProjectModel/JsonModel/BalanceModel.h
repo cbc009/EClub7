@@ -8,11 +8,11 @@
 
 #import "JSONModel.h"
 @interface BalanceIfo : JSONModel
-@property (nonatomic ,strong)NSString *iccard;
-@property (nonatomic ,strong)NSString *amount;
+@property (nonatomic ,strong)NSString <Optional>*iccard;
+@property (nonatomic ,assign)CGFloat amount;
 @property (nonatomic ,assign)NSInteger phone_minute;
 @property (nonatomic ,assign)CGFloat amount_red;
-@property (nonatomic ,strong)NSString *point;
+@property (nonatomic ,assign)NSInteger point;
 @end
 
 @interface BalanceModel : JSONModel

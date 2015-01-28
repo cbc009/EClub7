@@ -21,7 +21,7 @@
 
 
 @interface PushInfo : JSONModel
-@property(nonatomic,strong)NSMutableArray<push> *push;
+@property(nonatomic,strong)NSMutableArray<push,Optional> *push;
 @end
 
 @interface Push_history : JSONModel

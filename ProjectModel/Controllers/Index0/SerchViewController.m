@@ -18,7 +18,15 @@
 #import "SharedData.h"
 #import "Member_Login.h"
 #import "Type_goods.h"
+#import "SKTag.h"
+#import "SKTagButton.h"
+#import "SKTagView.h"
+#import <Masonry/Masonry.h>
+#import <HexColors/HexColor.h>
+
 @interface SerchViewController ()<UISearchBarDelegate,UIScrollViewDelegate>
+@property (strong, nonatomic) SKTagView *tagView;
+@property (nonatomic, strong) NSArray *colorPool;
 @end
 
 @implementation SerchViewController
@@ -26,19 +34,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"商城搜索";
+    self.colorPool = @[@"#7ecef4", @"#84ccc9", @"#88abda",@"#7dc1dd",@"#b6b8de"];
+    
+    [self setupTagView];
+    [self.search becomeFirstResponder];
+
      [_tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.search becomeFirstResponder];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [SVProgressHUD dismiss];
+      [SVProgressHUD dismiss];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -105,6 +117,8 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    [self.tagView removeFromSuperview];
+
     SearchService *searchService = [[SearchService alloc] init];
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
@@ -114,5 +128,40 @@
         [self.tableview reloadData];
     }];
     [searchBar resignFirstResponder];
+}
+- (void)setupTagView
+{
+    self.tagView = ({
+        SKTagView *view = [SKTagView new];
+        view.backgroundColor = UIColor.cyanColor;
+        view.padding    = UIEdgeInsetsMake(10, 25, 10, 25);
+        view.insets    = 5;
+        view.lineSpace = 2;
+        view;
+    });
+    self.tagView.frame = CGRectMake(0, 120, self.view.frame.size.width, 80);
+    [self.view addSubview:self.tagView];
+//    [self.tagView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        UIView *superView = self.view;
+////        make.center.equalTo(superView);
+//        make.leading.equalTo(superView.mas_leading);
+//        make.trailing.equalTo(superView.mas_trailing);
+//    }];
+    //Add Tags
+    [@[@"青椒", @"小红椒", @"地板油", @"五花肉", @"芦花鸡",@"有机大豆", @"大米"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
+     {
+         SKTag *tag = [SKTag tagWithText:obj];
+         tag.textColor = UIColor.whiteColor;
+         tag.bgColor = UIColor.orangeColor;
+         tag.target = self;
+         tag.action = @selector(handleBtn:);
+         tag.cornerRadius = 3;
+        [self.tagView addTag:tag];
+     }];
+}
+- (void)handleBtn:(SKTagButton *)btn
+{
+    self.search.text = btn.mTag.text;
+//    [self.tagView removeTag:btn.mTag];
 }
 @end

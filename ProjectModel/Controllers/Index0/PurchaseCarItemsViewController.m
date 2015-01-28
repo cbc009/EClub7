@@ -57,14 +57,10 @@
             totalNum = [puchaseCarItemsService totalPriceByitems:model.goods];
             purchSelf.totalPrice.text = [NSString stringWithFormat:@"总计:￥%0.1f",totalNum];
             [purchSelf.tableview reloadData];
-      
      }];
    
     self.title = @"购物篮";
-    
 }
-
-
 
 - (void)didReceiveMemoryWarning
 {

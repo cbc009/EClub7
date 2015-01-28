@@ -29,6 +29,9 @@
 #define SinaAppKEY @"274015286"
 #define AppDownLoadURL @"https://itunes.apple.com/cn/app/e-xiao-qu/id914487546?mt=8"
 #define ItemHeight 40.0
+#define kMode_Development             @"00"//正式上线的时候要改为00千万要记住
+#define kResult           @"支付结果：%@"    //支付结果
+
 
 #import "SharedAction.h"
 #import "SharedData.h"
@@ -153,7 +156,7 @@ typedef void (^finished)(NSDictionary *info);
 //我的秒杀订单
 #define KillOrderURL [PrexURL stringByAppendingString: @"Instant/mysecond/from/IOS/token/%@/user_type/%d/page/%@"]
 //充值信息
-#define Create_pay_orderURL [PrexURL stringByAppendingString: @"Pay/create_order/from/IOS/token/%@/user_type/%d/price/%@"]
+#define Create_pay_orderURL [PrexURL stringByAppendingString: @"Pay/create_order/from/IOS/token/%@/user_type/%d/price/%@/pay_mode/%@"]
 
 //修改登录密码
 #define ChangePassword [MainPrexURL stringByAppendingString: @"Base/password/frome/ios/token/%@/user_type/%d/password/%@/passwordold/%@"]
@@ -179,7 +182,8 @@ typedef void (^finished)(NSDictionary *info);
 #define Call_History_URL [PrexURL stringByAppendingString: @"Call/phonelist/from/IOS/token/%@/user_type/%d/page/%@"]
 //打电话
 #define Call [PrexURL stringByAppendingString: @"Call/makecall/from/IOS/token/%@/user_type/%d/phone/%@"]
-
+//话费充值
+#define Call_Phone_Topup_URL [PrexURL stringByAppendingString: @"Call/phone_topup/from/IOS/token/%@/user_type/%d/mobile/%@/minutes/%@"]
 //签到领话费
 #define Sigin [PrexURL stringByAppendingString: @"Call/phonesign/from/IOS/token/%@/user_type/%d"]
 //获取各种余额信息
@@ -211,6 +215,14 @@ typedef void (^finished)(NSDictionary *info);
 #define Lifehall_lifehall_list_URL [PrexURL stringByAppendingString: @"Lifehall/lifehall_list/from/IOS/token/%@/user_type/%d"]
 //生活馆详情
 #define Lifehall_lifehall_info_URL [PrexURL stringByAppendingString: @"Lifehall/lifehall_info/from/IOS/lifehall_id/%@/token/%@/user_type/%d"]
+
+//合作商家
+#define Partner_Partner_List_URL [PrexURL stringByAppendingString: @"Partner/partner_list/from/IOS/token/%@/user_type/%d"]
+//生活馆详情
+#define Partner_Partner_Info_URL [PrexURL stringByAppendingString: @"Partner/partner_info/from/IOS/partner_id/%@/token/%@/user_type/%d"]
+
+//我的意见反馈
+#define Base_Myadvice_URL [PrexURL stringByAppendingString: @"base/myadvice/token/%@/user_type/%d/from/IOS"]
 //发布生活圈信息
 #define Lifecircle_info_URL [PrexURL stringByAppendingString: @"Lifecircle/release/from/IOS"]
 //删除一条自己发布的信息
@@ -218,5 +230,5 @@ typedef void (^finished)(NSDictionary *info);
 //发布评论
 #define Lifecircle_Comment_info_URL [PrexURL stringByAppendingString: @"Lifecircle/comment/from/IOS"]
 //个人发布的信息
-#define Lifecircle_Myinfo_info_URL [PrexURL stringByAppendingString: @"Lifecircle/myinfo/from/IOS/mid/%d/token/%@/user_type/%d"]
+#define Lifecircle_Myinfo_info_URL [PrexURL stringByAppendingString: @"Lifecircle/myinfo/from/IOS/mid/%d/token/%@/user_type/%d/page/%@"]
 

@@ -9,6 +9,5 @@
 #import <Foundation/Foundation.h>
 #import "MorePush_history.h"
 @interface MorePush_historyService : NSObject
--(void)loadPush_historyWithToken:(NSString *)token andUser_type:(NSInteger )user_type andPage:(NSString *)page InViewController:(MorePush_history *)viewController;
--(void)loadMorePush_historyWithToken:(NSString *)token andUser_type:(NSInteger )user_type andPage:(NSString *)page InViewController:(MorePush_history *)viewController;;
+-(void)loadPush_historyWithToken:(NSString *)token andUser_type:(NSInteger )user_type andPage:(NSString *)page inTabBarcontroller:(UITabBarController *)tabBarController withdon:(doneWithObject)done;
 @end

@@ -38,11 +38,11 @@
         [Member_Login getModelFromURLWithString:urlString completion:^(Member_Login *model,JSONModelError *error){
             if (model.status==2) {
                 sharedData.user=model.info;
-//                [self GetBalanceWithToken:sharedData.user.token andUser_type:sharedData.user.user_type onViewController:viewController];
+                BuyService *buyService = [[BuyService alloc] init];
+                [buyService loadGoodTypesWithToken:model.info.token andUser_type:model.info.user_type InViewController:viewController];
                 [SharedAction setUMessageTagsWithUser:model.info];
                 [self loadAdverPicWithPos:1 andCity:model.info.city inViewController:viewController];
-                BuyService *buyService = [[BuyService alloc] init];
-                [buyService loadGoodTypesWithToken:sharedData.user.token andUser_type:sharedData.user.user_type InViewController:viewController];
+              
             }else{
                 [SVProgressHUD showErrorWithStatus:model.error];
                 [SharedAction presentLoginViewControllerInViewController:viewController];

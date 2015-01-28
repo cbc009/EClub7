@@ -48,12 +48,12 @@
 {
     [super viewDidDisappear:animated];
     [SVProgressHUD dismiss];
+    [self.collectionview headerEndRefreshing];
 }
 #pragma UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return self.datas.count;
 }
-
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -61,14 +61,13 @@
     dic = self.datas[indexPath.row];
     Cell.name.text = [dic valueForKey:@"name"];
     [Cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,[dic valueForKey:@"picture"]]] placeholderImage:[UIImage imageNamed:@"e"]];
-    Cell.EPrize.text =[NSString stringWithFormat:@"E: %@",[dic valueForKey:@"point"]];
+    Cell.EPrize.text =[NSString stringWithFormat:@"所需E币: %@",[dic valueForKey:@"point"]];
     return Cell;
 }
 #pragma UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 //    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     NSInteger row = indexPath.row;
-    NSLog(@"didSelect:%ld",(long)row);
     dic = self.datas[row];
     [pointViewControllerService presentPointGoodViewControllerWithDatas:dic OnPointViewController:self];
    
@@ -136,11 +135,8 @@
             [SharedAction loginAggane];
             NSArray *viewControllers = self.navigationController.viewControllers;
             [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
-            
         }
     }
 }
-//-(void)setSelectedColorInCollectionView:(UICollectionView *)collectionView withSelectedRow:(NSInteger)row withDatas:(NSArray *)datas{
-//    NSInteger count = 2;
-//}
+
 @end

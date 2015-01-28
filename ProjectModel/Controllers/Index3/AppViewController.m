@@ -33,7 +33,7 @@
      self.title = @"应用推荐";
     SharedData *sharedData = [SharedData sharedInstance];
     AppQRocde *appQRcodeService = [[AppQRocde alloc] init];
-    [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+//    [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [appQRcodeService loadDataWithToken:sharedData.user.token AndUser_type:sharedData.user.user_type withDone:^(GUIde_info *model){
         self.qrCode = model.qrcode;
         self.datas = (NSArray*)model.member;
@@ -64,7 +64,7 @@
         JoinMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"JoinMemberCell" forIndexPath:indexPath];
         Member_info *model =self.datas[row];
         cell.name.text =model.nickname;
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+        [cell.picture sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
         return cell;
     }else{
         RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RecommendCell" forIndexPath:indexPath];
@@ -74,7 +74,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
-        return 270;
+        return 317;
+    }else  if (indexPath.section==1){
+        return 40;
     }else{
         return 60;
     }

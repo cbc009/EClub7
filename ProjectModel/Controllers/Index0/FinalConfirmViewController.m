@@ -12,7 +12,7 @@
 #import "GoodForSubmit.h"
 #import "SharedData.h"
 #import "Member_Login.h"
-
+#import "Delivery.h"
 @interface FinalConfirmViewController ()
 {
 
@@ -24,7 +24,7 @@
     
     NSString *identifier;
     
-    
+    UserInfo *user;
     FinalConfirmService *finalConfirmService;
 
     __weak IBOutlet UILabel *amount;
@@ -66,15 +66,24 @@
     // Do any additional setup after loading the view.
     self.title = @"订单确认";
     SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
+    user = sharedData.user;
     totalPrice.text = [NSString stringWithFormat:@"总额:￥%@",self.totalPriceString];
     self.bottomTotalPrice.text = [NSString stringWithFormat:@"总额:￥%@",self.totalPriceString];
     amount.text = [NSString stringWithFormat:@"使用账户余额：￥%0.2f",user.amount];
     redbag.text = [NSString stringWithFormat:@"使用红包余额：￥%0.2f",user.amount_red];
     self.userPhone.text = user.mobile;
     self.sendAddress.text = user.address;
-    [finalConfirmService loadDeliveryInfosInViewController:self];
-
+    [finalConfirmService loadDeliveryInfosWithToken:user.token anduser_type:user.user_type inTabBarController:self.tabBarController withDone:^(DeliveryInfo *model){
+        self.timeArray = model.sendtime;
+        self.delivery_scope.text = [NSString stringWithFormat:@"(%@)",model.delivery_scope];
+        self.shipping_fee.text = [NSString stringWithFormat:@"%ld元",(long)model.shipping_fee];
+        self.delivery_limit.text = [NSString stringWithFormat:@"小贴士:免费配送的最低交易金额为:￥%@元",model.delivery_limit];
+        if (self.timeArray.count>0) {
+            [self.sendTime setTitle:self.timeArray[0] forState:UIControlStateNormal];
+        }else{
+            [self.sendTime setTitle:@"暂不支持送货上门" forState:UIControlStateNormal];
+        }
+    }];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -173,8 +182,11 @@
 }
 
 - (IBAction)submitAction:(id)sender {
-    
+    if (user.user_type==3) {
+        [SVProgressHUD showErrorWithStatus:@"请前往 “我”页面中的“个人信息”“关联区域”完善资料"];
+    }else{
     [finalConfirmService submitActionInViewController:self];
+}
 }
 - (IBAction)payMethod1:(id)sender {
     [finalConfirmService payMethod1:sender inViewController:self];

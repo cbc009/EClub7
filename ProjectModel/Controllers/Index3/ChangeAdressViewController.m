@@ -11,11 +11,13 @@
 #import "SharedData.h"
 #import "Member_Login.h"
 #import "UserDefaults.h"
+#import "Status.h"
 @interface ChangeAdressViewController ()
 {
     ChangeAddressService *changeAddressService;
     UserDefaults *userDefaults ;
       UIKeyboardViewController *keyBoardController;
+    UserInfo *user;
 }
 
 @end
@@ -28,23 +30,20 @@
     [keyBoardController addToolbarToKeyboard];
     self.title = @"修改地址";
     SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
+    user = sharedData.user;
     _newaddress.placeholder =user.address;
     changeAddressService = [[ChangeAddressService alloc] init];
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-   
 }
-
-
 
 - (IBAction)go:(id)sender {
     NSString *adress= _newaddress.text;
-
-    [changeAddressService ChangeAddressService:adress onChangeAdressViewController:self];
-   
+    [changeAddressService changeAddressService:adress withToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withdone:^(Status *model){
+        user.address = self.newaddress.text;
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
 }
 @end

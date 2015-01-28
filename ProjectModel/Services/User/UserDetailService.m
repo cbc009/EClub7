@@ -20,10 +20,9 @@
  1,设置login status 为注销状态
  2,调出loginViewController界面
  */
--(void)loginoutActionInViewController:(UserDetailViewController *)viewController{
-//    SharedData *sharedData = [SharedData sharedInstance];
-//    sharedData.loginStatus = @"no";
-    [SharedAction presentLoginViewControllerInViewController:viewController];
+-(void)loginoutActionInViewController:(UserDetailViewController *)viewController inTabBarController:(UITabBarController *)tabBarController{
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+     [SharedAction presentLoginViewControllerInViewController:viewController];
 }
 
 //修改头像

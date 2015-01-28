@@ -23,6 +23,6 @@
 -(void)submitActionInViewController:(FinalConfirmViewController *)viewController;
 
 -(void)submitInViewController:(FinalConfirmViewController *)viewController withPassword:(NSString *)password;
--(void)loadDeliveryInfosInViewController:(FinalConfirmViewController *)viewController;
+-(void)loadDeliveryInfosWithToken:(NSString *)token anduser_type:(NSInteger)user_type inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 
 @end

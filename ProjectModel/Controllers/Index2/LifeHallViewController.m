@@ -25,6 +25,7 @@
     self.title = @"生活体验馆";
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
+    self.automaticallyAdjustsScrollViewInsets=YES;
     lifeHallService = [[LifeHallService alloc] init];
     [lifeHallService lifehalllifehalllistWithToken:user.token andUer_type:user.user_type andTabbarController:self.tabBarController withDone:^(LifeHall_List_Info *model){
         self.datas = (NSArray *)model.lifehall;

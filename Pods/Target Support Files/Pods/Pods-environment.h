@@ -54,17 +54,29 @@
 #define COCOAPODS_VERSION_MINOR_ELCImagePickerController 2
 #define COCOAPODS_VERSION_PATCH_ELCImagePickerController 0
 
+// HexColors
+#define COCOAPODS_POD_AVAILABLE_HexColors
+#define COCOAPODS_VERSION_MAJOR_HexColors 2
+#define COCOAPODS_VERSION_MINOR_HexColors 2
+#define COCOAPODS_VERSION_PATCH_HexColors 1
+
 // JSONModel
 #define COCOAPODS_POD_AVAILABLE_JSONModel
 #define COCOAPODS_VERSION_MAJOR_JSONModel 1
 #define COCOAPODS_VERSION_MINOR_JSONModel 0
-#define COCOAPODS_VERSION_PATCH_JSONModel 1
+#define COCOAPODS_VERSION_PATCH_JSONModel 2
 
 // MarqueeLabel
 #define COCOAPODS_POD_AVAILABLE_MarqueeLabel
 #define COCOAPODS_VERSION_MAJOR_MarqueeLabel 2
 #define COCOAPODS_VERSION_MINOR_MarqueeLabel 0
 #define COCOAPODS_VERSION_PATCH_MarqueeLabel 9
+
+// Masonry
+#define COCOAPODS_POD_AVAILABLE_Masonry
+#define COCOAPODS_VERSION_MAJOR_Masonry 0
+#define COCOAPODS_VERSION_MINOR_Masonry 6
+#define COCOAPODS_VERSION_PATCH_Masonry 0
 
 // SDWebImage
 #define COCOAPODS_POD_AVAILABLE_SDWebImage
@@ -105,8 +117,8 @@
 // UMengFeedback
 #define COCOAPODS_POD_AVAILABLE_UMengFeedback
 #define COCOAPODS_VERSION_MAJOR_UMengFeedback 2
-#define COCOAPODS_VERSION_MINOR_UMengFeedback 0
-#define COCOAPODS_VERSION_PATCH_UMengFeedback 3
+#define COCOAPODS_VERSION_MINOR_UMengFeedback 1
+#define COCOAPODS_VERSION_PATCH_UMengFeedback 0
 
 // UMengMessage
 #define COCOAPODS_POD_AVAILABLE_UMengMessage

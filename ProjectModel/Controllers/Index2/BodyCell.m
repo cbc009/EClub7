@@ -54,7 +54,6 @@
     RequestCell *cell= [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     CommentInfo *model = self.data[indexPath.row];
-//    cell.backgroundColor = [UIColor yellowColor];
     cell.name.text = model.nickname;
     cell.content.text = model.content;
 //    NSLog(@"cell.content.frame:%@",NSStringFromCGRect(cell.content.frame));

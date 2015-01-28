@@ -11,10 +11,11 @@
 #import "PointOdrCell.h"
 #import "PointOrder.h"
 #import <UIImageView+WebCache.h>
-
+#import "PointOrder.h"
 @interface PointOrdViewController ()
 {
     PointOrderService *pointOrderService;
+    UserInfo *user;
 }
 @end
 
@@ -22,8 +23,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    SharedData *sharedData = [SharedData sharedInstance];
+    user= sharedData.user;
     pointOrderService = [[PointOrderService alloc] init];
-    [pointOrderService loadTradeOrderInViewController:self];
+    [pointOrderService loadTradeOrderWithToken:user.token anduser_type:user.user_type inTabBarController:self.tabBarController withdone:^(PointOrderInfo *model){
+        self.datas=(NSMutableArray *)model.order;
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,7 +52,6 @@
     NSInteger row = indexPath.row;
     PointOrder *order = [self.datas objectAtIndex:row];
     cell.name.text = order.demo;
-    
     cell.price.text = [NSString stringWithFormat:@"E币:%@", order.point];
     NSString *str = [order.regtime substringToIndex:10];
     cell.date.text = str;

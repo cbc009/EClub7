@@ -99,7 +99,7 @@
     frame.size = mWebViewTextSize;
     self.webview.frame = frame;
     [self.scrollview setContentSize:CGSizeMake(DeviceFrame.size.width, mWebViewTextSize.height+1)];
-    self.webviewHeight.constant = mWebViewTextSize.height+1;
+    self.webviewHeight.constant = mWebViewTextSize.height+50;
 }
 //- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request   navigationType:(UIWebViewNavigationType)navigationType {
 //    return YES;

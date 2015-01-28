@@ -93,6 +93,7 @@
 }
 -(void)submitActionInViewController:(FinalConfirmViewController *)viewController{
     
+    
     if([self compareCurrentTimeWithTime:@"21:30:00"] == NSOrderedDescending && [self compareCurrentTimeWithTime:@"06:00:00"] == NSOrderedAscending){
         //如果是卖家送货
         if (viewController.sendMethod2.tag==1) {
@@ -140,7 +141,6 @@
     NSString *message = viewController.userMessage.text;
     NSString *passwd = [MyMD5 md5:password];
     NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:user.token, @"token",user_type,@"user_type",datas,@"info",payType,@"paymenttype",sendType,@"sendtype",Sendid,@"sendtime",passwd,@"paypassword",address,@"address",mobile,@"mobile",message,@"message",nil];
-    NSLog(@"%@   %@",SubmitItemsURL,dict);
     [SVProgressHUD show];
     [JSONHTTPClient postJSONFromURLWithString:SubmitItemsURL params:dict completion:^(id object, JSONModelError *err) {
         NSNumber *status1 = (NSNumber *)[object objectForKey:@"status"];
@@ -175,16 +175,6 @@
        
 }
 
-//-(NSArray *)finalItemsWithObjects:(NSArray *)datas{
-//    NSMutableArray *items = [[NSMutableArray alloc] init];
-//    NSInteger count = datas.count;
-//    for (NSInteger i=0; i<count; i++) {
-//        GoodForSubmit *good = [datas objectAtIndex:i];
-//        NSDictionary *item = [[NSDictionary alloc] initWithObjectsAndKeys:good.cid,@"cid",good.gid,@"gid",good.num,@"num",good.total, @"total",nil];
-//        [items addObject:item];
-//    }
-//    return (NSArray *)items;
-//}
 
 -(NSString *)finalItemsWithObjects:(NSArray *)datas{
     NSMutableString *items = [[NSMutableString alloc] init];
@@ -222,28 +212,11 @@
 }
 
 
--(void)loadDeliveryInfosInViewController:(FinalConfirmViewController *)viewController{
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
-    NSString *urlString = [NSString stringWithFormat:DeliveryURL,user.token,user.user_type];
+-(void)loadDeliveryInfosWithToken:(NSString *)token anduser_type:(NSInteger)user_type inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
+    NSString *urlString = [NSString stringWithFormat:DeliveryURL,token,user_type];
     [SVProgressHUD show];
     [Delivery getModelFromURLWithString:urlString completion:^(Delivery *model,JSONModelError *error){
-        NSLog(@"%@",error);
-        if (model.status==2) {
-            DeliveryInfo *info = model.info;
-            viewController.timeArray = info.sendtime;
-            viewController.delivery_scope.text = [NSString stringWithFormat:@"(%@)",info.delivery_scope];
-            viewController.shipping_fee.text = [NSString stringWithFormat:@"%ld元",(long)info.shipping_fee];
-            viewController.delivery_limit.text = [NSString stringWithFormat:@"小贴士:免费配送的最低交易金额为:￥%@元",info.delivery_limit];
-            if (viewController.timeArray.count>0) {
-                [viewController.sendTime setTitle:viewController.timeArray[0] forState:UIControlStateNormal];
-            }else{
-                [viewController.sendTime setTitle:@"暂不支持送货上门" forState:UIControlStateNormal];
-            }
-            [SVProgressHUD dismiss];
-        }else{
-            [SVProgressHUD showErrorWithStatus:model.error];
-        }
+        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
     }];
 }
 @end

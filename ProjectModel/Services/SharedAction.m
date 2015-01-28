@@ -11,6 +11,7 @@
 #import "AFNetworking.h"
 #import "MJRefresh.h"
 #import "JSONModelLib.h"
+#import "NSString+MT.h"
 @implementation SharedAction
 
 
@@ -21,7 +22,7 @@
     UINavigationController *userNavigationController = [[UINavigationController alloc] init];
     userNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"UserNavigationController"];
     LoginViewController *loginViewController = userNavigationController.viewControllers.firstObject;
-    loginViewController.delegate = viewController;
+    loginViewController.delegate = (id)viewController.tabBarController;
     [viewController presentViewController:userNavigationController animated:YES completion:nil];
 }
 
@@ -55,19 +56,16 @@
            NSData *imageData1 = UIImageJPEGRepresentation(imageArray[i], 0.5);
         [imgs addObject:imageData1];
     }
-    NSLog(@"%@",parameters);
     AFHTTPRequestOperation *op = [manager POST:Lifecircle_info_URL parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         //do not put image inside parameters dictionary as I did, but append it!
         //这里的name是服务器接收图片的字段。
         for (int i=0; i<imgs.count; i++) {
-
             [formData appendPartWithFileData:imgs[i] name:[NSString stringWithFormat:@"picture[%d]",i] fileName:[NSString stringWithFormat:@"photo%d.jpg",i] mimeType:@"image/jpeg"];
         }
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
-        [SVProgressHUD showSuccessWithStatus:@"发布成功"];
+        [SharedAction operationAfterSucccessActionWithOperation:operation andResponseObject:responseObject andUrl:url andParameters:parameters withCompletion:completed];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+        [SharedAction operationAfterFailActionWithUrl:url andPatameters:parameters andError:error withCompletion:completed];
     }];
     [op start];
 }
@@ -77,9 +75,10 @@
         NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
     [self logUrl:url parameters:parameters];
     NSNumber *status = responseObject[@"status"];
+    NSString *error = responseObject[@"error"];
     NSLog(@"status = %@", status);
     if (![status isEqual:@2]) {
-        [SharedAction showErrorWithStatus:[status integerValue]];
+        [SVProgressHUD showErrorWithStatus:error];
     } else {
         [SVProgressHUD showSuccessWithStatus:@"操作成功"];
         NSDictionary *dict = responseObject[@"info"];        
@@ -154,62 +153,7 @@
 {
     [SVProgressHUD showErrorWithStatus:@"没有更多的数据"];
 }
-//+(void)showErrorWithStatus:(NSInteger)status
-//{
-//    switch (status) {
-//        case 2:
-//            [SVProgressHUD showSuccessWithStatus:@"操作成功"];
-//            break;
-//        case 1:
-//            [SVProgressHUD showErrorWithStatus:@"操作失败"];
-//            break;
-//        case 801:
-//            [SVProgressHUD showErrorWithStatus:@"用户不存在"];
-//            break;
-//        case  802:
-//            [SVProgressHUD showErrorWithStatus:@"用户已存在"];
-//            break;
-//        case  805:
-//            [SVProgressHUD showErrorWithStatus:@"验证码错误"];
-//            break;
-//        case  807:
-//            [SVProgressHUD showErrorWithStatus:@"格式错误"];
-//            break;
-//        case  808:
-//            [SVProgressHUD showErrorWithStatus:@"无记录"];
-//            break;
-//        case  809:
-//            [SVProgressHUD showErrorWithStatus:@"密记录已存在"];
-//            break;
-//        case  810:
-//            [SVProgressHUD showErrorWithStatus:@"不存在"];
-//            break;
-//        case  811:
-//            [SVProgressHUD showErrorWithStatus:@"操作数据失败"];
-//            break;
-//        case  820:
-//            [SVProgressHUD showErrorWithStatus:@"商品不存在"];
-//            break;
-//        case  821:
-//            [SVProgressHUD showErrorWithStatus:@"重复请求"];
-//            break;
-//        case  822:
-//            [SVProgressHUD showErrorWithStatus:@"数量已满"];
-//            break;
-//        case  823:
-//            [SVProgressHUD showErrorWithStatus:@"不在操作时间内"];
-//            break;
-//        case  824:
-//            [SVProgressHUD showErrorWithStatus:@"所在区域未开通此功能"];
-//            break;
-//        case  826:
-//            [SVProgressHUD showErrorWithStatus:@"完善个人信息"];
-//            break;
-//        default:
-//            [SVProgressHUD showErrorWithStatus:@"操作失败"];
-//            break;
-//    }
-//}
+
 //下面的alertview的tag 1是余额不足2是无会员卡 4是密码错误
 +(void)showErrorWithStatus:(NSInteger)status andError:(NSString *)error witViewController:(UIViewController *)viewController{
      UIAlertView *alertView;
@@ -317,20 +261,19 @@
     //设置userinfo 方便在之后需要撤销的时候使用
     NSDictionary *infoDic = [NSDictionary dictionaryWithObject:type forKey:@"type"];
     noti.userInfo = infoDic;
-    //添加推送到uiapplication
-    [app scheduleLocalNotification:noti];
-    NSLog(@"alertBody:%@,type:%@,notifyTime:%@",alertBody,type,notifyTime);
-    
+   
     //获取本地推送数组
     NSArray *localArr = [app scheduledLocalNotifications];
     if (localArr) {
         for (int i=0;i<localArr.count;i++) {
             UILocalNotification *noti = localArr[i];
-            NSLog(@"UILocalNotification[%d].userInfo:%@",i,noti.userInfo);
-
+            NSLog(@"UILocalNotification[%d].userInfo:%@  noti.fireDate:%@",i,noti.userInfo,[NSString dateStringFromDate0:noti.fireDate]);
         }
-
     }
+    
+    //添加推送到uiapplication
+    [app scheduleLocalNotification:noti];
+    NSLog(@"alertBody:%@,type:%@,notifyTime:%@",alertBody,type,notifyTime);
 }
 
 //若time ealier now 则设置notifyTime==time；若time later now ，则设置notifyTime = time+one day；
@@ -405,7 +348,11 @@
     if (!jsonError) {
         if (status==2||status==808) {
             done(object);
-            [SVProgressHUD showSuccessWithStatus:error];
+            if (status==2) {
+                [SVProgressHUD dismiss];
+            }else{
+             [SVProgressHUD showSuccessWithStatus:error];
+            }
         }else{
             if (error==nil||[error isEqualToString:@""])
             {

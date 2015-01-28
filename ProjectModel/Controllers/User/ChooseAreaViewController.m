@@ -22,6 +22,7 @@
     NSString *areaIdSelected;
     NSString *lifeHallIdSelected;
     NSString *blockIdSelected;
+    NSString *lifehall_name;
 }
 @end
 
@@ -43,11 +44,14 @@
     tableview.dataSource = self;
     
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.title = @"选择小区";
     titles = [[NSMutableArray alloc] initWithObjects:@"选择所在省份",@"选择所在城市",@"选择所在区域",@"选择生活馆", nil];
 }
@@ -64,7 +68,13 @@
     return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSLog(@"%ld",(long)self.market);
+
+    if (self.market==2) {
+        return 3;
+    }else{
     return titles.count;
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -78,14 +88,20 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell ;
 }
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row = indexPath.row;
+    
     NSString *urlString;
     NSString *token =self.user.token;
     switch (row) {
         case 0:
             urlString =  [NSString stringWithFormat:ChooseProvinceURL,token];
+            titles = [[NSMutableArray alloc] initWithObjects:@"选择所在省份",@"选择所在城市",@"选择所在区域",@"选择生活馆", nil];
+            [tableview reloadData];
             break;
         case 1:
             urlString = [NSString stringWithFormat:ChooseCityURL,provinceIdSelected,token];
@@ -124,7 +140,9 @@
             areaIdSelected = [data objectForKey:@"area"];
             break;
         case 3:
+        
             lifeHallIdSelected = [data objectForKey:@"lifehall_id"];
+            lifehall_name =[data objectForKey:@"lifehall_name"];
             break;
         default:
             break;
@@ -153,6 +171,7 @@
                     datasViewController.datas =(NSMutableArray *) datass;
                     [self.navigationController pushViewController:datasViewController animated:YES];
                     [SVProgressHUD dismiss];
+                    
                 }else{
                     [SVProgressHUD showErrorWithStatus:@"加载数据出错"];
                 }
@@ -168,6 +187,9 @@
         [SVProgressHUD showErrorWithStatus:@"数据异常"];
     }else{
         [SVProgressHUD show];
+        
+        
+        
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             NSDictionary *result = [InternetRequest loadDataWithUrlString:urlString];
             dispatch_sync(dispatch_get_main_queue(), ^{
@@ -176,6 +198,8 @@
                     LoginService *loginService = [[LoginService alloc] init];
                     [loginService handlesWhenDismissLoginViewController:self.loginViewController];
                     [SVProgressHUD showSuccessWithStatus:@"关联小区成功"];
+                    SharedData *sharedData = [SharedData sharedInstance];
+                    sharedData.user.lifehall_name =lifehall_name;
                 }else{
                     [SVProgressHUD showErrorWithStatus:@"关联失败出错"];
                 }

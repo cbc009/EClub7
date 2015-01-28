@@ -31,6 +31,7 @@
     UserInfo *user = sharedData.user;
     self.redbag.text =[NSString stringWithFormat:@"%0.2f",user.amount_red];
     self.amount.text = [NSString stringWithFormat:@"%0.2f",user.amount];
+    self.cardId.text = user.iccard;
     self.Point.text = [NSString stringWithFormat:@"%ld",(long)user.point];
 }
 

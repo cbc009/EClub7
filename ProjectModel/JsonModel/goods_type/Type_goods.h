@@ -23,9 +23,9 @@
 @property(nonatomic,strong)NSString *unit_num;
 @property(nonatomic,strong)NSString *type;
 @property(nonatomic,assign)NSInteger goods_new;
-@property(nonatomic,strong)NSString *logistics;
-@property(nonatomic,strong)NSString *url;
-//@property(nonatomic,strong)NSString *nums;
+@property(nonatomic,strong)NSString <Optional>*logistics;
+@property(nonatomic,strong)NSString <Optional>*url;
+@property(nonatomic,strong)NSString <Optional>*nums;
 @end
 
 @interface Type_goods_info : JSONModel

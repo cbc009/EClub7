@@ -18,14 +18,13 @@
 #import "JSONModelLib.h"
 #import "SharedData.h"
 #import "SharedAction.h"
-
+#import "BuyService.h"
 @implementation LoginService
 
 -(void)loginWithName:(NSString *)name andPasswd:(NSString *)passwd onViewController:(LoginViewController *)viewController{
     if ([self validateLoginInfosWithName:name andPasswd:passwd]) {
         NSString *password = [MyMD5 md5:passwd];
         NSString *urlString = [NSString stringWithFormat:Base_Member_Login_URL,name,password];
-        NSLog(@"%@",urlString);
         [SVProgressHUD show];
         [Member_Login getModelFromURLWithString:urlString completion:^(Member_Login *model,JSONModelError *error){
             if (model.status==2) {
@@ -75,7 +74,8 @@
 
 //dismiss LoginViewController时处理操作
 -(void)handlesWhenDismissLoginViewController:(LoginViewController *)loginViewContrller{
-    [loginViewContrller.delegate loginSuccessedActionWithViewController:loginViewContrller];  //dismiss viewcontroller
+    [loginViewContrller.delegate loginSuccessedActionWithViewController:loginViewContrller];
+    //dismiss viewcontroller
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadData" object:self];  //loadData
 }
 

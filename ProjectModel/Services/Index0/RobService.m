@@ -48,7 +48,6 @@
         viewController.discount.text = [NSString stringWithFormat:@"抢购价:%@",discount];
     }
     viewController.itemCount.text = [NSString stringWithFormat:@"抢购总数量：%@%@",good.nums,good.unit];
-    
     NSString *startTime2 = [NSString timeType4FromStamp:startTime];//HH:mm:ss
     NSString *notifyTime = [NSString dateStringByAddTimeInterval:-120 fromDateString:startTime2 withDateFormatter:@"HH:mm:ss"];
     [SharedAction setLocalNotifyWithAlertBody:[NSString stringWithFormat:@"每天%@抢菜时间马上就到了",startTime2] andType:@"rob" andFireDate:notifyTime];
@@ -61,17 +60,14 @@
 -(void)loadAdverPicWithPos:(NSInteger)pos inViewController:(RobViewController *)viewController{
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
-    NSString *urlString = [NSString stringWithFormat:AdPictUrl,user.city,pos];
+    NSString *urlString = [NSString stringWithFormat:AdPictUrl,user.city,3];
     [self loadAdverPicFromUrl:urlString inViewController:viewController];
-
 }
 
 -(void)loadAdverPicFromUrl:(NSString *)urlString inViewController:(RobViewController *)viewController{
-    NSLog(@"%@",urlString);
     [AdvertPic getModelFromURLWithString:urlString completion:^(AdvertPic *model,JSONModelError *err){
         if (model.status) {
             NSArray *pictures = model.info.picture;
-            
             [self loadAdPictureWithImgInfos:pictures InViewController:viewController];
         }else{
             [SharedAction showErrorWithStatus:model.status andError:model.error witViewController:viewController];

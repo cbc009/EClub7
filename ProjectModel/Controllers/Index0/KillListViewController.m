@@ -37,6 +37,12 @@
     SharedData *shareData = [SharedData sharedInstance];
     [service goods_futureWithToken:shareData.user.token andUser_type:shareData.user.user_type inTabBarController:self.tabBarController withDone:^(KillGoodInfo *model){
         self.datas = model.goods;
+        for (int i=0; i<model.goods.count; i++) {
+            KillGood *good  = self.datas[i];
+            NSString *startTime2 = [NSString timeType4FromStamp:good.starttime];//HH:mm:ss
+            NSString *notifyTime = [NSString dateStringByAddTimeInterval:-120 fromDateString:startTime2 withDateFormatter:@"HH:mm:ss"];
+            [SharedAction setLocalNotifyWithAlertBody:[NSString stringWithFormat:@"今天%@的秒杀马上就要开始了",startTime2] andType:@"Kill" andFireDate:notifyTime];
+        }
         [self.tableview reloadData];
     }];
 }
@@ -63,7 +69,6 @@
     NSInteger index = row/2;
     if (row%2==0) {
         KillIconCell *cell = [tableView dequeueReusableCellWithIdentifier:@"KillIconCell" forIndexPath:indexPath];
-
         KillGood *good = self.datas[index];
         cell.date.text = good.start_time;
         if (good.seconds==0) {

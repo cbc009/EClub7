@@ -10,6 +10,6 @@
 #import "ChangeNameViewController.h"
 
 @interface ChangeUserNameService : NSObject
--(void)ChangeUserNameService:(NSString *)nicname onChangeNameViewcontroller:(ChangeNameViewController *)ChangeNameViewController;
+-(void)changeUserNameService:(NSString *)nicname withToken:(NSString *)token andUser_type:(NSInteger)user_type inTabBarController:(UITabBarController *)tabBarController withdone:(doneWithObject)done;
 
 @end

@@ -57,9 +57,8 @@
 {
     [super viewDidDisappear:animated];
     [SVProgressHUD dismiss];
-    
+    [self.tableview headerEndRefreshing];
 }
-
 
 -(void)buttonTouchAction
 {
@@ -101,6 +100,7 @@
     cell.pastPrice.text = [NSString stringWithFormat:@"原价:%@元/%@",model.price,model.unit];
     cell.currenPrice.text = [NSString stringWithFormat:@"%@元/%@",model.discount,model.unit];
     cell.discout.text = [NSString stringWithFormat:@"%0.1f折",[model.discount floatValue]/[model.price floatValue]];
+    cell.people.text = [NSString stringWithFormat:@"已购买人数%@",model.nums];
     if (model.goods_new == 2) {
         cell.goodimage.image= [UIImage imageNamed:@"shop_new_tag3"];
     }else if(model.goods_new == 3){

@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *count;
 @property (weak, nonatomic) IBOutlet UILabel *Ems;
 @property (strong, nonatomic) MLFloatButton *floatButton;
+@property (weak, nonatomic) IBOutlet UILabel *people;
 - (IBAction)buynow:(id)sender;
 //@property (weak, nonatomic) IBOutlet UILabel *ems;
 

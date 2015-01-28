@@ -20,11 +20,10 @@
 #import "MLMutiImagesChoosenViewController.h"
 #import "Status.h"
 #import "LifecircleService.h"
-#import "PostContentViewController.h"
 #import "PeopleDetailViewController.h"
 #import "DAKeyboardControl.h"
 #import "NSString+MT.h"
-@interface LiveViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface LiveViewController () <UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     LiveService *liveService;
     LifecircleService *lifecircleService;
@@ -36,6 +35,7 @@
     NSInteger page;
     UIActionSheet *action;
     BodyCell *selectedCellForCommemt;
+    UITapGestureRecognizer *tap;
 }
 @property(nonatomic,strong)UIToolbar *toolBar;
 @property(nonatomic,strong)UITextField *textField;
@@ -47,25 +47,29 @@
     [super viewWillAppear:animated];
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
-    liveService = [[LiveService alloc] init];
-    [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
-    [self setupTextSendKeyboard];
 }
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self.view removeKeyboardControl];
 
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
+
     self.title=@"生活圈";
-     self.automaticallyAdjustsScrollViewInsets = YES;
+    liveService = [[LiveService alloc] init];
+//     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-//    [self.tableview reloadData];
+    [self.tableview headerEndRefreshing];
+    [self.tableview reloadData];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    
     return 2;
 }
 
@@ -83,7 +87,7 @@
     if (indexPath.section==0) {
         BackGroundCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BackGroundCell" forIndexPath:indexPath];
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
-        [cell.herad sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+        [cell.herad sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]] placeholderImage:[UIImage imageNamed:@"userIcon.jpg"]];
         cell.herad.userInteractionEnabled =YES;
         UITapGestureRecognizer *chageHead = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapChangeHeard)];
         [cell.herad addGestureRecognizer:chageHead];
@@ -118,13 +122,12 @@
         cell.tableFarm.constant = 8;
         cell.herad.layer.masksToBounds = YES;
         cell.herad.layer.cornerRadius = 30;
-        [cell.herad sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.headpic]] placeholderImage:[UIImage imageNamed:@"e"]];
+        [cell.herad sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.headpic]] placeholderImage:[UIImage imageNamed:@"userIcon.jpg"]];
         if (model.picture.count>0) {
             cell.collectionviewHeight.constant=64;
         }else{
             cell.collectionviewHeight.constant=0;
         }
-        
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MLMutiImagesViewController" bundle:nil];
         mutiImagesContoller = [storyboard instantiateViewControllerWithIdentifier:@"MLMutiImagesChoosenViewController"];
         mutiImagesContoller.fatherController = self;
@@ -140,7 +143,7 @@
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
-    return true;
+    return YES;
 }
 -(NSArray *)imgUrlsFromTopic:(DataInfo *)object{
     NSString *urlString;
@@ -153,9 +156,11 @@
     return array;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
+
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    NSLog(@"11");
+////    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
@@ -176,8 +181,8 @@
         }else {
             CGFloat cellHeight = 0.0;
             CGFloat labelHeight = 0.0;
-            for (int k=0; k<model.comment.count; k++) {
-                CommentInfo *object = model.comment[k];
+            for (int k=0; k<dataInfo.comment.count; k++) {
+                CommentInfo *object = dataInfo.comment[k];
                 labelHeight = [NSString heightWithString:object.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-84-7, 600)]+20;
                 cellHeight =cellHeight+labelHeight;
             }
@@ -188,8 +193,6 @@
 }
 
 
-
-
 #pragma mark 开始进入刷新状态
 - (void)headerRereshing
 {
@@ -197,11 +200,10 @@
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
     [SVProgressHUD show];
     [liveService loadLiveDataWithToken:user.token andUser_type:user.user_type andPageString:pageString withTabBarViewController:self.tabBarController doneObject:^(LiveModelInfo *model1){
-        [self.tableview reloadData];
         self.datas = (NSMutableArray *)model1.data;
         [liveService countSizeWithData: self.datas inViewController:self];
         [self.tableview headerEndRefreshing];
-        
+        [self.tableview reloadData];
     }];
 }
 
@@ -210,10 +212,10 @@
     page++;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
     [liveService loadLiveDataWithToken:user.token andUser_type:user.user_type andPageString:pageString withTabBarViewController:self.tabBarController doneObject:^(LiveModelInfo *model1){
-        [self.tableview reloadData];
         [self.datas addObjectsFromArray:model1.data];
         [liveService countSizeWithData:self.datas inViewController:self];
         [self.tableview footerEndRefreshing];
+         [self.tableview reloadData];
     }];
 }
 - (void)didReceiveMemoryWarning {
@@ -223,28 +225,24 @@
 //评论
 #pragma BodyTableViewCellDelegate
 -(void)request:(id)sender InCell:(BodyCell *)cell{
+    [self setupTextSendKeyboard];
     [self handleAfterKeyboardShown];
     NSIndexPath *indexpath = [self.tableview indexPathForCell:cell];
     model = self.datas[indexpath.row];
     selectedCellForCommemt = cell;
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index2" bundle:nil];
-//    PostContentViewController *postContentViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostContentViewController"];
-//    postContentViewController.xid = model.xid;
-//    postContentViewController.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:postContentViewController animated:YES];
-    
 }
+
 //删除按钮
 -(void)delet:(id)sender InCell:(BodyCell *)cell
 {
    NSIndexPath *indexpath = [self.tableview indexPathForCell:cell];
     model = self.datas[indexpath.row];
     LifecircleService *lifecircleServic = [[LifecircleService alloc] init];
-    [lifecircleServic LifecircleLifedeleteWithToken:user.token andUser_type:user.user_type andXid:model.xid withDone:^(Status *model2){
+    [lifecircleServic lifecircleLifedeleteWithToken:user.token andUser_type:user.user_type andXid:model.xid withDone:^(Status *model2){
         if (model2.status==2) {
             [liveService deleteCellInLiveViewController:self atIndexPath:indexpath];
         }
-        }];
+    }];
 }
 -(void)someoneDetailInCell:(BodyCell *)cell
 {
@@ -342,12 +340,10 @@
                                   29.0f);
     [sendButton addTarget:self action:@selector(sendAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.toolBar addSubview:sendButton];
-    
-    
     self.view.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleAfterKeyboardHidden)];
+    tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleAfterKeyboardHidden)];
     [self.view addGestureRecognizer:tap];
-    
+   
     self.view.keyboardTriggerOffset = self.toolBar.bounds.size.height;
     __weak typeof(self) weakSelf = self;
     [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
@@ -358,11 +354,6 @@
     }];
 }
 
--(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
-    [self.view removeKeyboardControl];
-}
-
 //点击“发送”，评论
 -(void)sendAction:(UIButton *)sender{
     NSLog(@"%@",self.textField.text);
@@ -371,7 +362,7 @@
     if (self.textField.text==nil||[self.textField.text isEqualToString:@""]) {
         [SVProgressHUD showErrorWithStatus:@"内容不能为空"];
     }else{
-        [lifecircleService LifecircleLifeCommentWithToken:user.token andUser_type:user.user_type andContent:self.textField.text andXid:model.xid withTabBarController:self.tabBarController withDone:^(Status *model){
+        [lifecircleService lifecircleLifeCommentWithToken:user.token andUser_type:user.user_type andContent:self.textField.text andXid:model.xid withTabBarController:self.tabBarController withDone:^(Status *model){
             CommentInfo *commentInfo = [CommentInfo new];
             commentInfo.content = self.textField.text;
             commentInfo.nickname = user.nickname;
@@ -383,7 +374,7 @@
             [self.tableview reloadRowsAtIndexPaths:this_indexpaths withRowAnimation:UITableViewRowAnimationBottom];
             
             self.textField.text = @"";
-
+            [self.view removeKeyboardControl];
         }];
     }
 }
@@ -394,6 +385,7 @@
 }
 
 -(void)handleAfterKeyboardHidden{
+    [self.view removeGestureRecognizer:tap];
     [self.textField resignFirstResponder];
     self.toolBar.hidden = YES;
 }

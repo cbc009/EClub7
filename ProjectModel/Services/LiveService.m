@@ -59,7 +59,7 @@
         [viewController.cellHeightlArray addObject:[NSString stringWithFormat:@"%f",label_height+75+tableViewheight+pictureHeight]];
         [viewController.labeHeightlArray addObject:[NSString stringWithFormat:@"%f",label_height]];
     }
-    [viewController.tableview reloadData];
+//    [viewController.tableview reloadData];
 }
 
 //修改头像图

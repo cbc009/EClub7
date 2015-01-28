@@ -10,7 +10,7 @@
 
 
 @interface Base_Balance_Info : JSONModel
-@property(nonatomic,strong)NSString *iccard;
+@property(nonatomic,strong)NSString<Optional> *iccard;
 @property(nonatomic,assign)CGFloat amount;
 @property(nonatomic,assign)CGFloat amount_red;
 @property(nonatomic,assign)CGFloat point;
@@ -20,5 +20,5 @@
 @interface Base_Balance_Model : JSONModel
 @property(nonatomic,strong)NSString *error;
 @property(nonatomic,assign)NSInteger status;
-@property(nonatomic,strong)Base_Balance_Info *info;
+@property(nonatomic,strong)Base_Balance_Info <Optional>*info;
 @end

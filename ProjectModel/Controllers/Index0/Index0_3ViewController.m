@@ -39,6 +39,7 @@
     self.title=user.lifehall_name;
     index0Service = [[Index0Service alloc] init];
     if (![[sharedData loginStatus] isEqualToString:@"yes"]) {
+        
         [SharedAction presentLoginViewControllerInViewController:self];
     }else{
         //需要重新加载userDefaults的数据（可能数据库的数据会经常变化）
@@ -47,10 +48,12 @@
 
     self.collectionDatas = [NSArray arrayWithObjects:@"抢购",@"充值",@"秒杀",@"抽奖",@"团购",@"兑换",@"购物车",@"钱包", nil];
     self.collectionImgs = [NSArray arrayWithObjects:@"rob.jpg",@"recharge.jpg",@"seckill.jpg",@"lotterydraw.jpg",@"team_buy.jpg",@"exchange.jpg",@"buy.jpg",@"wallet.jpg", nil];
-    
-  
 }
-
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.tableview reloadData];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -65,7 +68,6 @@
         UIViewController *viewController = segue.destinationViewController;
         viewController.hidesBottomBarWhenPushed = YES;
     }
-
 }
 
 
@@ -239,12 +241,4 @@
     }
 }
 
-#pragma LoginViewControllerDelegate
--(void)loginSuccessedActionWithViewController:(UIViewController *)viewController{
-    [viewController.navigationController dismissViewControllerAnimated:YES completion:nil];
-    SharedData *sharedData = [SharedData sharedInstance];
-    buyService = [[BuyService alloc] init];
-    [buyService loadGoodTypesWithToken:sharedData.user.token andUser_type:sharedData.user.user_type InViewController:self];
-    [index0Service loadAdverPicWithPos:1 andCity:sharedData.user.city inViewController:self];
-}
 @end
