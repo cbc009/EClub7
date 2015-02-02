@@ -17,8 +17,9 @@
 
 @end
 
-@interface LoginViewController : UIViewController<RegisterViewControllerDelegate,UIKeyboardViewControllerDelegate>
+@interface LoginViewController : UIViewController<UIKeyboardViewControllerDelegate>
 
 @property (nonatomic,retain)id<LoginViewControllerDelegate> delegate;
-
+@property (nonatomic,strong)NSString *loginname1;
+@property (nonatomic,strong)NSString *password1;
 @end

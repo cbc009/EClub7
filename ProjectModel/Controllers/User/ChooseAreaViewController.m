@@ -12,7 +12,8 @@
 #import "InternetRequest.h"
 #import "SharedData.h"
 #import "Member_Login.h"
-@interface ChooseAreaViewController ()
+#import "RegisterService.h"
+@interface ChooseAreaViewController ()<LoginViewControllerDelegate>
 {
     __weak IBOutlet UITableView *tableview;
     NSMutableArray *titles;
@@ -23,6 +24,7 @@
     NSString *lifeHallIdSelected;
     NSString *blockIdSelected;
     NSString *lifehall_name;
+    RegisterService *registerService;
 }
 @end
 
@@ -39,6 +41,8 @@
 
 -(void)loadView{
     [super loadView];
+    tableview.tableFooterView =[UIView new];
+    registerService = [[RegisterService alloc] init];
     lifeHallIdSelected =@"0";
     tableview.delegate = self;
     tableview.dataSource = self;
@@ -53,7 +57,10 @@
 {
     [super viewDidLoad];
     self.title = @"选择小区";
-    titles = [[NSMutableArray alloc] initWithObjects:@"选择所在省份",@"选择所在城市",@"选择所在区域",@"选择生活馆", nil];
+     
+    LoginViewController *loginViewController= [LoginViewController new];
+    loginViewController.delegate =self;
+    titles = [[NSMutableArray alloc] initWithObjects:@"选择所在省份",@"选择所在城市",@"选择生活馆", nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,13 +75,8 @@
     return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSLog(@"%ld",(long)self.market);
-
-    if (self.market==2) {
-        return 3;
-    }else{
     return titles.count;
-    }
+    
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -94,41 +96,30 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row = indexPath.row;
-    
     NSString *urlString;
-    NSString *token =self.user.token;
     switch (row) {
         case 0:
-            urlString =  [NSString stringWithFormat:ChooseProvinceURL,token];
-            titles = [[NSMutableArray alloc] initWithObjects:@"选择所在省份",@"选择所在城市",@"选择所在区域",@"选择生活馆", nil];
-            [tableview reloadData];
+            urlString =ChooseProvinceURL;
             break;
         case 1:
-            urlString = [NSString stringWithFormat:ChooseCityURL,provinceIdSelected,token];
+            urlString = [NSString stringWithFormat:ChooseCityURL,provinceIdSelected];
             break;
         case 2:
-            urlString = [NSString stringWithFormat:ChooseAreaURL,cityIdSelected,token];
-            break;
-        case 3:
-            urlString = [NSString stringWithFormat:ChooseLifehallURL,cityIdSelected,token];
+            urlString = [NSString stringWithFormat:ChooseLifehallURL,cityIdSelected];
             break;
         default:
             break;
     }
-    
     [self loadDataOfProvinceWithURLString:urlString andRow:row];
 }
 
-
 - (IBAction)submitAction:(id)sender {
-    NSString *urlString = [NSString stringWithFormat:ContcatURL,areaIdSelected,lifeHallIdSelected,self.user.token];
-    NSLog(@"%@",urlString);
-    [self bindScopeWithURLString:urlString];
+    [registerService registerWithName:self.loginname andCode:self.code andPasswd:self.password1 andPasswordConfirm:self.password2 andGuide:self.guide andLifehall_id:lifeHallIdSelected onViewController:self];
 }
-
 
 #pragma DatasTableViewControllerDelegate
 -(void)popViewControllerWithData:(NSDictionary *)data andIndex:(NSInteger)index{
+    NSLog(@"%@",data);
     switch (index) {
         case 0:
             provinceIdSelected = [data objectForKey:@"province"];
@@ -137,12 +128,7 @@
             cityIdSelected = [data objectForKey:@"city"];
             break;
         case 2:
-            areaIdSelected = [data objectForKey:@"area"];
-            break;
-        case 3:
-        
             lifeHallIdSelected = [data objectForKey:@"lifehall_id"];
-            lifehall_name =[data objectForKey:@"lifehall_name"];
             break;
         default:
             break;
@@ -180,31 +166,5 @@
     }
 }
 
-//关联小区
--(void)bindScopeWithURLString:(NSString *)urlString{
-    NSRange range = [urlString rangeOfString:@"null"];
-    if (range.length>0) {
-        [SVProgressHUD showErrorWithStatus:@"数据异常"];
-    }else{
-        [SVProgressHUD show];
-        
-        
-        
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            NSDictionary *result = [InternetRequest loadDataWithUrlString:urlString];
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                NSNumber *status = (NSNumber *)[result objectForKey:@"status"];
-                if ([status isEqual:[NSNumber numberWithInt:2]]) {
-                    LoginService *loginService = [[LoginService alloc] init];
-                    [loginService handlesWhenDismissLoginViewController:self.loginViewController];
-                    [SVProgressHUD showSuccessWithStatus:@"关联小区成功"];
-                    SharedData *sharedData = [SharedData sharedInstance];
-                    sharedData.user.lifehall_name =lifehall_name;
-                }else{
-                    [SVProgressHUD showErrorWithStatus:@"关联失败出错"];
-                }
-            });
-        });
-    }
-}
+
 @end

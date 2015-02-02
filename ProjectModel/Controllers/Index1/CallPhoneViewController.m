@@ -119,13 +119,10 @@
         [btnView addSubview:btn];
     }
     [self.view addSubview:btnView];
-
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    
     return self.datas.count;
-
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -137,10 +134,8 @@
     CallHistoryViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CallHistoryViewCell" forIndexPath:indexPath];
     Data_Info* model = self.datas[indexPath.section];
     cell.name.text = [self getNameBytel:model.phone];
-    NSLog(@"namedsr:%@",cell.name.text);
     cell.time.text =[NSString stringWithFormat:@"%@分",model.minutes];
     cell.phone.text = model.phone;
-   
     cell.regtime.text = model.regtime;
     return cell;
 }
@@ -150,16 +145,15 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    
     return 0;
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     dic = self.datas[indexPath.section];
     [self keyboardUp];
     self.phone.text = [dic valueForKey:@"phone"];
-    
 }
 
 -(void)load:(UIButton *)sender
@@ -182,7 +176,6 @@
     }
 }
 -(void)keyboardUp{
-    
     j=1;
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
@@ -256,11 +249,16 @@
     }
     
 }
+
 - (void)peoplePickerNavigationController:(ABPeoplePickerNavigationController*)peoplePicker didSelectPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier{
     ABMultiValueRef multiValue = ABRecordCopyValue(person,property);
     CFIndex index = ABMultiValueGetIndexForIdentifier(multiValue, identifier);
     NSString *phone1 = (__bridge NSString *)ABMultiValueCopyValueAtIndex(multiValue, index);
     self.phone.text = phone1;
+    [self keyboardUp];
+    [peoplePicker dismissViewControllerAnimated:YES completion:nil];
+
+
 }
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier{
@@ -277,17 +275,20 @@
 - (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker{
     [peoplePicker dismissViewControllerAnimated:YES completion:nil];
 }
+
 #pragma mark - 根据电话查出姓名
 -(NSString *)getNameBytel:(NSString *)telstr
 {
-    NSMutableArray* personArray = [[NSMutableArray alloc] init];
-    //打开电话本数据库
-    ABAddressBookRef addressRef=ABAddressBookCreate();
+    NSMutableArray* personArray = nil;
     NSString *firstName, *lastName, *fullName;
-    //返回所有联系人到一个数组中
-    personArray = (__bridge NSMutableArray *)ABAddressBookCopyArrayOfAllPeople(addressRef);
+    CFErrorRef *error;
+    
+    ABAddressBookRef addressRef=ABAddressBookCreateWithOptions(nil,error);
+    ABAddressBookRequestAccessWithCompletion(addressRef,nil);
+    ABRecordRef source = ABAddressBookCopyDefaultSource(addressRef);
+    personArray = (__bridge_transfer NSMutableArray *)ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(addressRef, source, kABPersonSortByFirstName);
+
     //返回联系人数量
-    //    CFIndex personCount = ABAddressBookGetPersonCount(addressRef);
     for (id person in personArray)
     {
         firstName = (__bridge NSString *)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonFirstNameProperty);
@@ -324,7 +325,7 @@
     page =1;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
     [callhistoryservice call_historyWithToken:user.token andUser_type:user.user_type andPageString:pageString inTabBarController:self.tabBarController withDoneObject:^(Call_History_Info *model){
-        [callhistoryservice baseBalanceWithToken:user.token andUser_type:user.user_type withTabBarViewController:self.tabBarController doneObject:^(BalanceIfo *model){
+        [SharedAction baseBalanceWithToken:user.token andUser_type:user.user_type withTabBarViewController:self.tabBarController doneObject:^(BalanceIfo *model){
             user.phone_minute = model.phone_minute;
             user.amount = model.amount;
             user.point = model.point;

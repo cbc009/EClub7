@@ -44,25 +44,13 @@
 /*
  立即购买
  */
--(void)presentPurchaseCarViewControllerOnViewController:(ItemDetailViewController *)viewController andItemCount:(NSString *)count{
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
-    NSString *urlString1;
-    Type_goods_good *goodModel = viewController.goodModel;
-        urlString1 = [NSString stringWithFormat:InCartURL,user.token,goodModel.gid,user.user_type,count];
-    NSLog(@"%@ ",urlString1);
+-(void)presentPurchaseCarViewControllerWithToken:(NSString*)token andUser_type:(NSInteger )user_type andGid:(NSString *)gid andNums:(NSString *)nums inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
+    NSString *urlString = [NSString stringWithFormat:InCartURL,token,gid,user_type,nums];
     [SVProgressHUD show];
-    [Status getModelFromURLWithString:urlString1 completion:^(Status *object,JSONModelError *error){
-        if (object.status == 2) {
-            PurchaseCarItemsViewController *target = [viewController.storyboard instantiateViewControllerWithIdentifier:@"PurchaseCarItemsViewController"];
-            [viewController.navigationController pushViewController:target animated:YES];
-        }else{
-            [SharedAction showErrorWithStatus:object.status andError:object.error witViewController:viewController];
-            NSLog(@"%@",error);
-        }
-    }];
+    [Status getModelFromURLWithString:urlString completion:^(Status *object,JSONModelError *error){
+        [SharedAction commonActionWithUrl:urlString andStatus:object.status andError:object.error andJSONModelError:error andObject:object inTabBarController:tabBarController withDone:done];
+        }];
 }
-
 
 /*
  加入购物车

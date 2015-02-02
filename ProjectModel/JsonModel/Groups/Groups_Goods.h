@@ -34,7 +34,7 @@
 @end
 
 @interface Groups_Goods : JSONModel
-@property(nonatomic,strong)Groups_Info* info;
+@property(nonatomic,strong)Groups_Info<Optional>*info;
 @property(nonatomic,assign)NSInteger status;
 @property (nonatomic,strong)NSString *error;
 @end

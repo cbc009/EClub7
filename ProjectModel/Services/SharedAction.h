@@ -42,4 +42,6 @@ typedef void (^doneWithObjectAndStatus)(int status,id object);
 +(void)setupRefreshWithTableView:(UITableView *)tableview toTarget:(UIViewController *)target;
 +(void)commonActionWithUrl:(NSString *)url andStatus:(NSInteger)status andError:(NSString *)error andJSONModelError:(JSONModelError *)jsonError andObject:(id)object inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 +(void)loginAggane;
++(void)baseBalanceWithToken:(NSString *)token andUser_type:(NSInteger)user_type withTabBarViewController:(UITabBarController*)tabBarController doneObject:(doneWithObject)done;
+
 @end

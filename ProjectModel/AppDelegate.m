@@ -19,7 +19,8 @@
 #import <UMengSocial/UMSocialData.h>
 #import <UMSocialQQHandler.h>
 #import "UMSocialSinaHandler.h"
-
+#import <BmobSDK/Bmob.h>
+#import "NSString+MT.h"
 #define IOS_7_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
 #define IOS_8_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 @implementation AppDelegate
@@ -29,7 +30,8 @@
     [self setupUmengAnalyticsPlatform];
     [self setupSocialSharePlatform];
     [self setUMessageWithLaunchOptions:launchOptions];
-//    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    [Bmob registerWithAppKey:BmobAppID];
+    
     return YES;
 }
 
@@ -120,6 +122,16 @@
                 
                 CreatePayService *service = [[CreatePayService alloc] init];
                 [service pushToMyWalletViewControllerInTabBarController:tab];
+                
+                //存储到Bmob后台
+                BmobObject *object = [BmobObject objectWithClassName:@"Recharge"];
+                [object setObject:user.loginname forKey:@"loginname"];
+                [object setObject:@"aliPay" forKey:@"payType"];
+                [object setObject:[NSNumber numberWithFloat:sharedData.createPayPrice] forKey:@"price"];
+                [object saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                    //进行操作
+                }];
+
             }else{
                 [SVProgressHUD showErrorWithStatus:@"支付失败"];
             }

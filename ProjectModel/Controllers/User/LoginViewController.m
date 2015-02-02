@@ -8,7 +8,7 @@
 
 #import "LoginViewController.h"
 #import "LoginService.h"
-
+#import "ChooseAreaViewController.h"
 @interface LoginViewController ()
 {
     __weak IBOutlet UITextField *loginname;
@@ -36,7 +36,12 @@
     keyBoardController = [[UIKeyboardViewController alloc] initWithControllerDelegate:self];
     [keyBoardController addToolbarToKeyboard];
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    loginname.text = self.loginname1;
+    password.text = self.password1;
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -57,13 +62,5 @@
     [alertView show];
 }
 
-
-
-#pragma RegisterViewControllerDelegate
-//注册成功回调方法
--(void)registerSuccessWithLoginname:(NSString *)name andPasswd:(NSString *)passwd{
-    loginname.text = name;
-    password.text = passwd;
-}
 
 @end

@@ -16,7 +16,7 @@
 @end
 
 @interface Delivery : JSONModel
-@property(nonatomic,strong)DeliveryInfo *info;
+@property(nonatomic,strong)DeliveryInfo <Optional>*info;
 @property(nonatomic,assign)NSInteger status;
 @property(nonatomic,strong)NSString *error;
 @end

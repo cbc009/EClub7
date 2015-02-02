@@ -33,6 +33,6 @@
 @end
 
 @interface Search_goods : JSONModel
-@property(nonatomic,strong)Search_goods_info *info;
+@property(nonatomic,strong)Search_goods_info <Optional>*info;
 @property(nonatomic,assign)NSInteger status;
 @end

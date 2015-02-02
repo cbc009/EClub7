@@ -22,7 +22,7 @@
 #import "BuyService.h"
 @implementation Index0Service
 
--(void)loadUserDefaultsInViewController:(UIViewController *)viewController{
+-(void)loadUserDefaultsInViewController:(UIViewController *)viewController witLoginStatus:(NSString *)loginStatus{
     if ([viewController.tabBarController.presentedViewController isKindOfClass:[UINavigationController class]]) {
         UINavigationController *nav = (UINavigationController *)viewController.tabBarController.presentedViewController;
         if ([nav.viewControllers.firstObject isKindOfClass:[LoginViewController class]]) {
@@ -33,7 +33,12 @@
         SharedData *sharedData = [SharedData sharedInstance];
         NSString *name = sharedData.loginname;
         NSString *password = sharedData.password;
-        NSString *urlString = [NSString stringWithFormat:Base_Member_Login_URL,name,password];
+        NSString *urlString;
+        if ([loginStatus isEqualToString:@"YES"]) {
+            urlString= [NSString stringWithFormat:Base_Member_Login_URL,name,password];
+        }else{
+            urlString =Base_Free_Login_URL;
+        }
         [SVProgressHUD showWithStatus:@"正在加载用户信息"];
         [Member_Login getModelFromURLWithString:urlString completion:^(Member_Login *model,JSONModelError *error){
             if (model.status==2) {
@@ -42,16 +47,17 @@
                 [buyService loadGoodTypesWithToken:model.info.token andUser_type:model.info.user_type InViewController:viewController];
                 [SharedAction setUMessageTagsWithUser:model.info];
                 [self loadAdverPicWithPos:1 andCity:model.info.city inViewController:viewController];
-              
+                
             }else{
                 [SVProgressHUD showErrorWithStatus:model.error];
                 [SharedAction presentLoginViewControllerInViewController:viewController];
             }
-             NSLog(@"%@",urlString);
+            NSLog(@"%@",urlString);
             [SVProgressHUD showSuccessWithStatus:@"加载完成"];
         }];
     }
 }
+
 //-(void)loadGoodTypeWithToken:(NSString *)token andUser_type:(NSInteger )user_type
 
 /*

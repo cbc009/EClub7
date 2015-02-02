@@ -11,5 +11,4 @@
 @interface CallHistoryService : NSObject
 -(void)call_historyWithToken:(NSString *)token andUser_type:(NSInteger )user_type andPageString:(NSString *)pageString inTabBarController:(UITabBarController *)tabBarController withDoneObject:(doneWithObject)done;
 -(void)loadAdverPicFromUrl:(NSString *)urlString inViewController:(CallPhoneViewController *)viewController;
--(void)baseBalanceWithToken:(NSString *)token andUser_type:(NSInteger)user_type withTabBarViewController:(UITabBarController*)tabBarController doneObject:(doneWithObject)done;
 @end

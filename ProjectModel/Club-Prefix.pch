@@ -27,10 +27,13 @@
 #define QQAppID @"1103541927"
 #define QQAppKEY @"1USiSoOIDP1GFPR7"
 #define SinaAppKEY @"274015286"
+
+//#define BmobAppID @"29b7a91994cc161eff47ca008f83356d"
+#define BmobAppID @"019f3ec90485e83c760b66c08c8704a1"
 #define AppDownLoadURL @"https://itunes.apple.com/cn/app/e-xiao-qu/id914487546?mt=8"
 #define ItemHeight 40.0
 #define kMode_Development             @"00"//正式上线的时候要改为00千万要记住
-#define kResult           @"支付结果：%@"    //支付结果
+//#define kResult           @"支付结果：%@"    //支付结果
 
 
 #import "SharedAction.h"
@@ -54,22 +57,25 @@ typedef void (^finished)(NSDictionary *info);
 #define PrexURL [NSString stringWithFormat:@"%@/wap.php/",IP]
 //登录
 #define Base_Member_Login_URL [PrexURL stringByAppendingString: @"Base/member_login/loginname/%@/password/%@/from/IOS"]
+//免注册登录
+#define Base_Free_Login_URL [PrexURL stringByAppendingString: @"Base/free_login/from/from/IOS"]
+
 #define UserinfosURL [PrexURL stringByAppendingString: @"Member/userinfo?loginname=%@"]
 #define ValicodeURL [PrexURL stringByAppendingString: @"Base/valid_code/loginname/%@"]
 //协议
 #define ProtocolURL [PrexURL stringByAppendingString: @"Member/agree"]
 //注册
-#define Base_Member_Regist_URL [PrexURL stringByAppendingString: @"Base/member_regist/loginname/%@/password/%@/code/%@/guide/%@/from/IOS"]
+#define Base_Member_Regist_URL [PrexURL stringByAppendingString: @"Base/member_regist_all/from/IOS/loginname/%@/password/%@/code/%@/guide/%@/lifehall_id/%@"]
 //选择省份
-#define ChooseProvinceURL [PrexURL stringByAppendingString: @"Base/province/token/%@/form/IOS"]
-#define ChooseCityURL [PrexURL stringByAppendingString: @"Base/city/province/%@/token/%@/form/IOS"]
-#define ChooseAreaURL [PrexURL stringByAppendingString: @"Base/area/city/%@/token/%@/form/IOS"]
+#define ChooseProvinceURL [PrexURL stringByAppendingString: @"Base/get_open_province/form/IOS"]
+#define ChooseCityURL [PrexURL stringByAppendingString: @"Base/get_open_city/province/%@/form/IOS"]
+//#define ChooseAreaURL [PrexURL stringByAppendingString: @"Base/area/city/%@/token/%@/form/IOS"]
 //#define ChooseEareaURL [PrexURL stringByAppendingString: @"Member/earea?area=%@"]
-#define ChooseScopeURL [PrexURL stringByAppendingString: @"Base/scope/from/IOS/area/%@/token/%@"]
+//#define ChooseScopeURL [PrexURL stringByAppendingString: @"Base/scope/from/IOS/area/%@/token/%@"]
 //选择生活馆
-#define ChooseLifehallURL [PrexURL stringByAppendingString: @"Base/lifehall/from/IOS/city/%@/token/%@"]
+#define ChooseLifehallURL [PrexURL stringByAppendingString: @"Base/get_open_lifehall/city/%@/from/IOS"]
 //关联区域
-#define ContcatURL [PrexURL stringByAppendingString: @"Base/contcat/from/IOS/area/%@/lifehall_id/%@/token/%@"]
+#define ContcatURL [PrexURL stringByAppendingString: @"Base/member_regist_all/from/IOS/loginname/%@/password/%@/code/%@/guide/%@/lifehall_id/%@"]
 //上传头像图片
 #define UploadImageURL [PrexURL stringByAppendingString: @"Member/head/"]
 
@@ -100,6 +106,8 @@ typedef void (^finished)(NSDictionary *info);
 #define GoodsTypeURL [MainPrexURL stringByAppendingString: @"Goods/goods_type/from/IOS/token/%@/user_type/%d"]
 //获取菜
 #define Type_goodsURL [MainPrexURL stringByAppendingString: @"Goods/type_goods/from/IOS/token/%@/user_type/%d/subid/%@/page/%@"]
+//搜索标签
+#define Goods_search_Label_URL [MainPrexURL stringByAppendingString: @"Goods/search_label/token/%@/user_type/%d/from/IOS"]
 //搜索
 #define Goods_search_URL [MainPrexURL stringByAppendingString: @"Goods/goods_search/from/IOS"]
 

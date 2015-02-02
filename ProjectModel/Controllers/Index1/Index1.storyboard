@@ -15,7 +15,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kvy-8f-kh7">
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.36862745879999997" green="0.8078432083" blue="0.53725492949999998" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="barTintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="VN3-wj-ECu" kind="relationship" relationship="rootViewController" id="1HY-4E-c6J"/>
@@ -55,7 +55,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lIZ-m5-9hr">
                                         <rect key="frame" x="161" y="3" width="63" height="35"/>
-                                        <color key="backgroundColor" red="0.3411764706" green="0.78823529410000004" blue="0.4549019608" alpha="1" colorSpace="deviceRGB"/>
+                                        <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="63" id="72n-Uc-3hG"/>
                                             <constraint firstAttribute="height" constant="35" id="aNS-Ju-Eox"/>
@@ -280,7 +280,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NMT-ul-pbB">
                                         <rect key="frame" x="8" y="130" width="304" height="30"/>
-                                        <color key="backgroundColor" red="0.3411764706" green="0.78823529410000004" blue="0.4549019608" alpha="1" colorSpace="deviceRGB"/>
+                                        <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="NoB-Cc-62h"/>
                                         </constraints>

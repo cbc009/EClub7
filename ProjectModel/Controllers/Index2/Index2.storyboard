@@ -10,12 +10,12 @@
         <scene sceneID="4Go-CY-2Y1">
             <objects>
                 <navigationController storyboardIdentifier="Index2NavViewController" id="SiG-io-mgf" customClass="Index2NavViewController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="E小区" image="main_community.png" id="Pei-mp-NAg"/>
+                    <tabBarItem key="tabBarItem" title="E小区" image="main_community_light.png" id="Pei-mp-NAg"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="XVv-3b-Z7a">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.3411764706" green="0.78823529410000004" blue="0.4549019608" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="barTintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="uUi-nd-aOk" kind="relationship" relationship="rootViewController" id="YpS-Tg-Ova"/>
@@ -252,6 +252,7 @@
                                 <segment title="发布物品"/>
                                 <segment title="求购物品"/>
                             </segments>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="segAction:" destination="PSx-KW-DqK" eventType="valueChanged" id="aex-52-zE7"/>
                             </connections>
@@ -938,6 +939,7 @@
                                 <segment title="转让"/>
                                 <segment title="求购"/>
                             </segments>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="segment:" destination="Pzi-rb-KGR" eventType="valueChanged" id="KSd-d6-IBm"/>
                             </connections>
@@ -1022,6 +1024,7 @@
                                 <segment title="我的转让"/>
                                 <segment title="我的求购"/>
                             </segments>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="segment:" destination="17I-lZ-2m8" eventType="valueChanged" id="ZAz-A3-ih4"/>
                             </connections>
@@ -1252,7 +1255,7 @@
     <resources>
         <image name="account.png" width="48" height="48"/>
         <image name="backgrount.jpg" width="293" height="220"/>
-        <image name="main_community.png" width="28" height="28"/>
+        <image name="main_community_light.png" width="28" height="28"/>
         <image name="vegetables.png" width="512" height="297"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -9,6 +9,7 @@
 #import "RegisterViewController.h"
 #import "RegisterService.h"
 #import "Index1Service.h"
+#import "ChooseAreaViewController.h"
 @interface RegisterViewController ()<UIAlertViewDelegate>
 {
     __weak IBOutlet UITextField *loginname;
@@ -52,19 +53,26 @@
 
 
 - (IBAction)registerAction:(id)sender {
-    NSString *name = loginname.text;
-    NSString *codeNumber = code.text;
-    NSString *passwd = password.text;
-     NSString *guideString = guide.text;
-    NSString *passwdConfirm = Passwd.text;
-    [registerService registerWithName:name andCode:codeNumber andPasswd:passwd andPasswordConfirm:passwdConfirm andGuide:guideString  onViewController:self];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"User" bundle:nil];
+    ChooseAreaViewController *chooseAreaViewController = [storyboard instantiateViewControllerWithIdentifier:@"ChooseAreaViewController"];
+    chooseAreaViewController.loginname=loginname.text;
+    chooseAreaViewController.password1=password.text;
+    chooseAreaViewController.password2 = Passwd.text;
+    chooseAreaViewController.code = code.text;
+    chooseAreaViewController.guide = guide.text;
+    if ([password.text isEqualToString:Passwd.text]) {
+        [self.navigationController pushViewController:chooseAreaViewController animated:YES];
+    }else{
+        [SVProgressHUD showErrorWithStatus:@"两次密码输入不相同请重新输入"];
+        return ;
+    }
+    
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex==1) {
        [self.navigationController popViewControllerAnimated:YES];
     }
-
 }
 - (IBAction)checkProtocolAction:(id)sender {
     self.checkButton.tag = -self.checkButton.tag;

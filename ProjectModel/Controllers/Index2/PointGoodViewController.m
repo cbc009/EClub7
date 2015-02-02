@@ -46,13 +46,14 @@
 
 #pragma UIAlertDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (alertView.tag==5) {
-        if(buttonIndex==1){
-            [SharedAction loginAggane];
-            NSArray *viewControllers = self.navigationController.viewControllers;
-            [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
-        }
-    }else if (alertView.tag==4){
+//    if (alertView.tag==5) {
+//        if(buttonIndex==1){
+//            [SharedAction loginAggane];
+//            NSArray *viewControllers = self.navigationController.viewControllers;
+//            [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
+//        }
+//    }else
+        if (alertView.tag==4){
              NSString *password = [[alertView textFieldAtIndex:0] text];
             if (buttonIndex==0) {
             }else if(buttonIndex == 1){

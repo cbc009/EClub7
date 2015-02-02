@@ -8,16 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "UIKeyboardViewController.h"
-@protocol RegisterViewControllerDelegate <NSObject>
-
-@optional
--(void)registerSuccessWithLoginname:(NSString *)name andPasswd:(NSString *)passwd;
-
-@end
 
 @interface RegisterViewController : UIViewController<UIKeyboardViewControllerDelegate>
-
-@property(nonatomic,retain)id<RegisterViewControllerDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIButton *checkButton;
 
 @end

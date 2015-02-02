@@ -31,7 +31,7 @@
 @end
 
 @interface Goods_type : JSONModel
-@property(nonatomic,strong)Goods_type_info *info;
+@property(nonatomic,strong)Goods_type_info <Optional>*info;
 @property(nonatomic,assign)NSInteger status;
 @property(nonatomic,strong)NSString *error;
 @end

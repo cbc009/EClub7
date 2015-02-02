@@ -19,7 +19,7 @@
 @end
 
 @interface RewardRcord : JSONModel
-@property(nonatomic,strong)RewardRcordInfo *info;
+@property(nonatomic,strong)RewardRcordInfo <Optional>*info;
 @property(nonatomic,strong)NSString *error;
 @property(nonatomic,assign)NSInteger status;
 @end

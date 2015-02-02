@@ -22,7 +22,7 @@
 @end
 
 @interface Member_History : JSONModel
-@property(nonatomic,strong)Rob_Record_Info *info;
+@property(nonatomic,strong)Rob_Record_Info <Optional>*info;
 @property(nonatomic,assign)NSInteger status;
 @property(nonatomic,strong)NSString *error;
 

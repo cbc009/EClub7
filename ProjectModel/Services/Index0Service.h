@@ -11,7 +11,7 @@
 #import "Index0_3ViewController.h"
 @interface Index0Service : NSObject
 
--(void)loadUserDefaultsInViewController:(UIViewController *)viewController;
+-(void)loadUserDefaultsInViewController:(UIViewController *)viewController witLoginStatus:(NSString *)loginStatus;
 -(void)loadAdverPicWithPos:(NSInteger)pos andCity:(NSInteger)city inViewController:(UIViewController *)viewController;
 //-(void)GetBalanceWithToken:(NSString *)token andUser_type:(NSInteger )user_type onViewController:(Index0_3ViewController *)viewController;
 

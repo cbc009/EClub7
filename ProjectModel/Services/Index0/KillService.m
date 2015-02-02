@@ -17,6 +17,7 @@
 #import "Member_Login.h"
 #import "NSString+MT.h"
 #import "KIllSuccess.h"
+#import <BmobSDK/Bmob.h>
 @implementation KillService
 
 
@@ -67,6 +68,16 @@
             alertView.tag=1;
             [alertView show];
             viewController.buyButton.backgroundColor = [UIColor grayColor];
+            
+            //存储到Bmob后台
+            BmobObject *object = [BmobObject objectWithClassName:@"KillOrder"];
+            [object setObject:user.loginname forKey:@"loginname"];
+            [object setObject:viewController.good.name forKey:@"goodName"];
+            [object setObject:viewController.good.gid forKey:@"goodId"];
+            [object saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                //进行操作
+            }];
+
         }
         [SharedAction showErrorWithStatus:model.status andError:model.error witViewController:viewController];
     }];

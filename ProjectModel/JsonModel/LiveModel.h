@@ -44,5 +44,5 @@
 @interface LiveModel : JSONModel
 @property(nonatomic,strong)NSString *error;
 @property(nonatomic,assign)NSInteger status;
-@property(nonatomic,strong)LiveModelInfo*info;
+@property(nonatomic,strong)LiveModelInfo<Optional>*info;
 @end

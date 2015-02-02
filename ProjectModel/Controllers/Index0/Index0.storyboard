@@ -15,8 +15,8 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="pn2-Vr-B3r">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.3803921938" green="0.79215693470000004" blue="0.51372551919999998" alpha="1" colorSpace="deviceRGB"/>
-                        <color key="barTintColor" red="0.3803921938" green="0.79215693470000004" blue="0.51372551919999998" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="KAU-v7-LVK" kind="relationship" relationship="rootViewController" id="FBd-X4-2z7"/>
@@ -92,7 +92,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="67" height="89"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="C870EECE-8315-42B8-B55F-D2572560B0A8" translatesAutoresizingMaskIntoConstraints="NO" id="MzM-4p-edY">
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="8CE177AA-B18D-4C6C-A0F1-93F6EC8616A2" translatesAutoresizingMaskIntoConstraints="NO" id="MzM-4p-edY">
                                                                         <rect key="frame" x="1" y="0.0" width="65" height="65"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="65" id="vfI-sW-coq"/>
@@ -208,6 +208,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="绿管家" id="ws5-b5-jlr">
                         <barButtonItem key="rightBarButtonItem" title="消息" id="Rhd-lm-dRY">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="MUJ-fh-xfZ" kind="push" identifier="Pushhistor" id="OA0-mv-pny"/>
                             </connections>
@@ -383,6 +384,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="FPJ-GZ-3oF">
                         <barButtonItem key="rightBarButtonItem" title="逛一逛" id="8nE-0j-s8M">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="returnItemsViewController:" destination="IJX-Ey-q4P" id="Exh-8y-sGp"/>
                             </connections>
@@ -475,7 +477,7 @@
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="支付方式" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="COc-38-ijr">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
-                                                <color key="backgroundColor" red="0.41960787770000002" green="0.8078432083" blue="0.54509806630000002" alpha="1" colorSpace="deviceRGB"/>
+                                                <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -520,7 +522,7 @@
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="送货方式" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIl-vE-lPg">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
-                                                <color key="backgroundColor" red="0.41960787770000002" green="0.8078432083" blue="0.54509806630000002" alpha="1" colorSpace="deviceRGB"/>
+                                                <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -607,7 +609,7 @@
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ajl-hZ-Ckg">
                                                         <rect key="frame" x="76" y="36" width="178" height="30"/>
-                                                        <color key="backgroundColor" red="0.36078432199999999" green="0.77647066119999997" blue="0.47058826679999999" alpha="1" colorSpace="deviceRGB"/>
+                                                        <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <state key="normal" title="8:00-10:00"/>
                                                         <connections>
                                                             <action selector="selectTimeAction:" destination="kV0-gZ-jCP" eventType="touchUpInside" id="P5S-ad-g3R"/>
@@ -734,7 +736,7 @@
                                     <segment title="First"/>
                                     <segment title="Second"/>
                                 </segments>
-                                <color key="tintColor" red="0.3803921938" green="0.79215693470000004" blue="0.51372551919999998" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="tintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="segAction:" destination="2t8-nF-aD6" eventType="valueChanged" id="Bgv-f2-vLv"/>
                                 </connections>
@@ -894,6 +896,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="商城" id="xgu-Xm-ygL">
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="r5W-9a-bOr">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="IEN-Ks-5kj" kind="push" id="5sW-M5-Ric"/>
                             </connections>
@@ -1310,6 +1313,7 @@
                     <navigationItem key="navigationItem" id="tEq-O1-sEl">
                         <nil key="title"/>
                         <barButtonItem key="rightBarButtonItem" image="icon_merchant_share_highlighted.png" id="xON-dy-yMJ">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="share:" destination="B58-PH-AkN" id="cAM-yq-hE9"/>
                             </connections>
@@ -1500,6 +1504,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="团购" id="BnL-oc-Dgy">
                         <barButtonItem key="rightBarButtonItem" title="历史团购" id="HsV-8x-v5V">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="T2s-F3-QzB" kind="push" id="dbP-VT-9dB"/>
                             </connections>
@@ -1608,7 +1613,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="at5-hp-DAz">
                                         <rect key="frame" x="72" y="307" width="30" height="34"/>
-                                        <color key="backgroundColor" red="0.3803921938" green="0.79215693470000004" blue="0.51372551919999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="I6H-di-gVL"/>
                                             <constraint firstAttribute="height" constant="34" id="tAZ-gS-Gtn"/>
@@ -1643,7 +1648,7 @@
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zwr-nq-4vf">
                                         <rect key="frame" x="160" y="307" width="30" height="34"/>
-                                        <color key="backgroundColor" red="0.3803921938" green="0.79215693470000004" blue="0.51372551919999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="34" id="bgr-VI-eei"/>
                                             <constraint firstAttribute="width" constant="30" id="qgn-Ej-HwW"/>
@@ -1703,6 +1708,7 @@
                                         <rect key="frame" x="65" y="8" width="206" height="30"/>
                                         <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="购买">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1729,6 +1735,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="cHj-1N-1T6">
                         <barButtonItem key="rightBarButtonItem" image="icon_merchant_share_highlighted.png" id="jRm-rb-Xe9">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="shareAction:" destination="Y90-f1-QbH" id="xrf-bT-1TU"/>
                             </connections>
@@ -2040,7 +2047,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="reC-QB-QW2">
                                 <rect key="frame" x="30" y="440" width="260" height="46"/>
-                                <color key="backgroundColor" red="0.3411764706" green="0.78823529410000004" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="260" id="dOn-wm-rEf"/>
                                     <constraint firstAttribute="height" constant="46" id="y31-qE-0Mq"/>
@@ -2343,6 +2350,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="整点秒杀" id="rbm-bd-81K">
                         <barButtonItem key="rightBarButtonItem" title="历史秒杀" id="KEk-s5-6mh">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="HWb-LM-4dc" kind="push" id="N7S-oN-bSA"/>
                             </connections>
@@ -2517,7 +2525,7 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="Wec-Ye-TK7" secondAttribute="bottom" constant="-4" id="oXS-XT-X90"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.3803921938" green="0.79215693470000004" blue="0.51372551919999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleAspectFit" selectionStyle="default" indentationWidth="10" reuseIdentifier="KillSercessViewCell" rowHeight="80" id="y2x-Ru-plY" customClass="KillSercessViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2801,8 +2809,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Apple.jpg" width="600" height="450"/>
-        <image name="C870EECE-8315-42B8-B55F-D2572560B0A8" width="200" height="200">
+        <image name="8CE177AA-B18D-4C6C-A0F1-93F6EC8616A2" width="200" height="200">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -5522,6 +5529,7 @@ Anr+AAJ7AwACewUAAnsHAAJ7DAACexQAAnsXAAJ7HAACeyQAAnsnAAJ7OQACezwAAntBAAAAAAAABAEA
 AAAAAAAAQgAAAAAAAAAAAAAAAAACe0M
 </mutableData>
         </image>
+        <image name="Apple.jpg" width="600" height="450"/>
         <image name="all_man_img.png" width="80" height="80"/>
         <image name="checked_false.png" width="32" height="32"/>
         <image name="checked_true.png" width="32" height="32"/>
@@ -5543,6 +5551,6 @@ AAAAAAAAQgAAAAAAAAAAAAAAAAACe0M
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="ipx-Pt-sTI"/>
-        <segue reference="I3E-Zt-sYq"/>
+        <segue reference="1Zv-O3-HTg"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -16,6 +16,7 @@
 #import "GroupDetallCell.h"
 #import "WebViewCell.h"
 #import "Status.h"
+#import <BmobSdk/Bmob.h>
 @interface GroupDetailViewController ()<UIWebViewDelegate,UIScrollViewDelegate>
 {
     GroupService *groupService;
@@ -25,7 +26,7 @@
     NSString *gid;
     NSString *htmlStr;
     CGFloat height1;
-    UserInfo *user;
+    UserInfo  *user;
 }
 @property (weak, nonatomic) IBOutlet UIButton *addGroupButton;
 @end
@@ -110,7 +111,7 @@
   
 }
 - (IBAction)shareAction:(id)sender {
-    [SharedAction shareWithTitle:self.groupGood.name andDesinationUrl:AppDownLoadURL Text:@"在E小区中团购了我偶喜欢的宝贝好开心" andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.groupGood.bigpicture] InViewController:self];
+    [SharedAction shareWithTitle:self.groupGood.name andDesinationUrl:AppDownLoadURL Text:@"在E小区中团购了我喜欢的宝贝好开心" andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.groupGood.bigpicture] InViewController:self];
 }
 //tag ==1 余额不足 tag==2//没有会员卡 tag==4密码错误 tag==5异地登陆
 #pragma UIAlertDelegate
@@ -128,25 +129,45 @@
    }else if (alertView.tag==4){
         NSString *password = [[alertView textFieldAtIndex:0] text]; 
         if (buttonIndex==0) {
+            
         }else if(buttonIndex == 1){
-            [groupService addToGroupWithPassword:password andToken:user.token andUser_type:user.user_type andGid:gid andNums:self.numbs.text inTabBarController:self.tabBarController withDoneObject:^(Status *model){
-            }];
+            [self addToGroupWithPassword:password];
         }
-    }else  if (alertView.tag==5) {
-        if(buttonIndex==1){
-            [SharedAction loginAggane];
-            NSArray *viewControllers = self.navigationController.viewControllers;
-            [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
-        }
-    }else {
+    }
+//   else  if (alertView.tag==5) {
+//        if(buttonIndex==1){
+//            [SharedAction loginAggane];
+//            NSArray *viewControllers = self.navigationController.viewControllers;
+//            [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
+//        }
+//    }
+   else {
             NSString *password = [[alertView textFieldAtIndex:0] text];
             if (buttonIndex==0) {
         }else if(buttonIndex == 1){
-            [groupService addToGroupWithPassword:password andToken:user.token andUser_type:user.user_type andGid:gid andNums:self.numbs.text inTabBarController:self.tabBarController withDoneObject:^(Status *model){
-                
-            }];
+            [self addToGroupWithPassword:password];
         }
     }
+}
+
+-(void)addToGroupWithPassword:(NSString *)password{
+    __block UserInfo *block_user = user;
+    __block Group_Good_Info *block_good = self.groupGood;
+    __block NSNumber *number = [NSNumber numberWithInt:[self.numbs.text intValue]];
+    [groupService addToGroupWithPassword:password andToken:block_user.token andUser_type:block_user.user_type andGid:block_good.gid andNums:self.numbs.text inTabBarController:self.tabBarController withDoneObject:^(Status *model){
+        //存储到Bmob后台
+        BmobObject *object = [BmobObject objectWithClassName:@"GroupOrder"];
+        [object setObject:block_user.loginname forKey:@"loginname"];
+        [object setObject:block_good.name forKey:@"name"];
+        [object setObject:block_good.gid forKey:@"gid"];
+        [object setObject:block_good.price forKey:@"price"];
+        [object setObject:number forKey:@"number"];
+        [object saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+            //进行操作
+        }];
+        
+    }];
+
 }
 
 -(void)countDownTimer{

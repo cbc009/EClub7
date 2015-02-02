@@ -56,7 +56,8 @@
             self.selectedIndex = 0;
             UINavigationController *nav = self.viewControllers[self.selectedIndex];
             [nav popToRootViewControllerAnimated:YES];
-            [SharedAction loginAggane];        }
+            [SharedAction loginAggane];
+        }
     }else if (alertView.tag==1){
         if (buttonIndex==1) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index3" bundle:nil];
@@ -64,8 +65,16 @@
             target.hidesBottomBarWhenPushed = YES;
             self.selectedIndex = 0;
             UINavigationController *nav = self.viewControllers[self.selectedIndex];
-           
             [nav pushViewController:target animated:YES];
+        }
+    }else if (alertView.tag==6){
+        if (buttonIndex==1) {
+            self.selectedIndex = 0;
+            UINavigationController *nav = self.viewControllers[self.selectedIndex];
+            NSLog(@"%@",nav);
+            [nav popToRootViewControllerAnimated:YES];
+            [SharedAction presentLoginViewControllerInViewController:nav.viewControllers[1]];
+            NSLog(@"dddd");
         }
     }
 }
@@ -82,6 +91,6 @@
         [buyService loadGoodTypesWithToken:sharedData.user.token andUser_type:sharedData.user.user_type InViewController:index0ViewController];
         [index0Service loadAdverPicWithPos:1 andCity:sharedData.user.city inViewController:index0ViewController];
     }];
-
+    
 }
 @end

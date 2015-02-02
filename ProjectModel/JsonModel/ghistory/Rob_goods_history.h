@@ -27,7 +27,7 @@
 @end
 
 @interface Rob_goods_history : JSONModel
-@property(nonatomic,strong)Rob_goods_history_info *info;
+@property(nonatomic,strong)Rob_goods_history_info<Optional> *info;
 @property(nonatomic,strong)NSString *error;
 @property(nonatomic,assign)NSInteger status;
 @end

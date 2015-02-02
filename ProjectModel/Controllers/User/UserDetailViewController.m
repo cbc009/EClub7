@@ -24,6 +24,7 @@
     UserDetailService *userDetailService;
     Index3_3Cell *cell1;
     UserInfo *user;
+    SharedData *shareData;
 }
 @end
 
@@ -48,7 +49,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    SharedData *shareData = [SharedData sharedInstance];
+    shareData= [SharedData sharedInstance];
     user = shareData.user;
     self.title = @"个人信息";
     [self.tableview reloadData];
@@ -63,16 +64,18 @@
 
 #pragma UITableviewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section==0) {
         return 1;
     } else if (section ==1){
+        return 1;
+    } else if (section==2){
         return 2;
-    } else{
-        return 2;
+    }else {
+        return 1;
     }
 }
 
@@ -85,7 +88,7 @@
         cell1= [tableView dequeueReusableCellWithIdentifier:identifier];
         [cell1.imageview sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]] placeholderImage:[UIImage imageNamed:@"userIcon.jpg"]];
         cell1.nickname.text=user.nickname;
-        [cell1.backImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.life_picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+//        [cell1.backImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.life_picture]] placeholderImage:[UIImage imageNamed:@"e"]];
 //        cell1.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backgrount.jpg"]];
         cell1.imageview.userInteractionEnabled =YES;
         UITapGestureRecognizer *chageHead = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureRecognizer)];
@@ -96,22 +99,9 @@
     }else  if (section==1) {
         identifier = @"index3_4Cell";
         index3_4Cell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        if (indexPath.row == 0) {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.userId.text = @"昵称";
             cell.username.hidden=YES;
-        } if (indexPath.row==1) {
-            if (user.lifehall_id==0) {
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                cell.userId.text = @"关联区域";
-            }else{
-                cell.userId.text = user.lifehall_name;
-                cell.selectionStyle=UITableViewCellSelectionStyleNone;
-            }
-        }else if (indexPath.row == 3) {
-            cell.userId.text = @"账号";
-            cell.username.text = user.mobile;
-        }
         return cell;
     }else  if (section==2) {
         identifier = @"index3_8Cell";
@@ -123,8 +113,17 @@
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
-    }
-    else {
+    }else  if (section==3) {
+        identifier = @"index3_8Cell";
+        index3_8Cell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if ([shareData.loginStatus isEqualToString:@"YES"]) {
+            cell.userId.text=@"切换账号";
+        }else{
+           cell.userId.text=@"登录";
+        }
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        return cell;
+    }else {
         return nil;
     }
 }
@@ -135,32 +134,20 @@
     [action showInView:self.view.window];
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSInteger section = indexPath.section;
     if (section ==0) {
-      
     }else if (section == 1) {
-        if (indexPath.row ==0) {
             [userDetailService presentChangeNameViewControllerOnViewController:self];
-        }else if (indexPath.row==1){
-             if (user.lifehall_id==0) {
-                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"User" bundle:nil];
-                 ChooseAreaViewController *chooseAreaViewController = [storyboard instantiateViewControllerWithIdentifier:@"ChooseAreaViewController"];
-                 chooseAreaViewController.user = user;
-                 [self.navigationController pushViewController:chooseAreaViewController animated:YES];
-             }else{
-//                 [SVProgressHUD showErrorWithStatus:@"您以关联区域"];
-             }
-        }
     }else if (section == 2) {
         if (indexPath.row ==1){
             [userDetailService presentChangePasswordViewControllerOnViewController:self];
-        } else {
-            [userDetailService presentChangePayPasswordViewControllerOnViewController:self];
+        } else{
+           [userDetailService presentChangePayPasswordViewControllerOnViewController:self];
         }
-        }
+    }else if (section == 3) {
+        [userDetailService loginoutActionInViewController:self inTabBarController:self.tabBarController];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -179,13 +166,13 @@
     if (section==0) {
         return 0;
     }
-    return 8;
+    return 0;
 }
 
-
-- (IBAction)loginout:(id)sender {
-    [userDetailService loginoutActionInViewController:self inTabBarController:self.tabBarController];
-}
+//
+//- (IBAction)loginout:(id)sender {
+//    [userDetailService loginoutActionInViewController:self inTabBarController:self.tabBarController];
+//}
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==0) {

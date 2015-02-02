@@ -13,7 +13,7 @@
 -(NSString *)reduceNumber:(UILabel *)countLabel;
 -(NSString *)addNumber:(UILabel *)countLabel;
 
--(void)presentPurchaseCarViewControllerOnViewController:(ItemDetailViewController *)viewController andItemCount:(NSString *)count;
+-(void)presentPurchaseCarViewControllerWithToken:(NSString*)token andUser_type:(NSInteger )user_type andGid:(NSString *)gid andNums:(NSString *)nums inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 
 -(void)addToPurchaseCarWithGid:(NSString *)gid andNum:(NSString *)num inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 //-(void)presentGoodDetaiViewControllerWithGid:(NSString *)gid AndName:(NSString *)name OnViewController:(UIViewController *)viewController;

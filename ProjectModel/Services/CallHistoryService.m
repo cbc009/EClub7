@@ -19,7 +19,7 @@
 #import "Member_Login.h"
 #import "WebViewController.h"
 #import "MJRefresh.h"
-#import "BalanceModel.h"
+
 @implementation CallHistoryService
 
 -(void)call_historyWithToken:(NSString *)token andUser_type:(NSInteger )user_type andPageString:(NSString *)pageString inTabBarController:(UITabBarController *)tabBarController withDoneObject:(doneWithObject)done{
@@ -67,12 +67,5 @@
     WebViewController *target = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
         [viewController.navigationController pushViewController:target animated:YES];
 }
-//获取话费剩余分钟
--(void)baseBalanceWithToken:(NSString *)token andUser_type:(NSInteger)user_type withTabBarViewController:(UITabBarController*)tabBarController doneObject:(doneWithObject)done
-{
-    NSString *urlString = [NSString stringWithFormat:Base_Balance_URL,token,user_type];
-    [BalanceModel getModelFromURLWithString:urlString completion:^(BalanceModel *model,JSONModelError *error){
-        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
-    }];
-}
+
 @end

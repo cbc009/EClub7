@@ -17,7 +17,7 @@
 @end
 
 @interface Create_pay_order : JSONModel
-@property(nonatomic,strong)Create_pay_orderInfo *info;
+@property(nonatomic,strong)Create_pay_orderInfo <Optional>*info;
 @property(nonatomic,assign)NSInteger status;
 @property(nonatomic,strong)NSString *error;
 @end

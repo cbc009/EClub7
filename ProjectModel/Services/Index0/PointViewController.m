@@ -127,16 +127,16 @@
         [_collectionview footerEndRefreshing];
     }];
 }
-#pragma UIAlertDelegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (alertView.tag==5) {
-        if(buttonIndex==1){
-            [SharedAction loginAggane];
-            NSArray *viewControllers = self.navigationController.viewControllers;
-            [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
-        }
-    }
-}
+//#pragma UIAlertDelegate
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+//{
+//    if (alertView.tag==5) {
+//        if(buttonIndex==1){
+//            [SharedAction loginAggane];
+//            NSArray *viewControllers = self.navigationController.viewControllers;
+//            [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
+//        }
+//    }
+//}
 
 @end

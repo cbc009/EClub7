@@ -25,6 +25,7 @@
     if ([self validateLoginInfosWithName:name andPasswd:passwd]) {
         NSString *password = [MyMD5 md5:passwd];
         NSString *urlString = [NSString stringWithFormat:Base_Member_Login_URL,name,password];
+        NSLog(@"%@",urlString);
         [SVProgressHUD show];
         [Member_Login getModelFromURLWithString:urlString completion:^(Member_Login *model,JSONModelError *error){
             if (model.status==2) {
@@ -47,20 +48,18 @@
     sharedData.user = user;
     sharedData.loginname = username;
     sharedData.password = password;
-    sharedData.loginStatus = @"yes";
+    sharedData.loginStatus = @"YES";
 }
 
 -(void)pushRegisterViewControllerOnViewController:(LoginViewController *)viewController{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"User" bundle:nil];
     RegisterViewController *registerViewController = [[RegisterViewController alloc] init];
     registerViewController = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
-    registerViewController.delegate = viewController;
     [viewController.navigationController pushViewController:registerViewController animated:YES];
 }
 
 //验证登录
 -(BOOL)validateLoginInfosWithName:(NSString *)name andPasswd:(NSString *)passwd{
-    
     if ([name isEqualToString:@""]||name==nil) {
         [SVProgressHUD showErrorWithStatus:@"用户名不能为空"];
         return false;
@@ -74,8 +73,7 @@
 
 //dismiss LoginViewController时处理操作
 -(void)handlesWhenDismissLoginViewController:(LoginViewController *)loginViewContrller{
-    [loginViewContrller.delegate loginSuccessedActionWithViewController:loginViewContrller];
-    //dismiss viewcontroller
+    [loginViewContrller.delegate loginSuccessedActionWithViewController:loginViewContrller];  //dismiss viewcontroller
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadData" object:self];  //loadData
 }
 

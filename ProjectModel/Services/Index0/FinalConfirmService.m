@@ -18,6 +18,7 @@
 #import "NSString+MT.h"
 #import "Delivery.h"
 #import "SharedAction.h"
+#import <BmobSDK/Bmob.h>
 @implementation FinalConfirmService
 
 //显示pickerview
@@ -140,7 +141,7 @@
     NSString *mobile = viewController.userPhone.text;
     NSString *message = viewController.userMessage.text;
     NSString *passwd = [MyMD5 md5:password];
-    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:user.token, @"token",user_type,@"user_type",datas,@"info",payType,@"paymenttype",sendType,@"sendtype",Sendid,@"sendtime",passwd,@"paypassword",address,@"address",mobile,@"mobile",message,@"message",nil];
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:user.token, @"token",user_type,@"user_type",datas,@"info",payType,@"paymenttype",sendType,@"sendtype",Sendid,@"sendtime",passwd,@"paypassword",address,@"address",mobile,@"mobile",message    ,@"message",nil];
     [SVProgressHUD show];
     [JSONHTTPClient postJSONFromURLWithString:SubmitItemsURL params:dict completion:^(id object, JSONModelError *err) {
         NSNumber *status1 = (NSNumber *)[object objectForKey:@"status"];
@@ -160,6 +161,16 @@
             alertView.alertViewStyle = UIAlertViewStyleDefault;
             [alertView show];
             [SVProgressHUD dismiss];
+            
+            //存储到Bmob后台
+            BmobObject *model = [BmobObject objectWithClassName:@"BuyGoods"];
+            [model setObject:user.loginname forKey:@"loginname"];
+            
+            [model setObject:datas forKey:@"info"];
+            [model setObject:[NSNumber numberWithFloat:[viewController.bottomTotalPrice.text floatValue]] forKey:@"price"];
+            [model saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                //进行操作
+            }];
         } else {
             [SharedAction showErrorWithStatus:status andError:error1 witViewController:viewController];
         }

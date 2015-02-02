@@ -25,7 +25,7 @@
 @end
 
 @interface Push_history : JSONModel
-@property (nonatomic ,copy)PushInfo *info;
+@property (nonatomic ,copy)PushInfo <Optional>*info;
 @property (nonatomic ,assign) NSInteger status;
 @property (nonatomic ,strong)NSString *error;
 @end

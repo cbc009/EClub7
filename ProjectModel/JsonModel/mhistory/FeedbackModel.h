@@ -21,6 +21,6 @@
 @end
 @interface FeedbackModel : JSONModel
 @property (nonatomic,strong)NSString *error;
-@property (nonatomic,strong)Feedback_info *info;
+@property (nonatomic,strong)Feedback_info<Optional> *info;
 @property (nonatomic,assign)NSInteger status;
 @end

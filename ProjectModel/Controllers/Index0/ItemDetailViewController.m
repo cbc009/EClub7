@@ -28,6 +28,7 @@
 {
     ItemDetailService *itemDetailService;
     WebViewController *target;
+    UserInfo *user;
     NSString *gid;
 }
 @end
@@ -42,6 +43,8 @@
 }
 -(void)loadView{
     [super loadView];
+    SharedData *sharedData = [SharedData sharedInstance];
+    user = sharedData.user;
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
@@ -97,7 +100,6 @@
 {
     PurchaseCarItemsViewController *purchaseCar = [self.storyboard instantiateViewControllerWithIdentifier:@"PurchaseCarItemsViewController"];
     [self.navigationController pushViewController:purchaseCar animated:YES];
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -119,35 +121,23 @@
 - (IBAction)addToPurchaseCar:(id)sender {
     NSString *num = self.count.text;
     [itemDetailService addToPurchaseCarWithGid:gid andNum:num inTabBarController:self.tabBarController withDone:^(Status *model){
-    
     }];
 }
 
 - (IBAction)buynow:(id)sender {
     //立即购买
     NSString *count = self.count.text;
-    [itemDetailService presentPurchaseCarViewControllerOnViewController:self andItemCount:count];
+    [itemDetailService presentPurchaseCarViewControllerWithToken:user.token andUser_type:user.user_type andGid:self.goodModel.gid andNums:count inTabBarController:self.tabBarController withDone:^(Status *model){
+          UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+        PurchaseCarItemsViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"PurchaseCarItemsViewController"];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }];
     
 }
 - (IBAction)share:(id)sender {
     [SharedAction shareWithTitle:self.title andDesinationUrl:self.goodModel.url Text:self.goodModel.name andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.goodModel.bigpicture] InViewController:self];
 }
-//- (IBAction)segMent:(UISegmentedControl *)sender {
-//       if (sender.selectedSegmentIndex==0) {
-//        [target.view removeFromSuperview];
-//        [target removeFromParentViewController];
-//    }else{
-//        if (!target) {
-//            target = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
-////            target.urlString = self.goodModel.url;
-//            [target.view layoutSubviews];
-//            NSLog(@"%@",target.urlString);
-////            target.view.frame = CGRectMake(0, NavigationBarFrame.size.height+StatusBarFrame.size.height, DeviceFrame.size.width, DeviceFrame.size.height-NavigationBarFrame.size.height+StatusBarFrame.size.height);
-//        }
-//        [self addChildViewController:target];
-//        [self.view addSubview:target.view];
-//    }
-//}
+
 
 
 @end

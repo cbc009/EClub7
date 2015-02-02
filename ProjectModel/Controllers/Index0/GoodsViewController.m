@@ -117,17 +117,17 @@
 
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-if (alertView.tag==5) {
-    if(buttonIndex==1){
-        [SharedAction loginAggane];
-        NSArray *viewControllers = self.navigationController.viewControllers;
-        [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
-    }
-}else if (alertView.tag==2) {
+//if (alertView.tag==5) {
+//    if(buttonIndex==1){
+//        [SharedAction loginAggane];
+//        NSArray *viewControllers = self.navigationController.viewControllers;
+//        [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
+//    }
+//}else if (alertView.tag==2) {
     if(buttonIndex==2){
         NSLog(@"dd");
     }
-    }
+//    }
 }
 
 - (IBAction)segAction:(UISegmentedControl *)sender {

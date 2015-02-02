@@ -30,7 +30,7 @@
 @end
 
 @interface PrizeIndex : JSONModel
-@property(nonatomic,strong)PrizeIndexInfo* info;
+@property(nonatomic,strong)PrizeIndexInfo<Optional>*info;
 @property(nonatomic,assign)NSInteger status;
 @property(nonatomic,strong)NSString *error;
 @end

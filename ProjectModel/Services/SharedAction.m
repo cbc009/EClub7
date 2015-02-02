@@ -12,12 +12,12 @@
 #import "MJRefresh.h"
 #import "JSONModelLib.h"
 #import "NSString+MT.h"
+#import "BalanceModel.h"
 @implementation SharedAction
-
 
 +(void)presentLoginViewControllerInViewController:(UIViewController<LoginViewControllerDelegate> *)viewController{
     SharedData *sharedData = [SharedData sharedInstance];
-    sharedData.loginStatus = @"no";
+    sharedData.loginStatus = @"NO";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"User" bundle:nil];
     UINavigationController *userNavigationController = [[UINavigationController alloc] init];
     userNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"UserNavigationController"];
@@ -39,10 +39,8 @@
             [formData appendPartWithFileData:imageData name:name fileName:[NSString stringWithFormat:@"%@.jpg",name] mimeType:@"image/jpeg"];
         }
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
         [SharedAction operationAfterSucccessActionWithOperation:operation andResponseObject:responseObject andUrl:url andParameters:parameters withCompletion:completed];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
         [SharedAction operationAfterFailActionWithUrl:url andPatameters:parameters andError:error withCompletion:completed];
     }];
     [op start];
@@ -234,6 +232,13 @@
         case  826:
             [SVProgressHUD showErrorWithStatus:error];
             break;
+        case  827:
+            alertView = [[UIAlertView alloc]initWithTitle:@"需要登录以后才能使用该功能" message:@"是否要去登录" delegate:viewController cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            alertView.tag=6;
+            alertView.alertViewStyle = UIAlertViewStyleDefault;
+            [alertView show];
+            [SVProgressHUD dismiss];
+            break;
         default:
             [SVProgressHUD showErrorWithStatus:error];
             break;
@@ -335,6 +340,7 @@
     [Member_Login getModelFromURLWithString:urlString completion:^(Member_Login *model,JSONModelError *error){
         if (model.status==2) {
             sharedData.user=model.info;
+            sharedData.loginStatus=@"YES";
             [SharedAction setUMessageTagsWithUser:model.info];
         }else{
             [SVProgressHUD showErrorWithStatus:model.error];
@@ -392,7 +398,14 @@
         NSLog(@"%@",jsonError);
     }
 }
-
+//各种余额话费积分 
++(void)baseBalanceWithToken:(NSString *)token andUser_type:(NSInteger)user_type withTabBarViewController:(UITabBarController*)tabBarController doneObject:(doneWithObject)done
+{
+    NSString *urlString = [NSString stringWithFormat:Base_Balance_URL,token,user_type];
+    [BalanceModel getModelFromURLWithString:urlString completion:^(BalanceModel *model,JSONModelError *error){
+        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
+    }];
+}
 +(void)setupRefreshWithTableView:(UITableView *)tableview toTarget:(UIViewController *)target
 {
     // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)

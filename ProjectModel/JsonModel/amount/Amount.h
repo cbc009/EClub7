@@ -26,7 +26,7 @@
 
 
 @interface Amount : JSONModel
-@property(nonatomic,strong)Info* info;
+@property(nonatomic,strong)Info<Optional>* info;
 @property(nonatomic,assign)NSInteger status;
 @property(nonatomic,strong)NSString *error;
 @end

@@ -28,7 +28,7 @@
 @end
 
 @interface OrderDetailData : JSONModel
-@property(nonatomic,strong)OrderDetailInfo* info;
+@property(nonatomic,strong)OrderDetailInfo <Optional>* info;
 @property(nonatomic,assign)NSInteger status;
 @property(nonatomic,strong)NSString *error;
 @end

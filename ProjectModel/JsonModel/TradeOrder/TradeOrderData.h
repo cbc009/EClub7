@@ -22,7 +22,7 @@
 @end
 
 @interface TradeOrderData : JSONModel
-@property(nonatomic,strong)TradeOrderInfo* info;
+@property(nonatomic,strong)TradeOrderInfo<Optional>* info;
 @property(nonatomic,assign)NSInteger status;
 @property(nonatomic,strong)NSString *error;
 @end

@@ -32,13 +32,13 @@
     self.tableview.tableFooterView =[UIView new];
     [service kill_Goods_historyWithToken:user.token andUser_type:user.user_type intabBarController:self.tabBarController withDone:^(KillGoodInfo1 *model){
         self.datas = (NSMutableArray *)model.goods;
+        NSLog(@"%@",model.goods);
         [self.tableview reloadData];
     }];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -69,7 +69,6 @@
         cell.discount.text = [NSString stringWithFormat:@"%@元/%@",good.discount,good.unit];
         return cell;
     }
-    
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

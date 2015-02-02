@@ -7,8 +7,8 @@
 //
 
 #import "Index2NavViewController.h"
-
-@interface Index2NavViewController ()
+#import "LoginViewController.h"
+@interface Index2NavViewController ()<LoginViewControllerDelegate>
 
 @end
 

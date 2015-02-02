@@ -15,5 +15,5 @@
 @interface UPay_Order : JSONModel
 @property(nonatomic,strong) NSString *error;
 @property(nonatomic,assign)  NSInteger status;
-@property(nonatomic,strong) UPay_Order_info *info;
+@property(nonatomic,strong) UPay_Order_info <Optional>*info;
 @end

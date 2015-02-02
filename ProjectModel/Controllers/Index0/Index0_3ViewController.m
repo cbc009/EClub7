@@ -20,8 +20,8 @@
 #import "BuyService.h"
 #import "Index0_1Cell.h"
 #import "Index0_2Cell.h"
-
-@interface Index0_3ViewController ()
+#import "LoginViewController.h"
+@interface Index0_3ViewController ()<LoginViewControllerDelegate>
 {
     Index0Service *index0Service;
     BuyService *buyService;
@@ -32,22 +32,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-  
-    // Do any additional setup after loading the view.
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
     self.title=user.lifehall_name;
     index0Service = [[Index0Service alloc] init];
-    if (![[sharedData loginStatus] isEqualToString:@"yes"]) {
-        
-        [SharedAction presentLoginViewControllerInViewController:self];
-    }else{
+    NSLog(@"%@",sharedData.loginStatus);
+//    if (![[sharedData loginStatus] isEqualToString:@"YES"]) {
+//        [SharedAction presentLoginViewControllerInViewController:self];
+//    }else{
         //需要重新加载userDefaults的数据（可能数据库的数据会经常变化）
-        [index0Service loadUserDefaultsInViewController:self];
-    }
-
+        [index0Service loadUserDefaultsInViewController:self witLoginStatus:sharedData.loginStatus];
+//    }
     self.collectionDatas = [NSArray arrayWithObjects:@"抢购",@"充值",@"秒杀",@"抽奖",@"团购",@"兑换",@"购物车",@"钱包", nil];
-    self.collectionImgs = [NSArray arrayWithObjects:@"rob.jpg",@"recharge.jpg",@"seckill.jpg",@"lotterydraw.jpg",@"team_buy.jpg",@"exchange.jpg",@"buy.jpg",@"wallet.jpg", nil];
+    self.collectionImgs = [NSArray arrayWithObjects:@"main11.png",@"main12.png",@"main13.png",@"main14.png",@"main21.png",@"main14.png",@"main23.png",@"main24.png", nil];
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -58,7 +55,11 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden=NO;
+}
 
 #pragma mark - Navigation
 
@@ -69,7 +70,6 @@
         viewController.hidesBottomBarWhenPushed = YES;
     }
 }
-
 
 #pragma UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -97,7 +97,6 @@
         cell.pageview.pageViewType = MLPageScrollViewAdvertiseMode;//默认是广告模式（可选）
         cell.pageview.timeInterval = 3;//默认自动滚动图片时间为2秒（可选）
         [cell.pageview updatePageViewInSuperView:self.view];
-        
         return cell;
     }else if(section==1){
         Index0_2Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Index0_2Cell" forIndexPath:indexPath];

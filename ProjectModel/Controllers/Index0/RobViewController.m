@@ -16,6 +16,7 @@
 #import "SharedAction.h"
 #import "WebViewController.h"
 #import "Status.h"
+#import <BmobSDK/Bmob.h>
 @interface RobViewController ()
 {
     
@@ -85,6 +86,15 @@
         NSString *message =[NSString stringWithFormat:@"恭喜你在E小区免费抢到%@赶快去告诉朋友吧",self.robModel.name];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"抢菜信息" message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去告诉朋友", nil];
         [alertView show];
+        
+        //存储到Bmob后台
+        BmobObject *object = [BmobObject objectWithClassName:@"RobOrder"];
+        [object setObject:user.loginname forKey:@"loginname"];
+        [object setObject:self.robModel.name forKey:@"goodName"];
+        [object setObject:self.robModel.gid forKey:@"goodId"];
+        [object saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+            //进行操作
+        }];
     }];
 }
 

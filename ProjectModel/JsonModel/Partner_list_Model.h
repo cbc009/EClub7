@@ -21,5 +21,5 @@
 @interface Partner_list_Model : JSONModel
 @property(nonatomic,strong)NSString *error;
 @property(nonatomic,assign)NSInteger status;
-@property(nonatomic,strong)Partner_list_Info *info;
+@property(nonatomic,strong)Partner_list_Info <Optional>*info;
 @end

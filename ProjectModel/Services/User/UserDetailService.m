@@ -22,7 +22,7 @@
  */
 -(void)loginoutActionInViewController:(UserDetailViewController *)viewController inTabBarController:(UITabBarController *)tabBarController{
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
-     [SharedAction presentLoginViewControllerInViewController:viewController];
+    [SharedAction presentLoginViewControllerInViewController:viewController];
 }
 
 //修改头像
@@ -36,7 +36,6 @@
             finished(info);
         }
     }];
-
 }
 
 //修改支付密码

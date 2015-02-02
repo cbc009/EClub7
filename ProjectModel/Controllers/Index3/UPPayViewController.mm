@@ -8,6 +8,7 @@
 
 #import "UPPayViewController.h"
 #import "UPPayPlugin.h"
+#import <BmobSDK/Bmob.h>
 @interface UPPayViewController ()
 
 @end
@@ -28,8 +29,24 @@
 #pragma mark UPPayPluginResult
 - (void)UPPayPluginResult:(NSString *)result
 {
-    NSString* msg = [NSString stringWithFormat:kResult,result];
-    [SVProgressHUD showSuccessWithStatus:msg];
+    if ([result isEqualToString:@"success"]) {
+        //存储到Bmob后台
+        SharedData *sharedData = [SharedData sharedInstance];
+        UserInfo *user = sharedData.user;
+        BmobObject *object = [BmobObject objectWithClassName:@"Recharge"];
+        [object setObject:user.loginname forKey:@"loginname"];
+        [object setObject:@"UUPay" forKey:@"payType"];
+        [object setObject:[NSNumber numberWithFloat:sharedData.createPayPrice] forKey:@"price"];
+        [object saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+            //进行操作
+        }];
+        
+        [SVProgressHUD showSuccessWithStatus:@"支付成功"];
+    }else if([result isEqualToString:@"cancel"]){
+        [SVProgressHUD showSuccessWithStatus:@"取消支付"];
+    } else{
+        [SVProgressHUD showSuccessWithStatus:@"支付失败"];
+    }
 }
 
 

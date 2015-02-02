@@ -23,7 +23,7 @@
 @property(nonatomic,strong)NSArray<Data_Info>*data;
 @end
 @interface Call_history_Model : JSONModel
-@property (nonatomic ,strong) Call_History_Info*info;
+@property (nonatomic ,strong) Call_History_Info<Optional>*info;
 @property (nonatomic ,strong) NSString *error;
 @property (nonatomic ,assign) NSInteger status;
 @end

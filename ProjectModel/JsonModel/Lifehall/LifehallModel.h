@@ -21,5 +21,5 @@
 @interface LifehallModel : JSONModel
 @property(nonatomic,strong)NSString *error;
 @property(nonatomic,assign)NSInteger status;
-@property(nonatomic,strong)LifeHall_List_Info *info;
+@property(nonatomic,strong)LifeHall_List_Info <Optional>*info;
 @end

@@ -114,7 +114,9 @@
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
     return true;
 }
-
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return @"删除";
+}
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     NSUInteger row = indexPath.row;
     Good *good = self.datas[row];
@@ -169,20 +171,20 @@
 
 #pragma UIAlertViewDelegate
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (alertView.tag==5) {
-        if(buttonIndex==1){
-            [SharedAction loginAggane];
-            NSArray *viewControllers = self.navigationController.viewControllers;
-            [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
-        }
-    } else {
+//    if (alertView.tag==5) {
+//        if(buttonIndex==1){
+//            [SharedAction loginAggane];
+//            NSArray *viewControllers = self.navigationController.viewControllers;
+//            [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
+//        }
+//    } else {
       if(buttonIndex==1){
         NSInteger row = alertView.tag;
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
         Good *good = self.datas[row];
         [puchaseCarItemsService deleteItemByGid:good.gid inPurchaseViewController:(PurchaseCarItemsViewController *)self atIndexPath:(NSIndexPath *)indexPath];
     }
-    }
+//    }
 }
 
 

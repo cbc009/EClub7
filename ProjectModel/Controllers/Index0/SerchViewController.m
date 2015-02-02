@@ -23,8 +23,15 @@
 #import "SKTagView.h"
 #import <Masonry/Masonry.h>
 #import <HexColors/HexColor.h>
-
+#import "Search_label.h"
 @interface SerchViewController ()<UISearchBarDelegate,UIScrollViewDelegate>
+{
+    SearchService *searchService;
+    UserInfo *user;
+    NSMutableArray  *labelArray;
+    //标签是否出现  1为出现 0为不出现；
+    int k;
+}
 @property (strong, nonatomic) SKTagView *tagView;
 @property (nonatomic, strong) NSArray *colorPool;
 @end
@@ -33,18 +40,55 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    k=0;
     self.title = @"商城搜索";
-//    self.colorPool = @[@"#7ecef4", @"#84ccc9", @"#88abda",@"#7dc1dd",@"#b6b8de"];
-    
-    [self setupTagView];
+    labelArray = [NSMutableArray new];
+    SharedData *sharedData = [SharedData sharedInstance];
+    user = sharedData.user;
+     searchService= [[SearchService alloc] init];
+    self.tableview.hidden=YES;
+    [searchService searchLabelwithToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(Search_Label_Info *object){
+        for (int i=0; i<object.goods.count; i++) {
+            Search_Goods_Info *model =object.goods[i];
+            [labelArray addObject:model.name];
+        }
+        [self setupTagView];
+        
+    }];
     [self.search becomeFirstResponder];
-
      [_tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+}
+#pragma UISearchBarDelegate
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar;
+{
+    if (k==0) {
+        NSLog(@"searchBarTextDidBeginEditing");
+    }else{
+        self.tableview.hidden=YES;
+        [self setupTagView];
+    }
+}
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
+    
+        NSLog(@"ddd");
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [self.tagView removeFromSuperview];
+    searchBar.keyboardType = UIKeyboardTypeDefault;
+    [searchService goodsSearchWithToken:user.token andUser_type:user.user_type anName:self.search.text inTabBarController:self.tabBarController withDoneObject:^(Type_goods_info *model){
+        self.datas =(NSArray *)model;
+        [self.tableview reloadData];
+        self.tableview.hidden=NO;
+    }];
+    k=1;
+    [searchBar resignFirstResponder];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -109,26 +153,7 @@
     [self.search resignFirstResponder];
 }
 
-#pragma UISearchBarDelegate
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar;
-{
-    NSLog(@"searchBarTextDidBeginEditing");
-}
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    [self.tagView removeFromSuperview];
-
-    SearchService *searchService = [[SearchService alloc] init];
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
-    searchBar.keyboardType = UIKeyboardTypeDefault;
-    [searchService goodsSearchWithToken:user.token andUser_type:user.user_type anName:self.search.text inTabBarController:self.tabBarController withDoneObject:^(Type_goods_info *model){
-        self.datas =(NSArray *)model;
-        [self.tableview reloadData];
-    }];
-    [searchBar resignFirstResponder];
-}
 - (void)setupTagView
 {
     SKTagView *view;
@@ -136,7 +161,7 @@
         view = [SKTagView new];
         view.backgroundColor = [UIColor clearColor];
         view.padding    = UIEdgeInsetsMake(10, 25, 10, 25);
-        view.insets    = 5;
+        view.insets    = 10;
         view.lineSpace = 3;
         view;
     });
@@ -149,7 +174,7 @@
 //        make.trailing.equalTo(superView.mas_trailing);
 //    }];
     //Add Tags
-    [@[@"青椒", @"小红椒", @"地板油", @"五花肉", @"芦花鸡",@"有机大豆", @"大米",@"韭菜",@"青椒", @"小红椒", @"地板油", @"五花肉", @"芦花鸡"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
+    [labelArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
      {
          SKTag *tag = [SKTag tagWithText:obj];
          tag.textColor = UIColor.whiteColor;
@@ -163,6 +188,13 @@
 - (void)handleBtn:(SKTagButton *)btn
 {
     self.search.text = btn.mTag.text;
-//    [self.tagView removeTag:btn.mTag];
+    [searchService goodsSearchWithToken:user.token andUser_type:user.user_type anName:self.search.text inTabBarController:self.tabBarController withDoneObject:^(Type_goods_info *model){
+        self.datas =(NSArray *)model;
+        [self.tableview reloadData];
+        self.tableview.hidden=NO;
+        k=1;
+        [self.search resignFirstResponder];
+        [self.tagView removeFromSuperview];
+    }];
 }
 @end

@@ -30,7 +30,7 @@
 
 
 @interface Cart : JSONModel
-@property(nonatomic,strong)CartInfo *info;
+@property(nonatomic,strong)CartInfo <Optional>*info;
 @property(nonatomic,assign)NSInteger status;
 @property (nonatomic,strong)NSString *error;
 @end

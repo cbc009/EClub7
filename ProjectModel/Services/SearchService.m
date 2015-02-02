@@ -13,7 +13,7 @@
 
 #import "JSONModelLib.h"
 #import "SharedAction.h"
-
+#import "Search_label.h"
 @implementation SearchService
 
 -(void)goodsSearchWithToken:(NSString *)token andUser_type:(NSInteger )user_type anName:(NSString *)name inTabBarController:(UITabBarController *)tabBarController withDoneObject:(doneWithObject)done
@@ -26,6 +26,13 @@
         NSDictionary *modelInfo = (NSDictionary *)[object objectForKey:@"info"];
           NSArray *array = (NSArray *)[modelInfo objectForKey:@"goods"];
         [SharedAction commonActionWithUrl:Goods_search_URL andStatus:status1 andError:error1 andJSONModelError:error andObject:array inTabBarController:tabBarController withDone:done];
+    }];
+}
+
+-(void)searchLabelwithToken:(NSString *)token andUser_type:(NSInteger )user_type inTabBarController:(UITabBarController*)tabBarController withDone:(doneWithObject)done{
+    NSString *urlString =[NSString stringWithFormat:Goods_search_Label_URL,token,user_type];
+    [Search_label getModelFromURLWithString:urlString completion:^(Search_label *model,JSONModelError *error){
+        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
     }];
 }
 

@@ -147,6 +147,10 @@
     [self rereShingWithPageString:pageString andRereShingType:rereshinType];
 }
 
+//selectedSegmentIndex1=0 我的购买订单
+//selectedSegmentIndex1=1 我的抢菜订单
+//selectedSegmentIndex1=2 我的团购订单
+//selectedSegmentIndex1=3 我的秒杀订单
 -(void)rereShingWithPageString:(NSString *)pageString andRereShingType:(NSInteger )rereshinType1{
        if (selectedSegmentIndex1==0) {
         [myOrderService loadOrderWithPage:pageString andToken:user.token andUser_type:user.user_type andSelectedSegmentIndex:selectedSegmentIndex1 inTabBarController:self.tabBarController withDone:^(TradeOrderInfo *model){

@@ -28,7 +28,7 @@
 @end
 
 @interface Group_History_Goods : JSONModel
-@property(nonatomic,strong)Group_History_Info* info;
+@property(nonatomic,strong)Group_History_Info<Optional>*info;
 @property(nonatomic,assign)NSInteger status;
 @property (nonatomic,strong)NSString *error;
 @end

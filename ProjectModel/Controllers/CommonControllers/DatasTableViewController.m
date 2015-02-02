@@ -12,9 +12,7 @@
 {
     NSArray *ids;
     NSArray *names;
-    NSArray *array;
     NSDictionary *data;
-    ChooseAreaViewController *chaose;
 }
 @end
 
@@ -23,8 +21,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSArray *viewControllers = self.navigationController.viewControllers;
-    chaose= viewControllers[viewControllers.count-2];
+    self.tableView.tableFooterView =[UIView new];
     [self propertiesByDatas:self.datas andIndex:self.index];
 }
 
@@ -38,13 +35,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    
-    if (self.datas.count<3) {
-        return array.count;
-    }else{
-        return self.datas.count;
-    }
+    return self.datas.count;
 }
 
 
@@ -65,12 +56,9 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSInteger row = indexPath.row;
-    if (self.datas.count<3) {
-        data = [array objectAtIndex:row];
-    }else{
-        data = [self.datas objectAtIndex:row];
-    }
+    data = [self.datas objectAtIndex:row];
     [self.navigationController popViewControllerAnimated:YES];
+    NSLog(@"data:%@",data);
     [self.delegate popViewControllerWithData:data andIndex:self.index];
 }
 
@@ -85,13 +73,6 @@
             names = [self propertiesByDatas:datas withKey:@"name"];
             break;
         case 2:
-            chaose.market =[[self.datas valueForKey:@"market"]integerValue];
-            NSLog(@"%ld",(long)chaose.market);
-            array = [self.datas valueForKey:@"arrarea"];
-            ids = [self propertiesByDatas:array withKey:@"area"];
-            names = [self propertiesByDatas:array withKey:@"name"];
-            break;
-        case 3:
             ids = [self propertiesByDatas:datas withKey:@"lifehall_id"];
             names = [self propertiesByDatas:datas withKey:@"name"];
             break;

@@ -22,7 +22,7 @@
 @property(nonatomic,strong)NSString *start_time;
 @property(nonatomic,strong)NSString *expect_num;
 @property(nonatomic,strong)NSString *actual_num;
-@property(nonatomic,strong)NSString *logistics;
+@property(nonatomic,strong)NSString <Optional>*logistics;
 @property(nonatomic,strong)NSString *starttime;
 @end
 

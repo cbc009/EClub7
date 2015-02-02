@@ -16,5 +16,5 @@
 @interface Prize_Lucky_Model : JSONModel
 @property(nonatomic,strong)NSString *error;
 @property(nonatomic,assign)NSInteger status;
-@property(nonatomic,strong)Prize_Model_Info *info;
+@property(nonatomic,strong)Prize_Model_Info<Optional> *info;
 @end
