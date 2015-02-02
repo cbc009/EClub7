@@ -2847,7 +2847,10 @@
 				22CFAE8C1999ABEB00BBD914 /* return_suggest.png in Resources */,
 				33DCB3351A38471100214F66 /* bg_keyboard5@2x.png in Resources */,
 				33537B651A0A02BA00AF0AD6 /* app_load.png in Resources */,
+<<<<<<< HEAD
 				338AFF191A7B51FC000B1C17 /* main23.png in Resources */,
+=======
+>>>>>>> 1d944b4615cbe3260525d653d83406a64bbbebe2
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
