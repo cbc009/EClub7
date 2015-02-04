@@ -25,7 +25,7 @@ PODS:
   - HexColors (2.2.1)
   - JSONModel (1.0.2)
   - libqrencode (3.4.2)
-  - MarqueeLabel (2.0.9)
+  - MarqueeLabel (2.0.10)
   - Masonry (0.6.0)
   - SDWebImage (3.7.1):
     - SDWebImage/Core (= 3.7.1)
@@ -63,7 +63,7 @@ SPEC CHECKSUMS:
   HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
   JSONModel: cbdef0fdff1cc70e913a860861d3072860efd3a1
   libqrencode: ebfece8f6983de7a4a6d33c3a30e2910ecf43b7c
-  MarqueeLabel: 47891091616ec81b68805181e61694bc140abd74
+  MarqueeLabel: 7685fc894573bfe40aa4859db160d1a221beee83
   Masonry: 0bc111d6902e3a55ff8423bcbdf7155261806547
   SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
   SVProgressHUD: da7a49e789af645d9279ffbca62318945a832438

@@ -163,14 +163,8 @@
             [SVProgressHUD dismiss];
             
             //存储到Bmob后台
-<<<<<<< HEAD
             BmobObject *model = [BmobObject objectWithClassName:@"BuyGoods"];
             [model setObject:user.loginname forKey:@"loginname"];
-            
-=======
-            BmobObject *model = [BmobObject objectWithClassName:@"TestTable"];
-            [model setObject:user.loginname forKey:@"loginname"];
->>>>>>> 1d944b4615cbe3260525d653d83406a64bbbebe2
             [model setObject:datas forKey:@"info"];
             [model setObject:[NSNumber numberWithFloat:[viewController.bottomTotalPrice.text floatValue]] forKey:@"price"];
             [model saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {

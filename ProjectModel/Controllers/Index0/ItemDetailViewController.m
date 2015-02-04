@@ -135,7 +135,7 @@
     
 }
 - (IBAction)share:(id)sender {
-    [SharedAction shareWithTitle:self.title andDesinationUrl:self.goodModel.url Text:self.goodModel.name andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.goodModel.bigpicture] InViewController:self];
+    [SharedAction shareWithTitle:self.title andDesinationUrl:self.goodModel.share_url Text:self.goodModel.name andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.goodModel.bigpicture] InViewController:self];
 }
 
 

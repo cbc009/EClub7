@@ -5,7 +5,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
+#import <QuartzCore/QuartzCore.h>
+#import <QuartzCore/CAMediaTiming.h>
+#import <QuartzCore/CATransform3D.h>
 @interface SKTag : NSObject
 
 ///Your custom data

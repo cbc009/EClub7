@@ -18,25 +18,10 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    self.goSomeTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoSomeoneDetail)];
+    [self.message addGestureRecognizer: self.goSomeTap];
 }
-#pragma UICollectionViewDataSource
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.collectionDatas.count;
+-(void)gotoSomeoneDetail{
+    [self.delegate requestInCell:self];
 }
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    MessageDetailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MessageDetailCell" forIndexPath:indexPath];
-    NSInteger row = indexPath.row;
-    Picture_Info *model =self.collectionDatas[row];
-    if (model.picture==nil) {
-        self.collectionView.hidden=YES;
-    }else{
-     [cell.image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
-    }
-    return cell;
-}
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-}
-
 @end

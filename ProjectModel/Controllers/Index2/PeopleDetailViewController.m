@@ -15,7 +15,8 @@
 #import "NSString+MT.h"
 #import "MLMutiImagesChoosenViewController.h"
 #import "MJRefresh.h"
-@interface PeopleDetailViewController ()
+#import "SomeoneContentViewController.h"
+@interface PeopleDetailViewController ()<PeopleDetailDelegate>
 {
     UserInfo *user;
     LiveModelInfo *object;
@@ -23,6 +24,7 @@
     PeopleDetailService *peopleDetailService ;
     NSInteger page;
 }
+
 @end
 
 @implementation PeopleDetailViewController
@@ -82,15 +84,16 @@
     }else{
         static NSString *CellIdentifier =@"PeopleDetailCell";
         PeopleDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        cell.delegate=self;
         if (cell==nil) {
             cell = [[PeopleDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
         DataInfo *model = self.datas[indexPath.row];
         cell.message.text = model.content;
+        UITapGestureRecognizer *goSomeTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoSomeoneDetail:)];
+        [cell.message addGestureRecognizer: goSomeTap];
         cell.time.text=model.regtime;
         cell.lableHeight.constant = [NSString heightWithString:model.content font:[UIFont systemFontOfSize:13] maxSize:CGSizeMake(DeviceFrame.size.width-(85-8), 600)];
-
         if (model.picture.count>0) {
             cell.collectoonHeight.constant=64;
         }else{
@@ -135,20 +138,9 @@
         [self.tableView footerEndRefreshing];
     }];
 }
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (alertView.tag==5) {
-        if(buttonIndex==1){
-            [SharedAction loginAggane];
-            NSArray *viewControllers = self.navigationController.viewControllers;
-            [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
-        }
-    }
-}
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 0;
 }
-
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
         return 156;
@@ -164,12 +156,44 @@
         }
         return topic_height+pictureHeight;
     }
-
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section==1) {
+        DataInfo *objects = self.datas[indexPath.row];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index2" bundle:nil];
+        SomeoneContentViewController *someoneContentViewController = [storyboard instantiateViewControllerWithIdentifier:@"SomeoneContentViewController"];
+        someoneContentViewController.hidesBottomBarWhenPushed = YES;
+        someoneContentViewController.model=objects;
+        [self.navigationController pushViewController:someoneContentViewController animated:YES];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag==5) {
+        if(buttonIndex==1){
+            [SharedAction loginAggane];
+            NSArray *viewControllers = self.navigationController.viewControllers;
+            [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
+        }
+    }
+}
+-(void)gotoSomeoneDetail:(PeopleDetailCell*)cell
+{
+    
+    NSIndexPath *indexpath = [self.tableView indexPathForCell:cell];
+    DataInfo *objects = self.datas[indexpath.row];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index2" bundle:nil];
+    SomeoneContentViewController *someoneContentViewController = [storyboard instantiateViewControllerWithIdentifier:@"SomeoneContentViewController"];
+    someoneContentViewController.hidesBottomBarWhenPushed = YES;
+    someoneContentViewController.model=objects;
+    [self.navigationController pushViewController:someoneContentViewController animated:YES];
+}
+-(void)requestInCell:(PeopleDetailCell *)cell
+{
+   
+}
+
 /*
 #pragma mark - Navigation
 

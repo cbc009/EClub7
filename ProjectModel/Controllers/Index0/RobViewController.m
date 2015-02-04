@@ -19,7 +19,6 @@
 #import <BmobSDK/Bmob.h>
 @interface RobViewController ()
 {
-    
     RobService *robService;
     UserInfo *user;
         int count;
@@ -36,7 +35,6 @@
 
 -(void)loadView{
     [super loadView];
-    
 }
 
 - (void)viewDidLoad

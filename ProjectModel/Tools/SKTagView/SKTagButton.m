@@ -18,13 +18,15 @@
     btn.mTag = tag;
     [btn setTitle:tag.text forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:tag.fontSize];
+    btn.frame=CGRectMake(0, 0, 98, 50);
     btn.backgroundColor = tag.bgColor;
     [btn setTitleColor:tag.textColor forState:UIControlStateNormal];
     [btn addTarget:tag.target action:tag.action forControlEvents:UIControlEventTouchUpInside];
     btn.layer.cornerRadius = tag.cornerRadius;
-    btn.layer.masksToBounds = YES;
+//    btn.layer.masksToBounds = YES;
+    [btn.layer setBorderWidth:1.5];   //边框宽度
+    [btn.layer setBorderColor:[UIColor grayColor].CGColor];//边框颜色
     [btn setContentEdgeInsets:tag.padding];
-    
     return btn;
 }
 

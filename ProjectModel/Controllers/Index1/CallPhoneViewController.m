@@ -281,10 +281,14 @@
 {
     NSMutableArray* personArray = nil;
     NSString *firstName, *lastName, *fullName;
-    CFErrorRef *error;
     
-    ABAddressBookRef addressRef=ABAddressBookCreateWithOptions(nil,error);
-    ABAddressBookRequestAccessWithCompletion(addressRef,nil);
+    ABAddressBookRef addressRef=ABAddressBookCreateWithOptions(nil,nil);
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    ABAddressBookRequestAccessWithCompletion(addressRef, ^(bool granted, CFErrorRef error)
+    {
+        dispatch_semaphore_signal(sema);
+    });
+//    ABAddressBookRequestAccessWithCompletion(addressRef,nil);
     ABRecordRef source = ABAddressBookCopyDefaultSource(addressRef);
     personArray = (__bridge_transfer NSMutableArray *)ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(addressRef, source, kABPersonSortByFirstName);
 

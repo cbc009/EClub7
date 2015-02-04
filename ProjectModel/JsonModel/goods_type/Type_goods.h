@@ -25,6 +25,7 @@
 @property(nonatomic,assign)NSInteger goods_new;
 @property(nonatomic,strong)NSString <Optional>*logistics;
 @property(nonatomic,strong)NSString <Optional>*url;
+@property(nonatomic,strong)NSString <Optional>*share_url;
 @property(nonatomic,strong)NSString <Optional>*nums;
 @end
 

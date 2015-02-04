@@ -49,9 +49,8 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SecondItemCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SecondItemCell" forIndexPath:indexPath];
     TransInfo *model = self.datas[indexPath.section];
-    NSLog(@"%@",model);
     cell.name.text =model.title;
-//    cell.
+
 //    cell.content.text = model.name;
 //    [cell.image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PrexImgPath,model.picture[0]]] placeholderImage:[UIImage imageNamed:@"e"]];
 //    NSLog(@"%@",[NSString stringWithFormat:@"%@%@",PrexImgPath,model.picture[0]]);

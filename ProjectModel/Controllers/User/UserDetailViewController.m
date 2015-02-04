@@ -40,6 +40,7 @@
 -(void)loadView{
     [super loadView];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.tableview.tableFooterView=[UIView new];
 }
 
 - (void)viewDidLoad

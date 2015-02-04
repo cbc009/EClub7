@@ -17,12 +17,15 @@
 #import "SVProgressHUD.h"
 #import "UPay_Order.h"
 #import "UPPayViewController.h"
-
+#import "PayTypeCell.h"
 @interface CreatePayViewController ()
 {
     UPPayViewController *uppayViewController;
     CreatePayService *service;
     NSInteger payType;
+    NSArray *titleArray;
+    NSArray *paycontentArray;
+    NSArray *payimgsArray;
 }
 @property(nonatomic,strong)Create_pay_orderInfo *info;
 @end
@@ -35,16 +38,20 @@
     [uppayViewController.view removeFromSuperview];
     [uppayViewController removeFromParentViewController];
     [super viewWillAppear:animated];
-     payType = ailpayType;
-    [self.ali setBackgroundImage:[UIImage imageNamed:@"checked_true.png"] forState:UIControlStateNormal];
-    [self.upaypay setBackgroundImage:[UIImage imageNamed:@"checked_false.png"] forState:UIControlStateNormal];
-    [self.weipaypay setBackgroundImage:[UIImage imageNamed:@"checked_false.png"] forState:UIControlStateNormal];
+
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+     payType = ailpayType;
+    self.tableView.tableFooterView =[UIView new];
+     self.tableView.showsVerticalScrollIndicator =NO;
+    self.tableView.scrollEnabled =NO;
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    titleArray= @[@"支付宝支付",@"银联支付",@"微信支付"];
+    paycontentArray =@[@"可以使用支付宝支付",@"可以使用银联支付",@"推荐使用微信5.0版本以上使用"];
+    payimgsArray=@[@"ic_alipay_plugin_enabled.png",@"ic_banklist_enabled.png",@"ic_weixinpay_enabled.png"];
     self.title = @"在线充值";
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardHide:)];
     //设置成NO表示当前控件响应后会传播到其他控件上，默认为YES。
@@ -112,7 +119,6 @@
     }else if(payType==UPPayType){
         NSLog(@"银联支付");
         [service create_orderWithToken:user.token andUserType:user.user_type andPrice:self.price.text andPayModel:@"PAY_UNION" inTabBarController:self.tabBarController withDone:^(UPay_Order_info *model){
-            
             uppayViewController= [[UPPayViewController alloc] init];
             uppayViewController.tn=model.tn;
             sharedData.createPayPrice = [self.price.text floatValue];
@@ -122,7 +128,6 @@
         }];
     }else{
         NSLog(@"微信支付");
-
         [SVProgressHUD showErrorWithStatus:@"暂未开通微信支付，敬请期待！"];
     }
     }
@@ -160,31 +165,49 @@
 }
 
 
-
-- (IBAction)alipay:(id)sender {
-    payType=ailpayType;
-    [self.ali setBackgroundImage:[UIImage imageNamed:@"checked_true.png"] forState:UIControlStateNormal];
-    [self.upaypay setBackgroundImage:[UIImage imageNamed:@"checked_false.png"] forState:UIControlStateNormal];
-    [self.weipaypay setBackgroundImage:[UIImage imageNamed:@"checked_false.png"] forState:UIControlStateNormal];
-}
-
-- (IBAction)uppay:(id)sender {
-    payType=UPPayType;
-    [self.ali setBackgroundImage:[UIImage imageNamed:@"checked_false.png"] forState:UIControlStateNormal];
-    [self.upaypay setBackgroundImage:[UIImage imageNamed:@"checked_true.png"] forState:UIControlStateNormal];
-    [self.weipaypay setBackgroundImage:[UIImage imageNamed:@"checked_false.png"] forState:UIControlStateNormal];
-}
-
-- (IBAction)weipay:(id)sender {
-    payType=WeiPayType;
-    [self.ali setBackgroundImage:[UIImage imageNamed:@"checked_false.png"] forState:UIControlStateNormal];
-    [self.upaypay setBackgroundImage:[UIImage imageNamed:@"checked_false.png"] forState:UIControlStateNormal];
-    [self.weipaypay setBackgroundImage:[UIImage imageNamed:@"checked_true.png"] forState:UIControlStateNormal];
-}
-
-
 -(void)keyboardHide:(UITapGestureRecognizer*)tap{
 //    [self.view removeGestureRecognizer:tap];
     [self.price resignFirstResponder];
 }
+
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return payimgsArray.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSInteger row = indexPath.row;
+    PayTypeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PayTypeCell" forIndexPath:indexPath];
+    cell.payimgs.image=[UIImage imageNamed:payimgsArray[row]];
+    if (row==0) {
+        cell.accessoryType=UITableViewCellAccessoryCheckmark;
+    }else{
+        cell.accessoryType=UITableViewCellAccessoryNone;
+    }
+    cell.paytitle.text=titleArray[row];
+    cell.paycontent.text=paycontentArray[row];
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    for (int i=0; i<payimgsArray.count; i++) {
+        NSIndexPath *index = [NSIndexPath indexPathForRow:i inSection:0];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:index];
+        if([index isEqual:indexPath]){
+            cell.accessoryType=UITableViewCellAccessoryCheckmark;
+        }else{
+            cell.accessoryType=UITableViewCellAccessoryNone;
+        }
+    }
+    payType=indexPath.row;
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 57;
+}
+
+
+
 @end

@@ -56,7 +56,6 @@
     NSString *str = [order.regtime substringToIndex:10];
     cell.date.text = str;
     return cell;
-    
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

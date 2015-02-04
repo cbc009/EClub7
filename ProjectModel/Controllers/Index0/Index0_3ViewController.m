@@ -21,6 +21,7 @@
 #import "Index0_1Cell.h"
 #import "Index0_2Cell.h"
 #import "LoginViewController.h"
+#import "SerchViewController.h"
 @interface Index0_3ViewController ()<LoginViewControllerDelegate>
 {
     Index0Service *index0Service;
@@ -34,6 +35,7 @@
     [super viewDidLoad];
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
+
     self.title=user.lifehall_name;
     index0Service = [[Index0Service alloc] init];
     NSLog(@"%@",sharedData.loginStatus);
@@ -82,6 +84,7 @@
         return self.goodTypes.count;
     }
 }
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger section = indexPath.section;
     if (section==0) {
@@ -103,8 +106,6 @@
         MainItemLayout *layout = [[MainItemLayout alloc] init];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.collectionview.collectionViewLayout = layout;
-
-
         return cell;
     }else{
         BuyGoodTypeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BuyGoodTypeCell" forIndexPath:indexPath];
@@ -115,7 +116,6 @@
         cell.firstType.text = goods_type.name;
         cell.secondType.text = [self subtypeStringFromArray:subtypes];
         return cell;
-
     }
     
 }
@@ -132,12 +132,27 @@
 }
 //- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger )section
 //{
-//    
+//    if (section==2) {
+//        UISearchBar *searchBar = [[UISearchBar alloc] init];
+//        searchBar.keyboardType = UIKeyboardTypeDefault;
+//        searchBar.delegate=self;
+//        return searchBar;
+//    }else{
+//        return nil;
+//    }
 //}
-
+//- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+//        SerchViewController *serchViewController = [storyboard instantiateViewControllerWithIdentifier:@"SerchViewController"];
+//    serchViewController.hidesBottomBarWhenPushed=YES;
+//    [self.navigationController pushViewController:serchViewController animated:YES];
+//}
+// 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section==0) {
         return 0;
+//    }else if(section==2){
+//        return 35;
     }else{
         return 8;
     }
@@ -170,7 +185,6 @@
         viewController.hidesBottomBarWhenPushed=YES;
         [self.navigationController pushViewController:viewController animated:YES];
     }
-    
 }
 
 #pragma UICollectionViewDataSource
@@ -215,7 +229,6 @@
         storyboardName = @"Index3";
         identifier = @"MyWalletViewController";
     }
-    
     if (storyboardName!=nil&&identifier!=nil) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
         UIViewController *target = [storyboard instantiateViewControllerWithIdentifier:identifier];

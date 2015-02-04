@@ -24,6 +24,7 @@
 #import <Masonry/Masonry.h>
 #import <HexColors/HexColor.h>
 #import "Search_label.h"
+#import <QuartzCore/QuartzCore.h>
 @interface SerchViewController ()<UISearchBarDelegate,UIScrollViewDelegate>
 {
     SearchService *searchService;
@@ -53,7 +54,6 @@
             [labelArray addObject:model.name];
         }
         [self setupTagView];
-        
     }];
     [self.search becomeFirstResponder];
      [_tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -74,14 +74,13 @@
     }
 }
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
-    
         NSLog(@"ddd");
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [self.tagView removeFromSuperview];
-    searchBar.keyboardType = UIKeyboardTypeDefault;
+//    searchBar.keyboardType = UIKeyboardTypeDefault;
     [searchService goodsSearchWithToken:user.token andUser_type:user.user_type anName:self.search.text inTabBarController:self.tabBarController withDoneObject:^(Type_goods_info *model){
         self.datas =(NSArray *)model;
         [self.tableview reloadData];
@@ -137,7 +136,6 @@
     }else if(model.goods_new == 1){
         [cell.goodimage highlightedImage];
     }
-
     cell.name.text = model.name;
     return cell;
 }
@@ -160,30 +158,30 @@
     self.tagView = ({
         view = [SKTagView new];
         view.backgroundColor = [UIColor clearColor];
-        view.padding    = UIEdgeInsetsMake(10, 25, 10, 25);
-        view.insets    = 10;
-        view.lineSpace = 3;
+        view.padding    = UIEdgeInsetsMake(16, 12, 6, 6);
+        view.insets    = 8;
+        view.lineSpace = 10;
         view;
     });
-    self.tagView.frame = CGRectMake(0, 120, self.view.frame.size.width, view.lineSpace*40);
     [self.view addSubview:self.tagView];
-//    [self.tagView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        UIView *superView = self.view;
-////        make.center.equalTo(superView);
-//        make.leading.equalTo(superView.mas_leading);
-//        make.trailing.equalTo(superView.mas_trailing);
-//    }];
-    //Add Tags
     [labelArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
      {
          SKTag *tag = [SKTag tagWithText:obj];
-         tag.textColor = UIColor.whiteColor;
-         tag.bgColor = UIColor.orangeColor;
+         tag.textColor = UIColor.grayColor;
+         tag.bgColor = UIColor.whiteColor;
+         tag.padding = UIEdgeInsetsMake(5, 5, 5, 5);
          tag.target = self;
          tag.action = @selector(handleBtn:);
-         tag.cornerRadius = 3;
+         tag.cornerRadius = 2;
         [self.tagView addTag:tag];
-     }];
+    }];
+    [self.tagView mas_makeConstraints:^(MASConstraintMaker *make) {
+        UIView *superView = self.view;
+        make.centerY.equalTo(superView.mas_top).centerY.offset(NavigationBarFrame.size.height+StatusBarFrame.size.height+120);
+        make.leading.equalTo(superView.mas_leading).with.offset(0);
+        make.trailing.equalTo(superView.mas_trailing);
+    }];
+
 }
 - (void)handleBtn:(SKTagButton *)btn
 {

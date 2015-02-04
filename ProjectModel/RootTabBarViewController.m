@@ -71,9 +71,8 @@
         if (buttonIndex==1) {
             self.selectedIndex = 0;
             UINavigationController *nav = self.viewControllers[self.selectedIndex];
-            NSLog(@"%@",nav);
             [nav popToRootViewControllerAnimated:YES];
-            [SharedAction presentLoginViewControllerInViewController:nav.viewControllers[1]];
+            [SharedAction presentLoginViewControllerInViewController:nav];
             NSLog(@"dddd");
         }
     }

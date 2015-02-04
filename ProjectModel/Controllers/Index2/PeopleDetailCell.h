@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class PeopleDetailCell;
+@protocol PeopleDetailDelegate<NSObject>
+@optional
+-(void)requestInCell:(PeopleDetailCell *)cell;
+@end
 @interface PeopleDetailCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *message;
 
@@ -17,4 +21,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *time;
+@property(nonatomic,strong) id<PeopleDetailDelegate>delegate;
+@property (nonatomic,strong) UITapGestureRecognizer *goSomeTap;
+
 @end

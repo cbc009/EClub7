@@ -207,7 +207,6 @@
 		3365BADC1A709760003C220C /* CreatePayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3365BADB1A709760003C220C /* CreatePayViewController.m */; };
 		3365BADF1A70A012003C220C /* UPPayViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3365BADE1A70A012003C220C /* UPPayViewController.mm */; };
 		3365BAE21A70A0D9003C220C /* UPay_Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 3365BAE11A70A0D9003C220C /* UPay_Order.m */; };
-		3365BAF01A70AAF6003C220C /* libUPPayPlugin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3365BAEF1A70AAF6003C220C /* libUPPayPlugin.a */; };
 		3367E6C51A6F3BE300DA866D /* icon_merchant_share_highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3367E6C31A6F3BE300DA866D /* icon_merchant_share_highlighted@2x.png */; };
 		3367E6C61A6F3BE300DA866D /* icon_merchant_share_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3367E6C41A6F3BE300DA866D /* icon_merchant_share_normal@2x.png */; };
 		3367E6CC1A6FADF400DA866D /* ic_banklist_enabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 3367E6C91A6FADF400DA866D /* ic_banklist_enabled.png */; };
@@ -233,6 +232,11 @@
 		336EB1491A4A558C006E0175 /* MLImagesBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 336EB1421A4A558C006E0175 /* MLImagesBrowserViewController.xib */; };
 		336EB14A1A4A558C006E0175 /* MLMutiImagesChoosenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 336EB1441A4A558C006E0175 /* MLMutiImagesChoosenViewController.m */; };
 		336EB14B1A4A558C006E0175 /* MLMutiImagesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 336EB1451A4A558C006E0175 /* MLMutiImagesViewController.storyboard */; };
+		336F28C01A80700B00EE4020 /* SomeoneContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 336F28BF1A80700B00EE4020 /* SomeoneContentViewController.m */; };
+		336F28C31A8070C200EE4020 /* SomeoneContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 336F28C21A8070C200EE4020 /* SomeoneContentCell.m */; };
+		336F28C61A8072D400EE4020 /* SomeoneContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 336F28C51A8072D400EE4020 /* SomeoneContent.m */; };
+		336F28C91A80747200EE4020 /* SomeoneContentService.m in Sources */ = {isa = PBXBuildFile; fileRef = 336F28C81A80747200EE4020 /* SomeoneContentService.m */; };
+		336F28CB1A80B25E00EE4020 /* main23.png in Resources */ = {isa = PBXBuildFile; fileRef = 336F28CA1A80B25E00EE4020 /* main23.png */; };
 		336FDC861A5A2F1C004CFD6A /* Index0.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 336FDC851A5A2F1C004CFD6A /* Index0.storyboard */; };
 		336FDC891A5A41CB004CFD6A /* AppQRocde.m in Sources */ = {isa = PBXBuildFile; fileRef = 336FDC881A5A41CB004CFD6A /* AppQRocde.m */; };
 		336FDC8D1A5A4269004CFD6A /* Guide_code.m in Sources */ = {isa = PBXBuildFile; fileRef = 336FDC8C1A5A4269004CFD6A /* Guide_code.m */; };
@@ -262,7 +266,6 @@
 		338AFF0D1A7B4425000B1C17 /* main_lotteryDraw_light.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 338AFF071A7B4425000B1C17 /* main_lotteryDraw_light.PNG */; };
 		338AFF0E1A7B4425000B1C17 /* main_me_light.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 338AFF081A7B4425000B1C17 /* main_me_light.PNG */; };
 		338AFF111A7B4650000B1C17 /* Search_label.m in Sources */ = {isa = PBXBuildFile; fileRef = 338AFF101A7B4650000B1C17 /* Search_label.m */; };
-		338AFF191A7B51FC000B1C17 /* main23.png in Resources */ = {isa = PBXBuildFile; fileRef = 338AFF121A7B51FC000B1C17 /* main23.png */; };
 		338AFF1A1A7B51FC000B1C17 /* main13.png in Resources */ = {isa = PBXBuildFile; fileRef = 338AFF131A7B51FC000B1C17 /* main13.png */; };
 		338AFF1B1A7B51FC000B1C17 /* main21.png in Resources */ = {isa = PBXBuildFile; fileRef = 338AFF141A7B51FC000B1C17 /* main21.png */; };
 		338AFF1C1A7B51FC000B1C17 /* main11.png in Resources */ = {isa = PBXBuildFile; fileRef = 338AFF151A7B51FC000B1C17 /* main11.png */; };
@@ -283,6 +286,8 @@
 		339C90FB1A778F3C00CE71D8 /* SKTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 339C90F61A778F3C00CE71D8 /* SKTag.m */; };
 		339C90FC1A778F3C00CE71D8 /* SKTagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 339C90F81A778F3C00CE71D8 /* SKTagButton.m */; };
 		339C90FD1A778F3C00CE71D8 /* SKTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 339C90FA1A778F3C00CE71D8 /* SKTagView.m */; };
+		33A913171A7F289F00499C59 /* PayTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 33A913161A7F289F00499C59 /* PayTypeCell.m */; };
+		33A913221A7F732D00499C59 /* libUPPayPlugin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33A9131D1A7F732D00499C59 /* libUPPayPlugin.a */; };
 		33C8890D1A79C2C8001DACD6 /* back.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 33C8890C1A79C2C8001DACD6 /* back.jpg */; };
 		33DBE7371A3051B700C7CCF5 /* Push_history.m in Sources */ = {isa = PBXBuildFile; fileRef = 33DBE7361A3051B700C7CCF5 /* Push_history.m */; };
 		33DBE7391A3051CD00C7CCF5 /* MorePush_historyService.m in Sources */ = {isa = PBXBuildFile; fileRef = 33DBE7381A3051CD00C7CCF5 /* MorePush_historyService.m */; };
@@ -771,10 +776,6 @@
 		3365BADE1A70A012003C220C /* UPPayViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UPPayViewController.mm; sourceTree = "<group>"; };
 		3365BAE01A70A0D9003C220C /* UPay_Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPay_Order.h; sourceTree = "<group>"; };
 		3365BAE11A70A0D9003C220C /* UPay_Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPay_Order.m; sourceTree = "<group>"; };
-		3365BAEF1A70AAF6003C220C /* libUPPayPlugin.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUPPayPlugin.a; sourceTree = "<group>"; };
-		3365BAF11A70AB07003C220C /* UPPayPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPPayPlugin.h; sourceTree = "<group>"; };
-		3365BAF21A70AB07003C220C /* UPPayPluginDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPPayPluginDelegate.h; sourceTree = "<group>"; };
-		3365BAF31A70AB07003C220C /* UPPayPluginPro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPPayPluginPro.h; sourceTree = "<group>"; };
 		3367E6C31A6F3BE300DA866D /* icon_merchant_share_highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_merchant_share_highlighted@2x.png"; sourceTree = "<group>"; };
 		3367E6C41A6F3BE300DA866D /* icon_merchant_share_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_merchant_share_normal@2x.png"; sourceTree = "<group>"; };
 		3367E6C91A6FADF400DA866D /* ic_banklist_enabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_banklist_enabled.png; sourceTree = "<group>"; };
@@ -810,6 +811,15 @@
 		336EB1431A4A558C006E0175 /* MLMutiImagesChoosenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLMutiImagesChoosenViewController.h; sourceTree = "<group>"; };
 		336EB1441A4A558C006E0175 /* MLMutiImagesChoosenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLMutiImagesChoosenViewController.m; sourceTree = "<group>"; };
 		336EB1451A4A558C006E0175 /* MLMutiImagesViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MLMutiImagesViewController.storyboard; sourceTree = "<group>"; };
+		336F28BE1A80700B00EE4020 /* SomeoneContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SomeoneContentViewController.h; sourceTree = "<group>"; };
+		336F28BF1A80700B00EE4020 /* SomeoneContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SomeoneContentViewController.m; sourceTree = "<group>"; };
+		336F28C11A8070C200EE4020 /* SomeoneContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SomeoneContentCell.h; path = ProjectModel/Controllers/Index2/SomeoneContentCell.h; sourceTree = SOURCE_ROOT; };
+		336F28C21A8070C200EE4020 /* SomeoneContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SomeoneContentCell.m; path = ProjectModel/Controllers/Index2/SomeoneContentCell.m; sourceTree = SOURCE_ROOT; };
+		336F28C41A8072D400EE4020 /* SomeoneContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SomeoneContent.h; path = Lifehall/SomeoneContent.h; sourceTree = "<group>"; };
+		336F28C51A8072D400EE4020 /* SomeoneContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SomeoneContent.m; path = Lifehall/SomeoneContent.m; sourceTree = "<group>"; };
+		336F28C71A80747200EE4020 /* SomeoneContentService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SomeoneContentService.h; sourceTree = "<group>"; };
+		336F28C81A80747200EE4020 /* SomeoneContentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SomeoneContentService.m; sourceTree = "<group>"; };
+		336F28CA1A80B25E00EE4020 /* main23.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main23.png; sourceTree = "<group>"; };
 		336FDC851A5A2F1C004CFD6A /* Index0.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Index0.storyboard; sourceTree = "<group>"; };
 		336FDC871A5A41CB004CFD6A /* AppQRocde.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppQRocde.h; sourceTree = "<group>"; };
 		336FDC881A5A41CB004CFD6A /* AppQRocde.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppQRocde.m; sourceTree = "<group>"; };
@@ -858,7 +868,6 @@
 		338AFF081A7B4425000B1C17 /* main_me_light.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_me_light.PNG; sourceTree = "<group>"; };
 		338AFF0F1A7B4650000B1C17 /* Search_label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Search_label.h; sourceTree = "<group>"; };
 		338AFF101A7B4650000B1C17 /* Search_label.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Search_label.m; sourceTree = "<group>"; };
-		338AFF121A7B51FC000B1C17 /* main23.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main23.png; sourceTree = "<group>"; };
 		338AFF131A7B51FC000B1C17 /* main13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main13.png; sourceTree = "<group>"; };
 		338AFF141A7B51FC000B1C17 /* main21.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main21.png; sourceTree = "<group>"; };
 		338AFF151A7B51FC000B1C17 /* main11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main11.png; sourceTree = "<group>"; };
@@ -889,6 +898,12 @@
 		339C90F81A778F3C00CE71D8 /* SKTagButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTagButton.m; sourceTree = "<group>"; };
 		339C90F91A778F3C00CE71D8 /* SKTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTagView.h; sourceTree = "<group>"; };
 		339C90FA1A778F3C00CE71D8 /* SKTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTagView.m; sourceTree = "<group>"; };
+		33A913151A7F289F00499C59 /* PayTypeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayTypeCell.h; sourceTree = "<group>"; };
+		33A913161A7F289F00499C59 /* PayTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayTypeCell.m; sourceTree = "<group>"; };
+		33A9131D1A7F732D00499C59 /* libUPPayPlugin.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUPPayPlugin.a; path = UPPayPluginSDK/libUPPayPlugin.a; sourceTree = "<group>"; };
+		33A9131F1A7F732D00499C59 /* UPPayPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPPayPlugin.h; path = UPPayPluginSDK/UPPayPlugin.h; sourceTree = "<group>"; };
+		33A913201A7F732D00499C59 /* UPPayPluginDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPPayPluginDelegate.h; path = UPPayPluginSDK/UPPayPluginDelegate.h; sourceTree = "<group>"; };
+		33A913211A7F732D00499C59 /* UPPayPluginPro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPPayPluginPro.h; path = UPPayPluginSDK/UPPayPluginPro.h; sourceTree = "<group>"; };
 		33C8890C1A79C2C8001DACD6 /* back.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = back.jpg; sourceTree = "<group>"; };
 		33DBE7351A3051B700C7CCF5 /* Push_history.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Push_history.h; sourceTree = "<group>"; };
 		33DBE7361A3051B700C7CCF5 /* Push_history.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Push_history.m; sourceTree = "<group>"; };
@@ -1212,11 +1227,11 @@
 				333F57E21A34047400A55D56 /* AddressBook.framework in Frameworks */,
 				333F57E31A34047400A55D56 /* AddressBookUI.framework in Frameworks */,
 				8F47932F1A1C839900546648 /* CoreTelephony.framework in Frameworks */,
-				3365BAF01A70AAF6003C220C /* libUPPayPlugin.a in Frameworks */,
 				8FEAA26B1A19FB9C001E792C /* libssl.a in Frameworks */,
 				33FFA03419BADB0E00EFFC8D /* libz.dylib in Frameworks */,
 				224B35111995DAB7009523F6 /* Foundation.framework in Frameworks */,
 				224B35151995DAB7009523F6 /* UIKit.framework in Frameworks */,
+				33A913221A7F732D00499C59 /* libUPPayPlugin.a in Frameworks */,
 				242810421F23435EBD92D79B /* libPods.a in Frameworks */,
 				8FEAA2681A19FB9B001E792C /* AlipaySDK.framework in Frameworks */,
 				8FEAA26A1A19FB9B001E792C /* libcrypto.a in Frameworks */,
@@ -1279,6 +1294,8 @@
 				3390BFD01A76314F0068B70B /* FeedBackCell.m */,
 				3390BFD21A7631790068B70B /* FeedRequestCell.h */,
 				3390BFD31A7631790068B70B /* FeedRequestCell.m */,
+				33A913151A7F289F00499C59 /* PayTypeCell.h */,
+				33A913161A7F289F00499C59 /* PayTypeCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1575,7 +1592,7 @@
 		22557A01199645A3001B5FCC /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				338AFF121A7B51FC000B1C17 /* main23.png */,
+				336F28CA1A80B25E00EE4020 /* main23.png */,
 				338AFF131A7B51FC000B1C17 /* main13.png */,
 				338AFF201A7B535B000B1C17 /* home_page_light.png */,
 				338AFF141A7B51FC000B1C17 /* main21.png */,
@@ -2214,10 +2231,10 @@
 		3365BAD51A7087B7003C220C /* UPPayPlugin */ = {
 			isa = PBXGroup;
 			children = (
-				3365BAF11A70AB07003C220C /* UPPayPlugin.h */,
-				3365BAF21A70AB07003C220C /* UPPayPluginDelegate.h */,
-				3365BAF31A70AB07003C220C /* UPPayPluginPro.h */,
-				3365BAEF1A70AAF6003C220C /* libUPPayPlugin.a */,
+				33A9131D1A7F732D00499C59 /* libUPPayPlugin.a */,
+				33A9131F1A7F732D00499C59 /* UPPayPlugin.h */,
+				33A913201A7F732D00499C59 /* UPPayPluginDelegate.h */,
+				33A913211A7F732D00499C59 /* UPPayPluginPro.h */,
 			);
 			name = UPPayPlugin;
 			sourceTree = "<group>";
@@ -2345,6 +2362,8 @@
 				334E5E141A6CA5BA0072CF15 /* PartnerListServise.m */,
 				337C10711A64E64100293D68 /* PeopleDetailService.h */,
 				337C10721A64E64100293D68 /* PeopleDetailService.m */,
+				336F28C71A80747200EE4020 /* SomeoneContentService.h */,
+				336F28C81A80747200EE4020 /* SomeoneContentService.m */,
 			);
 			name = Index2;
 			sourceTree = "<group>";
@@ -2371,6 +2390,8 @@
 			children = (
 				33EF23821A4D27A900CFD4FC /* LiveModel.h */,
 				33EF23831A4D27A900CFD4FC /* LiveModel.m */,
+				336F28C41A8072D400EE4020 /* SomeoneContent.h */,
+				336F28C51A8072D400EE4020 /* SomeoneContent.m */,
 			);
 			name = live;
 			sourceTree = "<group>";
@@ -2460,6 +2481,8 @@
 				334E5E111A6CA3FD0072CF15 /* PartnerViewController.m */,
 				337C10651A64C3A100293D68 /* PeopleDetailViewController.h */,
 				337C10661A64C3A100293D68 /* PeopleDetailViewController.m */,
+				336F28BE1A80700B00EE4020 /* SomeoneContentViewController.h */,
+				336F28BF1A80700B00EE4020 /* SomeoneContentViewController.m */,
 				336301FB1A6361D5001461A3 /* PostLifecircleViewController.h */,
 				336301FC1A6361D5001461A3 /* PostLifecircleViewController.m */,
 				337086461A5E2D5D006A7688 /* LifeHallViewController.h */,
@@ -2490,6 +2513,8 @@
 				337C10691A64CA9A00293D68 /* PeopleDetailCell.m */,
 				337C106E1A64E4F500293D68 /* MessageDetailCell.h */,
 				337C106F1A64E4F500293D68 /* MessageDetailCell.m */,
+				336F28C11A8070C200EE4020 /* SomeoneContentCell.h */,
+				336F28C21A8070C200EE4020 /* SomeoneContentCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2686,6 +2711,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FE931B91A2EEAF2000C2105 /* exchange.jpg in Resources */,
+				336F28CB1A80B25E00EE4020 /* main23.png in Resources */,
 				8FE931BB1A2EEAF2000C2105 /* recharge.jpg in Resources */,
 				3367E6CD1A6FADF400DA866D /* ic_alipay_plugin_enabled.png in Resources */,
 				2267B49C199A14D400FA9FED /* PurchaseCarItemCell.xib in Resources */,
@@ -2847,10 +2873,6 @@
 				22CFAE8C1999ABEB00BBD914 /* return_suggest.png in Resources */,
 				33DCB3351A38471100214F66 /* bg_keyboard5@2x.png in Resources */,
 				33537B651A0A02BA00AF0AD6 /* app_load.png in Resources */,
-<<<<<<< HEAD
-				338AFF191A7B51FC000B1C17 /* main23.png in Resources */,
-=======
->>>>>>> 1d944b4615cbe3260525d653d83406a64bbbebe2
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3044,8 +3066,11 @@
 				2267B49D199A14D400FA9FED /* RobedRecordCell.m in Sources */,
 				8F4DBC021A09EA8F0037CCFD /* BuyGoodTypeCell.m in Sources */,
 				224B35541995DD78009523F6 /* Index2ViewController.m in Sources */,
+				336F28C61A8072D400EE4020 /* SomeoneContent.m in Sources */,
+				33A913171A7F289F00499C59 /* PayTypeCell.m in Sources */,
 				3390BFD41A7631790068B70B /* FeedRequestCell.m in Sources */,
 				22156BF219B4184300D0EEB6 /* TradeOrderCell.m in Sources */,
+				336F28C01A80700B00EE4020 /* SomeoneContentViewController.m in Sources */,
 				33315F351A353686008FC8C3 /* BalanceModel.m in Sources */,
 				8F4DBBFC1A09E5090037CCFD /* Goods_type.m in Sources */,
 				8F56D6F41A0F4A4C00035A0C /* Index3_2Cell.m in Sources */,
@@ -3063,6 +3088,7 @@
 				33F73F0B1A1D8C9400EB73CB /* ChangePasswordService.m in Sources */,
 				8FEAA26D1A19FB9C001E792C /* DataSigner.m in Sources */,
 				33F73F321A1D8D0000EB73CB /* ChangePasswordViewController.m in Sources */,
+				336F28C31A8070C200EE4020 /* SomeoneContentCell.m in Sources */,
 				33DDF3B01A4A71D0004D7527 /* PostbuyViewController.m in Sources */,
 				227240DB19B3566F005210B2 /* OrderCell.m in Sources */,
 				22251504199DB9A7003DCAC1 /* FeedbackViewController.m in Sources */,
@@ -3139,6 +3165,7 @@
 				333A5F841A26A5A400CA54A5 /* MorePush_history.m in Sources */,
 				333F57DC1A34031200A55D56 /* CallPhoneViewController.m in Sources */,
 				33E7CF6419F7727C00D49EA6 /* MyGroupCell.m in Sources */,
+				336F28C91A80747200EE4020 /* SomeoneContentService.m in Sources */,
 				33F7608B1A00ABEA0058FC6C /* Kill_CountDown.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

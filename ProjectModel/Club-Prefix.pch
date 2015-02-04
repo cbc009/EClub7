@@ -27,11 +27,7 @@
 #define QQAppID @"1103541927"
 #define QQAppKEY @"1USiSoOIDP1GFPR7"
 #define SinaAppKEY @"274015286"
-<<<<<<< HEAD
-
 //#define BmobAppID @"29b7a91994cc161eff47ca008f83356d"
-=======
->>>>>>> 1d944b4615cbe3260525d653d83406a64bbbebe2
 #define BmobAppID @"019f3ec90485e83c760b66c08c8704a1"
 #define AppDownLoadURL @"https://itunes.apple.com/cn/app/e-xiao-qu/id914487546?mt=8"
 #define ItemHeight 40.0
@@ -242,4 +238,5 @@ typedef void (^finished)(NSDictionary *info);
 #define Lifecircle_Comment_info_URL [PrexURL stringByAppendingString: @"Lifecircle/comment/from/IOS"]
 //个人发布的信息
 #define Lifecircle_Myinfo_info_URL [PrexURL stringByAppendingString: @"Lifecircle/myinfo/from/IOS/mid/%d/token/%@/user_type/%d/page/%@"]
-
+//个人发布的单条信息
+#define Lifecircle_Life_Info_URL [PrexURL stringByAppendingString: @"Lifecircle/life_info/from/IOS/xid/%@/token/%@/user_type/%d"]
