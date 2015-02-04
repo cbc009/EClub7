@@ -18,6 +18,7 @@
 @end
 
 @interface LoginViewController : UIViewController<UIKeyboardViewControllerDelegate>
+- (IBAction)dismissAction:(UIBarButtonItem *)sender;
 
 @property (nonatomic,retain)id<LoginViewControllerDelegate> delegate;
 @property (nonatomic,strong)NSString *loginname1;

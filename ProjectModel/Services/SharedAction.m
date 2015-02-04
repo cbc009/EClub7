@@ -27,7 +27,7 @@
 }
 
 //上传一张图片
-+(void)callAPI:(NSString *)url parameters:(NSMutableDictionary *)parameters name:(NSString *)name image:(UIImage *)image withCompletion:(completion) completed{
++(void)callAPI:(NSString *)url parameters:(NSMutableDictionary *)parameters name:(NSString *)name image:(UIImage *)image inTabBarController:(UITabBarController *)tabBarController withCompletion:(completion) completed{
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
 //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSData *imageData = UIImageJPEGRepresentation(image, 1);
@@ -39,14 +39,14 @@
             [formData appendPartWithFileData:imageData name:name fileName:[NSString stringWithFormat:@"%@.jpg",name] mimeType:@"image/jpeg"];
         }
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [SharedAction operationAfterSucccessActionWithOperation:operation andResponseObject:responseObject andUrl:url andParameters:parameters withCompletion:completed];
+        [SharedAction operationAfterSucccessActionWithOperation:operation andResponseObject:responseObject andUrl:url andParameters:parameters inTabBarController:tabBarController withCompletion:completed];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SharedAction operationAfterFailActionWithUrl:url andPatameters:parameters andError:error withCompletion:completed];
     }];
     [op start];
 }
 //上传多张图片
-+(void)call1API:(NSString *)url parameters:(NSDictionary *)parameters name:(NSString *)name imageArray:(NSArray *)imageArray withCompletion:(completion) completed{
++(void)call1API:(NSString *)url parameters:(NSDictionary *)parameters name:(NSString *)name imageArray:(NSArray *)imageArray inTabBarController:(UITabBarController *)tabBarController withCompletion:(completion) completed{
 //    NSLog(@"%@",imageArray);
     NSMutableArray *imgs = [[NSMutableArray alloc] init];
      AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:@"http://www.greenwh.com"]];
@@ -61,7 +61,7 @@
             [formData appendPartWithFileData:imgs[i] name:[NSString stringWithFormat:@"picture[%d]",i] fileName:[NSString stringWithFormat:@"photo%d.jpg",i] mimeType:@"image/jpeg"];
         }
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [SharedAction operationAfterSucccessActionWithOperation:operation andResponseObject:responseObject andUrl:url andParameters:parameters withCompletion:completed];
+        [SharedAction operationAfterSucccessActionWithOperation:operation andResponseObject:responseObject andUrl:url andParameters:parameters inTabBarController:tabBarController withCompletion:completed];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SharedAction operationAfterFailActionWithUrl:url andPatameters:parameters andError:error withCompletion:completed];
     }];
@@ -69,19 +69,13 @@
 }
 
 
-+(void)operationAfterSucccessActionWithOperation:(AFHTTPRequestOperation *)operation andResponseObject:(id)responseObject andUrl:(NSString *)url andParameters:(NSDictionary *)parameters withCompletion:(completion) completed{
++(void)operationAfterSucccessActionWithOperation:(AFHTTPRequestOperation *)operation andResponseObject:(id)responseObject andUrl:(NSString *)url andParameters:(NSDictionary *)parameters inTabBarController:(UITabBarController *)tabBarController withCompletion:(completion) completed{
         NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
     [self logUrl:url parameters:parameters];
-    NSNumber *status = responseObject[@"status"];
+    NSInteger status =[responseObject[@"status"]integerValue];
     NSString *error = responseObject[@"error"];
-    NSLog(@"status = %@", status);
-    if (![status isEqual:@2]) {
-        [SVProgressHUD showErrorWithStatus:error];
-    } else {
-        [SVProgressHUD showSuccessWithStatus:@"操作成功"];
-        NSDictionary *dict = responseObject[@"info"];        
-        completed(YES, dict);
-    }
+    NSLog(@"status = %ld",(long)status);
+    [SharedAction showErrorWithStatus:status andError:error witViewController:tabBarController];
 }
 
 +(void)operationAfterFailActionWithUrl:(NSString *)url andPatameters:(NSDictionary *)parameters andError:(NSError *)error withCompletion:(completion) completed{
@@ -157,6 +151,7 @@
      UIAlertView *alertView;
     switch (status) {
         case 2:
+            [SVProgressHUD dismiss];
             [SVProgressHUD showSuccessWithStatus:error];
             break;
         case 1:

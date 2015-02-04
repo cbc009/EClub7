@@ -44,6 +44,7 @@
 {
     [super viewDidLoad];
     self.title = @"意见反馈";
+
     feedbackService = [[FeedbackService alloc] init];
     [feedbackService baseMyadviceWithToken:user.token andUser_Type:user.user_type intabBarController:self.tabBarController withDone:^(Feedback_info *model){
         self.datas = (NSArray *)model.advice;
@@ -109,13 +110,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
     if (indexPath.section==0){
-        return 273;
+        return 168;
     }else{
         Advice_Info *object = self.datas[indexPath.row];
         if ([object.reply isEqualToString:@""]) {
-            return [NSString heightWithString:object.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-(70), 600)]+60;
+            return [NSString heightWithString:object.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-(70), 600)]+90;
         }else{
             return [NSString heightWithString:object.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-(70), 600)]+50+[NSString heightWithString:object.reply font:[UIFont systemFontOfSize:13] maxSize:CGSizeMake(DeviceFrame.size.width-(70), 600)]+30+60;
         }

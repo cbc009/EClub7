@@ -25,24 +25,24 @@
 }
 
 //修改头像图
--(void)updateHeaderImage:(UIImage *)image withCompletion:(finished)finished{
+-(void)updateHeaderImage:(UIImage *)image inTabBarController:(UITabBarController *)tabBarController withCompletion:(finished)finished{
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
     NSString *user_type = [NSString stringWithFormat:@"%ld",(long)user.user_type];
     NSMutableDictionary *parameters = (NSMutableDictionary *)@{@"token":user.token,@"user_type":user_type};
-    [SharedAction callAPI:[NSString stringWithFormat:@"%@%@",IP,@"/wap.php/Base/head"] parameters:parameters name:@"picture" image:image withCompletion:^(BOOL complete,NSDictionary *info){
+    [SharedAction callAPI:[NSString stringWithFormat:@"%@%@",IP,@"/wap.php/Base/head"] parameters:parameters name:@"picture" image:image inTabBarController:tabBarController withCompletion:^(BOOL complete,NSDictionary *info){
         if (complete) {
             finished(info);
         }
     }];
 }
 //修改背景图
--(void)updateBackGroundImage:(UIImage *)image withCompletion:(finished)finished{
+-(void)updateBackGroundImage:(UIImage *)image inTabBarController:(UITabBarController *)tabBarController withCompletion:(finished)finished{
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
     NSString *user_type = [NSString stringWithFormat:@"%ld",(long)user.user_type];
     NSMutableDictionary *parameters = (NSMutableDictionary *)@{@"token":user.token,@"user_type":user_type};
-    [SharedAction callAPI:[NSString stringWithFormat:@"%@%@",IP,@"/wap.php/Lifecircle/life_backpic"] parameters:parameters name:@"picture" image:image withCompletion:^(BOOL complete,NSDictionary *info){
+    [SharedAction callAPI:[NSString stringWithFormat:@"%@%@",IP,@"/wap.php/Lifecircle/life_backpic"] parameters:parameters name:@"picture" image:image inTabBarController:tabBarController withCompletion:^(BOOL complete,NSDictionary *info){
         if (complete) {
             finished(info);
         }

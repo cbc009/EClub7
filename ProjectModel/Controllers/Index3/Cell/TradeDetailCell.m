@@ -1,17 +1,16 @@
 //
-//  FeedBackCell.m
+//  TradeDetailCell.m
 //  Club
 //
-//  Created by MartinLi on 15-1-26.
+//  Created by MartinLi on 15-2-4.
 //  Copyright (c) 2015年 martin. All rights reserved.
 //
 
-#import "FeedBackCell.h"
+#import "TradeDetailCell.h"
 
-@implementation FeedBackCell
+@implementation TradeDetailCell
 
 - (void)awakeFromNib {
-//    [self.myFeedback resignFirstResponder];
     // Initialization code
 }
 
@@ -21,7 +20,4 @@
     // Configure the view for the selected state
 }
 
-- (IBAction)goGo:(id)sender {
-    [self.delegate feedbackInCell:self];
-}
 @end

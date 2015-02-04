@@ -60,6 +60,13 @@
     chooseAreaViewController.password2 = Passwd.text;
     chooseAreaViewController.code = code.text;
     chooseAreaViewController.guide = guide.text;
+    if ([loginname.text isEqualToString:@""]||[password.text isEqualToString:@""]||[Passwd.text isEqualToString:@""]||[code.text isEqualToString:@""]) {
+        [SVProgressHUD showErrorWithStatus:@"请输入完整信息!"];
+        return;
+    }else if (password.text.length<6){
+        [SVProgressHUD showErrorWithStatus:@"至少需要输入大于六位密码!"];
+        return;
+    }
     if ([password.text isEqualToString:Passwd.text]) {
         [self.navigationController pushViewController:chooseAreaViewController animated:YES];
     }else{

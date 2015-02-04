@@ -20,9 +20,9 @@
 
 @interface OrderDetailInfo : JSONModel
 @property(nonatomic,assign)CGFloat redbag;
-@property(nonatomic,strong)NSString *amount;
-@property(nonatomic,strong)NSString *shipping_fee;
-@property(nonatomic,assign)float totals;
+@property(nonatomic,assign)CGFloat amount;
+@property(nonatomic,assign)CGFloat shipping_fee;
+@property(nonatomic,assign)CGFloat totals;
 @property(nonatomic,strong)NSString *status;
 @property(nonatomic,strong)NSArray<OrderDetail>*goods;
 @end

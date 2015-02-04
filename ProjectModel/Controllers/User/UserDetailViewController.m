@@ -193,7 +193,7 @@
         image = info[UIImagePickerControllerOriginalImage];
     }
     
-    [userDetailService updateHeaderImage:image withCompletion:^(NSDictionary *info){
+    [userDetailService updateHeaderImage:image inTabBarController:self.tabBarController withCompletion:^(NSDictionary *info){
         [picker dismissViewControllerAnimated:YES completion:^{
             NSString *picture = info[@"picture"];
             SharedData *sharedData = [SharedData sharedInstance];

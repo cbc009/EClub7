@@ -292,7 +292,7 @@
     }else{
         image = info[UIImagePickerControllerOriginalImage];
     }
-    [liveService updateBackGroundImage:image withCompletion:^(NSDictionary *info){
+    [liveService updateBackGroundImage:image inTabBarController:self.tabBarController withCompletion:^(NSDictionary *info){
         [picker dismissViewControllerAnimated:YES completion:^{
             NSString *picture = info[@"life_picture"];
             SharedData *sharedData = [SharedData sharedInstance];

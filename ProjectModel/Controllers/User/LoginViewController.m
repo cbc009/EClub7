@@ -63,4 +63,7 @@
 }
 
 
+- (IBAction)dismissAction:(UIBarButtonItem *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

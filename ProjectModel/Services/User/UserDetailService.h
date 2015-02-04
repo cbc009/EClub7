@@ -13,7 +13,7 @@
 
 
 -(void)loginoutActionInViewController:(UserDetailViewController *)viewController inTabBarController:(UITabBarController *)tabBarController;
--(void)updateHeaderImage:(UIImage *)image withCompletion:(finished)finished;
+-(void)updateHeaderImage:(UIImage *)image inTabBarController:(UITabBarController *)tabBarController withCompletion:(finished)finished;
 -(void)presentChangePayPasswordViewControllerOnViewController:(UIViewController *)viewController;
 -(void)presentChangePasswordViewControllerOnViewController:(UIViewController *)viewController;
 -(void)presentChangeNameViewControllerOnViewController:(UIViewController *)viewController;

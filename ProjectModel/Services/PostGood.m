@@ -17,16 +17,16 @@
 -(void)postGoodWithmid:(NSInteger )mid andSid:(NSInteger )sid andTitle:(NSString *)title andContent:(NSString *)content andDegree:(NSString *)degree andPrice:(NSString *)price andName:(NSString *)name andMobile:(NSString *)mobile andImageArray:(NSArray *)imageArray onViewController:(PostViewController *)viewcontroller
 {
     
-    NSString *mid1 =  [NSString stringWithFormat: @"%ld",(long)mid];
-    NSString *sid1 =  [NSString stringWithFormat: @"%ld",(long)sid];
-    NSDictionary *parameters = [[NSDictionary alloc] initWithObjectsAndKeys:mid1, @"mid",sid1,@"sid",title,@"title",content,@"content",degree,@"degree",price,@"price",name,@"name",mobile,@"mobile",nil];
-    [SharedAction call1API:PostSecondChangeURL parameters:parameters name:@"picture" imageArray:imageArray withCompletion:^(BOOL complete,NSDictionary *info){
-        if (complete) {
-            finished(info);
-            NSLog(@"%@",info);
-        }
-
-        }];
+//    NSString *mid1 =  [NSString stringWithFormat: @"%ld",(long)mid];
+//    NSString *sid1 =  [NSString stringWithFormat: @"%ld",(long)sid];
+//    NSDictionary *parameters = [[NSDictionary alloc] initWithObjectsAndKeys:mid1, @"mid",sid1,@"sid",title,@"title",content,@"content",degree,@"degree",price,@"price",name,@"name",mobile,@"mobile",nil];
+//    [SharedAction call1API:PostSecondChangeURL parameters:parameters name:@"picture" imageArray:imageArray inTabBarController:tabBarController withCompletion:^(BOOL complete,NSDictionary *info){
+//        if (complete) {
+//            finished(info);
+//            NSLog(@"%@",info);
+//        }
+//
+//        }];
 }
 -(void)postGoodWithmid:(NSInteger )mid andSid:(NSInteger )sid andTitle:(NSString *)title andContent:(NSString *)content andDegree:(NSString *)degree andPrice:(NSString *)price andName:(NSString *)name andMobile:(NSString *)mobile onViewController:(PostbuyViewController *)viewcontroller
 {

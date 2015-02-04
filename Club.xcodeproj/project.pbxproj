@@ -248,6 +248,7 @@
 		337086551A5E50D2006A7688 /* APPQRCodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 337086541A5E50D2006A7688 /* APPQRCodeCell.m */; };
 		337086581A5E515F006A7688 /* JoinMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 337086571A5E515F006A7688 /* JoinMemberCell.m */; };
 		3370865B1A5E51DD006A7688 /* RecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3370865A1A5E51DD006A7688 /* RecommendCell.m */; };
+		3374F6A81A81BF9100352C5A /* TradeDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3374F6A71A81BF9100352C5A /* TradeDetailCell.m */; };
 		3377183F1A50EB6A001D8CB6 /* LiveData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3377183E1A50EB6A001D8CB6 /* LiveData.m */; };
 		337C10671A64C3A100293D68 /* PeopleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 337C10661A64C3A100293D68 /* PeopleDetailViewController.m */; };
 		337C106A1A64CA9A00293D68 /* PeopleDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 337C10691A64CA9A00293D68 /* PeopleDetailCell.m */; };
@@ -841,6 +842,8 @@
 		337086571A5E515F006A7688 /* JoinMemberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinMemberCell.m; sourceTree = "<group>"; };
 		337086591A5E51DD006A7688 /* RecommendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendCell.h; sourceTree = "<group>"; };
 		3370865A1A5E51DD006A7688 /* RecommendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendCell.m; sourceTree = "<group>"; };
+		3374F6A61A81BF9100352C5A /* TradeDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeDetailCell.h; sourceTree = "<group>"; };
+		3374F6A71A81BF9100352C5A /* TradeDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeDetailCell.m; sourceTree = "<group>"; };
 		3377183D1A50EB6A001D8CB6 /* LiveData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveData.h; sourceTree = "<group>"; };
 		3377183E1A50EB6A001D8CB6 /* LiveData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveData.m; sourceTree = "<group>"; };
 		337C10651A64C3A100293D68 /* PeopleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeopleDetailViewController.h; sourceTree = "<group>"; };
@@ -1296,6 +1299,8 @@
 				3390BFD31A7631790068B70B /* FeedRequestCell.m */,
 				33A913151A7F289F00499C59 /* PayTypeCell.h */,
 				33A913161A7F289F00499C59 /* PayTypeCell.m */,
+				3374F6A61A81BF9100352C5A /* TradeDetailCell.h */,
+				3374F6A71A81BF9100352C5A /* TradeDetailCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2991,6 +2996,7 @@
 				8FA247E11A10B74700456468 /* Delivery.m in Sources */,
 				336FDC901A5A7E12004CFD6A /* KIllSuccess.m in Sources */,
 				337C10701A64E4F500293D68 /* MessageDetailCell.m in Sources */,
+				3374F6A81A81BF9100352C5A /* TradeDetailCell.m in Sources */,
 				336FDC891A5A41CB004CFD6A /* AppQRocde.m in Sources */,
 				8FEAA2011A19FB47001E792C /* CreatePayService.m in Sources */,
 				334E5E121A6CA3FD0072CF15 /* PartnerViewController.m in Sources */,

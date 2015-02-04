@@ -16,7 +16,7 @@
     NSString *user_type1 =  [NSString stringWithFormat: @"%ld",(long)user_type];
     NSDictionary *parameters = [[NSDictionary alloc] initWithObjectsAndKeys:token, @"token",user_type1,@"user_type",content,@"content",nil];
     [SVProgressHUD show];
-    [SharedAction call1API:Lifecircle_info_URL parameters:parameters name:@"picture" imageArray:imageArray withCompletion:^(BOOL complete,NSDictionary *info){
+    [SharedAction call1API:Lifecircle_info_URL parameters:parameters name:@"picture" imageArray:imageArray inTabBarController:tabBarController withCompletion:^(BOOL complete,NSDictionary *info){
         if (complete) {
             done(info);
         }
