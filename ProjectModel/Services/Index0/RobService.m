@@ -34,8 +34,6 @@
 -(void)setItemInfosWithController:(RobViewController *)viewController andGoodModel:(RobModelInfo *)good{
     NSString *startTime =good.starttime;
     viewController.robModel = good;
-    NSString *startTitle = [NSString stringWithFormat:@"%@开抢",[startTime timeType2FromStamp:startTime]];
-    [viewController.startTimeButton setTitle:startTitle forState:UIControlStateNormal];
     viewController.itemImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,good.picture]]]];
     viewController.itemPic =[NSString stringWithFormat:@"%@%@",IP,good.picture];
     viewController.date.text = [NSString stringWithFormat:@"%@",good.qiang];
@@ -48,9 +46,9 @@
         viewController.discount.text = [NSString stringWithFormat:@"抢购价:%@",discount];
     }
     viewController.itemCount.text = [NSString stringWithFormat:@"抢购总数量：%@%@",good.nums,good.unit];
-    NSString *startTime2 = [NSString timeType4FromStamp:startTime];//HH:mm:ss
-    NSString *notifyTime = [NSString dateStringByAddTimeInterval:-120 fromDateString:startTime2 withDateFormatter:@"HH:mm:ss"];
-    [SharedAction setLocalNotifyWithAlertBody:[NSString stringWithFormat:@"每天%@抢菜时间马上就到了",startTime2] andType:@"rob" andFireDate:notifyTime];
+    NSString *startTime2 = [NSString timeType1FromStamp:startTime];//HH:mm:ss
+    NSString *notifyTime = [NSString dateStringByAddTimeInterval:-120 fromDateString:startTime2 withDateFormatter:@"yyyy-MM-dd HH:mm:ss"];
+    [SharedAction setLocalNotifyWithAlertBody:[NSString stringWithFormat:@"%@抢菜时间马上就到了,请留意哦",startTime2] andType:@"rob" andFireDate:notifyTime];
 }
 
 

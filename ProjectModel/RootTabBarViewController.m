@@ -39,6 +39,25 @@
     // Dispose of any resources that can be recreated.
 }
 
+//-(void)viewWillAppear:(BOOL)animated
+//{
+//    
+//}
+//
+//-(void) viewDidAppear:(BOOL)animated
+//{
+//    [self.selectedViewController endAppearanceTransition];
+//}
+//
+//-(void) viewWillDisappear:(BOOL)animated
+//{
+//    [self.selectedViewController beginAppearanceTransition: NO animated: animated];
+//}
+//
+//-(void) viewDidDisappear:(BOOL)animated
+//{
+//    [self.selectedViewController endAppearanceTransition];
+//}
 /*
 #pragma mark - Navigation
 
@@ -69,7 +88,8 @@
         }
     }else if (alertView.tag==6){
         if (buttonIndex==1) {
-            self.selectedIndex = 0;
+            [self.selectedViewController beginAppearanceTransition: YES animated:YES];
+            self.selectedIndex=0;
             UINavigationController *nav = self.viewControllers[self.selectedIndex];
             [nav popToRootViewControllerAnimated:YES];
             [SharedAction presentLoginViewControllerInViewController:nav];
@@ -79,7 +99,8 @@
 
 #pragma LoginViewControllerDelegate
 -(void)loginSuccessedActionWithViewController:(UIViewController *)viewController{
-    self.selectedIndex = 0;
+     [self.selectedViewController beginAppearanceTransition: YES animated:YES];
+    self.selectedIndex=0;
     [viewController.navigationController dismissViewControllerAnimated:YES completion:^{
         UINavigationController *nav = self.viewControllers[0];
         UIViewController *index0ViewController = nav.topViewController;

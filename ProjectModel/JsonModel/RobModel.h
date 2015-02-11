@@ -19,6 +19,7 @@
 @property (copy, nonatomic) NSString *endtime;
 @property (copy, nonatomic) NSString *unit;
 @property (copy, nonatomic) NSString *discount;
+@property (nonatomic,assign) NSInteger seconds;
 @property (copy, nonatomic) NSString *gid;
 @property (copy, nonatomic) NSString *intro;
 @property (copy, nonatomic) NSString *point;

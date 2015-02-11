@@ -33,11 +33,11 @@
     NSInteger label_height;
     DataInfo *model;
     NSInteger page;
-    UIActionSheet *action;
     BodyCell *selectedCellForCommemt;
     UITapGestureRecognizer *tap;
 }
 @property(nonatomic,strong)UIToolbar *toolBar;
+//@property(nonatomic,strong)UITextView *mytextView;
 @property(nonatomic,strong)UITextField *textField;
 @end
 
@@ -259,9 +259,13 @@
 //修改背景图片
 -(void)tpaChangebackGround
 {
-    action = [[UIActionSheet alloc] initWithTitle:@"更换背景" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"拍照" otherButtonTitles:@"相册", nil];
-    action.tag=1;
-    [action showInView:self.view.window];
+    if (user.user_type==1) {
+        [SharedAction showErrorWithStatus:827 andError:@"需要注册以后才能使用该功能" witViewController:self.tabBarController];
+    }else{
+        UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"更换背景" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"拍照" otherButtonTitles:@"相册", nil];
+        action.tag=1;
+        [action showInView:self.view.window];
+    }
 }
 //修改头先暂时没用到
 -(void)tapChangeHeard
@@ -318,7 +322,6 @@
     // Pass the selected object to the new view controller.
 }
 */
-
 -(void)setupTextSendKeyboard{
     self.toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f,
                                                                self.view.bounds.size.height - 40.0f,
@@ -345,20 +348,43 @@
                                   29.0f);
     [sendButton addTarget:self action:@selector(sendAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.toolBar addSubview:sendButton];
+    
+    
     self.view.userInteractionEnabled = YES;
     tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleAfterKeyboardHidden)];
     [self.view addGestureRecognizer:tap];
-   
+    
     self.view.keyboardTriggerOffset = self.toolBar.bounds.size.height;
     __weak typeof(self) weakSelf = self;
     [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
-
+        
         CGRect toolBarFrame = weakSelf.toolBar.frame;
         toolBarFrame.origin.y = keyboardFrameInView.origin.y - toolBarFrame.size.height;
         weakSelf.toolBar.frame = toolBarFrame;
     }];
 }
-
+//- (void)textDidChanged:(NSNotification *)notif //监听文字改变 换行时要更改输入框的位置
+//{
+//    CGSize contentSize = self.mytextView.contentSize;
+//    if (contentSize.height > 140){
+//        return;
+//    }
+//    CGFloat minus = 3;
+//    CGRect selfFrame = self.toolBar.frame;
+//    CGFloat selfHeight = self.mytextView.superview.frame.origin.y * 2 + contentSize.height - minus + 2 * 2;
+//    CGFloat selfOriginY = selfFrame.origin.y - (selfHeight - selfFrame.size.height);
+//    selfFrame.origin.y = selfOriginY;
+//    selfFrame.size.height = selfHeight;
+//    NSLog(@"selfOriginY:%f,selfHeight:%f",selfOriginY,selfHeight);
+//     __weak typeof(self) weakSelf = self;
+//    [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
+//        CGRect toolBarFrame = weakSelf.toolBar.frame;
+//        toolBarFrame.origin.y = keyboardFrameInView.origin.y - toolBarFrame.size.height;
+//        toolBarFrame.size.height=selfHeight;
+//        weakSelf.toolBar.frame = toolBarFrame;
+//    }];
+//    NSLog(@"文字改变");
+//}
 //点击“发送”，评论
 -(void)sendAction:(UIButton *)sender{
     NSLog(@"%@",self.textField.text);
@@ -377,7 +403,6 @@
             [selectedCellForCommemt.tableview reloadRowsAtIndexPaths:indexpaths withRowAnimation:UITableViewRowAnimationBottom];            
             NSArray *this_indexpaths = [NSArray arrayWithObjects:[self.tableview indexPathForCell: selectedCellForCommemt], nil];
             [self.tableview reloadRowsAtIndexPaths:this_indexpaths withRowAnimation:UITableViewRowAnimationBottom];
-            
             self.textField.text = @"";
             [self.view removeKeyboardControl];
         }];

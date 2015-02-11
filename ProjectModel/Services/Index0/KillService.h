@@ -19,7 +19,7 @@
 @interface KillService : NSObject
 @property(nonatomic,weak)id<KillServiceDelegate> delegate;
 -(void)kill_CountDownWithToken:(NSString *)token andUser_type:(NSInteger )user_type andGid:(NSString *)gid intabBarController:(UITabBarController *)tabBarController withObject:(doneWithObject)done;
--(void)killInViewController:(KillDetailViewController *)viewController;
+-(void)killWithToken:(NSString *)token andUser_type:(NSInteger )user_type andGid:(NSString *)gid inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 -(void)kill_Goods_historyWithToken:(NSString *)token andUser_type:(NSInteger)user_type intabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 -(void)goods_futureWithToken:(NSString *)token andUser_type:(NSInteger)user_type inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 -(void)kill_Second_MemberWithToken:(NSString *)token andUser_type:(NSInteger )user_type andGid:(NSString *)gid inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;

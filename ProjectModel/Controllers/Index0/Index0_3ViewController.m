@@ -35,7 +35,6 @@
     [super viewDidLoad];
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
-
     self.title=user.lifehall_name;
     index0Service = [[Index0Service alloc] init];
     NSLog(@"%@",sharedData.loginStatus);
@@ -48,20 +47,19 @@
     self.collectionDatas = [NSArray arrayWithObjects:@"抢购",@"充值",@"秒杀",@"抽奖",@"团购",@"兑换",@"购物车",@"钱包", nil];
     self.collectionImgs = [NSArray arrayWithObjects:@"main11.png",@"main12.png",@"main13.png",@"main14.png",@"main21.png",@"main14.png",@"main23.png",@"main24.png", nil];
 }
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self.tableview reloadData];
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden=NO;
-}
+//-(void)viewDidAppear:(BOOL)animated
+//{
+//    [super viewDidAppear:animated];
+////    [self.tableview reloadData];
+//}
+//- (void)didReceiveMemoryWarning {
+//    [super didReceiveMemoryWarning];
+//    // Dispose of any resources that can be recreated.
+//}
+//-(void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//}
 
 #pragma mark - Navigation
 
@@ -180,7 +178,8 @@
         Goods_type_goods_type *goods_type = self.goodTypes[row];
         NSArray *subtypes = goods_type.subtype;
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
-        GoodsViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"GoodsViewController"];;
+        GoodsViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"GoodsViewController"];
+        viewController.titletext=goods_type.name;
         viewController.subtypes = subtypes;
         viewController.hidesBottomBarWhenPushed=YES;
         [self.navigationController pushViewController:viewController animated:YES];
@@ -205,7 +204,7 @@
     NSString *identifier = nil;
     if (row==0) {
         //抢菜
-        storyboardName = @"Main";
+        storyboardName = @"Index0";
         identifier = @"RobViewController";
     }else if (row==1){
         storyboardName = @"Index3";
@@ -214,7 +213,7 @@
         storyboardName = @"Index0";
         identifier = @"KillListViewController";
     }else if(row==3){
-        storyboardName = @"Index1";
+        storyboardName = @"Index0";
         identifier = @"Index1ViewController";
     }else if(row==4){
         storyboardName = @"Index0";

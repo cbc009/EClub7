@@ -185,6 +185,7 @@
 }
 
 -(void)deleteCellInPurchaseViewController:(PurchaseCarItemsViewController *)viewController atIndexPath:(NSIndexPath *)indexPath{
+    
     NSUInteger row = indexPath.row;
     NSArray *cells = [[NSArray alloc] initWithObjects:indexPath, nil];
     [viewController.datasStorage removeObjectAtIndex:row];
@@ -192,6 +193,7 @@
     [viewController.datas removeObjectAtIndex:row];
     [viewController.tableview deleteRowsAtIndexPaths:cells withRowAnimation: UITableViewRowAnimationLeft];
     [viewController.tableview endUpdates];
+    [viewController.tableview reloadData];
     viewController.totalPrice.text = [NSString stringWithFormat:@"总额:￥%0.1f",[self totalPriceDatas:viewController.datasStorage]];
     if ([self isSelecteAllInViewController:viewController]) {
         viewController.selectAllButton.tag = 1;

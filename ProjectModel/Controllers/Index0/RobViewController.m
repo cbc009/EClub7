@@ -22,7 +22,10 @@
     RobService *robService;
     UserInfo *user;
         int count;
+    
 }
+@property(nonatomic,assign)NSInteger second1;
+@property(nonatomic,strong)NSTimer *timer;
 @end
 
 @implementation RobViewController
@@ -49,11 +52,21 @@
     __block RobService *rob = robService;
     [robService setRobModelWithToken:user.token andUser_type:user.user_type inRootTabBarController:self.tabBarController withDone:^(RobModel *model){
         [rob setItemInfosWithController:aBlockSelf andGoodModel:model.info];
+        RobModelInfo *object =model.info;
+        aBlockSelf.second1 =object.seconds;
+        aBlockSelf.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:aBlockSelf selector:@selector(countDownTimer) userInfo:nil repeats:YES];
         [rob loadAdverPicWithPos:1 inViewController:aBlockSelf];
     }];
 }
-
-
+-(void)countDownTimer{
+    if (self.second1>0) {
+        NSString *startTitle = [NSString stringWithFormat:@"%@开抢",[self toDetailTime:self.second1]];
+        [self.startTimeButton setTitle:startTitle forState:UIControlStateNormal];
+        self.second1--;
+    }else{
+        [self.timer invalidate];
+    }
+}
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -76,15 +89,9 @@
 //抢
 - (IBAction)buyOrRobAction:(id)sender {
     [robService robWithToken:user.token andUser_type:user.user_type andRobModel:self.robModel inTabBarController:self.tabBarController withDone:^(Status *model){
-        if ([self.robModel.point isEqualToString:@""]) {
-            user.amount = user.amount -[self.robModel.discount floatValue];
-        }else {
-            user.point = user.point -[self.robModel.point integerValue];
-        }
         NSString *message =[NSString stringWithFormat:@"恭喜你在E小区免费抢到%@赶快去告诉朋友吧",self.robModel.name];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"抢菜信息" message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去告诉朋友", nil];
         [alertView show];
-        
         //存储到Bmob后台
         BmobObject *object = [BmobObject objectWithClassName:@"RobOrder"];
         [object setObject:user.loginname forKey:@"loginname"];
@@ -117,6 +124,17 @@
 
 - (IBAction)shareAction:(id)sender {
     [SharedAction shareWithTitle:_itemNameLabel.text andDesinationUrl:AppDownLoadURL Text:@"在E小区中每天都有免费抢菜哦 小伙伴们赶快来" andImageUrl:_itemPic InViewController:self];
+}
+/*
+ 秒转化成详细时间
+ */
+-(NSString *)toDetailTime:(NSInteger)seconds{
+    int second = seconds % 60;
+    int minute = (seconds-second)/60%60;
+    int hour = (seconds-second-minute*60)/60/60%24;
+//    int day = (seconds-second-minute*60-hour*60*24)/60/60/24%24;
+    NSString *detailTime = [NSString stringWithFormat:@"%d:%d:%d",hour,minute,second];
+    return detailTime;
 }
 
 @end

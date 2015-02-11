@@ -119,7 +119,6 @@
     NSInteger section = indexPath.section;
        [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSInteger row = indexPath.row;
-    NSLog(@"didSelect:%ld",(long)section);
     if (section==0) {
         [index3Service presentUserDetailViewControllerOnViewController:self];
     }else if(section==1){

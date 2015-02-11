@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,31 +15,57 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="33"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="名称" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ec1-03-OjL">
-                        <rect key="frame" x="6" y="8" width="98" height="21"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="名称" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ec1-03-OjL">
+                        <rect key="frame" x="6" y="8" width="97" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="qO7-SR-z36"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="数量" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4J5-dd-H6L">
-                        <rect key="frame" x="112" y="8" width="24" height="21"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="单价" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O2Q-cd-N9v">
+                        <rect key="frame" x="143" y="8" width="102" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="102" id="RES-rH-yoK"/>
+                            <constraint firstAttribute="height" constant="18" id="Shg-5X-fAW"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="单价" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O2Q-cd-N9v">
-                        <rect key="frame" x="160" y="8" width="70" height="21"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="金额" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAK-PA-6Y4">
+                        <rect key="frame" x="245" y="6" width="70" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="1Hp-Lb-2dI"/>
+                            <constraint firstAttribute="width" constant="70" id="v4Z-c2-o40"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="金额" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAK-PA-6Y4">
-                        <rect key="frame" x="245" y="8" width="70" height="21"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="数量" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4J5-dd-H6L">
+                        <rect key="frame" x="111" y="4" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="j3r-Qo-Jg8"/>
+                            <constraint firstAttribute="width" constant="24" id="sr6-aj-w3y"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="O2Q-cd-N9v" firstAttribute="centerY" secondItem="WAK-PA-6Y4" secondAttribute="centerY" constant="0.5" id="5C6-xk-jHw"/>
+                    <constraint firstItem="4J5-dd-H6L" firstAttribute="leading" secondItem="Ec1-03-OjL" secondAttribute="trailing" constant="8" id="6qo-DA-0X6"/>
+                    <constraint firstAttribute="centerY" secondItem="WAK-PA-6Y4" secondAttribute="centerY" constant="0.5" id="Kft-A3-ODh"/>
+                    <constraint firstItem="Ec1-03-OjL" firstAttribute="centerY" secondItem="4J5-dd-H6L" secondAttribute="centerY" constant="2" id="XWb-Dt-VWH"/>
+                    <constraint firstItem="WAK-PA-6Y4" firstAttribute="leading" secondItem="O2Q-cd-N9v" secondAttribute="trailing" id="cFY-DD-tGA"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="WAK-PA-6Y4" secondAttribute="trailing" constant="-3" id="q3N-At-q5o"/>
+                    <constraint firstItem="Ec1-03-OjL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-2" id="r20-uM-kuX"/>
+                    <constraint firstAttribute="centerY" secondItem="Ec1-03-OjL" secondAttribute="centerY" constant="-1" id="vPx-Ic-rZG"/>
+                    <constraint firstItem="O2Q-cd-N9v" firstAttribute="leading" secondItem="4J5-dd-H6L" secondAttribute="trailing" constant="8" id="zkq-Dk-Vsc"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="count" destination="4J5-dd-H6L" id="lqB-Bl-1em"/>
@@ -46,6 +73,7 @@
                 <outlet property="singlePrice" destination="O2Q-cd-N9v" id="1Lb-pa-XTK"/>
                 <outlet property="totalPrice" destination="WAK-PA-6Y4" id="0lq-j8-4QV"/>
             </connections>
+            <point key="canvasLocation" x="140" y="148"/>
         </tableViewCell>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

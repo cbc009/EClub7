@@ -14,4 +14,5 @@
 @property(nonatomic,strong)NSArray *subtypes;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *segment;
 @property(nonatomic,strong)NSMutableArray *datas;
+@property(nonatomic,strong)NSString *titletext;
 @end

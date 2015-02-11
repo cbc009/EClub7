@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UIKeyboardViewController.h"
 #import "FeedBackCell.h"
-@interface FeedbackViewController : UIViewController<UIKeyboardViewControllerDelegate,FeedbackDelegate>
+@interface FeedbackViewController : UIViewController<UIKeyboardViewControllerDelegate,FeedbackDelegate,UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (nonatomic,strong)NSArray *datas;
 @end

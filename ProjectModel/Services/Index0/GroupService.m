@@ -59,7 +59,6 @@
 }
 //跳到充值页面
 -(void)presentCreatePayViewControllerOnViewController:(UIViewController *)viewController{
-    NSLog(@"dd");
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index3" bundle:nil];
     CreatePayViewController *createPayViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreatePayViewController"];
     [viewController.navigationController pushViewController:createPayViewController animated:YES];

@@ -36,15 +36,12 @@
     [super loadView];
     SharedData *sharedData = [SharedData sharedInstance];
     user=sharedData.user;
-    
-    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.title = @"意见反馈";
-
     feedbackService = [[FeedbackService alloc] init];
     [feedbackService baseMyadviceWithToken:user.token andUser_Type:user.user_type intabBarController:self.tabBarController withDone:^(Feedback_info *model){
         self.datas = (NSArray *)model.advice;
@@ -107,6 +104,10 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+        //输入框失去焦点，隐藏键盘
+     [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -125,7 +126,6 @@
     [feedbackService submitWithContent:cell.myFeedback.text withToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(Status *model){
         
     }];
-    
 }
 - (void)didReceiveMemoryWarning
 {

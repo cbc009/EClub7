@@ -30,7 +30,7 @@
     UserInfo *user = sharedData.user;
     NSString *user_type = [NSString stringWithFormat:@"%ld",(long)user.user_type];
     NSMutableDictionary *parameters = (NSMutableDictionary *)@{@"token":user.token,@"user_type":user_type};
-    [SharedAction callAPI:[NSString stringWithFormat:@"%@%@",IP,@"/wap.php/Base/head"] parameters:parameters name:@"picture" image:image inTabBarController:tabBarController withCompletion:^(BOOL complete,NSDictionary *info){
+    [SharedAction callAPI:[NSString stringWithFormat:@"%@%@",IP,@"/wap.php/Base/head"] parameters:parameters name:@"picture" image:image withCompletion:^(BOOL complete,NSDictionary *info){
         if (complete) {
             finished(info);
         }
@@ -42,7 +42,7 @@
     UserInfo *user = sharedData.user;
     NSString *user_type = [NSString stringWithFormat:@"%ld",(long)user.user_type];
     NSMutableDictionary *parameters = (NSMutableDictionary *)@{@"token":user.token,@"user_type":user_type};
-    [SharedAction callAPI:[NSString stringWithFormat:@"%@%@",IP,@"/wap.php/Lifecircle/life_backpic"] parameters:parameters name:@"picture" image:image inTabBarController:tabBarController withCompletion:^(BOOL complete,NSDictionary *info){
+    [SharedAction callAPI:[NSString stringWithFormat:@"%@%@",IP,@"/wap.php/Lifecircle/life_backpic"] parameters:parameters name:@"picture" image:image withCompletion:^(BOOL complete,NSDictionary *info){
         if (complete) {
             finished(info);
         }

@@ -233,7 +233,6 @@
                         resultValue=6;
                     }
                     [self endChoujiang];
-                    NSLog(@"ss:%lu",(unsigned long)resultValue);
                 }];
                 rotateCount = 0;
             }

@@ -27,9 +27,9 @@
 }
 
 //上传一张图片
-+(void)callAPI:(NSString *)url parameters:(NSMutableDictionary *)parameters name:(NSString *)name image:(UIImage *)image inTabBarController:(UITabBarController *)tabBarController withCompletion:(completion) completed{
++(void)callAPI:(NSString *)url parameters:(NSMutableDictionary *)parameters name:(NSString *)name image:(UIImage *)image withCompletion:(completion) completed{
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
-//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSData *imageData = UIImageJPEGRepresentation(image, 1);
     [SVProgressHUD show];
     AFHTTPRequestOperation *op = [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
@@ -39,19 +39,20 @@
             [formData appendPartWithFileData:imageData name:name fileName:[NSString stringWithFormat:@"%@.jpg",name] mimeType:@"image/jpeg"];
         }
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [SharedAction operationAfterSucccessActionWithOperation:operation andResponseObject:responseObject andUrl:url andParameters:parameters inTabBarController:tabBarController withCompletion:completed];
+        [SharedAction operationAfterSucccessActionWithOperation:operation andResponseObject:responseObject andUrl:url andParameters:parameters withCompletion:completed];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SharedAction operationAfterFailActionWithUrl:url andPatameters:parameters andError:error withCompletion:completed];
     }];
     [op start];
 }
 //上传多张图片
-+(void)call1API:(NSString *)url parameters:(NSDictionary *)parameters name:(NSString *)name imageArray:(NSArray *)imageArray inTabBarController:(UITabBarController *)tabBarController withCompletion:(completion) completed{
-//    NSLog(@"%@",imageArray);
++(void)call1API:(NSString *)url parameters:(NSDictionary *)parameters name:(NSString *)name imageArray:(NSArray *)imageArray withCompletion:(completion) completed{
+    [SVProgressHUD show];
+    //    NSLog(@"%@",imageArray);
     NSMutableArray *imgs = [[NSMutableArray alloc] init];
-     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:@"http://www.greenwh.com"]];
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:@"http://www.greenwh.com"]];
     for (int i=0; i<imageArray.count-1; i++) {
-           NSData *imageData1 = UIImageJPEGRepresentation(imageArray[i], 0.5);
+        NSData *imageData1 = UIImageJPEGRepresentation(imageArray[i], 0.5);
         [imgs addObject:imageData1];
     }
     AFHTTPRequestOperation *op = [manager POST:Lifecircle_info_URL parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
@@ -61,7 +62,7 @@
             [formData appendPartWithFileData:imgs[i] name:[NSString stringWithFormat:@"picture[%d]",i] fileName:[NSString stringWithFormat:@"photo%d.jpg",i] mimeType:@"image/jpeg"];
         }
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [SharedAction operationAfterSucccessActionWithOperation:operation andResponseObject:responseObject andUrl:url andParameters:parameters inTabBarController:tabBarController withCompletion:completed];
+        [SharedAction operationAfterSucccessActionWithOperation:operation andResponseObject:responseObject andUrl:url andParameters:parameters withCompletion:completed];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [SharedAction operationAfterFailActionWithUrl:url andPatameters:parameters andError:error withCompletion:completed];
     }];
@@ -69,13 +70,19 @@
 }
 
 
-+(void)operationAfterSucccessActionWithOperation:(AFHTTPRequestOperation *)operation andResponseObject:(id)responseObject andUrl:(NSString *)url andParameters:(NSDictionary *)parameters inTabBarController:(UITabBarController *)tabBarController withCompletion:(completion) completed{
-        NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
++(void)operationAfterSucccessActionWithOperation:(AFHTTPRequestOperation *)operation andResponseObject:(id)responseObject andUrl:(NSString *)url andParameters:(NSDictionary *)parameters withCompletion:(completion) completed{
+    NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
     [self logUrl:url parameters:parameters];
-    NSInteger status =[responseObject[@"status"]integerValue];
+    NSNumber *status = responseObject[@"status"];
     NSString *error = responseObject[@"error"];
-    NSLog(@"status = %ld",(long)status);
-    [SharedAction showErrorWithStatus:status andError:error witViewController:tabBarController];
+    NSLog(@"status = %@", status);
+    if (![status isEqual:@2]) {
+        [SVProgressHUD showErrorWithStatus:error];
+    } else {
+        [SVProgressHUD showSuccessWithStatus:@"操作成功"];
+        NSDictionary *dict = responseObject[@"info"];
+        completed(YES, dict);
+    }
 }
 
 +(void)operationAfterFailActionWithUrl:(NSString *)url andPatameters:(NSDictionary *)parameters andError:(NSError *)error withCompletion:(completion) completed{
@@ -100,6 +107,7 @@
     }
     NSLog(@"*** url ***: %@", fullUrl);
 }
+
 
 +(void)setUMessageTagsWithUser:(UserInfo *)user{
 //    [UMessage removeAllTags:^(NSSet *responseTags, NSInteger remain, NSError *error) {
@@ -261,7 +269,6 @@
     //设置userinfo 方便在之后需要撤销的时候使用
     NSDictionary *infoDic = [NSDictionary dictionaryWithObject:type forKey:@"type"];
     noti.userInfo = infoDic;
-   
     //获取本地推送数组
     NSArray *localArr = [app scheduledLocalNotifications];
     if (localArr) {
@@ -270,7 +277,6 @@
             NSLog(@"UILocalNotification[%d].userInfo:%@  noti.fireDate:%@",i,noti.userInfo,[NSString dateStringFromDate0:noti.fireDate]);
         }
     }
-    
     //添加推送到uiapplication
     [app scheduleLocalNotification:noti];
     NSLog(@"alertBody:%@,type:%@,notifyTime:%@",alertBody,type,notifyTime);
@@ -280,21 +286,21 @@
 +(NSDate *)notifyTime:(NSString *)time{
     NSDate *notifyTime = nil;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *strDate = [dateFormatter stringFromDate:[NSDate date]];
-    NSString *dateString = [NSString stringWithFormat:@"%@ %@",strDate,time];
+//    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+//    NSString *strDate = [dateFormatter stringFromDate:[NSDate date]];
+//    NSString *dateString = [NSString stringWithFormat:@"%@ %@",strDate,time];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSDate *date = [dateFormatter dateFromString:dateString];
+    NSDate *date = [dateFormatter dateFromString:time];
     if ([[date laterDate:[NSDate date]] isEqual:date]) {
         notifyTime = date;
     }else{
         NSTimeInterval secondsPerDay = 24*60*60;
         notifyTime = [date dateByAddingTimeInterval:secondsPerDay];
     }
+    
     NSLog(@"设置本地推送时间:%@",[dateFormatter stringFromDate:notifyTime]);
     return notifyTime;
 }
-
 
 +(void)shareWithTitle:(NSString *)title andDesinationUrl:(NSString *)url Text:(NSString *)text andImageUrl:(NSString *)imgUrl InViewController:(UIViewController *)viewController{
     [SVProgressHUD show];
@@ -378,7 +384,7 @@
 +(void)commonActionWithUrl:(NSString *)url andStatus:(NSInteger)status andError:(NSString *)error andJSONModelError:(JSONModelError *)jsonError andObject:(id)object inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
     NSLog(@"status=%ld url=%@ message=%@",(long)status,url,error);
     if (!jsonError) {
-        if (status==2||status==808) {
+        if (status==2||status==808||status==806) {
             done(object);
             [SVProgressHUD showSuccessWithStatus:error];
         }else{

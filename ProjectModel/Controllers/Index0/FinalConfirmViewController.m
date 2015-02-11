@@ -13,20 +13,19 @@
 #import "SharedData.h"
 #import "Member_Login.h"
 #import "Delivery.h"
+#import <BmobSDK/Bmob.h>
+#import "Status.h"
+#import <Foundation/Foundation.h>
 @interface FinalConfirmViewController ()
 {
-
     __weak IBOutlet UITableView *tableview;
     __weak IBOutlet UIScrollView *scrollView;
     __weak IBOutlet UILabel *totalPrice;
     __weak IBOutlet UIButton *submitButton;
     __weak IBOutlet UIView *userInfo;
-    
     NSString *identifier;
-    
     UserInfo *user;
     FinalConfirmService *finalConfirmService;
-
     __weak IBOutlet UILabel *amount;
     __weak IBOutlet UILabel *redbag;
     UIKeyboardViewController *keyBoardController;
@@ -56,7 +55,6 @@
     self.view1Height.constant = self.tableviewHeight.constant+106;
     keyBoardController = [[UIKeyboardViewController alloc] initWithControllerDelegate:self];
     [keyBoardController addToolbarToKeyboard];
-    NSLog(@"%@",NSStringFromCGRect(tableview.frame));
 
 }
 
@@ -109,7 +107,6 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row = indexPath.row;
     ItemInfosCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-
     if (row>0) {
         NSInteger index = row-1;
         GoodForSubmit *good = [self.items objectAtIndex:index];
@@ -126,20 +123,17 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma SelectedChildViewControllerDelegate
 -(void)tableView:(UITableView *)tableView didSelectedCell:(UITableViewCell *)tableViewCell withController:(UIViewController *)viewController{
     [self.sendTime setTitle:tableViewCell.textLabel.text forState:UIControlStateNormal];
- 
     [finalConfirmService hideChildController:viewController withObject:(id)self.sendTime];
     
 }
 
 #pragma - UIKeyboardViewController delegate methods
-
 - (void)alttextFieldDidEndEditing:(UITextField *)textField {
     NSLog(@"%@", textField.text);
 }
@@ -150,32 +144,58 @@
 
 #pragma UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (alertView.tag==1) {
+       if (alertView.tag==1) {
          if(buttonIndex==1){
     [finalConfirmService presentCreatePayViewControllerOnViewController:self];
          }
     }else if (alertView.tag==2) {
         if(buttonIndex==2){
-            NSLog(@"dd");
         }
     }else if (alertView.tag==3) {
         if(buttonIndex==1){
             [self.navigationController popToRootViewControllerAnimated:YES];
-            NSLog(@"dd");
         }
-    } else if (alertView.tag==4){
+    }else if(alertView.tag==4){
         if(buttonIndex==1){
-        NSString *paypassword = [[alertView textFieldAtIndex:0] text];
-        [finalConfirmService submitInViewController:self withPassword:paypassword];
+            [self paywithAletview:alertView];
         }
-    }else{
+    }else {
        if(buttonIndex==1){
-           NSString *paypassword = [[alertView textFieldAtIndex:0] text];
-        [finalConfirmService submitInViewController:self withPassword:paypassword];
-    }
+           [self paywithAletview:alertView];
+        }
     }
 }
-
+-(void)paywithAletview:(UIAlertView *)aletView{
+    __block FinalConfirmViewController *blockSelf =self;
+    NSString *datas = [NSString stringWithFormat:@"%@",[finalConfirmService finalItemsWithObjects:self.items]];
+    NSString *payType = [finalConfirmService payTypeInViewController:self];
+    NSString *sendType = [finalConfirmService sendTypeInViewController:self];
+    NSString *Sendid = self.sendTime.titleLabel.text;
+    NSString *address = self.sendAddress.text;
+    NSString *mobile = self.userPhone.text;
+    NSString *message = self.userMessage.text;
+    NSString *paypassword = [[aletView textFieldAtIndex:0] text];
+    [finalConfirmService submitDatas:datas andToken:user.token andUser_type:user.user_type andPayType:payType sendType:sendType andSendid:Sendid andAddress:address andMobile:mobile andMessage:message withPassword:paypassword inTabBarController:self.tabBarController withDone:^(id object){
+        NSNumber *stat = (NSNumber *)[object objectForKey:@"status"];
+        NSInteger status2 = [stat integerValue];
+        if (status2==806) {
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"密码错误" message:@"支付密码错误请重新输入" delegate:blockSelf cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            alertView.tag=4;
+            alertView.alertViewStyle = UIAlertViewStyleSecureTextInput;
+            [alertView show];
+        }else{
+            UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"购买成功" message:@"购买成功请及时到生活馆领取" delegate:blockSelf cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            alertView.tag=3;
+            [alertView show];
+            BmobObject *model = [BmobObject objectWithClassName:@"BuyGoods"];
+            [model setObject:user.loginname forKey:@"loginname"];
+            [model setObject:datas forKey:@"info"];
+            [model setObject:[NSNumber numberWithFloat:[blockSelf.bottomTotalPrice.text floatValue]] forKey:@"price"];
+            [model saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+            }];
+        }
+    }];
+}
 //选择送货时间
 - (IBAction)selectTimeAction:(id)sender {
     [finalConfirmService showTimePickerViewOnView:scrollView withFrame:CGRectMake(userInfo.frame.origin.x+self.sendTime.frame.origin.x, self.thirdView.frame.origin.y + userInfo.frame.origin.y+self.sendTime.frame.origin.y, self.sendTime.frame.size.width,0) andDatas:self.timeArray onTarget:self withObject:(id)sender];

@@ -42,9 +42,7 @@
 
 #pragma UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    
     return self.datas.count;
-    
 }
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -63,8 +61,8 @@
     NSInteger row = indexPath.row;
     Partner_Info *model = self.datas[row];
     [partnerListServise presentpartnerDetailwithToken:user.token andUser_type:user.user_type andPartner_id:model.partner_id inViewControllerOnViewController:self];
-    
 }
+
 - (void)collectionView:(UICollectionView *)colView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell* cell = [colView cellForItemAtIndexPath:indexPath];
     cell.contentView.backgroundColor = [UIColor colorWithRed:238/255.0 green:238/255.0  blue:238/255.0  alpha:1];

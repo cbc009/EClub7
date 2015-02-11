@@ -62,7 +62,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSInteger section = indexPath.section;
+//    NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
     switch (row) {
         case 1:
@@ -81,7 +81,6 @@
             [index2Service presentAlipayViewControllerOnViewController:self];
             break;
         default:
-            NSLog(@"didSelect:%ld",(long)section);
             [SVProgressHUD showImage:nil status:@"功能尚未开放，敬请期待"];
             break;
     }

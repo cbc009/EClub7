@@ -58,7 +58,6 @@
     NSInteger row = indexPath.row;
     data = [self.datas objectAtIndex:row];
     [self.navigationController popViewControllerAnimated:YES];
-    NSLog(@"data:%@",data);
     [self.delegate popViewControllerWithData:data andIndex:self.index];
 }
 

@@ -131,8 +131,12 @@
 
 -(void)tapGestureRecognizer
 {
+    if (user.user_type==1) {
+         [SharedAction showErrorWithStatus:827 andError:@"需要注册以后才能使用该功能" witViewController:self.tabBarController];
+    }else{
     UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"更换头像" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"拍照" otherButtonTitles:@"相册", nil];
     [action showInView:self.view.window];
+    }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -157,7 +161,6 @@
         case 0:
             return 145;
             break;
-            
         default:
             return 50;
     }
@@ -192,8 +195,7 @@
     }else{
         image = info[UIImagePickerControllerOriginalImage];
     }
-    
-    [userDetailService updateHeaderImage:image inTabBarController:self.tabBarController withCompletion:^(NSDictionary *info){
+    [userDetailService updateHeaderImage:image withCompletion:^(NSDictionary *info){
         [picker dismissViewControllerAnimated:YES completion:^{
             NSString *picture = info[@"picture"];
             SharedData *sharedData = [SharedData sharedInstance];

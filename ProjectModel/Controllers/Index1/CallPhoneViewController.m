@@ -59,6 +59,8 @@
 {
     [super viewDidDisappear:animated];
     [self.tableView headerEndRefreshing];
+    [self keyboardDown];
+    j =0;
     [SVProgressHUD dismiss];
 }
 -(void)loadView
@@ -97,7 +99,7 @@
         [btn2 addTarget:self action:@selector(load:) forControlEvents:UIControlEventTouchUpInside];
         [btnView addSubview:btn2];
     }
-         NSArray *array = [NSArray arrayWithObjects:@"phone_call",@"bg_keyboard0@2x",@"delete",@"bg_keyboard7@2x",@"bg_keyboard8@2x",@"bg_keyboard9@2x",@"bg_keyboard4@2x",@"bg_keyboard5@2x",@"bg_keyboard6@2x",@"bg_keyboard1@2x",@"bg_keyboard2@2x",@"bg_keyboard3@2x", nil];
+         NSArray *array = [NSArray arrayWithObjects:@"phone_call",@"bg_keyboard0@2x",@"bg_keyboard_delete_selected@2x",@"bg_keyboard7@2x",@"bg_keyboard8@2x",@"bg_keyboard9@2x",@"bg_keyboard4@2x",@"bg_keyboard5@2x",@"bg_keyboard6@2x",@"bg_keyboard1@2x",@"bg_keyboard2@2x",@"bg_keyboard3@2x", nil];
     for (int i=0; i<array.count; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn.layer setBorderWidth:0.5];

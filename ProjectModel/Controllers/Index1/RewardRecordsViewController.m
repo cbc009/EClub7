@@ -44,6 +44,7 @@
 -(void)loadView{
     [super loadView];
     identifier = @"RewardCell";
+    self.automaticallyAdjustsScrollViewInsets=NO;
     UINib *nib = [UINib nibWithNibName:@"RewardCell" bundle:nil];
     [tableview registerNib:nib forCellReuseIdentifier:identifier];
     tableview.delegate = self;

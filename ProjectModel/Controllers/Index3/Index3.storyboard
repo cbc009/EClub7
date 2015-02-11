@@ -22,7 +22,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dxz-WI-g8U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1741" y="101"/>
+            <point key="canvasLocation" x="-2317" y="-819"/>
         </scene>
         <!--My Wallet View Controller-->
         <scene sceneID="2xb-N2-Wwi">
@@ -204,7 +204,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nbA-bG-fzU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-725" y="117"/>
+            <point key="canvasLocation" x="-877" y="-812"/>
         </scene>
         <!--Trade List View Controller-->
         <scene sceneID="sRI-Rr-xfl">
@@ -295,7 +295,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xQc-Wf-Te7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-67" y="-204"/>
+            <point key="canvasLocation" x="32" y="388"/>
         </scene>
         <!--Point Ord View Controller-->
         <scene sceneID="EtR-hz-4MU">
@@ -365,7 +365,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LrQ-GY-IcB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-80" y="481"/>
+            <point key="canvasLocation" x="32" y="1065"/>
         </scene>
         <!--Feedback View Controller-->
         <scene sceneID="843-Gc-ymF">
@@ -394,6 +394,9 @@
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="8zF-IA-BgN" id="oPm-Lt-Rzq"/>
+                                                    </connections>
                                                 </textView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zec-ct-LuC">
                                                     <rect key="frame" x="35" y="165" width="250" height="30"/>
@@ -503,18 +506,17 @@
                                                 <constraint firstItem="V16-K5-dCN" firstAttribute="leading" secondItem="O9M-o1-dOb" secondAttribute="trailing" constant="8" id="25O-Uv-esh"/>
                                                 <constraint firstItem="uvp-3o-d2m" firstAttribute="top" secondItem="8kg-DY-kMz" secondAttribute="topMargin" constant="-5" id="3v8-5J-YOh"/>
                                                 <constraint firstItem="YAu-kJ-f36" firstAttribute="top" secondItem="7hP-HB-xyw" secondAttribute="bottom" constant="5" id="Eoh-OS-h20"/>
+                                                <constraint firstItem="O9M-o1-dOb" firstAttribute="centerY" secondItem="jb5-q2-mRM" secondAttribute="centerY" id="Ghv-Yv-CpX"/>
                                                 <constraint firstItem="I23-jc-fmg" firstAttribute="leading" secondItem="8kg-DY-kMz" secondAttribute="leadingMargin" id="HQc-3G-3G2"/>
                                                 <constraint firstItem="64A-8J-oLR" firstAttribute="top" secondItem="uvp-3o-d2m" secondAttribute="bottom" constant="8" id="I13-xI-pHo"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="jb5-q2-mRM" secondAttribute="bottom" constant="73" id="JRz-rZ-wta"/>
                                                 <constraint firstItem="I23-jc-fmg" firstAttribute="top" secondItem="uvp-3o-d2m" secondAttribute="bottom" constant="13" id="Kfu-ZA-8ni"/>
                                                 <constraint firstItem="uvp-3o-d2m" firstAttribute="leading" secondItem="8kg-DY-kMz" secondAttribute="leadingMargin" id="NxY-tm-j9N"/>
                                                 <constraint firstItem="YAu-kJ-f36" firstAttribute="leading" secondItem="8kg-DY-kMz" secondAttribute="leadingMargin" id="Oml-dO-lkc"/>
                                                 <constraint firstItem="64A-8J-oLR" firstAttribute="leading" secondItem="I23-jc-fmg" secondAttribute="trailing" constant="31" id="Tqj-Fc-sua"/>
+                                                <constraint firstItem="jb5-q2-mRM" firstAttribute="top" secondItem="YAu-kJ-f36" secondAttribute="bottom" constant="15" id="Uq8-hC-6n6"/>
                                                 <constraint firstItem="V16-K5-dCN" firstAttribute="trailing" secondItem="8kg-DY-kMz" secondAttribute="trailingMargin" id="Wf2-kc-27Y"/>
                                                 <constraint firstItem="uvp-3o-d2m" firstAttribute="trailing" secondItem="8kg-DY-kMz" secondAttribute="trailingMargin" id="cJJ-Nl-WZG"/>
                                                 <constraint firstItem="V16-K5-dCN" firstAttribute="leading" secondItem="jb5-q2-mRM" secondAttribute="trailing" constant="30" id="dYz-jP-jEl"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="jb5-q2-mRM" secondAttribute="bottom" constant="73" id="gIk-hF-WqP"/>
-                                                <constraint firstItem="O9M-o1-dOb" firstAttribute="bottom" secondItem="8kg-DY-kMz" secondAttribute="bottomMargin" constant="-66" id="jrd-4O-Rsp"/>
                                                 <constraint firstItem="V16-K5-dCN" firstAttribute="bottom" secondItem="8kg-DY-kMz" secondAttribute="bottomMargin" constant="-67" id="nda-e3-ksY"/>
                                                 <constraint firstItem="YAu-kJ-f36" firstAttribute="trailing" secondItem="8kg-DY-kMz" secondAttribute="trailingMargin" id="ofj-cu-tLj"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="7hP-HB-xyw" secondAttribute="trailing" constant="48" id="sFr-h6-fgi"/>
@@ -559,7 +561,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nu4-4P-5yw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-756" y="1956"/>
+            <point key="canvasLocation" x="-877" y="588"/>
         </scene>
         <!--我-->
         <scene sceneID="hBQ-cb-vi1">
@@ -672,11 +674,12 @@
                         <segue destination="zCr-hW-qVs" kind="push" id="21x-H1-Zd5"/>
                         <segue destination="G5d-z0-ogF" kind="push" id="eoo-kG-C8J"/>
                         <segue destination="8zF-IA-BgN" kind="push" id="iIh-wd-kKo"/>
+                        <segue destination="XEk-Qh-ckH" kind="push" id="IIr-iu-5QH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yCD-C2-LWT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1209" y="100"/>
+            <point key="canvasLocation" x="-1665" y="-812"/>
         </scene>
         <!--My Order View Controller-->
         <scene sceneID="uqh-G6-6OK">
@@ -1037,7 +1040,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CeE-4T-trI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-750" y="1168"/>
+            <point key="canvasLocation" x="-885" y="-120"/>
         </scene>
         <!--订单详情-->
         <scene sceneID="Vmi-J9-Qko">
@@ -1245,7 +1248,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QHM-eF-y0d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-80" y="1192"/>
+            <point key="canvasLocation" x="24" y="1728"/>
         </scene>
         <!--Code View Controller-->
         <scene sceneID="1bA-fy-FHw">
@@ -1263,7 +1266,7 @@
                                 <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="轻松扫一扫" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R10-WC-wSc">
-                                <rect key="frame" x="0.0" y="28" width="320" height="20"/>
+                                <rect key="frame" x="0.0" y="72" width="320" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="bEP-lX-xHg"/>
                                 </constraints>
@@ -1272,7 +1275,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="张三" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ia0-bJ-eO1">
-                                <rect key="frame" x="122" y="102" width="140" height="20"/>
+                                <rect key="frame" x="122" y="146" width="140" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="140" id="8jH-qb-DWO"/>
                                     <constraint firstAttribute="height" constant="20" id="Xk2-y1-F2L"/>
@@ -1282,7 +1285,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="二维码关联会员卡快捷支付" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdB-vH-hPa">
-                                <rect key="frame" x="0.0" y="56" width="320" height="20"/>
+                                <rect key="frame" x="0.0" y="100" width="320" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="Gwd-0K-qjn"/>
                                 </constraints>
@@ -1291,14 +1294,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userIcon.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="lg5-nD-HoL">
-                                <rect key="frame" x="58" y="102" width="56" height="56"/>
+                                <rect key="frame" x="58" y="146" width="56" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="56" id="2gF-vi-zuN"/>
                                     <constraint firstAttribute="height" constant="56" id="jRN-Ij-0a6"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="snO-L8-B2k">
-                                <rect key="frame" x="58" y="166" width="204" height="204"/>
+                                <rect key="frame" x="58" y="210" width="204" height="204"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="204" id="3hv-ro-lYC"/>
                                     <constraint firstAttribute="height" constant="204" id="xhd-Zw-9Cy"/>
@@ -1321,6 +1324,7 @@
                             <constraint firstItem="kdB-vH-hPa" firstAttribute="leading" secondItem="5JR-n8-6op" secondAttribute="leadingMargin" constant="-16" id="umb-pf-49P"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="v8N-0x-jyE"/>
                     <connections>
                         <outlet property="QRImgView" destination="snO-L8-B2k" id="5wf-wV-klE"/>
                         <outlet property="name" destination="ia0-bJ-eO1" id="CyF-UT-DbA"/>
@@ -1329,7 +1333,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hei-1i-ON2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-789" y="-2355"/>
+            <point key="canvasLocation" x="-877" y="-2211"/>
         </scene>
         <!--AppViewController-->
         <scene sceneID="qkO-pp-3oO">
@@ -1470,7 +1474,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uvG-Nf-zLL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-750" y="2630"/>
+            <point key="canvasLocation" x="-877" y="1262"/>
         </scene>
         <!--Create Pay View Controller-->
         <scene sceneID="bcI-cX-abe">
@@ -1665,7 +1669,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6dh-Bs-KgK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-67" y="-911"/>
+            <point key="canvasLocation" x="24" y="-279"/>
         </scene>
         <!--User Detail View Controller-->
         <scene sceneID="vSb-DY-b13">
@@ -1804,7 +1808,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XHV-QS-4mR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-789" y="-1643"/>
+            <point key="canvasLocation" x="-877" y="-1539"/>
         </scene>
         <!--Change Name View Controller-->
         <scene sceneID="ltZ-Kg-S7w">
@@ -1860,7 +1864,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jgF-DO-yZe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-55" y="-2128"/>
+            <point key="canvasLocation" x="37" y="-960"/>
         </scene>
         <!--Change Adress View Controller-->
         <scene sceneID="apU-9o-Ub9">
@@ -1927,7 +1931,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0T1-5y-aBF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-39" y="-4140"/>
+            <point key="canvasLocation" x="37" y="-2916"/>
         </scene>
         <!--Change Pay Password View Controller-->
         <scene sceneID="5RY-vs-PGw">
@@ -2088,7 +2092,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jhL-zd-b3c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-39" y="-3490"/>
+            <point key="canvasLocation" x="32" y="-2290"/>
         </scene>
         <!--Change Password View Controller-->
         <scene sceneID="JjB-4A-jcx">
@@ -2244,7 +2248,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v1V-ib-OnA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-46" y="-2823"/>
+            <point key="canvasLocation" x="32" y="-1647"/>
         </scene>
     </scenes>
     <resources>

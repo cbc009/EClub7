@@ -96,7 +96,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     PastItem *item = [self.datas objectAtIndex:indexPath.section];
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
     RobedRecordsTableViewController *rewarRecordsViewController = [storyboard instantiateViewControllerWithIdentifier:@"RobedRecordsTableViewController"];
     rewarRecordsViewController.hidesBottomBarWhenPushed = YES;
     rewarRecordsViewController.gid =item.gid;

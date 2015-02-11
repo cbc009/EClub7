@@ -33,17 +33,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     buyService = [[BuyService alloc] init];
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
+    
     _tableview.showsVerticalScrollIndicator =NO;
     [_tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self setSegmentedControl:self.seg WithArray:self.subtypes];
     Goods_type_subType *subtype = self.subtypes[0];
     subtypeId = subtype.subid;
     page = 1;
-    self.title = @"商城";
+    self.title = self.titletext;
     [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
 }
 
@@ -99,7 +101,7 @@
     [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
     cell.pastPrice.text = [NSString stringWithFormat:@"原价:%@元/%@",model.price,model.unit];
     cell.currenPrice.text = [NSString stringWithFormat:@"%@元/%@",model.discount,model.unit];
-    cell.discout.text = [NSString stringWithFormat:@"%0.1f折",[model.discount floatValue]/[model.price floatValue]];
+    cell.discout.text = [NSString stringWithFormat:@"%0.1f折",[model.discount floatValue]/[model.price floatValue]*10];
     cell.people.text = [NSString stringWithFormat:@"已购买人数%@",model.nums];
     if (model.goods_new == 2) {
         cell.goodimage.image= [UIImage imageNamed:@"shop_new_tag3"];
@@ -125,7 +127,6 @@
 //    }
 //}else if (alertView.tag==2) {
     if(buttonIndex==2){
-        NSLog(@"dd");
     }
 //    }
 }

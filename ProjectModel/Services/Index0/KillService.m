@@ -17,7 +17,7 @@
 #import "Member_Login.h"
 #import "NSString+MT.h"
 #import "KIllSuccess.h"
-#import <BmobSDK/Bmob.h>
+
 @implementation KillService
 
 
@@ -46,7 +46,6 @@
 {
     NSString *urlString = [NSString stringWithFormat:Kill_Second_Member_URL,token,user_type,gid];
     [KIllSuccess getModelFromURLWithString:urlString completion:^(KIllSuccess *model,JSONModelError *error){
-        NSLog(@"%@",urlString);
         [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
     }];
 
@@ -54,32 +53,10 @@
 
 }
 //秒杀
--(void)killInViewController:(KillDetailViewController *)viewController{
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
-    NSString *gid = viewController.good.gid;
-    NSString *urlString = [NSString stringWithFormat:KillActionURL,user.token,user.user_type,gid];
-    Status *status = [[Status alloc] initFromURLWithString:urlString completion:^(Status *model,JSONModelError *error){
-        NSLog(@"%@",status);
-        if (model.status==2) {
-            user.amount = user.amount-[viewController.good.discount floatValue];
-            NSString *message =[NSString stringWithFormat:@"恭喜你在E小区免费抢到%@赶快去告诉朋友吧",viewController.good.name];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"秒杀信息" message:message delegate:viewController cancelButtonTitle:@"取消" otherButtonTitles:@"去告诉朋友", nil];
-            alertView.tag=1;
-            [alertView show];
-            viewController.buyButton.backgroundColor = [UIColor grayColor];
-            
-            //存储到Bmob后台
-            BmobObject *object = [BmobObject objectWithClassName:@"KillOrder"];
-            [object setObject:user.loginname forKey:@"loginname"];
-            [object setObject:viewController.good.name forKey:@"goodName"];
-            [object setObject:viewController.good.gid forKey:@"goodId"];
-            [object saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
-                //进行操作
-            }];
-
-        }
-        [SharedAction showErrorWithStatus:model.status andError:model.error witViewController:viewController];
+-(void)killWithToken:(NSString *)token andUser_type:(NSInteger )user_type andGid:(NSString *)gid inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
+    NSString *urlString = [NSString stringWithFormat:KillActionURL,token,user_type,gid];
+    [Status getModelFromURLWithString:urlString completion:^(Status *model,JSONModelError *error){
+        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model inTabBarController:tabBarController withDone:done];
     }];
 }
 @end

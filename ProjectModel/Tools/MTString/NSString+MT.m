@@ -11,7 +11,7 @@
 @implementation NSString (MT)
 
 //时间戳转时间yyyy-MM-dd HH:mm:ss格式
--(NSString *)timeType1FromStamp:(NSString *)stamp{
++(NSString *)timeType1FromStamp:(NSString *)stamp{
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     return [NSString timeFromStamp:stamp withFormatter:formatter];
@@ -35,6 +35,8 @@
     CGSize size = [str boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
     return size.height+3;
 }
+
+
 +(NSString *)timeType4FromStamp:(NSString *)stamp{
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"HH:mm:ss"];
@@ -66,6 +68,12 @@
 +(NSString *)dateStringFromDate0:(NSDate *)date{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    return dateString;
+}
++(NSString *)dateStringFromDate1:(NSDate *)date{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     NSString *dateString = [dateFormatter stringFromDate:date];
     return dateString;
 }

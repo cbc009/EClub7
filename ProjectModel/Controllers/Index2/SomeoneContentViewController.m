@@ -31,6 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title=@"详情";
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -142,7 +143,6 @@
 
 //点击“发送”，评论
 -(void)sendAction:(UIButton *)sender{
-    NSLog(@"%@",self.textField.text);
     [self handleAfterKeyboardHidden];
     LifecircleService*lifecircleService = [LifecircleService new];
     if (self.textField.text==nil||[self.textField.text isEqualToString:@""]) {
@@ -151,7 +151,9 @@
         [lifecircleService lifecircleLifeCommentWithToken:user.token andUser_type:user.user_type andContent:self.textField.text andXid:object1.xid withTabBarController:self.tabBarController withDone:^(Status *model){
             CommentInfo *commentInfo = [CommentInfo new];
             commentInfo.content = self.textField.text;
+            NSDate *currenTime = [NSDate date];
             commentInfo.nickname = user.nickname;
+            commentInfo.regtime =[NSString dateStringFromDate1:currenTime];
             [self.datas addObject:commentInfo];
             NSArray *indexpaths = [NSArray arrayWithObjects:[NSIndexPath indexPathForRow:self.datas.count-1 inSection:0], nil];
             [self.tableView insertRowsAtIndexPaths:indexpaths withRowAnimation:UITableViewRowAnimationBottom];

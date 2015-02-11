@@ -20,6 +20,8 @@
 #import "WebViewController.h"
 #import "KIllSuccess.h"
 #import <UIImageView+WebCache.h>
+#import "Status.h"
+#import <BmobSDK/Bmob.h>
 @interface KillDetailViewController ()<UITableViewDataSource,UITableViewDelegate,KillServiceDelegate>
 {
     NSTimer *timer;
@@ -132,13 +134,25 @@
 
 
 - (IBAction)buyAction:(id)sender {
-    
     if (countDownSeconds == -1) {
         [SVProgressHUD showErrorWithStatus:@"商品已过期"];
     }else if (countDownSeconds==0) {
-        [killService killInViewController:self];
+    [killService kill_CountDownWithToken:user.token andUser_type:user.user_type andGid:self.good.gid intabBarController:self.tabBarController withObject:^(Status *model){
+        NSString *message =[NSString stringWithFormat:@"恭喜你在E小区免费抢到%@赶快去告诉朋友吧",self.good.name];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"秒杀信息" message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去告诉朋友", nil];
+        alertView.tag=1;
+        [alertView show];
+        self.buyButton.backgroundColor = [UIColor grayColor];
+        //存储到Bmob后台
+        BmobObject *object = [BmobObject objectWithClassName:@"KillOrder"];
+        [object setObject:user.loginname forKey:@"loginname"];
+        [object setObject:self.good.name forKey:@"goodName"];
+        [object setObject:self.good.gid forKey:@"goodId"];
+        [object saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+        }];
+    }];
     }else{
-        [SVProgressHUD showErrorWithStatus:@"还没到时间"];
+        [SVProgressHUD showErrorWithStatus:@"还没到时间,请耐心等候"];
     }
 }
 

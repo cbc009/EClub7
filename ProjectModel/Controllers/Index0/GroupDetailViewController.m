@@ -100,7 +100,6 @@
     frame.size = mWebViewTextSize;
     self.webview.frame = frame;
     [self.scrollview setContentSize:CGSizeMake(DeviceFrame.size.width, mWebViewTextSize.height+480)];
-    NSLog(@"%f",self.scrollview.frame.size.height);
     self.webviewHeight.constant = mWebViewTextSize.height+50;
 }
 //- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request   navigationType:(UIWebViewNavigationType)navigationType {
@@ -129,19 +128,10 @@
    }else if (alertView.tag==4){
         NSString *password = [[alertView textFieldAtIndex:0] text]; 
         if (buttonIndex==0) {
-            
         }else if(buttonIndex == 1){
             [self addToGroupWithPassword:password];
         }
-    }
-//   else  if (alertView.tag==5) {
-//        if(buttonIndex==1){
-//            [SharedAction loginAggane];
-//            NSArray *viewControllers = self.navigationController.viewControllers;
-//            [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
-//        }
-//    }
-   else {
+    }else {
             NSString *password = [[alertView textFieldAtIndex:0] text];
             if (buttonIndex==0) {
         }else if(buttonIndex == 1){
@@ -151,10 +141,19 @@
 }
 
 -(void)addToGroupWithPassword:(NSString *)password{
+    __block GroupDetailViewController *blockSelf =self;
     __block UserInfo *block_user = user;
     __block Group_Good_Info *block_good = self.groupGood;
     __block NSNumber *number = [NSNumber numberWithInt:[self.numbs.text intValue]];
-    [groupService addToGroupWithPassword:password andToken:block_user.token andUser_type:block_user.user_type andGid:block_good.gid andNums:self.numbs.text inTabBarController:self.tabBarController withDoneObject:^(Status *model){
+    [groupService addToGroupWithPassword:password andToken:block_user.token andUser_type:block_user.user_type andGid:block_good.gid andNums:self.numbs.text inTabBarController:self.tabBarController withDoneObject:^(id model){
+        NSNumber *stat = (NSNumber *)[model objectForKey:@"status"];
+        NSInteger status2 = [stat integerValue];
+        if (status2==806) {
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"密码错误" message:@"支付密码错误请重新输入" delegate:blockSelf cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            alertView.tag=4;
+            alertView.alertViewStyle = UIAlertViewStyleSecureTextInput;
+            [alertView show];
+        }else{
         //存储到Bmob后台
         BmobObject *object = [BmobObject objectWithClassName:@"GroupOrder"];
         [object setObject:block_user.loginname forKey:@"loginname"];
@@ -165,9 +164,9 @@
         [object saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
             //进行操作
         }];
-        
+        }
     }];
-
+        
 }
 
 -(void)countDownTimer{
@@ -186,7 +185,7 @@
     }else{
        float price =[self.groupGood.discount floatValue]*[self.numbs.text floatValue];
         NSString *stringFloat = [NSString stringWithFormat:@"%0.2f",price];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"支付总额" message:[NSString stringWithFormat:@"%@元",stringFloat] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认支付" message: [NSString stringWithFormat:@"请输入支付密码初始密码为手机后六位,您需要支付%@",stringFloat] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
         alertView.alertViewStyle = UIAlertViewStyleSecureTextInput;
         [alertView show];
     }
