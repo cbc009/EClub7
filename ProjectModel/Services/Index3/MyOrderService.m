@@ -62,6 +62,7 @@
     [Status getModelFromURLWithString:urlString completion:^(Status *model,JSONModelError *error){
         [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabbarController withDone:done];
         
+        
     }];
 
 }

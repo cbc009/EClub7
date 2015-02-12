@@ -66,7 +66,6 @@
     push *model = self.datas[indexPath.section];
     NSString *news =model.content;
     [SVProgressHUD showSuccessWithStatus:news];
-    
 }
 
 -(void)headerRereshing

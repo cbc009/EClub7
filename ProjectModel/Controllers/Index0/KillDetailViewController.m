@@ -25,7 +25,6 @@
 @interface KillDetailViewController ()<UITableViewDataSource,UITableViewDelegate,KillServiceDelegate>
 {
     NSTimer *timer;
-//    NSInteger initTime;
     NSInteger countDownSeconds;
     GroupService *groupService;
     KillService *killService;

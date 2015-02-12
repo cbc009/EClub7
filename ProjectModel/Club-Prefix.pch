@@ -16,7 +16,6 @@
 #endif
 
 #define IOS_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
-
 #define DeviceFrame [UIScreen mainScreen].bounds
 #define StatusBarFrame [[UIApplication sharedApplication] statusBarFrame]
 #define NavigationBarFrame self.navigationController.navigationBar.frame

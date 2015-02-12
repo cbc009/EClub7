@@ -10,6 +10,7 @@
 #import "RegisterService.h"
 #import "Index1Service.h"
 #import "ChooseAreaViewController.h"
+#import "NSString+MT.h"
 @interface RegisterViewController ()<UIAlertViewDelegate>
 {
     __weak IBOutlet UITextField *loginname;
@@ -60,11 +61,18 @@
     chooseAreaViewController.password2 = Passwd.text;
     chooseAreaViewController.code = code.text;
     chooseAreaViewController.guide = guide.text;
+    NSString *phone =loginname.text;
     if ([loginname.text isEqualToString:@""]||[password.text isEqualToString:@""]||[Passwd.text isEqualToString:@""]||[code.text isEqualToString:@""]) {
         [SVProgressHUD showErrorWithStatus:@"请输入完整信息!"];
         return;
     }else if (password.text.length<6){
         [SVProgressHUD showErrorWithStatus:@"至少需要输入大于六位密码!"];
+        return;
+    }else if (code.text.length<4){
+        [SVProgressHUD showErrorWithStatus:@"请输入完整验证码!"];
+        return;
+    }else if (![phone isValidateMobile:phone]){
+        [SVProgressHUD showErrorWithStatus:@"请输入正确的手机号!"];
         return;
     }
     if ([password.text isEqualToString:Passwd.text]) {

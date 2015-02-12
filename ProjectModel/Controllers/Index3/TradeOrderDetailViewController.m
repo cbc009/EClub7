@@ -12,7 +12,7 @@
 #import <UIImageView+WebCache.h>
 #import "MyOrderService.h"
 #import "TradeDetailCell.h"
-@interface TradeOrderDetailViewController ()
+@interface TradeOrderDetailViewController ()<UIAlertViewDelegate>
 {
     UserInfo *user;
     MyOrderService *myOrderService;
@@ -100,9 +100,14 @@
 
 - (IBAction)deleate:(id)sender {
     [myOrderService goodsOrderReturnwithToken:user.token andUser_type:user.user_type andOrderid:self.orderid inTabbarViewController:self.tabBarController withDone:^(id model){
-    
+        UIAlertView *aletView = [[UIAlertView alloc]initWithTitle:@"退单成功" message:@"您已成功取消订单" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [aletView show];
     }];
-    
-    
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex==1) {
+           [self.navigationController popToViewController:self.navigationController.viewControllers[1] animated:YES];
+    }
+ 
 }
 @end

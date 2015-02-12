@@ -27,25 +27,25 @@
     UserInfo *user;
     NSInteger selectedSegmentIndex1;
     NSInteger rereshinType;
-    
-   
 }
 @end
 
 @implementation MyOrderViewController
-
+-(void)viewWillAppear:(BOOL)animated{
+    SharedData *sharedData = [SharedData sharedInstance];
+    user = sharedData.user;
+    selectedSegmentIndex1=0;
+    myOrderService = [[MyOrderService alloc] init];
+    [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.tableview.tableFooterView = [UIView new];
-    SharedData *sharedData = [SharedData sharedInstance];
-    user = sharedData.user;
-    selectedSegmentIndex1=0;
-    myOrderService = [[MyOrderService alloc] init];
+   
     self.items=[[NSMutableArray alloc] init];
-    [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
-
+   
 }
 -(void)viewDidDisappear:(BOOL)animated
 {

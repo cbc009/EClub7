@@ -188,7 +188,7 @@ static char UIViewKeyboardPanRecognizer;
     double keyboardTransitionDuration;
     [[notification.userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&keyboardTransitionDuration];
     
-    UIViewAnimationCurve keyboardTransitionAnimationCurve;
+    UIViewAnimationOptions keyboardTransitionAnimationCurve;
     [[notification.userInfo valueForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&keyboardTransitionAnimationCurve];
     
     self.keyboardActiveView.hidden = NO;
@@ -230,7 +230,7 @@ static char UIViewKeyboardPanRecognizer;
     double keyboardTransitionDuration;
     [[notification.userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&keyboardTransitionDuration];
     
-    UIViewAnimationCurve keyboardTransitionAnimationCurve;
+    UIViewAnimationOptions keyboardTransitionAnimationCurve;
     [[notification.userInfo valueForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&keyboardTransitionAnimationCurve];
     
     CGRect keyboardEndFrameView = [self convertRect:keyboardEndFrameWindow fromView:nil];
@@ -259,7 +259,7 @@ static char UIViewKeyboardPanRecognizer;
     double keyboardTransitionDuration;
     [[notification.userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&keyboardTransitionDuration];
     
-    UIViewAnimationCurve keyboardTransitionAnimationCurve;
+    UIViewAnimationOptions keyboardTransitionAnimationCurve;
     [[notification.userInfo valueForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&keyboardTransitionAnimationCurve];
     
     CGRect keyboardEndFrameView = [self convertRect:keyboardEndFrameWindow fromView:nil];
