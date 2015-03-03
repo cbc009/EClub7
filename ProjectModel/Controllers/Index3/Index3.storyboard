@@ -11,7 +11,8 @@
         <scene sceneID="e6e-7C-Pll">
             <objects>
                 <navigationController storyboardIdentifier="Index3Nav" title="我的" definesPresentationContext="YES" id="Jef-6y-ymL" customClass="Index3Nav" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我" image="main_me_light.png" id="Hjk-bO-Pbq"/>
+                    <tabBarItem key="tabBarItem" title="我" image="main_me.png" id="m38-i9-4Qc"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ASR-wg-zB0">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -219,7 +220,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="53" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="0Gp-Q5-IWQ">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TradeCell" rowHeight="53" id="MDg-1n-VAv" customClass="TradeCell">
@@ -380,7 +381,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="273" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="voc-ed-tAD">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" restorationIdentifier="FeedBackCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedBackCell" rowHeight="205" id="H2c-Bh-P4m" customClass="FeedBackCell">
@@ -576,7 +577,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="aJd-BQ-K4o">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Index3_2Cell" rowHeight="80" id="KWv-Qf-LG0" customClass="Index3_2Cell">
@@ -694,7 +695,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="S9i-Kz-I5A">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderCell" rowHeight="90" id="I1N-Ky-uAr" customClass="OrderCell">
@@ -1055,7 +1056,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Bz-jL-jpG">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rhi-LM-KxM">
                                         <rect key="frame" x="200" y="428" width="112" height="38"/>
@@ -1211,7 +1212,6 @@
                                     <constraint firstItem="hpX-fd-W1B" firstAttribute="leading" secondItem="3Bz-jL-jpG" secondAttribute="leading" id="1dm-Zp-onH"/>
                                     <constraint firstItem="Rhi-LM-KxM" firstAttribute="top" secondItem="8sO-v2-otj" secondAttribute="bottom" constant="20" id="6kf-XQ-QRq"/>
                                     <constraint firstItem="hpX-fd-W1B" firstAttribute="top" secondItem="3Bz-jL-jpG" secondAttribute="top" id="BhQ-4S-jUw"/>
-                                    <constraint firstAttribute="height" constant="504" id="GxG-3Z-3ZW"/>
                                     <constraint firstAttribute="bottom" secondItem="Rhi-LM-KxM" secondAttribute="bottom" constant="38" id="H01-a1-oTU"/>
                                     <constraint firstAttribute="trailing" secondItem="gKe-YC-V0u" secondAttribute="trailing" constant="16" id="H75-eL-T3u"/>
                                     <constraint firstAttribute="trailing" secondItem="Cme-G7-x5E" secondAttribute="trailing" constant="1" id="az3-hC-XvX"/>
@@ -1239,7 +1239,6 @@
                         <outlet property="amount" destination="gKe-YC-V0u" id="7xC-U1-Fa7"/>
                         <outlet property="cancel" destination="Rhi-LM-KxM" id="U50-eN-tDw"/>
                         <outlet property="redbag" destination="7p6-0v-Dg3" id="0bO-sk-EIR"/>
-                        <outlet property="scrolleHeight" destination="GxG-3Z-3ZW" id="bT4-1O-cVJ"/>
                         <outlet property="shipping" destination="bzB-0Q-kCj" id="tX5-kh-dsd"/>
                         <outlet property="tableView" destination="hpX-fd-W1B" id="1ul-fb-Vqv"/>
                         <outlet property="tableViewHeight" destination="WaI-XX-DF0" id="8IW-Jc-iCI"/>
@@ -1348,7 +1347,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="305" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="LhI-DZ-RI1">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="APPQRCodeCell" rowHeight="317" id="lLh-yO-pDe" customClass="APPQRCodeCell">
@@ -1684,7 +1683,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="91" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="Sua-PO-R2Z">
-                                <rect key="frame" x="0.0" y="64" width="320" height="450"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="401"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="index3_3Cell" rowHeight="145" id="jPT-s5-jiH" customClass="Index3_3Cell">
@@ -2259,7 +2258,7 @@
         <image name="back.jpg" width="2560" height="1600"/>
         <image name="ic_alipay_plugin_enabled.png" width="92" height="60"/>
         <image name="icon_merchant_share_highlighted.png" width="23" height="23"/>
-        <image name="main_me_light.png" width="28" height="28"/>
+        <image name="main_me.png" width="28" height="28"/>
         <image name="mycard_front.png" width="480" height="302"/>
         <image name="userIcon.jpg" width="69" height="65"/>
     </resources>

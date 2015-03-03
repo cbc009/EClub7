@@ -289,6 +289,7 @@
 		33A913171A7F289F00499C59 /* PayTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 33A913161A7F289F00499C59 /* PayTypeCell.m */; };
 		33A913221A7F732D00499C59 /* libUPPayPlugin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33A9131D1A7F732D00499C59 /* libUPPayPlugin.a */; };
 		33C8890D1A79C2C8001DACD6 /* back.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 33C8890C1A79C2C8001DACD6 /* back.jpg */; };
+		33D0C83A1AA5520700CC8DB7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33D0C8391AA5520700CC8DB7 /* CoreLocation.framework */; };
 		33DBE7371A3051B700C7CCF5 /* Push_history.m in Sources */ = {isa = PBXBuildFile; fileRef = 33DBE7361A3051B700C7CCF5 /* Push_history.m */; };
 		33DBE7391A3051CD00C7CCF5 /* MorePush_historyService.m in Sources */ = {isa = PBXBuildFile; fileRef = 33DBE7381A3051CD00C7CCF5 /* MorePush_historyService.m */; };
 		33DBE73D1A30528000C7CCF5 /* AddMorePasItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 33DBE73B1A30528000C7CCF5 /* AddMorePasItem.m */; };
@@ -906,6 +907,7 @@
 		33A913201A7F732D00499C59 /* UPPayPluginDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPPayPluginDelegate.h; path = UPPayPluginSDK/UPPayPluginDelegate.h; sourceTree = "<group>"; };
 		33A913211A7F732D00499C59 /* UPPayPluginPro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPPayPluginPro.h; path = UPPayPluginSDK/UPPayPluginPro.h; sourceTree = "<group>"; };
 		33C8890C1A79C2C8001DACD6 /* back.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = back.jpg; sourceTree = "<group>"; };
+		33D0C8391AA5520700CC8DB7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		33DBE7351A3051B700C7CCF5 /* Push_history.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Push_history.h; sourceTree = "<group>"; };
 		33DBE7361A3051B700C7CCF5 /* Push_history.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Push_history.m; sourceTree = "<group>"; };
 		33DBE7381A3051CD00C7CCF5 /* MorePush_historyService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MorePush_historyService.m; sourceTree = "<group>"; };
@@ -1043,8 +1045,8 @@
 		8F47930F1A1C5E9400546648 /* Member_Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member_Login.h; sourceTree = "<group>"; };
 		8F4793101A1C5E9400546648 /* Member_Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Member_Login.m; sourceTree = "<group>"; };
 		8F47932D1A1C824D00546648 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		8F4793461A1D968A00546648 /* SharedAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedAction.h; sourceTree = "<group>"; };
-		8F4793471A1D968A00546648 /* SharedAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedAction.m; sourceTree = "<group>"; };
+		8F4793461A1D968A00546648 /* SharedAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedAction.h; path = Services/SharedAction.h; sourceTree = "<group>"; };
+		8F4793471A1D968A00546648 /* SharedAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedAction.m; path = Services/SharedAction.m; sourceTree = "<group>"; };
 		8F4DBBFA1A09E5090037CCFD /* Goods_type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Goods_type.h; sourceTree = "<group>"; };
 		8F4DBBFB1A09E5090037CCFD /* Goods_type.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Goods_type.m; sourceTree = "<group>"; };
 		8F4DBC001A09EA8F0037CCFD /* BuyGoodTypeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyGoodTypeCell.h; sourceTree = "<group>"; };
@@ -1064,8 +1066,8 @@
 		8FA1698F1A0520A1002DE009 /* Index3.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Index3.storyboard; sourceTree = "<group>"; };
 		8FA247DF1A10B74700456468 /* Delivery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Delivery.h; sourceTree = "<group>"; };
 		8FA247E01A10B74700456468 /* Delivery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Delivery.m; sourceTree = "<group>"; };
-		8FA247E21A10CC6600456468 /* SharedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedData.h; sourceTree = "<group>"; };
-		8FA247E31A10CC6600456468 /* SharedData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedData.m; sourceTree = "<group>"; };
+		8FA247E21A10CC6600456468 /* SharedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedData.h; path = JsonModel/SharedData.h; sourceTree = "<group>"; };
+		8FA247E31A10CC6600456468 /* SharedData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedData.m; path = JsonModel/SharedData.m; sourceTree = "<group>"; };
 		8FA4F41C1A03A82A00B72665 /* KillOrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KillOrderCell.h; sourceTree = "<group>"; };
 		8FA4F41D1A03A82A00B72665 /* KillOrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KillOrderCell.m; sourceTree = "<group>"; };
 		8FA4F41F1A03A98F00B72665 /* MySecond.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySecond.h; sourceTree = "<group>"; };
@@ -1222,6 +1224,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33D0C83A1AA5520700CC8DB7 /* CoreLocation.framework in Frameworks */,
 				8FCADDED1A78B3F200A7FB29 /* libicucore.dylib in Frameworks */,
 				8FCADDEB1A78B3E400A7FB29 /* libz.1.2.5.dylib in Frameworks */,
 				33817CB31A5BB96C00D6D37A /* AVFoundation.framework in Frameworks */,
@@ -1430,6 +1433,7 @@
 		224B350F1995DAB7009523F6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				33D0C8391AA5520700CC8DB7 /* CoreLocation.framework */,
 				8FCADDEC1A78B3F200A7FB29 /* libicucore.dylib */,
 				8FCADDEA1A78B3E400A7FB29 /* libz.1.2.5.dylib */,
 				8FCADDE81A78B35700A7FB29 /* libUMessage_Sdk_1.1.0.a */,
@@ -1466,6 +1470,10 @@
 				224B35481995DD29009523F6 /* Controllers */,
 				224B351F1995DAB7009523F6 /* AppDelegate.h */,
 				224B35201995DAB7009523F6 /* AppDelegate.m */,
+				8FA247E21A10CC6600456468 /* SharedData.h */,
+				8FA247E31A10CC6600456468 /* SharedData.m */,
+				8F4793461A1D968A00546648 /* SharedAction.h */,
+				8F4793471A1D968A00546648 /* SharedAction.m */,
 				22BAA57819979C4400B1948A /* User.storyboard */,
 				224B35221995DAB7009523F6 /* Main.storyboard */,
 				224B35281995DAB7009523F6 /* Images.xcassets */,
@@ -1807,8 +1815,6 @@
 			children = (
 				333F58041A3429BA00A55D56 /* Index1 */,
 				33DBE7451A30575700C7CCF5 /* Index2 */,
-				8F4793461A1D968A00546648 /* SharedAction.h */,
-				8F4793471A1D968A00546648 /* SharedAction.m */,
 				227240D519B353AA005210B2 /* Index3 */,
 				227240A219B352F8005210B2 /* Index0 */,
 				227240AF19B352F9005210B2 /* Index0Service.h */,
@@ -1952,8 +1958,6 @@
 				22B4982B19AF64BE00901ED6 /* Status.h */,
 				22B4982C19AF64BE00901ED6 /* Status.m */,
 				22B4982119AF567800901ED6 /* cart */,
-				8FA247E21A10CC6600456468 /* SharedData.h */,
-				8FA247E31A10CC6600456468 /* SharedData.m */,
 				33315F361A353BFF008FC8C3 /* BalanceData.h */,
 				33315F371A353BFF008FC8C3 /* BalanceData.m */,
 				33315F421A357B35008FC8C3 /* MyNeighbor.h */,

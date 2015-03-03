@@ -35,10 +35,15 @@
     NSInteger page;
     BodyCell *selectedCellForCommemt;
     UITapGestureRecognizer *tap;
+    BackGroundCell *backCell;
+    NSString *heardPicture;
+    NSString *lifeBackPicture;
+  
 }
 @property(nonatomic,strong)UIToolbar *toolBar;
-//@property(nonatomic,strong)UITextView *mytextView;
-@property(nonatomic,strong)UITextField *textField;
+@property(nonatomic,strong)UITextView *mytextView;
+@property(nonatomic,strong)UIButton *sendButton;
+//@property(nonatomic,strong)UITextField *textField;
 @end
 
 @implementation LiveViewController
@@ -50,22 +55,20 @@
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
+    [backCell.moveTimer invalidate];
     [self.view removeKeyboardControl];
 
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
-
     self.title=@"生活圈";
     liveService = [[LiveService alloc] init];
-//     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self.tableview headerEndRefreshing];
-    [self.tableview reloadData];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -87,14 +90,16 @@
     if (indexPath.section==0) {
         BackGroundCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BackGroundCell" forIndexPath:indexPath];
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        backCell=cell;
         [cell.herad sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]] placeholderImage:[UIImage imageNamed:@"userIcon.jpg"]];
         cell.herad.userInteractionEnabled =YES;
         UITapGestureRecognizer *chageHead = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapChangeHeard)];
         [cell.herad addGestureRecognizer:chageHead];
         cell.herad.layer.masksToBounds = YES;
         cell.herad.layer.cornerRadius = 30;
-        [cell.back sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.life_picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+        [cell.back sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,lifeBackPicture]] placeholderImage:[UIImage imageNamed:@"e"]];
         cell.back.userInteractionEnabled =YES;
+        cell.back.frame=CGRectMake(-20, 0, DeviceFrame.size.width+40, 131);
         UITapGestureRecognizer *chageBack = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tpaChangebackGround)];
         [cell.back addGestureRecognizer:chageBack];
         return cell;
@@ -150,17 +155,12 @@
     NSMutableArray *array=[[NSMutableArray alloc]init];
     for (int i=0; i<object.picture.count; i++) {
         Picture_Info *info=object.picture[i];
+       
         urlString = [NSString stringWithFormat:@"%@%@",IP,info.picture];
         [array addObject:urlString];
     }
     return array;
 }
-
-
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    NSLog(@"11");
-////    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
@@ -201,6 +201,8 @@
     [SVProgressHUD show];
     [liveService loadLiveDataWithToken:user.token andUser_type:user.user_type andPageString:pageString withTabBarViewController:self.tabBarController doneObject:^(LiveModelInfo *model1){
         self.datas = (NSMutableArray *)model1.data;
+        heardPicture=model1.headpic;
+        lifeBackPicture=model1.life_picture;
         [liveService countSizeWithData: self.datas inViewController:self];
         [self.tableview headerEndRefreshing];
         [self.tableview reloadData];
@@ -225,11 +227,18 @@
 //评论
 #pragma BodyTableViewCellDelegate
 -(void)request:(id)sender InCell:(BodyCell *)cell{
+    //再次弹出键盘来之前先移除之前的键盘防止对象不消失一直存在
+    if (self.mytextView!=nil) {
+        [self handleAfterKeyboardHidden];
+        [self.view removeKeyboardControl];
+    }
     [self setupTextSendKeyboard];
     [self handleAfterKeyboardShown];
-    NSIndexPath *indexpath = [self.tableview indexPathForCell:cell];
+     NSIndexPath *indexpath = [self.tableview indexPathForCell:cell];
+    [self.tableview scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionTop animated:YES];
     model = self.datas[indexpath.row];
     selectedCellForCommemt = cell;
+    NSLog(@"indexpath:%ld",(long)indexpath.row);
 }
 
 //删除按钮
@@ -331,23 +340,25 @@
     self.toolBar.hidden=YES;
     [self.view addSubview:self.toolBar];
     
-    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(10.0f,
+    self.mytextView = [[UITextView alloc] initWithFrame:CGRectMake(10.0f,
                                                                    6.0f,
                                                                    self.toolBar.bounds.size.width - 20.0f - 68.0f,
                                                                    30.0f)];
-    self.textField.borderStyle = UITextBorderStyleRoundedRect;
-    self.textField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [self.toolBar addSubview:self.textField];
+
+    self.mytextView.autoresizingMask=UIViewAutoresizingFlexibleHeight;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChanged:) name:UITextViewTextDidChangeNotification object:nil];
     
-    UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    sendButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    [sendButton setTitle:@"发送" forState:UIControlStateNormal];
-    sendButton.frame = CGRectMake(self.toolBar.bounds.size.width - 68.0f,
+    [self.toolBar addSubview:self.mytextView];
+    
+     self.sendButton= [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.sendButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    [self.sendButton setTitle:@"发送" forState:UIControlStateNormal];
+    self.sendButton.frame = CGRectMake(self.toolBar.bounds.size.width - 68.0f,
                                   6.0f,
                                   58.0f,
                                   29.0f);
-    [sendButton addTarget:self action:@selector(sendAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.toolBar addSubview:sendButton];
+    [self.sendButton addTarget:self action:@selector(sendAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.toolBar addSubview:self.sendButton];
     
     
     self.view.userInteractionEnabled = YES;
@@ -363,39 +374,33 @@
         weakSelf.toolBar.frame = toolBarFrame;
     }];
 }
-//- (void)textDidChanged:(NSNotification *)notif //监听文字改变 换行时要更改输入框的位置
-//{
-//    CGSize contentSize = self.mytextView.contentSize;
-//    if (contentSize.height > 140){
-//        return;
-//    }
-//    CGFloat minus = 3;
-//    CGRect selfFrame = self.toolBar.frame;
-//    CGFloat selfHeight = self.mytextView.superview.frame.origin.y * 2 + contentSize.height - minus + 2 * 2;
-//    CGFloat selfOriginY = selfFrame.origin.y - (selfHeight - selfFrame.size.height);
-//    selfFrame.origin.y = selfOriginY;
-//    selfFrame.size.height = selfHeight;
-//    NSLog(@"selfOriginY:%f,selfHeight:%f",selfOriginY,selfHeight);
-//     __weak typeof(self) weakSelf = self;
-//    [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
-//        CGRect toolBarFrame = weakSelf.toolBar.frame;
-//        toolBarFrame.origin.y = keyboardFrameInView.origin.y - toolBarFrame.size.height;
-//        toolBarFrame.size.height=selfHeight;
-//        weakSelf.toolBar.frame = toolBarFrame;
-//    }];
-//    NSLog(@"文字改变");
-//}
+- (void)textDidChanged:(NSNotification *)notif //监听文字改变 换行时要更改输入框的位置
+{
+    CGSize contentSize = self.mytextView.contentSize;
+    if (contentSize.height > 70){
+        return;
+    }
+    CGFloat topic_height = [NSString heightWithString:self.mytextView.text font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(self.toolBar.bounds.size.width - 20.0f - 68.0f, 60)];
+        self.toolBar.frame=CGRectMake(0.0f,
+                                      self.view.bounds.size.height - 275.0f-topic_height,
+                                      self.view.bounds.size.width,
+                                      topic_height+12.7+12);
+    self.sendButton.frame = CGRectMake(self.toolBar.bounds.size.width - 68.0f,
+                                  6.0f,
+                                  58.0f,
+                                 12+topic_height);
+}
 //点击“发送”，评论
 -(void)sendAction:(UIButton *)sender{
-    NSLog(@"%@",self.textField.text);
+    NSLog(@"%@",self.mytextView.text);
     [self handleAfterKeyboardHidden];
     lifecircleService = [LifecircleService new];
-    if (self.textField.text==nil||[self.textField.text isEqualToString:@""]) {
+    if (self.mytextView.text==nil||[self.mytextView.text isEqualToString:@""]) {
         [SVProgressHUD showErrorWithStatus:@"内容不能为空"];
     }else{
-        [lifecircleService lifecircleLifeCommentWithToken:user.token andUser_type:user.user_type andContent:self.textField.text andXid:model.xid withTabBarController:self.tabBarController withDone:^(Status *model){
+        [lifecircleService lifecircleLifeCommentWithToken:user.token andUser_type:user.user_type andContent:self.mytextView.text andXid:model.xid withTabBarController:self.tabBarController withDone:^(Status *model){
             CommentInfo *commentInfo = [CommentInfo new];
-            commentInfo.content = self.textField.text;
+            commentInfo.content = self.mytextView.text;
             commentInfo.nickname = user.nickname;
             [selectedCellForCommemt.data addObject:commentInfo];
             NSArray *indexpaths = [NSArray arrayWithObjects:[NSIndexPath indexPathForRow:selectedCellForCommemt.data.count-1 inSection:0], nil];
@@ -403,21 +408,30 @@
             [selectedCellForCommemt.tableview reloadRowsAtIndexPaths:indexpaths withRowAnimation:UITableViewRowAnimationBottom];            
             NSArray *this_indexpaths = [NSArray arrayWithObjects:[self.tableview indexPathForCell: selectedCellForCommemt], nil];
             [self.tableview reloadRowsAtIndexPaths:this_indexpaths withRowAnimation:UITableViewRowAnimationBottom];
-            self.textField.text = @"";
+            self.mytextView.text = @"";
             [self.view removeKeyboardControl];
         }];
     }
 }
 
 -(void)handleAfterKeyboardShown{
-    [self.textField becomeFirstResponder];
+    [self.mytextView becomeFirstResponder];
     self.toolBar.hidden = NO;
 }
 
 -(void)handleAfterKeyboardHidden{
     [self.view removeGestureRecognizer:tap];
-    [self.textField resignFirstResponder];
+    [self.mytextView resignFirstResponder];
     self.toolBar.hidden = YES;
 }
-
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    CGPoint touchPoint = [touch locationInView:self.tableview];
+    NSLog(@"%f==%f",touchPoint.x,touchPoint.y);
+    int stringFloat = (int)(touchPoint.x);
+    int stringFloat1 = (int)(touchPoint.y);
+    NSLog(@"%i%i",stringFloat,stringFloat1);
+        //touchPoint.x ，touchPoint.y 就是触点的坐标。
+}
 @end

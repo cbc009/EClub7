@@ -13,6 +13,7 @@
 #import <UMengSocial/UMSocialSnsService.h>
 #import <UMengSocial/UMSocialSnsPlatformManager.h>
 
+
 typedef void (^completion)(BOOL completed, NSDictionary *data);
 typedef void (^finished)(NSDictionary *info);
 typedef void (^doneWithObject)(id object);
@@ -43,5 +44,6 @@ typedef void (^doneWithObjectAndStatus)(int status,id object);
 +(void)commonActionWithUrl:(NSString *)url andStatus:(NSInteger)status andError:(NSString *)error andJSONModelError:(JSONModelError *)jsonError andObject:(id)object inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 +(void)loginAggane;
 +(void)baseBalanceWithToken:(NSString *)token andUser_type:(NSInteger)user_type withTabBarViewController:(UITabBarController*)tabBarController doneObject:(doneWithObject)done;
-
++(void)removeLocalPushNotification;
++(BOOL)notifyTime2:(NSString *)time;
 @end

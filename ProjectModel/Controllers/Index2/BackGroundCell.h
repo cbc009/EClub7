@@ -11,5 +11,6 @@
 @interface BackGroundCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *herad;
 @property (weak, nonatomic) IBOutlet UIImageView *back;
+@property (nonatomic,strong)  NSTimer *moveTimer;
 
 @end

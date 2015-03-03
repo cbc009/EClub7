@@ -138,9 +138,7 @@
         [self.tableView footerEndRefreshing];
     }];
 }
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 0;
-}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
         return 156;
@@ -180,7 +178,6 @@
 }
 -(void)gotoSomeoneDetail:(PeopleDetailCell*)cell
 {
-    
     NSIndexPath *indexpath = [self.tableView indexPathForCell:cell];
     DataInfo *objects = self.datas[indexpath.row];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index2" bundle:nil];

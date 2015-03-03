@@ -15,16 +15,20 @@
 #import "DAKeyboardControl.h"
 #import "LifecircleService.h"
 #import "Status.h"
+#import "MLMutiImagesChoosenViewController.h"
 @interface SomeoneContentViewController ()
 {
     UserInfo *user;
     UITapGestureRecognizer *tap;
     DatasInfo *object1;
     SomeoneContentCell*selectContentCell;
+    MLMutiImagesChoosenViewController *mutiImagesContoller;
     
 }
 @property(nonatomic,strong)UIToolbar *toolBar;
-@property(nonatomic,strong)UITextField *textField;
+@property(nonatomic,strong)UITextView *mytextView;
+@property(nonatomic,strong)UIButton *sendButton;
+
 @end
 
 @implementation SomeoneContentViewController
@@ -47,8 +51,32 @@
         self.contenHeight.constant =[NSString heightWithString:object1.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-92, 600)];
         self.regtime.text=object1.regtime;
         self.datas = (NSMutableArray *)object1.comment;
+        if (object1.picture.count==0) {
+            self.collectoonHeight.constant=0;
+            self.collectionView.hidden=YES;
+        }else{
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MLMutiImagesViewController" bundle:nil];
+        mutiImagesContoller = [storyboard instantiateViewControllerWithIdentifier:@"MLMutiImagesChoosenViewController"];
+        mutiImagesContoller.fatherController = self;
+        mutiImagesContoller.imageMode = browseImagesMode;//（必选）
+        mutiImagesContoller.imageUrls = [self imgUrlsFromTopic:object1];
+        mutiImagesContoller.superView = self.collectionView;
+        mutiImagesContoller.collectionviewHeight = self.collectoonHeight.constant;
+        [self addChildViewController:mutiImagesContoller];
+        [self.collectionView addSubview: mutiImagesContoller.collectionView];
+        }
         [self.tableView reloadData];
     }];
+}
+-(NSArray *)imgUrlsFromTopic:(DatasInfo *)object2{
+    NSString *urlString;
+    NSMutableArray *array=[[NSMutableArray alloc]init];
+    for (int i=0; i<object2.picture.count; i++) {
+        Picture_Info *info=object2.picture[i];
+        urlString = [NSString stringWithFormat:@"%@%@",IP,info.picture];
+        [array addObject:urlString];
+    }
+    return array;
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
@@ -112,23 +140,25 @@
     self.toolBar.hidden=YES;
     [self.view addSubview:self.toolBar];
     
-    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(10.0f,
+    self.mytextView = [[UITextView alloc] initWithFrame:CGRectMake(10.0f,
                                                                    6.0f,
                                                                    self.toolBar.bounds.size.width - 20.0f - 68.0f,
                                                                    30.0f)];
-    self.textField.borderStyle = UITextBorderStyleRoundedRect;
-    self.textField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [self.toolBar addSubview:self.textField];
+
+    self.mytextView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChanged:) name:UITextViewTextDidChangeNotification object:nil];
+    [self.toolBar addSubview:self.mytextView];
     
-    UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    sendButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    [sendButton setTitle:@"发送" forState:UIControlStateNormal];
-    sendButton.frame = CGRectMake(self.toolBar.bounds.size.width - 68.0f,
+    self.sendButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    self.sendButton.backgroundColor=[UIColor redColor];
+    self.sendButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    [self.sendButton setTitle:@"发送" forState:UIControlStateNormal];
+    self.sendButton.frame = CGRectMake(self.toolBar.bounds.size.width - 68.0f,
                                   6.0f,
                                   58.0f,
                                   29.0f);
-    [sendButton addTarget:self action:@selector(sendAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.toolBar addSubview:sendButton];
+    [self.sendButton addTarget:self action:@selector(sendAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.toolBar addSubview:self.sendButton];
     self.view.userInteractionEnabled = YES;
     tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleAfterKeyboardHidden)];
     [self.view addGestureRecognizer:tap];
@@ -140,17 +170,32 @@
         weakSelf.toolBar.frame = toolBarFrame;
     }];
 }
-
+- (void)textDidChanged:(NSNotification *)notif //监听文字改变 换行时要更改输入框的位置
+{
+    CGSize contentSize = self.mytextView.contentSize;
+    if (contentSize.height > 70){
+        return;
+    }
+    CGFloat topic_height = [NSString heightWithString:self.mytextView.text font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(self.toolBar.bounds.size.width - 20.0f - 68.0f, 60)];
+    self.toolBar.frame=CGRectMake(0.0f,
+                                  self.view.bounds.size.height - 275.0f-topic_height,
+                                  self.view.bounds.size.width,
+                                  topic_height+12.7+12);
+    self.sendButton.frame = CGRectMake(self.toolBar.bounds.size.width - 68.0f,
+                                       6.0f,
+                                       58.0f,
+                                       12+topic_height);
+}
 //点击“发送”，评论
 -(void)sendAction:(UIButton *)sender{
     [self handleAfterKeyboardHidden];
     LifecircleService*lifecircleService = [LifecircleService new];
-    if (self.textField.text==nil||[self.textField.text isEqualToString:@""]) {
+    if (self.mytextView.text==nil||[self.mytextView.text isEqualToString:@""]) {
         [SVProgressHUD showErrorWithStatus:@"内容不能为空"];
     }else{
-        [lifecircleService lifecircleLifeCommentWithToken:user.token andUser_type:user.user_type andContent:self.textField.text andXid:object1.xid withTabBarController:self.tabBarController withDone:^(Status *model){
+        [lifecircleService lifecircleLifeCommentWithToken:user.token andUser_type:user.user_type andContent:self.mytextView.text andXid:object1.xid withTabBarController:self.tabBarController withDone:^(Status *model){
             CommentInfo *commentInfo = [CommentInfo new];
-            commentInfo.content = self.textField.text;
+            commentInfo.content = self.mytextView.text;
             NSDate *currenTime = [NSDate date];
             commentInfo.nickname = user.nickname;
             commentInfo.regtime =[NSString dateStringFromDate1:currenTime];
@@ -161,20 +206,20 @@
             NSArray *this_indexpaths = [NSArray arrayWithObjects:[self.tableView indexPathForCell: selectContentCell], nil];
             [self.tableView reloadRowsAtIndexPaths:this_indexpaths withRowAnimation:UITableViewRowAnimationBottom];
 
-            self.textField.text = @"";
+            self.mytextView.text = @"";
             [self.view removeKeyboardControl];
         }];
     }
 }
 
 -(void)handleAfterKeyboardShown{
-    [self.textField becomeFirstResponder];
+    [self.mytextView becomeFirstResponder];
     self.toolBar.hidden = NO;
 }
 
 -(void)handleAfterKeyboardHidden{
     [self.view removeGestureRecognizer:tap];
-    [self.textField resignFirstResponder];
+    [self.mytextView resignFirstResponder];
     self.toolBar.hidden = YES;
 }
 

@@ -18,7 +18,10 @@
 @property(nonatomic,strong)DataInfo *model;
 
 @property (weak, nonatomic) IBOutlet UIButton *contentSender;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectoonHeight;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageHeight;
 
+@property (weak, nonatomic) IBOutlet UIView *collectionView;
 - (IBAction)contenAction:(id)sender;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollvice;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

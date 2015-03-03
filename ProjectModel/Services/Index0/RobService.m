@@ -32,7 +32,7 @@
 }
 
 -(void)setItemInfosWithController:(RobViewController *)viewController andGoodModel:(RobModelInfo *)good{
-    NSString *startTime =good.starttime;
+    NSString *startTime =@"1425366826";
     viewController.robModel = good;
     viewController.itemImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,good.picture]]]];
     viewController.itemPic =[NSString stringWithFormat:@"%@%@",IP,good.picture];
@@ -46,9 +46,14 @@
         viewController.discount.text = [NSString stringWithFormat:@"抢购价:%@",discount];
     }
     viewController.itemCount.text = [NSString stringWithFormat:@"抢购总数量：%@%@",good.nums,good.unit];
-    NSString *startTime2 = [NSString timeType1FromStamp:startTime];//HH:mm:ss
+    NSString *startTime2 = [NSString timeType1FromStamp:startTime];//yyyy-MM-dd HH:mm:ss
+    if ([SharedAction notifyTime2:startTime2]) {
+        return ;
+    }else{
     NSString *notifyTime = [NSString dateStringByAddTimeInterval:-120 fromDateString:startTime2 withDateFormatter:@"yyyy-MM-dd HH:mm:ss"];
+    NSLog(@"notifyTime:%@,startTime2:%@",notifyTime,startTime2);
     [SharedAction setLocalNotifyWithAlertBody:[NSString stringWithFormat:@"%@抢菜时间马上就到了,请留意哦",startTime2] andType:@"rob" andFireDate:notifyTime];
+    }
 }
 
 
@@ -88,7 +93,6 @@
     [viewController.pageView updatePageViewInFatherController:viewController];//（必填）//位置置于后面
     viewController.pageView.defaultLocationIndex = 0;
 }
-
 
 //开抢
 -(void)robWithToken:(NSString *)token andUser_type:(NSInteger )user_type andRobModel:(RobModelInfo *)robModel inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{

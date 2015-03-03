@@ -13,6 +13,8 @@
 #import "JSONModelLib.h"
 #import "NSString+MT.h"
 #import "BalanceModel.h"
+
+
 @implementation SharedAction
 
 +(void)presentLoginViewControllerInViewController:(UIViewController<LoginViewControllerDelegate> *)viewController{
@@ -250,8 +252,16 @@
 
 //notifyTime是HH:mm:ss格式  如：19:29:00
 +(void)setLocalNotifyWithAlertBody:(NSString *)alertBody andType:(NSString *)type andFireDate:(NSString *)notifyTime{
+    UIApplication *app;
+    UIApplication *application;
+    if ([type isEqualToString:@"rob"]) {
+         application=[UIApplication sharedApplication];
+        [application cancelAllLocalNotifications];
+    }else{
     //chuagjian一个本地推送
-    UIApplication *app = [UIApplication sharedApplication];
+        app= [UIApplication sharedApplication];
+        [app cancelAllLocalNotifications];
+    }
 //    [app cancelAllLocalNotifications];
     UILocalNotification *noti = [[UILocalNotification alloc] init];
     //设置推送时间
@@ -269,8 +279,14 @@
     //设置userinfo 方便在之后需要撤销的时候使用
     NSDictionary *infoDic = [NSDictionary dictionaryWithObject:type forKey:@"type"];
     noti.userInfo = infoDic;
+    NSLog(@"noti.userInfo:%@",noti.userInfo);
     //获取本地推送数组
-    NSArray *localArr = [app scheduledLocalNotifications];
+    NSArray *localArr;
+    if ([type isEqualToString:@"rob"]) {
+         localArr= [application scheduledLocalNotifications];
+    }else{
+        localArr = [app scheduledLocalNotifications];
+    }
     if (localArr) {
         for (int i=0;i<localArr.count;i++) {
             UILocalNotification *noti = localArr[i];
@@ -278,7 +294,11 @@
         }
     }
     //添加推送到uiapplication
-    [app scheduleLocalNotification:noti];
+    if ([type isEqualToString:@"rob"]) {
+       [application scheduleLocalNotification:noti];
+    }else{
+        [app scheduleLocalNotification:noti];
+    }
     NSLog(@"alertBody:%@,type:%@,notifyTime:%@",alertBody,type,notifyTime);
 }
 
@@ -294,14 +314,44 @@
     if ([[date laterDate:[NSDate date]] isEqual:date]) {
         notifyTime = date;
     }else{
-        NSTimeInterval secondsPerDay = 24*60*60;
+        NSTimeInterval secondsPerDay = -24*60*60;
         notifyTime = [date dateByAddingTimeInterval:secondsPerDay];
     }
-    
     NSLog(@"设置本地推送时间:%@",[dateFormatter stringFromDate:notifyTime]);
     return notifyTime;
 }
+//若time ealier now 则设置notifyTime==time；若time later now
++(BOOL)notifyTime2:(NSString *)time{
+   
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *date = [dateFormatter dateFromString:time];
+    if ([[date laterDate:[NSDate date]] isEqual:date]) {
+        return NO;
+    }else{
+         return YES;
+    }
+}
 
++(void)removeLocalPushNotification
+{
+    UIApplication* app=[UIApplication sharedApplication];
+    //获取当前应用所有的通知
+    NSArray* localNotifications=[app scheduledLocalNotifications];
+    if (localNotifications) {
+        for (UILocalNotification* notification in localNotifications) {
+            NSDictionary* dic=notification.userInfo;
+            if (dic) {
+                NSString* key=[dic objectForKey:@"type"];
+                if ([key isEqualToString:@"rob"]) {
+                    //取消推送 （指定一个取消）
+                    [app cancelLocalNotification:notification];
+                    break;
+                }
+            }
+        }
+    }
+}
 +(void)shareWithTitle:(NSString *)title andDesinationUrl:(NSString *)url Text:(NSString *)text andImageUrl:(NSString *)imgUrl InViewController:(UIViewController *)viewController{
     [SVProgressHUD show];
     
@@ -451,5 +501,6 @@
 -(void)reloadData:(NSNotification *)nc{
     
 }
+
 
 @end
