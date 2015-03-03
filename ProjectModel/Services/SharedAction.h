@@ -44,6 +44,6 @@ typedef void (^doneWithObjectAndStatus)(int status,id object);
 +(void)commonActionWithUrl:(NSString *)url andStatus:(NSInteger)status andError:(NSString *)error andJSONModelError:(JSONModelError *)jsonError andObject:(id)object inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 +(void)loginAggane;
 +(void)baseBalanceWithToken:(NSString *)token andUser_type:(NSInteger)user_type withTabBarViewController:(UITabBarController*)tabBarController doneObject:(doneWithObject)done;
-+(void)removeLocalPushNotification;
++(void)removeLocalPushNotificationWithType:(NSString *)type;
 +(BOOL)notifyTime2:(NSString *)time;
 @end

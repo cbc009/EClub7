@@ -35,14 +35,15 @@
     SharedData *shareData = [SharedData sharedInstance];
     [service goods_futureWithToken:shareData.user.token andUser_type:shareData.user.user_type inTabBarController:self.tabBarController withDone:^(KillGoodInfo *model){
         self.datas = model.goods;
-        for (int i=0; i<model.goods.count; i++) {
+         for (int i=0; i<model.goods.count; i++) {
             KillGood *good  = self.datas[i];
-            NSString *startTime2 = [NSString timeType1FromStamp:good.starttime];//yyyy-MM-dd HH:mm:ss
-            if ([SharedAction notifyTime2:startTime2]) {
-                return ;
-            }else{
-            NSString *notifyTime = [NSString dateStringByAddTimeInterval:-120 fromDateString:startTime2 withDateFormatter:@"yyyy-MM-dd HH:mm:ss"];
-            [SharedAction setLocalNotifyWithAlertBody:[NSString stringWithFormat:@"%@的秒杀马上就要开始了,请留意哦",startTime2] andType:@"Kill" andFireDate:notifyTime];
+             NSString *startTime2 = [NSString timeType1FromStamp:good.starttime];//yyyy-MM-dd HH:mm:ss
+             if ([SharedAction notifyTime2:startTime2]) {
+                 [SharedAction removeLocalPushNotificationWithType:@"Kill"];
+                 return ;
+             }else{
+                 NSString *notifyTime = [NSString dateStringByAddTimeInterval:-120 fromDateString:startTime2 withDateFormatter:@"yyyy-MM-dd HH:mm:ss"];
+                 [SharedAction setLocalNotifyWithAlertBody:[NSString stringWithFormat:@"%@的秒杀马上就要开始了,请留意哦",startTime2] andType:@"Kill" andFireDate:notifyTime];
             }
         }
         [self.tableview reloadData];

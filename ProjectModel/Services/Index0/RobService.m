@@ -32,7 +32,7 @@
 }
 
 -(void)setItemInfosWithController:(RobViewController *)viewController andGoodModel:(RobModelInfo *)good{
-    NSString *startTime =@"1425366826";
+    NSString *startTime =good.starttime;
     viewController.robModel = good;
     viewController.itemImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,good.picture]]]];
     viewController.itemPic =[NSString stringWithFormat:@"%@%@",IP,good.picture];
@@ -48,6 +48,7 @@
     viewController.itemCount.text = [NSString stringWithFormat:@"抢购总数量：%@%@",good.nums,good.unit];
     NSString *startTime2 = [NSString timeType1FromStamp:startTime];//yyyy-MM-dd HH:mm:ss
     if ([SharedAction notifyTime2:startTime2]) {
+        [SharedAction removeLocalPushNotificationWithType:@"rob"];
         return ;
     }else{
     NSString *notifyTime = [NSString dateStringByAddTimeInterval:-120 fromDateString:startTime2 withDateFormatter:@"yyyy-MM-dd HH:mm:ss"];
