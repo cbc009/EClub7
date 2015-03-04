@@ -34,7 +34,6 @@
     [self setupSocialSharePlatform];
     [self setUMessageWithLaunchOptions:launchOptions];
     [Bmob registerWithAppKey:BmobAppID];
-    
     [[UITabBar appearance] setTintColor:MainTabBarColor];
     [[UINavigationBar appearance] setTintColor:MainNavBarColor];
     

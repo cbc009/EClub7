@@ -297,13 +297,13 @@
     if ([[date laterDate:[NSDate date]] isEqual:date]) {
         notifyTime = date;
     }else{
-        NSTimeInterval secondsPerDay = -24*60*60;
+        NSTimeInterval secondsPerDay = 24*60*60;
         notifyTime = [date dateByAddingTimeInterval:secondsPerDay];
     }
     NSLog(@"设置本地推送时间:%@",[dateFormatter stringFromDate:notifyTime]);
-    return notifyTime;
+    return date;
 }
-//若time ealier now 则设置notifyTime==time；若time later now
+//对比当前时间是不是在所需设置的时间之前
 +(BOOL)notifyTime2:(NSString *)time{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];

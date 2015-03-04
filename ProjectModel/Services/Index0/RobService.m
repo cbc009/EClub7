@@ -51,9 +51,9 @@
         [SharedAction removeLocalPushNotificationWithType:@"rob"];
         return ;
     }else{
-    NSString *notifyTime = [NSString dateStringByAddTimeInterval:-120 fromDateString:startTime2 withDateFormatter:@"yyyy-MM-dd HH:mm:ss"];
-    NSLog(@"notifyTime:%@,startTime2:%@",notifyTime,startTime2);
-    [SharedAction setLocalNotifyWithAlertBody:[NSString stringWithFormat:@"%@抢菜时间马上就到了,请留意哦",startTime2] andType:@"rob" andFireDate:notifyTime];
+        NSString *notifyTime = [NSString dateStringByAddTimeInterval:-120 fromDateString:startTime2 withDateFormatter:@"yyyy-MM-dd HH:mm:ss"];
+        NSLog(@"notifyTime:%@,startTime2:%@",notifyTime,startTime2);
+        [SharedAction setLocalNotifyWithAlertBody:[NSString stringWithFormat:@"%@抢菜时间马上就到了,请留意哦",startTime2] andType:@"rob" andFireDate:notifyTime];
     }
 }
 
