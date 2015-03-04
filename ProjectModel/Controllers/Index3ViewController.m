@@ -70,6 +70,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"pushToSet"]) {
+        UIViewController *target = segue.destinationViewController;
+        target.hidesBottomBarWhenPushed = YES;
+    }
+}
+
 #pragma UITableviewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     

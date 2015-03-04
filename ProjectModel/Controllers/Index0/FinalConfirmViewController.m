@@ -16,6 +16,9 @@
 #import <BmobSDK/Bmob.h>
 #import "Status.h"
 #import <Foundation/Foundation.h>
+#import <LocalAuthentication/LocalAuthentication.h>
+#import "NSString+MT.h"
+
 @interface FinalConfirmViewController ()
 {
     __weak IBOutlet UITableView *tableview;
@@ -157,15 +160,15 @@
         }
     }else if(alertView.tag==4){
         if(buttonIndex==1){
-            [self paywithAletview:alertView];
+            [self payWithPassword:[[alertView textFieldAtIndex:0] text]];
         }
     }else {
        if(buttonIndex==1){
-           [self paywithAletview:alertView];
+           [self payWithPassword:[[alertView textFieldAtIndex:0] text]];
         }
     }
 }
--(void)paywithAletview:(UIAlertView *)aletView{
+-(void)payWithPassword:(NSString *)password{
     __block FinalConfirmViewController *blockSelf =self;
     NSString *datas = [NSString stringWithFormat:@"%@",[finalConfirmService finalItemsWithObjects:self.items]];
     NSString *payType = [finalConfirmService payTypeInViewController:self];
@@ -174,7 +177,7 @@
     NSString *address = self.sendAddress.text;
     NSString *mobile = self.userPhone.text;
     NSString *message = self.userMessage.text;
-    NSString *paypassword = [[aletView textFieldAtIndex:0] text];
+    NSString *paypassword = password;
     [finalConfirmService submitDatas:datas andToken:user.token andUser_type:user.user_type andPayType:payType sendType:sendType andSendid:Sendid andAddress:address andMobile:mobile andMessage:message withPassword:paypassword inTabBarController:self.tabBarController withDone:^(id object){
         NSNumber *stat = (NSNumber *)[object objectForKey:@"status"];
         NSInteger status2 = [stat integerValue];
@@ -196,6 +199,7 @@
         }
     }];
 }
+
 //选择送货时间
 - (IBAction)selectTimeAction:(id)sender {
     [finalConfirmService showTimePickerViewOnView:scrollView withFrame:CGRectMake(userInfo.frame.origin.x+self.sendTime.frame.origin.x, self.thirdView.frame.origin.y + userInfo.frame.origin.y+self.sendTime.frame.origin.y, self.sendTime.frame.size.width,0) andDatas:self.timeArray onTarget:self withObject:(id)sender];
@@ -205,7 +209,7 @@
     if (user.user_type==3) {
         [SVProgressHUD showErrorWithStatus:@"请前往 “我”页面中的“个人信息”“关联区域”完善资料"];
     }else{
-    [finalConfirmService submitActionInViewController:self];
+    [self submitAction];
 }
 }
 - (IBAction)payMethod1:(id)sender {
@@ -221,6 +225,42 @@
     [finalConfirmService sendMethod2:sender inViewController:self];
 }
 
+
+-(void)submitAction{
+    if([finalConfirmService compareCurrentTimeWithTime:@"21:30:00"] == NSOrderedDescending && [finalConfirmService compareCurrentTimeWithTime:@"06:00:00"] == NSOrderedAscending){
+        //如果是卖家送货
+        if (self.sendMethod2.tag==1) {
+            if ([self.sendAddress.text isEqualToString:@""]) {
+                [SVProgressHUD showErrorWithStatus:@"请填写准确送货地址"];
+                return;
+            }else if(![self.userPhone.text isValidateMobile:self.userPhone.text]){
+                [SVProgressHUD showErrorWithStatus:@"请正确填写手机号码"];
+                return;
+            }else if ([self.totalPriceString floatValue]<30){
+                [SVProgressHUD showErrorWithStatus:@"不足30元消费，暂不提供送货上门服务"];
+                return;
+            }
+        }
+        
+        SharedData *sharedData = [SharedData sharedInstance];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"支付密码" message:@"支付密码为登陆密码" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        alertView.alertViewStyle = UIAlertViewStyleSecureTextInput;
+        if ([sharedData.fingerIsOpened isEqualToString:@"yes"]) {
+            [SharedAction fingerPayWithDone:^(BOOL success,id object){
+                if (success) {
+                    [self payWithPassword:sharedData.payPassword];
+                }else{
+                    [alertView show];
+                }
+            }];
+        }else{
+            [alertView show];
+        }
+        
+    }else{
+        [SVProgressHUD showErrorWithStatus:@"下单时间:每天6:00-21:30"];
+    }
+}
 
 
 @end

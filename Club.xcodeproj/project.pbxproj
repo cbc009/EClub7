@@ -373,6 +373,9 @@
 		33F7608B1A00ABEA0058FC6C /* Kill_CountDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 33F7608A1A00ABEA0058FC6C /* Kill_CountDown.m */; };
 		33FBC6DD1A724BEE007F005C /* people.png in Resources */ = {isa = PBXBuildFile; fileRef = 33FBC6DC1A724BEE007F005C /* people.png */; };
 		33FFA03419BADB0E00EFFC8D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 33FFA02219BAB60200EFFC8D /* libz.dylib */; };
+		8F03C9811AA6A02100082E32 /* SetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F03C9801AA6A02100082E32 /* SetViewController.m */; };
+		8F03C9841AA6A03400082E32 /* TouchIDSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F03C9831AA6A03400082E32 /* TouchIDSetViewController.m */; };
+		8F03C9861AA6A5A000082E32 /* touchidIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F03C9851AA6A5A000082E32 /* touchidIcon.png */; };
 		8F4793111A1C5E9400546648 /* Member_Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4793101A1C5E9400546648 /* Member_Login.m */; };
 		8F47932F1A1C839900546648 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33FFA01C19BAB5DF00EFFC8D /* CoreTelephony.framework */; };
 		8F4793481A1D968A00546648 /* SharedAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4793471A1D968A00546648 /* SharedAction.m */; };
@@ -392,6 +395,7 @@
 		8FA4F4211A03A98F00B72665 /* MySecond.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA4F4201A03A98F00B72665 /* MySecond.m */; };
 		8FCADDEB1A78B3E400A7FB29 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCADDEA1A78B3E400A7FB29 /* libz.1.2.5.dylib */; };
 		8FCADDED1A78B3F200A7FB29 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCADDEC1A78B3F200A7FB29 /* libicucore.dylib */; };
+		8FD4363E1AA6B4D000B29414 /* TouchIDAlidateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD4363D1AA6B4D000B29414 /* TouchIDAlidateViewController.m */; };
 		8FE931911A2ECC04000C2105 /* Index2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FE931901A2ECC04000C2105 /* Index2.storyboard */; };
 		8FE931941A2ECD4E000C2105 /* Index2NavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE931931A2ECD4E000C2105 /* Index2NavViewController.m */; };
 		8FE931A01A2ED071000C2105 /* home_page_light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE931981A2ED071000C2105 /* home_page_light@2x.png */; };
@@ -487,7 +491,7 @@
 		223E97CC19B4C155005AF6A3 /* SubMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubMenuCell.h; sourceTree = "<group>"; };
 		223E97CD19B4C155005AF6A3 /* SubMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubMenuCell.m; sourceTree = "<group>"; };
 		223E97CF19B4C160005AF6A3 /* SubMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubMenuCell.xib; sourceTree = "<group>"; };
-		224B350D1995DAB7009523F6 /* E小区.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "E小区.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		224B350D1995DAB7009523F6 /* EClub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EClub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		224B35101995DAB7009523F6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		224B35121995DAB7009523F6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		224B35141995DAB7009523F6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -1042,6 +1046,11 @@
 		33FFA02019BAB5FA00EFFC8D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		33FFA02219BAB60200EFFC8D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		33FFA02419BABAAB00EFFC8D /* libPods-libPusher.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-libPusher.a"; path = "Pods/build/Debug-iphoneos/libPods-libPusher.a"; sourceTree = "<group>"; };
+		8F03C97F1AA6A02100082E32 /* SetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetViewController.h; sourceTree = "<group>"; };
+		8F03C9801AA6A02100082E32 /* SetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetViewController.m; sourceTree = "<group>"; };
+		8F03C9821AA6A03400082E32 /* TouchIDSetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchIDSetViewController.h; sourceTree = "<group>"; };
+		8F03C9831AA6A03400082E32 /* TouchIDSetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchIDSetViewController.m; sourceTree = "<group>"; };
+		8F03C9851AA6A5A000082E32 /* touchidIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = touchidIcon.png; sourceTree = "<group>"; };
 		8F47930F1A1C5E9400546648 /* Member_Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member_Login.h; sourceTree = "<group>"; };
 		8F4793101A1C5E9400546648 /* Member_Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Member_Login.m; sourceTree = "<group>"; };
 		8F47932D1A1C824D00546648 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -1075,6 +1084,8 @@
 		8FCADDE81A78B35700A7FB29 /* libUMessage_Sdk_1.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libUMessage_Sdk_1.1.0.a; path = "Pods/UMengMessage/UMessage_Sdk_All_1.1.0(idfa)/UMessage_Sdk_1.1.0/libUMessage_Sdk_1.1.0.a"; sourceTree = "<group>"; };
 		8FCADDEA1A78B3E400A7FB29 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		8FCADDEC1A78B3F200A7FB29 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		8FD4363C1AA6B4D000B29414 /* TouchIDAlidateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchIDAlidateViewController.h; sourceTree = "<group>"; };
+		8FD4363D1AA6B4D000B29414 /* TouchIDAlidateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchIDAlidateViewController.m; sourceTree = "<group>"; };
 		8FE931901A2ECC04000C2105 /* Index2.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Index2.storyboard; sourceTree = "<group>"; };
 		8FE931921A2ECD4E000C2105 /* Index2NavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Index2NavViewController.h; sourceTree = "<group>"; };
 		8FE931931A2ECD4E000C2105 /* Index2NavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Index2NavViewController.m; sourceTree = "<group>"; };
@@ -1391,6 +1402,12 @@
 				3332189D1A3156CC00E6B77E /* PointOrdViewController.h */,
 				3332189E1A3156CC00E6B77E /* PointOrdViewController.m */,
 				8FA1698F1A0520A1002DE009 /* Index3.storyboard */,
+				8F03C97F1AA6A02100082E32 /* SetViewController.h */,
+				8F03C9801AA6A02100082E32 /* SetViewController.m */,
+				8F03C9821AA6A03400082E32 /* TouchIDSetViewController.h */,
+				8F03C9831AA6A03400082E32 /* TouchIDSetViewController.m */,
+				8FD4363C1AA6B4D000B29414 /* TouchIDAlidateViewController.h */,
+				8FD4363D1AA6B4D000B29414 /* TouchIDAlidateViewController.m */,
 			);
 			name = Index3;
 			path = Controllers/Index3;
@@ -1425,7 +1442,7 @@
 		224B350E1995DAB7009523F6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				224B350D1995DAB7009523F6 /* E小区.app */,
+				224B350D1995DAB7009523F6 /* EClub.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1603,6 +1620,7 @@
 		22557A01199645A3001B5FCC /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				8F03C9851AA6A5A000082E32 /* touchidIcon.png */,
 				336F28CA1A80B25E00EE4020 /* main23.png */,
 				338AFF131A7B51FC000B1C17 /* main13.png */,
 				338AFF201A7B535B000B1C17 /* home_page_light.png */,
@@ -2676,7 +2694,7 @@
 			);
 			name = Club;
 			productName = ProjectModel;
-			productReference = 224B350D1995DAB7009523F6 /* E小区.app */;
+			productReference = 224B350D1995DAB7009523F6 /* EClub.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2753,6 +2771,7 @@
 				33DCB3471A38500E00214F66 /* bg_keyboard0@2x.png in Resources */,
 				336FDC861A5A2F1C004CFD6A /* Index0.storyboard in Resources */,
 				338AFF1E1A7B51FC000B1C17 /* main12.png in Resources */,
+				8F03C9861AA6A5A000082E32 /* touchidIcon.png in Resources */,
 				335D22CE19EE434000EB99B5 /* buy.png in Resources */,
 				333A5F8A1A26A6E900CA54A5 /* audio.png in Resources */,
 				225E3DEA199B3F8B00BDCAE9 /* SelectItemsTableViewController.xib in Resources */,
@@ -2940,6 +2959,7 @@
 				22F7C97519B0BBDB003B7B61 /* GoodForSubmit.m in Sources */,
 				223E97CE19B4C155005AF6A3 /* SubMenuCell.m in Sources */,
 				33315F3B1A357448008FC8C3 /* MyneighborViewController.m in Sources */,
+				8F03C9811AA6A02100082E32 /* SetViewController.m in Sources */,
 				337086521A5E3373006A7688 /* LifehallModel.m in Sources */,
 				33DBE73D1A30528000C7CCF5 /* AddMorePasItem.m in Sources */,
 				8FE9322C1A2FF811000C2105 /* Index1NavViewController.m in Sources */,
@@ -3098,6 +3118,7 @@
 				33DDF3B01A4A71D0004D7527 /* PostbuyViewController.m in Sources */,
 				227240DB19B3566F005210B2 /* OrderCell.m in Sources */,
 				22251504199DB9A7003DCAC1 /* FeedbackViewController.m in Sources */,
+				8F03C9841AA6A03400082E32 /* TouchIDSetViewController.m in Sources */,
 				33E7CFB119F79C4C00D49EA6 /* KillGoodCell.m in Sources */,
 				333F58071A3429E300A55D56 /* CallHistoryService.m in Sources */,
 				2213C70E19A1DF2F001A9CF2 /* PrizeModel.m in Sources */,
@@ -3115,6 +3136,7 @@
 				8FE931C91A2EEFD1000C2105 /* RewardCell.m in Sources */,
 				227240C919B352F9005210B2 /* Index0Service.m in Sources */,
 				8FEAA2731A19FB9C001E792C /* RSADataVerifier.m in Sources */,
+				8FD4363E1AA6B4D000B29414 /* TouchIDAlidateViewController.m in Sources */,
 				2207A70419B2EC6E0067B00C /* TradeListViewController.m in Sources */,
 				332F551D19B1CD3C00333C4A /* Rob_goods_history.m in Sources */,
 				3360154F1A39A5820070732C /* SearchService.m in Sources */,
@@ -3359,7 +3381,7 @@
 					"-isystem",
 					"\"${PODS_ROOT}/Headers/Public/libqrencode\"",
 				);
-				PRODUCT_NAME = "E小区";
+				PRODUCT_NAME = EClub;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -3438,7 +3460,7 @@
 					"-isystem",
 					"\"${PODS_ROOT}/Headers/Public/libqrencode\"",
 				);
-				PRODUCT_NAME = "E小区";
+				PRODUCT_NAME = EClub;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;

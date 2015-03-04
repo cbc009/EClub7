@@ -15,6 +15,7 @@
 
 
 typedef void (^completion)(BOOL completed, NSDictionary *data);
+typedef void (^done)(BOOL completed,id object);
 typedef void (^finished)(NSDictionary *info);
 typedef void (^doneWithObject)(id object);
 typedef void (^doneWithObjectAndStatus)(int status,id object);
@@ -46,4 +47,5 @@ typedef void (^doneWithObjectAndStatus)(int status,id object);
 +(void)baseBalanceWithToken:(NSString *)token andUser_type:(NSInteger)user_type withTabBarViewController:(UITabBarController*)tabBarController doneObject:(doneWithObject)done;
 +(void)removeLocalPushNotificationWithType:(NSString *)type;
 +(BOOL)notifyTime2:(NSString *)time;
++(void)fingerPayWithDone:(done)done;
 @end

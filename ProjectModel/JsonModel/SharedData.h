@@ -20,6 +20,9 @@
 @property(nonatomic,assign)CGFloat redbag;
 
 @property(nonatomic,assign)float createPayPrice;
+
+@property(nonatomic,strong)NSString *fingerIsOpened;//是否开启指纹支付
+@property(nonatomic,strong)NSString *payPassword;//支付密码
 +(id)sharedInstance;
 
 @end

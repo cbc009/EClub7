@@ -13,7 +13,7 @@
 #import "JSONModelLib.h"
 #import "NSString+MT.h"
 #import "BalanceModel.h"
-
+#import <LocalAuthentication/LocalAuthentication.h>
 
 @implementation SharedAction
 
@@ -458,6 +458,50 @@
 -(void)headerRereshing{
 }
 -(void)footerRereshing{
+}
+
+//指纹支付
++(void)fingerPayWithDone:(done)done{
+    LAContext *myContext = [[LAContext alloc] init];
+    //        myContext.localizedFallbackTitle = @"";//设置为nil，则不会出现“输入密码”
+    NSError *authError = nil;
+    NSString *myLocalizedReasonString = @"使用指纹支付";
+    
+    if ([myContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
+        [SVProgressHUD show];
+        
+        [myContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+                  localizedReason:myLocalizedReasonString
+                            reply:^(BOOL succes, NSError *error) {
+                                
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    if (succes) {
+                                        done(succes,nil);
+                                    } else {
+                                        
+                                        switch (error.code) {
+                                            case LAErrorAuthenticationFailed:
+                                                [SVProgressHUD showErrorWithStatus:@"支付失败"];
+                                                break;
+                                                
+                                            case LAErrorUserCancel:
+                                                [SVProgressHUD showErrorWithStatus:@"支付取消"];
+                                                break;
+                                            case kLAErrorUserFallback:
+                                                done(succes,nil);
+                                                break;
+                                            default:
+                                                [SVProgressHUD showErrorWithStatus:@"touch ID 尚未设置"];
+                                                break;
+                                        }
+                                        [SVProgressHUD dismiss];
+                                    }
+                                });
+                            }];
+    } else {
+        [SVProgressHUD showErrorWithStatus:@"本设备不支持指纹识别"];
+    }
+
 }
 
 #pragma UMSocialUIDelegate
