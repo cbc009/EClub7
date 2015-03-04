@@ -34,10 +34,6 @@
     [self setupSocialSharePlatform];
     [self setUMessageWithLaunchOptions:launchOptions];
     [Bmob registerWithAppKey:BmobAppID];
-    NSArray *localArr;
-    localArr = [application scheduledLocalNotifications];
-    NSLog(@"localArr:%@",localArr);
-    
     [[UITabBar appearance] setTintColor:MainTabBarColor];
     [[UINavigationBar appearance] setTintColor:MainNavBarColor];
     

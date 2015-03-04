@@ -104,7 +104,6 @@
 
 #pragma TouchIDSetDelegate
 -(void)touchIDSetSuccessed{
-    
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"指纹密码设置成功" message:@"恭喜，您的指纹可用于支付" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"知道了", nil];
     [alertView show];
     

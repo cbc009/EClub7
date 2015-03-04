@@ -241,7 +241,6 @@
                 return;
             }
         }
-        
         SharedData *sharedData = [SharedData sharedInstance];
         UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"支付密码" message:@"支付密码为登陆密码" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
         alertView.alertViewStyle = UIAlertViewStyleSecureTextInput;

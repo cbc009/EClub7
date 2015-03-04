@@ -32,7 +32,7 @@
 }
 
 -(void)setItemInfosWithController:(RobViewController *)viewController andGoodModel:(RobModelInfo *)good{
-    NSString *startTime =@"1425346800";
+    NSString *startTime =good.starttime;
     viewController.robModel = good;
     viewController.itemImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,good.picture]]]];
     viewController.itemPic =[NSString stringWithFormat:@"%@%@",IP,good.picture];
