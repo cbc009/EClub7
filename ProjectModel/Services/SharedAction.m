@@ -287,7 +287,7 @@
 
 //若time ealier now 则设置notifyTime==time；若time later now ，则设置notifyTime = time+one day；
 +(NSDate *)notifyTime:(NSString *)time{
-//    NSDate *notifyTime = nil;
+    NSDate *notifyTime = nil;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 //    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
 //    NSString *strDate = [dateFormatter stringFromDate:[NSDate date]];
