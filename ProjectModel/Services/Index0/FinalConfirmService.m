@@ -88,28 +88,6 @@
     [viewController.sendMethod2 setImage:[UIImage imageNamed:@"checked_true"] forState:UIControlStateNormal];
     viewController.bottomTotalPrice.text = [NSString stringWithFormat:@"总额:￥%0.1f",[viewController.totalPriceString floatValue]+[[viewController.shipping_fee.text substringToIndex:viewController.shipping_fee.text.length-1] floatValue]];
 }
--(void)submitActionInViewController:(FinalConfirmViewController *)viewController{
-    if([self compareCurrentTimeWithTime:@"21:30:00"] == NSOrderedDescending && [self compareCurrentTimeWithTime:@"06:00:00"] == NSOrderedAscending){
-        //如果是卖家送货
-        if (viewController.sendMethod2.tag==1) {
-            if ([viewController.sendAddress.text isEqualToString:@""]) {
-                [SVProgressHUD showErrorWithStatus:@"请填写准确送货地址"];
-                return;
-            }else if(![viewController.userPhone.text isValidateMobile:viewController.userPhone.text]){
-                [SVProgressHUD showErrorWithStatus:@"请正确填写手机号码"];
-                return;
-            }else if ([viewController.totalPriceString floatValue]<30){
-                [SVProgressHUD showErrorWithStatus:@"不足30元消费，暂不提供送货上门服务"];
-                return;
-            }
-        }
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"支付密码" message:@"支付密码为登陆密码" delegate:viewController cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-        alertView.alertViewStyle = UIAlertViewStyleSecureTextInput;
-        [alertView show];
-    }else{
-        [SVProgressHUD showErrorWithStatus:@"下单时间:每天6:00-21:30"];
-    }
-}
 
 //比较时间，timeString格式为HH:mm:ss
 -(NSComparisonResult)compareCurrentTimeWithTime:(NSString *)timeString{

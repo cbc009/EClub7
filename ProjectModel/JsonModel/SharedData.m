@@ -87,4 +87,24 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     return [userDefaults floatForKey:@"createPayPrice"];
 }
+
+-(void)setFingerIsOpened:(NSString *)fingerIsOpened{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:fingerIsOpened forKey:@"fingerIsOpened"];
+    [userDefaults synchronize];
+}
+-(NSString *)fingerIsOpened{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults objectForKey:@"fingerIsOpened"];
+}
+
+-(void)setPayPassword:(NSString *)payPassword{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:payPassword forKey:@"payPassword"];
+    [userDefaults synchronize];
+}
+-(NSString *)payPassword{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults objectForKey:@"payPassword"];
+}
 @end

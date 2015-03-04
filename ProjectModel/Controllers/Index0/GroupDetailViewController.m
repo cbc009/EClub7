@@ -132,8 +132,8 @@
             [self addToGroupWithPassword:password];
         }
     }else {
-            NSString *password = [[alertView textFieldAtIndex:0] text];
-            if (buttonIndex==0) {
+        NSString *password = [[alertView textFieldAtIndex:0] text];
+        if (buttonIndex==0) {
         }else if(buttonIndex == 1){
             [self addToGroupWithPassword:password];
         }
@@ -180,14 +180,27 @@
 }
 
 - (IBAction)pay:(id)sender {
+    
     if ([self.numbs.text isEqualToString:@"0"]){
         [SVProgressHUD showErrorWithStatus:@"购买数量不能为空"];
     }else{
-       float price =[self.groupGood.discount floatValue]*[self.numbs.text floatValue];
+        SharedData *sharedData = [SharedData sharedInstance];
+        float price =[self.groupGood.discount floatValue]*[self.numbs.text floatValue];
         NSString *stringFloat = [NSString stringWithFormat:@"%0.2f",price];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认支付" message: [NSString stringWithFormat:@"请输入支付密码初始密码为手机后六位,您需要支付%@",stringFloat] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
         alertView.alertViewStyle = UIAlertViewStyleSecureTextInput;
-        [alertView show];
+        if ([sharedData.fingerIsOpened isEqualToString:@"yes"]) {
+            [SharedAction fingerPayWithDone:^(BOOL success,id object){
+                if (success) {
+                    [self addToGroupWithPassword:sharedData.payPassword];
+                }else{
+                    [alertView show];
+                }
+            }];
+        }else{
+            [alertView show];
+        }
+       
     }
 }
 - (IBAction)reduce:(id)sender {
