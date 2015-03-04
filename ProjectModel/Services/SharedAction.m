@@ -294,13 +294,13 @@
 //    NSString *dateString = [NSString stringWithFormat:@"%@ %@",strDate,time];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSDate *date = [dateFormatter dateFromString:time];
-//    if ([[date laterDate:[NSDate date]] isEqual:date]) {
-//        notifyTime = date;
-//    }else{
-//        NSTimeInterval secondsPerDay = 24*60*60;
-//        notifyTime = [date dateByAddingTimeInterval:secondsPerDay];
-//    }
-//    NSLog(@"设置本地推送时间:%@",[dateFormatter stringFromDate:notifyTime]);
+    if ([[date laterDate:[NSDate date]] isEqual:date]) {
+        notifyTime = date;
+    }else{
+        NSTimeInterval secondsPerDay = 24*60*60;
+        notifyTime = [date dateByAddingTimeInterval:secondsPerDay];
+    }
+    NSLog(@"设置本地推送时间:%@",[dateFormatter stringFromDate:notifyTime]);
     return date;
 }
 //对比当前时间是不是在所需设置的时间之前
