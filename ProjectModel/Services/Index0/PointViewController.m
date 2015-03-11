@@ -32,10 +32,11 @@
     self.page = 1;
     pointViewControllerService  = [[PointVIewControllerService alloc] init];
     dic = [[NSMutableDictionary alloc] init];
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.itemSize = CGSizeMake(122,  149);
-    layout.minimumInteritemSpacing = 0;
-    self.collectionview.collectionViewLayout = layout;
+//    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+//    layout.itemSize = CGSizeMake(146,171);
+//
+//    layout.minimumInteritemSpacing = 0;
+//    self.collectionview.collectionViewLayout = layout;
     identifier = @"PointCollectionViewCell";
     [self setupRefresh];
 }
@@ -61,7 +62,7 @@
     dic = self.datas[indexPath.row];
     Cell.name.text = [dic valueForKey:@"name"];
     [Cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,[dic valueForKey:@"picture"]]] placeholderImage:[UIImage imageNamed:@"e"]];
-    Cell.EPrize.text =[NSString stringWithFormat:@"所需E币: %@",[dic valueForKey:@"point"]];
+    Cell.EPrize.text =[NSString stringWithFormat:@"%@E币",[dic valueForKey:@"point"]];
     return Cell;
 }
 #pragma UICollectionViewDelegate

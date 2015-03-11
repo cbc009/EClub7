@@ -1,12 +1,12 @@
 //
-//  RobedRecordsTableViewController.m
+//  RobedRecordsViewController.m
 //  Club
 //
-//  Created by dongway on 14-8-11.
-//  Copyright (c) 2014年 martin. All rights reserved.
+//  Created by MartinLi on 15-3-9.
+//  Copyright (c) 2015年 martin. All rights reserved.
 //
 
-#import "RobedRecordsTableViewController.h"
+#import "RobedRecordsViewController.h"
 #import "AddMoreRobedRecordService.h"
 #import "RobedRecordCell.h"
 
@@ -19,7 +19,7 @@
 #import "Member_Login.h"
 #import "Member_History.h"
 #import "Index0Service.h"
-@interface RobedRecordsTableViewController ()
+@interface RobedRecordsViewController ()
 {
     NSString *identifer;
     AddMoreRobedRecordService *addMoreRobeRecord;
@@ -29,16 +29,17 @@
 }
 @end
 
-@implementation RobedRecordsTableViewController
+@implementation RobedRecordsViewController
 
 
 -(void)loadView{
     [super loadView];
+    self.title=@"抢购名单";
     identifer = @"RobedRecordCell";
     UINib *nib = [UINib nibWithNibName:@"RobedRecordCell" bundle:nil];
-    [self.tableView registerNib:nib forCellReuseIdentifier:identifer];
+    [self.tableview registerNib:nib forCellReuseIdentifier:identifer];
     [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
-
+    
 }
 
 - (void)viewDidLoad
@@ -103,7 +104,7 @@
         [self.tableview reloadData];
         [self.tableview footerEndRefreshing];
     }];
-
+    
     
 }
 
@@ -112,6 +113,7 @@
     NSInteger row = indexPath.row;
     RobedRecordCell *cell = [tableView dequeueReusableCellWithIdentifier:identifer forIndexPath:indexPath];
     Member_Info *record = [self.datas objectAtIndex:row];
+    cell.selectionStyle=UITableViewCellSelectionStyleNone;
     cell.nickname.text = record.nickname;
     cell.time.text = record.regtime;
     return cell;
@@ -122,8 +124,8 @@
     return 29;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 10;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    return 10;
+//}
 
 @end

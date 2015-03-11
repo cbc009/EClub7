@@ -69,6 +69,8 @@
 	<string>1.63</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>

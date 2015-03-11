@@ -47,8 +47,8 @@ typedef void (^finished)(NSDictionary *info);
 
 #define MainGreenColor [UIColor colorWithRed:64.0/255 green:198.0/255 blue:119.0/255 alpha:1]
 
-//#define IP @"http://scope.stcyclub.com"
-#define IP @"http://www.greenwh.com"
+#define IP @"http://scope.stcyclub.com"
+//#define IP @"http://www.greenwh.com"
 
 #define MainPrexURL [NSString stringWithFormat:@"%@/wap.php/",IP]
 #define PrexImgPath [NSString stringWithFormat:@"%@/Static/Uploads/img/",IP]
@@ -87,6 +87,12 @@ typedef void (^finished)(NSDictionary *info);
 //抽奖规则
 #define Prize_Latest_Rules_URL [PrexURL stringByAppendingString: @"Prize/latest_rules/from/IOS/token/%@/user_type/%d"]
 
+//抢购首页
+#define Robuy_Goods_URL [PrexURL stringByAppendingString: @"Robuy/robuy_goods/lifehall_id/%d"]
+//商家信息
+#define Public_Info_URL [PrexURL stringByAppendingString: @"Public/Seller_info/agent_id/%@/seller_id/%@"]
+//抢购分享
+#define Robuy_Share_URL [PrexURL stringByAppendingString: @"Robuy/robuy_goods_share/goods_id/%@"]
 //每次一抢的菜
 #define Rob_Index_URL [PrexURL stringByAppendingString: @"Rob/index/from/IOS/token/%@/user_type/%d"]
 //抢菜记录

@@ -15,7 +15,7 @@
 #import "SharedData.h"
 #import "Member_Login.h"
 #import "AddMorePasItem.h"
-#import "RobedRecordsTableViewController.h"
+#import "RobedRecordsViewController.h"
 @interface PastItemsTableViewController ()
 {
     AddMorePasItem *addMorePasItem;
@@ -97,7 +97,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     PastItem *item = [self.datas objectAtIndex:indexPath.section];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
-    RobedRecordsTableViewController *rewarRecordsViewController = [storyboard instantiateViewControllerWithIdentifier:@"RobedRecordsTableViewController"];
+    RobedRecordsViewController *rewarRecordsViewController = [storyboard instantiateViewControllerWithIdentifier:@"RobedRecordsViewController"];
     rewarRecordsViewController.hidesBottomBarWhenPushed = YES;
     rewarRecordsViewController.gid =item.gid;
     [self.navigationController pushViewController:rewarRecordsViewController animated:YES];

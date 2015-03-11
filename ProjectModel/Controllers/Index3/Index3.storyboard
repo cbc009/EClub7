@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Jef-6y-ymL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Jef-6y-ymL">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -15,7 +15,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ASR-wg-zB0">
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="1" green="0.031759160459999998" blue="0.1169535164" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="szD-0Y-txM" kind="relationship" relationship="rootViewController" id="0Qr-Mp-1hb"/>
@@ -296,7 +296,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xQc-Wf-Te7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="32" y="388"/>
+            <point key="canvasLocation" x="37" y="300"/>
         </scene>
         <!--Point Ord View Controller-->
         <scene sceneID="EtR-hz-4MU">
@@ -366,7 +366,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LrQ-GY-IcB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="32" y="1065"/>
+            <point key="canvasLocation" x="37" y="937"/>
         </scene>
         <!--Feedback View Controller-->
         <scene sceneID="843-Gc-ymF">
@@ -686,7 +686,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yCD-C2-LWT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1665" y="-812"/>
+            <point key="canvasLocation" x="-1777" y="-819"/>
         </scene>
         <!--My Order View Controller-->
         <scene sceneID="uqh-G6-6OK">
@@ -1026,7 +1026,7 @@
                     <navigationItem key="navigationItem" id="k8B-Qo-Zwf">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" restorationIdentifier="segment" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="3IB-OE-PuM">
-                            <rect key="frame" x="40.5" y="7" width="239" height="30"/>
+                            <rect key="frame" x="41" y="7" width="239" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="买"/>
@@ -1253,7 +1253,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QHM-eF-y0d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="24" y="1728"/>
+            <point key="canvasLocation" x="37" y="1576"/>
         </scene>
         <!--Code View Controller-->
         <scene sceneID="1bA-fy-FHw">
@@ -1674,7 +1674,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6dh-Bs-KgK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="24" y="-279"/>
+            <point key="canvasLocation" x="37" y="-327"/>
         </scene>
         <!--设置-->
         <scene sceneID="WcA-kx-YDN">
@@ -1751,7 +1751,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kfx-9m-FU9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-885" y="-4126"/>
+            <point key="canvasLocation" x="-877" y="-2878"/>
         </scene>
         <!--指纹密码-->
         <scene sceneID="cR4-8D-kDX">
@@ -1826,7 +1826,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LxJ-kv-Fsc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-464" y="-4126"/>
+            <point key="canvasLocation" x="32" y="-3590"/>
         </scene>
         <!--身份验证-->
         <scene sceneID="dbp-60-UCh">
@@ -1892,7 +1892,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="45n-al-tvx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-107" y="-4126"/>
+            <point key="canvasLocation" x="717" y="-3590"/>
         </scene>
         <!--User Detail View Controller-->
         <scene sceneID="vSb-DY-b13">
@@ -2101,8 +2101,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L1c-6V-eV8">
-                                <rect key="frame" x="0.0" y="-18" width="348" height="586"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L1c-6V-eV8">
+                                <rect key="frame" x="0.0" y="-18" width="348" height="537"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aXF-EZ-gsA">
                                         <rect key="frame" x="67" y="197" width="200" height="50"/>

@@ -269,7 +269,6 @@
      //维度：loc.coordinate.latitude
    //经度：loc.coordinate.longitude
     NSLog(@"纬度=%f，经度=%f",loc.coordinate.latitude,loc.coordinate.longitude);
-    NSLog(@"%ld",(long)locations.count);
     [manager stopUpdatingLocation];
     
 }

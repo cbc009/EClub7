@@ -99,7 +99,6 @@
         cell.herad.layer.cornerRadius = 30;
         [cell.back sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,lifeBackPicture]] placeholderImage:[UIImage imageNamed:@"e"]];
         cell.back.userInteractionEnabled =YES;
-        cell.back.frame=CGRectMake(-20, 0, DeviceFrame.size.width+40, 131);
         UITapGestureRecognizer *chageBack = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tpaChangebackGround)];
         [cell.back addGestureRecognizer:chageBack];
         return cell;
@@ -424,14 +423,6 @@
     [self.mytextView resignFirstResponder];
     self.toolBar.hidden = YES;
 }
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    UITouch *touch = [touches anyObject];
-    CGPoint touchPoint = [touch locationInView:self.tableview];
-    NSLog(@"%f==%f",touchPoint.x,touchPoint.y);
-    int stringFloat = (int)(touchPoint.x);
-    int stringFloat1 = (int)(touchPoint.y);
-    NSLog(@"%i%i",stringFloat,stringFloat1);
-        //touchPoint.x ，touchPoint.y 就是触点的坐标。
-}
+
+
 @end

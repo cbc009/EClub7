@@ -32,6 +32,7 @@
     NSMutableArray  *labelArray;
     //标签是否出现  1为出现 0为不出现；
     int k;
+    
 }
 @property (strong, nonatomic) SKTagView *tagView;
 @property (nonatomic, strong) NSArray *colorPool;

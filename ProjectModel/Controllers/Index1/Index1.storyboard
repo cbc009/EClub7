@@ -15,7 +15,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kvy-8f-kh7">
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="1" green="0.031759160459999998" blue="0.1169535164" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="VN3-wj-ECu" kind="relationship" relationship="rootViewController" id="1HY-4E-c6J"/>

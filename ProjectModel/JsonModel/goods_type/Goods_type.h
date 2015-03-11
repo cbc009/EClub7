@@ -8,6 +8,8 @@
 
 #import "JSONModel.h"
 
+@protocol Goods_type_goods_type <NSObject>
+@end
 @protocol Goods_type_subType <NSObject>
 @end
 
@@ -15,10 +17,6 @@
 @property(nonatomic,strong)NSString *subid;
 @property(nonatomic,strong)NSString *name;
 @end
-
-@protocol Goods_type_goods_type <NSObject>
-@end
-
 @interface Goods_type_goods_type : JSONModel
 @property(nonatomic,strong)NSString *mainid;
 @property(nonatomic,strong)NSString *name;

@@ -26,7 +26,7 @@
     
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    intervalTime=2;
+    intervalTime=4;
     [super setSelected:selected animated:animated];
    
     // Configure the view for the selected state
