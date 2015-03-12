@@ -14,13 +14,15 @@
 #import "SharedAction.h"
 #import "WebViewController.h"
 #import "Status.h"
-#import <BmobSDK/Bmob.h>
+#import "ChangeLifehallViewController.h"
+
 #import "Index0_1Cell.h"
 #import "RobCell.h"
 #import "Index0Service.h"
 #import "Robuy_Goods.h"
 #import <UIImageView+WebCache.h>
 #import "RobDetailViewController.h"
+#import "MJRefresh.h"
 @interface RobViewController ()
 {
     RobService *robService;
@@ -30,6 +32,9 @@
     NSMutableArray *timeArray;
     NSMutableArray *timeEndArray;
     NSTimer *timwer;
+    NSInteger page;
+    NSInteger ChangeUp;
+    ChangeLifehallViewController *changeLifehallViewController;
     
 }
 @property(nonatomic,assign)NSInteger second1;
@@ -54,44 +59,49 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    ChangeUp=0;
     self.title = @"抢购";
     timeArray=[NSMutableArray new];
     timeEndArray=[NSMutableArray new];
     robService = [[RobService alloc] init];
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
+    self.goodNums =[NSMutableArray new];
     index0Service=[[Index0Service alloc] init];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.title=@"乔庄生活馆";
     [robService loadAdverPicWithPos:3 inViewController:self];
+    [SharedAction setupRefreshWithTableView:self.tableView toTarget:self];
+    [self headerRereshing];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+    changeLifehallViewController = [storyboard instantiateViewControllerWithIdentifier:@"ChangeLifehallViewController"];
+    changeLifehallViewController.delegate=self;
+}
+-(void)loadDataWithLifehallid:(NSString *)lifehall_id andGoods:(NSString *)goodsId andType:(NSInteger )type{
     __block RobViewController *aBlockSelf = self;
-   
-    [robService setRobModelWithLifehallid:user.lifehall_id orGoodsid:@"0" inRootTabBarController:self.tabBarController withDone:^(Robuy_Goods_info *model){
-        aBlockSelf.goodNums=model.arr_goods;
+    [robService setRobModelWithLifehallid:lifehall_id orDetail:@"" inRootTabBarController:self.tabBarController withDone:^(Robuy_Goods_info *model){
+        if (type==0) {
+            aBlockSelf.goodNums=(NSMutableArray *)model.arr_goods;
+        }else{
+            [aBlockSelf.goodNums addObjectsFromArray:model.arr_goods];
+        }
         [aBlockSelf.tableView reloadData];
     }];
 }
 
 
-//
-
-
-////抢
-//- (IBAction)buyOrRobAction:(id)sender {
-//    [robService robWithToken:user.token andUser_type:user.user_type andRobModel:self.robModel inTabBarController:self.tabBarController withDone:^(Status *model){
-//        NSString *message =[NSString stringWithFormat:@"恭喜你在E小区免费抢到%@赶快去告诉朋友吧",self.robModel.name];
-//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"抢菜信息" message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去告诉朋友", nil];
-//        [alertView show];
-//        //存储到Bmob后台
-//        BmobObject *object = [BmobObject objectWithClassName:@"RobOrder"];
-//        [object setObject:user.loginname forKey:@"loginname"];
-//        [object setObject:self.robModel.name forKey:@"goodName"];
-//        [object setObject:self.robModel.gid forKey:@"goodId"];
-//        [object saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
-//            //进行操作
-//        }];
-//    }];
-//}
+- (IBAction)changeLifeHall:(id)sender {
+   
+    if (ChangeUp==0) {
+        ChangeUp=1;
+        [self.view addSubview:changeLifehallViewController.view];
+    }
+}
+-(void)changeLifeId:(NSString *)lifeHallId andLifeHallName:(NSString *)lifehallName{
+    self.title=lifehallName;
+    ChangeUp=0;
+    [self loadDataWithLifehallid:lifeHallId andGoods:@"0" andType:0];
+}
 
 #pragma MartinLiPageScrollViewDelegate
 -(void)imgViewDidTouchActionAtIndex:(NSInteger)index inArray:(NSArray *)array{
@@ -105,19 +115,6 @@
         NSLog(@"暂无url");
     }
 }
-
-
-
-//
-//-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-//    if(buttonIndex==1) {
-////        [SharedAction shareWithTitle:_itemNameLabel.text andDesinationUrl:AppDownLoadURL Text:alertView.message andImageUrl:_itemPic InViewController:self];
-//    }
-//}
-//
-//- (IBAction)shareAction:(id)sender {
-////    [SharedAction shareWithTitle:_itemNameLabel.text andDesinationUrl:AppDownLoadURL Text:@"在E小区中每天都有免费抢菜哦 小伙伴们赶快来" andImageUrl:_itemPic InViewController:self];
-//}
 /*
  秒转化成详细时间
  */
@@ -164,12 +161,12 @@
         cell.goodName.text=object.name;
         cell.goodNum.text=[NSString stringWithFormat:@"抢购数量:%@",object.provider_nums];
         if ([object.discount isEqualToString:@"0.00"]) {
-            cell.goodPrice.text=[NSString stringWithFormat:@"E:%@",object.point];
+            cell.goodPrice.text=[NSString stringWithFormat:@"%@E币",object.point];
         }else{
-            cell.goodPrice.text=[NSString stringWithFormat:@"元:%@",object.discount];
+            cell.goodPrice.text=[NSString stringWithFormat:@"￥:%@",object.discount];
         }
         cell.marketPrice.text=[NSString stringWithFormat:@"￥:%@",object.price];
-        cell.saleNum.text =[NSString stringWithFormat:@"以抢:%@",object.actual_nums];
+        cell.saleNum.text =[NSString stringWithFormat:@"已抢:%@",object.actual_nums];
         cell.starttime=object.start_seconds;
         cell.endtime=object.end_seconds;
         if (object.start_seconds >-1) {
@@ -215,4 +212,23 @@
     viewController.robGoodsMOdel = robuyGood;
 
 }
+-(void)headerRereshing
+{
+    page =1;
+    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
+    NSString *lifeHall_id =[NSString stringWithFormat:@"%ld/page/%@",(long)user.lifehall_id,pageString];
+    [self loadDataWithLifehallid:lifeHall_id andGoods:@"0" andType:0];
+     [self.tableView headerEndRefreshing];
+}
+- (void)footerRereshing
+{
+    page++;
+    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
+    NSString *lifeHall_id =[NSString stringWithFormat:@"%ld/page/%@",(long)user.lifehall_id,pageString];
+    [self loadDataWithLifehallid:lifeHall_id andGoods:@"0" andType:1];
+    [self.tableView footerEndRefreshing];
+
+}
+
+
 @end

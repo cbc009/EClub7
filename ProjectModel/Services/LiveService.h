@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "LiveViewController.h"
 @interface LiveService : NSObject
+
 -(void)loadLiveDataWithToken:(NSString *)token andUser_type:(NSInteger )user_type andPageString:(NSString *)pageString withTabBarViewController:(UITabBarController*)tabBarController doneObject:(doneWithObject)done;
 -(void)countSizeWithData:(NSMutableArray *)data inViewController:(LiveViewController *)viewController;
 -(void)updateHeaderImage:(UIImage *)image inTabBarController:(UITabBarController *)tabBarController withCompletion:(finished)finished;

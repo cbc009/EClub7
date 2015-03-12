@@ -76,7 +76,7 @@
         }
     }];
 }
-
+//从数组中添加图片
 -(NSArray *)namesFromPictures:(NSArray *)pictures{
     if (pictures) {
         NSMutableArray *names = [[NSMutableArray alloc] init];
@@ -90,7 +90,7 @@
         return nil;
     }
 }
-
+//从数组中标题
 -(NSArray *)titlesFromPictures:(NSArray *)pictures{
     if (pictures) {
         NSMutableArray *titles = [[NSMutableArray alloc] init];
@@ -109,7 +109,7 @@
         return nil;
     }
 }
-
+//从数组中添加链接
 -(NSArray *)urlsFromPictures:(NSArray *)pictures{
    if (pictures) {
         NSMutableArray *urls = [[NSMutableArray alloc] init];

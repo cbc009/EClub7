@@ -13,6 +13,7 @@
 @interface BuyService : NSObject
 
 @property(nonatomic,strong)NSDictionary *firstLevelData;
+//选择哪一行对应的商品
 -(void)setSelectedColorInCollectionView:(UICollectionView *)collectionView withSelectedRow:(NSInteger)row withDatas:(NSArray *)datas;
 -(void)loadGoodTypesWithToken:(NSString *)token andUser_type:(NSInteger )user_type InViewController:(UIViewController *)viewController;
 //-(void)type_goodsWithToken:(NSString *)token andUser_type:(NSInteger )user_type andSubtypeId:(NSString *)subtypeId andPageString:(NSString *)pageString withDone:(doneWithObject)done;

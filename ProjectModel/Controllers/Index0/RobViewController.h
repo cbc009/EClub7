@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "RobModel.h"
 #import "MartinLiPageScrollView.h"
+#import "ChangeLifehallViewController.h"
+@interface RobViewController : UIViewController<UIAlertViewDelegate,MartinLiPageScrollViewDelegate,ChangeLifehallDelegate>
 
-@interface RobViewController : UIViewController<UIAlertViewDelegate,MartinLiPageScrollViewDelegate>
+
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic,strong)NSArray *goodNums;
+@property (nonatomic,strong)NSMutableArray *goodNums;
 @property (nonatomic,strong)NSArray *pageviewDatas;
 @end

@@ -162,7 +162,6 @@
     switch (status) {
         case 2:
             [SVProgressHUD dismiss];
-            [SVProgressHUD showSuccessWithStatus:error];
             break;
         case 1:
             [SVProgressHUD showErrorWithStatus:error];
@@ -416,9 +415,12 @@
 +(void)commonActionWithUrl:(NSString *)url andStatus:(NSInteger)status andError:(NSString *)error andJSONModelError:(JSONModelError *)jsonError andObject:(id)object inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
     NSLog(@"status=%ld url=%@ message=%@",(long)status,url,error);
     if (!jsonError) {
-        if (status==2||status==808||status==806) {
+        if (status==808||status==806) {
             done(object);
             [SVProgressHUD showSuccessWithStatus:error];
+        }else if(status==2){
+            done(object);
+            [SVProgressHUD dismiss];
         }else{
             if (error==nil||[error isEqualToString:@""])
             {

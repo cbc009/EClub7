@@ -46,22 +46,10 @@
         //需要重新加载userDefaults的数据（可能数据库的数据会经常变化）
         [index0Service loadUserDefaultsInViewController:self witLoginStatus:sharedData.loginStatus];
 //    }
-    self.collectionDatas = [NSArray arrayWithObjects:@"抢购",@"充值",@"秒杀",@"抽奖",@"团购",@"兑换",@"购物车",@"钱包", nil];
-    self.collectionImgs = [NSArray arrayWithObjects:@"main11.png",@"main12.png",@"main13.png",@"main14.png",@"main21.png",@"main14.png",@"main23.png",@"main24.png", nil];
+    self.collectionDatas = [NSArray arrayWithObjects:@"抢购",@"秒杀",@"团购",@"购物车",@"充值",@"抽奖",@"兑换",@"钱包", nil];
+    self.collectionImgs = [NSArray arrayWithObjects:@"qianggou.png",@"miaosha.png",@"tuangou.png",@"gouwuche.png",@"chongzhi.png",@"choujiang.png",@"duihuan.png",@"qianbao.png", nil];
 }
-//-(void)viewDidAppear:(BOOL)animated
-//{
-//    [super viewDidAppear:animated];
-////    [self.tableview reloadData];
-//}
-//- (void)didReceiveMemoryWarning {
-//    [super didReceiveMemoryWarning];
-//    // Dispose of any resources that can be recreated.
-//}
-//-(void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//}
+
 
 #pragma mark - Navigation
 
@@ -130,29 +118,11 @@
         return 109;
     }
 }
-//- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger )section
-//{
-//    if (section==2) {
-//        UISearchBar *searchBar = [[UISearchBar alloc] init];
-//        searchBar.keyboardType = UIKeyboardTypeDefault;
-//        searchBar.delegate=self;
-//        return searchBar;
-//    }else{
-//        return nil;
-//    }
-//}
-//- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
-//        SerchViewController *serchViewController = [storyboard instantiateViewControllerWithIdentifier:@"SerchViewController"];
-//    serchViewController.hidesBottomBarWhenPushed=YES;
-//    [self.navigationController pushViewController:serchViewController animated:YES];
-//}
-// 
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section==0) {
         return 0;
-//    }else if(section==2){
-//        return 35;
+
     }else{
         return 8;
     }
@@ -209,23 +179,23 @@
         storyboardName = @"Index0";
         identifier = @"RobViewController";
     }else if (row==1){
-        storyboardName = @"Index3";
-        identifier = @"CreatePayViewController";
-    }else if(row==2){
         storyboardName = @"Index0";
         identifier = @"KillListViewController";
-    }else if(row==3){
-        storyboardName = @"Index0";
-        identifier = @"Index1ViewController";
-    }else if(row==4){
+    }else if(row==2){
         storyboardName = @"Index0";
         identifier = @"GroupsViewController";
-    }else if(row==5){
-        storyboardName = @"Index0";
-        identifier = @"PointViewController";
-    }else if(row==6){
+    }else if(row==3){
         storyboardName = @"Index0";
         identifier = @"PurchaseCarItemsViewController";
+    }else if(row==4){
+        storyboardName = @"Index3";
+         identifier = @"CreatePayViewController";
+    }else if(row==5){
+        storyboardName = @"Index0";
+        identifier = @"Index1ViewController";
+    }else if(row==6){
+        storyboardName = @"Index0";
+        identifier = @"PointViewController";
     }else if(row==7){
         storyboardName = @"Index3";
         identifier = @"MyWalletViewController";
@@ -253,6 +223,7 @@
         NSLog(@"第%ld张图片暂无url",(long)index);
     }
 }
+
 -(void)locationNow{
     self.locMgr = [[CLLocationManager alloc] init];
     self.locMgr.delegate = self;

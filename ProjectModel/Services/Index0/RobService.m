@@ -24,9 +24,9 @@
 #import "Seller_Info.h"
 @implementation RobService
 
--(void)setRobModelWithLifehallid:(NSInteger )lifehallid orGoodsid:(NSString *)goodsId inRootTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
-    [SVProgressHUD showWithStatus:@"正在加载今日抢菜数据......"];
-      NSString *urlString = [NSString stringWithFormat:Robuy_Goods_URL,lifehallid];
+-(void)setRobModelWithLifehallid:(NSString *)lifehallid orDetail:(NSString *)detail inRootTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
+    [SVProgressHUD show];
+      NSString *urlString = [NSString stringWithFormat:Robuy_Goods_URL,lifehallid,detail];
     [Robuy_Goods getModelFromURLWithString:urlString completion:^(Robuy_Goods *model,JSONModelError *error){
         [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
     }];
@@ -48,6 +48,7 @@
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
     NSString *urlString = [NSString stringWithFormat:AdPictUrl,user.city,pos];
+    NSLog(@"urlString:%@",urlString);
     [self loadAdverPicFromUrl:urlString inViewController:viewController];
 }
 
@@ -62,16 +63,28 @@
         }
     }];
 }
-
-
-
-//开抢
--(void)robWithToken:(NSString *)token andUser_type:(NSInteger )user_type andRobModel:(RobModelInfo *)robModel inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
+-(void)robWithToken:(NSString *)token andLifehallId:(NSString *)lifehall_id andUser_type:(NSInteger )user_type andRobModel:(Robuy_Goods_arr_goods_info *)robModel inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
     if ([robModel.starttime compareCurrentTimeWith:robModel.starttime]==NSOrderedDescending) {
         [SVProgressHUD showErrorWithStatus:@"未到抢菜时间"];
     }else{
         [SVProgressHUD showWithStatus:@"正在努力抢菜中......."];
-        NSString *gid = robModel.gid;
+        NSString *gid = robModel.goods_id;
+        NSString *urlString = [NSString stringWithFormat:Robuy_Goods_Now_URL,lifehall_id,gid,token,user_type];
+        [Status getModelFromURLWithString:urlString completion:^(Status *model,JSONModelError *error){
+            [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model inTabBarController:tabBarController withDone:done];
+        }];
+    }
+
+}
+
+
+//开抢
+-(void)robWithToken:(NSString *)token andUser_type:(NSInteger )user_type andRobModel:(Robuy_Goods_arr_goods_info *)robModel inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
+    if ([robModel.starttime compareCurrentTimeWith:robModel.starttime]==NSOrderedDescending) {
+        [SVProgressHUD showErrorWithStatus:@"未到抢菜时间"];
+    }else{
+        [SVProgressHUD showWithStatus:@"正在努力抢菜中......."];
+        NSString *gid = robModel.goods_id;
         NSString *urlString = [NSString stringWithFormat:Rob_Robuy_Order_URL,token,user_type,gid];
         [Status getModelFromURLWithString:urlString completion:^(Status *model,JSONModelError *error){
             [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model inTabBarController:tabBarController withDone:done];

@@ -49,7 +49,7 @@
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
     _tableview.showsVerticalScrollIndicator =NO;
-    [_tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+//    [_tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     addMoreRobeRecord = [[AddMoreRobedRecordService alloc] init];
     _page= 1;
     self.title = @"抢购记录";
@@ -87,8 +87,8 @@
 {
     _page =1;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
-    [addMoreRobeRecord robuy_memberWithToken:user.token andUser_type:user.user_type andGId:self.gid andPage:pageString inTabBarController:self.tabBarController withDone:^(Rob_Record_Info *model){
-        self.datas = (NSMutableArray *)model.member;
+    [addMoreRobeRecord robuy_memberWithGId:self.gid andPage:pageString inTabBarController:self.tabBarController withDone:^(Rob_Record_Info *model){
+        self.datas = (NSMutableArray *)model.arr_member;
         [self.tableview reloadData];
         [self.tableview headerEndRefreshing];
     }];
@@ -99,8 +99,8 @@
 {
     _page++;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
-    [addMoreRobeRecord robuy_memberWithToken:user.token andUser_type:user.user_type andGId:self.gid andPage:pageString inTabBarController:self.tabBarController withDone:^(Rob_Record_Info *model){
-        [self.datas addObjectsFromArray:model.member];
+    [addMoreRobeRecord robuy_memberWithGId:self.gid andPage:pageString inTabBarController:self.tabBarController withDone:^(Rob_Record_Info *model){
+        [self.datas addObjectsFromArray:model.arr_member];
         [self.tableview reloadData];
         [self.tableview footerEndRefreshing];
     }];

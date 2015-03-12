@@ -10,6 +10,8 @@
 #import "RegisterViewController.h"
 #import "ChooseAreaViewController.h"
 @interface RegisterService : NSObject
+//注册
 -(void)registerWithName:name andCode:codeNumber andPasswd:passwd andPasswordConfirm:passwdConfirm andGuide:(NSString *)guide andLifehall_id:(NSString *)lifeHall_id onViewController:(ChooseAreaViewController *)viewController;
+//发送验证码
 -(void)sendCodeActionWithLoginname:(NSString *)name onViewController:(RegisterViewController *)viewController;
 @end

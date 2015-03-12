@@ -65,8 +65,7 @@
     // Configure the cell...
        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,item.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
     cell.name.text = [NSString stringWithFormat:@"%@",item.name];
-    cell.pastPrice.text = [NSString stringWithFormat:@"原价:%@元/%@",item.price,item.unit];
-    cell.period.text = item.starttime;
+    cell.pastPrice.text = [NSString stringWithFormat:@"原价:%@元",item.price];
     return cell;
 }
 
@@ -76,8 +75,9 @@
 {
     _page =1;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
-    [addMorePasItem rob_goods_historyWithToken:user.token andUser_type:user.user_type andPage:pageString inTabBarController:self.tabBarController withDone:^(Rob_goods_history_info *model){
-        self.datas = (NSMutableArray *)model.goods;
+    NSString *lifeHall_id =[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
+    [addMorePasItem rob_goods_historyWithLifehallId:lifeHall_id andSellerId:self.seller_id andPage:pageString inTabBarController:self.tabBarController withDone:^(Rob_goods_history_info *model){
+        self.datas = (NSMutableArray *)model.arr_goods;
         [self.tableview reloadData];
         [self.tableView headerEndRefreshing];
     }];
@@ -87,21 +87,16 @@
 {
     _page++;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
-    [addMorePasItem rob_goods_historyWithToken:user.token andUser_type:user.user_type andPage:pageString inTabBarController:self.tabBarController withDone:^(Rob_goods_history_info *model){
-        [self.datas addObjectsFromArray:model.goods];
+    NSString *lifeHall_id =[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
+    [addMorePasItem rob_goods_historyWithLifehallId:lifeHall_id andSellerId:self.seller_id andPage:pageString inTabBarController:self.tabBarController withDone:^(Rob_goods_history_info *model){
+        [self.datas addObjectsFromArray:model.arr_goods];
         [self.tableview reloadData];
         [self.tableView footerEndRefreshing];
     }];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    PastItem *item = [self.datas objectAtIndex:indexPath.section];
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
-    RobedRecordsViewController *rewarRecordsViewController = [storyboard instantiateViewControllerWithIdentifier:@"RobedRecordsViewController"];
-    rewarRecordsViewController.hidesBottomBarWhenPushed = YES;
-    rewarRecordsViewController.gid =item.gid;
-    [self.navigationController pushViewController:rewarRecordsViewController animated:YES];
-
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

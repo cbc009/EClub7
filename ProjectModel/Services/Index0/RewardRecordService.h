@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface RewardRecordService : NSObject
+//抽奖的记录
 -(void)prizePrizeLuckyWithToken:(NSString *)token andUser_type:(NSInteger)user_type andPageString:(NSString *)pageString andTabBarController:(UITabBarController *)tabBarController witDone:(doneWithObject)done;
 @end

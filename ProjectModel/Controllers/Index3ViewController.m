@@ -50,8 +50,8 @@
     _tableview.tableFooterView = [[UIView alloc] init];
     // Do any additional setup after loading the view.
     images = [[NSArray alloc]
-              initWithObjects:@"account",@"qr_code",@"order",@"main_call_light",@"return_suggest",@"app_load",@"ic_update",nil];
-    titles = [[NSArray alloc] initWithObjects:@"我的钱包",@"我的二维码",@"我的订单",@"联系我们",@"意见反馈",@"应用推荐",@"版本更新",nil];
+              initWithObjects:@"account",@"qr_code",@"order",@"main_call_light",@"return_suggest",@"app_load",nil];
+    titles = [[NSArray alloc] initWithObjects:@"我的钱包",@"我的二维码",@"我的订单",@"联系我们",@"意见反馈",@"应用推荐",nil];
     [self.tableview reloadData];
 }
 
@@ -90,7 +90,7 @@
             return 1;
             break;
         case 1:
-            return 7;
+            return 6;
             break;
         default:
             return 0;
@@ -147,9 +147,6 @@
                 break;
             case 5:
                 [index3Service presentAppViewControllerOnViewController:self];
-                break;
-            case 6:
-                [SVProgressHUD showSuccessWithStatus:@"已是最新版本"];
                 break;
             default:
                 [SVProgressHUD showImage:nil status:@"功能尚未开放，敬请期待"];

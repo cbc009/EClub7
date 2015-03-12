@@ -13,5 +13,7 @@
 @property (nonatomic,strong)NSString *agent_id;
 @property (nonatomic,strong)NSString *seller_type;
 @property (nonatomic,strong)NSString *seller_id;
+@property (nonatomic,strong)NSString *lifeHall_id;
 @property (nonatomic,strong)Seller_Info_arr_seller *object;
+@property (nonatomic,strong)NSArray *goodeArray;
 @end

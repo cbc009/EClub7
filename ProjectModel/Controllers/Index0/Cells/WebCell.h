@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WebCell : UITableViewCell
-
+@interface WebCell : UITableViewCell <UIWebViewDelegate>
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (nonatomic,strong)NSString *robGoodsid;
 @end
