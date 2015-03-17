@@ -19,7 +19,6 @@
 #import "RewardRecordService.h"
 @interface RewardRecordsViewController ()
 {
-    
     __weak IBOutlet UITableView *tableview;
     NSMutableArray *datas;
     NSString *identifier;

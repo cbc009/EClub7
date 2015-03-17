@@ -13,7 +13,7 @@
 //加载用户信息  loginStatus 为记住的登录状态
 -(void)loadUserDefaultsInViewController:(UIViewController *)viewController witLoginStatus:(NSString *)loginStatus;
 //加载广告
--(void)loadAdverPicWithPos:(NSInteger)pos andCity:(NSInteger)city inViewController:(UIViewController *)viewController;
+-(void)loadAdverPicWithPos:(NSInteger)pos andAgentID:(NSInteger)agent_id inViewController:(UIViewController *)viewController;
 //-(void)GetBalanceWithToken:(NSString *)token andUser_type:(NSInteger )user_type onViewController:(Index0_3ViewController *)viewController;
 
 -(NSArray *)namesFromPictures:(NSArray *)pictures;

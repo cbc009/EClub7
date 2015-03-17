@@ -192,7 +192,9 @@ typedef void (^finished)(NSDictionary *info);
 //修改地址
 #define ChangeAddress [MainPrexURL stringByAppendingString: @"Base/address/from/IOS"]
 //广告图片
-#define AdPictUrl [MainPrexURL stringByAppendingString: @"Advert/advert_pic/from/IOS/city/%d/pos/%d"]
+#define AdPictUrl [MainPrexURL stringByAppendingString: @"Advert/advert_info/from/IOS/agent_id/%d/position/%d"]
+
+
 //push消息
 #define Push_History [MainPrexURL stringByAppendingString: @"Push/push_history_rec/from/IOS/token/%@/user_type/%d/page/%@"]
 //积分商品列表

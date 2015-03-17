@@ -970,6 +970,7 @@
 		33BF428A1AB1713E0061A52D /* qianggou.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qianggou.png; sourceTree = "<group>"; };
 		33BF428B1AB1713E0061A52D /* tuangou.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tuangou.png; sourceTree = "<group>"; };
 		33BF42951AB17D700061A52D /* qianbao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qianbao.png; sourceTree = "<group>"; };
+		33C101FE1AB27ED700609276 /* Index0_3ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Index0_3ViewController.h; sourceTree = "<group>"; };
 		33C8890C1A79C2C8001DACD6 /* back.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = back.jpg; sourceTree = "<group>"; };
 		33D0C8391AA5520700CC8DB7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		33DBE7351A3051B700C7CCF5 /* Push_history.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Push_history.h; sourceTree = "<group>"; };
@@ -1178,7 +1179,6 @@
 		8FE932201A2F3AF6000C2105 /* Index0_1Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Index0_1Cell.m; sourceTree = "<group>"; };
 		8FE932221A2F3B04000C2105 /* Index0_2Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Index0_2Cell.h; sourceTree = "<group>"; };
 		8FE932231A2F3B04000C2105 /* Index0_2Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Index0_2Cell.m; sourceTree = "<group>"; };
-		8FE932251A2F3CDF000C2105 /* Index0_3ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Index0_3ViewController.h; sourceTree = "<group>"; };
 		8FE932261A2F3CDF000C2105 /* Index0_3ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Index0_3ViewController.m; sourceTree = "<group>"; };
 		8FE932281A2FF7FA000C2105 /* Index1.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Index1.storyboard; sourceTree = "<group>"; };
 		8FE9322A1A2FF811000C2105 /* Index1NavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Index1NavViewController.h; sourceTree = "<group>"; };
@@ -1624,7 +1624,7 @@
 				336FDC851A5A2F1C004CFD6A /* Index0.storyboard */,
 				22EFB405199B1BA3004724D0 /* ChildViewControllers */,
 				2267B480199A14D400FA9FED /* Cells */,
-				8FE932251A2F3CDF000C2105 /* Index0_3ViewController.h */,
+				33C101FE1AB27ED700609276 /* Index0_3ViewController.h */,
 				8FE932261A2F3CDF000C2105 /* Index0_3ViewController.m */,
 				8FE931FC1A2EF044000C2105 /* Index0NavViewController.h */,
 				8FE931FD1A2EF044000C2105 /* Index0NavViewController.m */,

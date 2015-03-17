@@ -46,7 +46,7 @@
                 BuyService *buyService = [[BuyService alloc] init];
                 [buyService loadGoodTypesWithToken:model.info.token andUser_type:model.info.user_type InViewController:viewController];
                 [SharedAction setUMessageTagsWithUser:model.info];
-                [self loadAdverPicWithPos:1 andCity:model.info.city inViewController:viewController];
+                [self loadAdverPicWithPos:1 andAgentID:sharedData.user.agent_id inViewController:viewController];
                 
             }else{
                 [SVProgressHUD showErrorWithStatus:model.error];
@@ -63,13 +63,15 @@
 /*
  加载广告图片
  */
--(void)loadAdverPicWithPos:(NSInteger)pos andCity:(NSInteger)city inViewController:(Index0_3ViewController *)viewController{
-    NSString *urlString = [NSString stringWithFormat:AdPictUrl,city,pos];
+-(void)loadAdverPicWithPos:(NSInteger)pos andAgentID:(NSInteger)agent_id inViewController:(Index0_3ViewController *)viewController{
+    NSString *urlString = [NSString stringWithFormat:AdPictUrl,agent_id,pos];
     [AdvertPic getModelFromURLWithString:urlString completion:^(AdvertPic *model,JSONModelError *err){
         NSLog(@"%@",urlString);
         if (model.status==2) {
-            NSArray *pictures = model.info.picture;
-            viewController.pageviewDatas = pictures;
+            AdvertPicInfo *Info =model.info;
+            Picture_Arr_advert *pictures =Info.arr_advert[0];
+            NSArray *pictures1 = pictures.arr_info;
+            viewController.pageviewDatas = pictures1;
             [viewController.tableview reloadData];
         }else{
             [SharedAction showErrorWithStatus:model.status andError:model.error witViewController:viewController];
@@ -81,8 +83,8 @@
     if (pictures) {
         NSMutableArray *names = [[NSMutableArray alloc] init];
         for (int i=0; i<pictures.count; i++) {
-            Picture *picture = pictures[i];
-            NSString *name = [NSString stringWithFormat:@"%@%@",IP,picture.name];
+            Arr_Advert_info *models = pictures[i];
+            NSString *name = [NSString stringWithFormat:@"%@%@",IP,models.picture];
             [names addObject:name];
         }
         return names;
@@ -95,7 +97,7 @@
     if (pictures) {
         NSMutableArray *titles = [[NSMutableArray alloc] init];
         for (int i=0; i<pictures.count; i++) {
-            Picture *picture = pictures[i];
+            Arr_Advert_info *picture = pictures[i];
             NSString *title = nil;
             if (picture.title!=nil) {
                 title = picture.title;
@@ -114,7 +116,7 @@
    if (pictures) {
         NSMutableArray *urls = [[NSMutableArray alloc] init];
         for (int i=0; i<pictures.count; i++) {
-            Picture *picture = pictures[i];
+            Arr_Advert_info *picture = pictures[i];
             NSString *url = nil;
             if (picture.url!=nil) {
                 url = picture.url;

@@ -29,6 +29,7 @@
     self.automaticallyAdjustsScrollViewInsets=NO;
     self.phoneMobile.text=user.mobile;
     [self.times becomeFirstResponder];
+    self.times.keyboardType=UIKeyboardTypeNumberPad;
     // Do any additional setup after loading the view.
 }
 

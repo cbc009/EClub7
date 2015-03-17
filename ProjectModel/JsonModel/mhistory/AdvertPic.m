@@ -8,7 +8,7 @@
 
 #import "AdvertPic.h"
 
-@implementation Picture
+@implementation Picture_Arr_advert
 
 @end
 
@@ -19,5 +19,9 @@
 
 
 @implementation AdvertPic
+
+@end
+@implementation Arr_Advert_info
+
 
 @end

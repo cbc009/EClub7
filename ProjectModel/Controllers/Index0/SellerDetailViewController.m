@@ -21,6 +21,7 @@
     NSString *detail;
     NSString *selerDetail;
     UserInfo *user;
+    NSInteger cellRow;
 }
 @end
 
@@ -28,11 +29,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title=@"商品提供方介绍";
+    self.title=@"商品提供方";
      self.tableview.autoresizesSubviews=YES;
     self.tableview.showsVerticalScrollIndicator =NO;
     self.tableview.tableFooterView =[UIView new];
     detail=@"";
+    cellRow=0;
     selerDetail=@"";
     SharedData *sharedData =[SharedData sharedInstance];
     user=sharedData.user;
@@ -42,9 +44,9 @@
         self.object = model.arr_seller[0];
         [robService setRobModelWithLifehallid:self.lifeHall_id orDetail:[NSString stringWithFormat:@"seller_id/%@",self.seller_id] inRootTabBarController:self.tabBarController withDone:^(Robuy_Goods_info *model){
             self.goodeArray=model.arr_goods;
+            cellRow=5;
             [self.tableview reloadData];
         }];
-        
     }];
     }
 
@@ -53,7 +55,8 @@
     // Dispose of any resources that can be recreated.
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 5;
+    
+    return cellRow;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section==0){
@@ -118,8 +121,8 @@
         RobIndex1_0Cell *cell =[tableView dequeueReusableCellWithIdentifier:@"RobIndex1_0Cell" forIndexPath:indexPath];
         cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
         cell.sellerTitle.text=@"供抢记录";
-        cell.sellerTitle.font=[UIFont fontWithName:@"TrebuchetMS-Bold" size:17];
-        cell.selerDetail.text=@"更多供抢记录";
+        cell.selerDetail.font=[UIFont fontWithName:@"TrebuchetMS-Bold" size:17];
+        cell.selerDetail.text=@"            更多供抢记录";
         return cell;
     }else if (section==4){
         SellerCell *cell=[tableView dequeueReusableCellWithIdentifier:@"SellerCell" forIndexPath:indexPath];

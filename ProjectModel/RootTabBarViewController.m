@@ -108,7 +108,7 @@
         BuyService *buyService = [[BuyService alloc] init];
         Index0Service *index0Service = [Index0Service new];
         [buyService loadGoodTypesWithToken:sharedData.user.token andUser_type:sharedData.user.user_type InViewController:index0ViewController];
-        [index0Service loadAdverPicWithPos:1 andCity:sharedData.user.city inViewController:index0ViewController];
+        [index0Service loadAdverPicWithPos:1 andAgentID:sharedData.user.agent_id inViewController:index0ViewController];
     }];
     
 }

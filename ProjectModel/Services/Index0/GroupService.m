@@ -41,8 +41,10 @@
     NSLog(@"%@",urlString);
     [AdvertPic getModelFromURLWithString:urlString completion:^(AdvertPic *model,JSONModelError *err){
         if (model.status) {
-            NSArray *pictures = model.info.picture;
-            viewController.pageviewDatas =pictures;
+            AdvertPicInfo *Info =model.info;
+            Picture_Arr_advert *pictures =Info.arr_advert[0];
+            NSArray *pictures1 = pictures.arr_info;
+            viewController.pageviewDatas =pictures1;
              [viewController.tableview reloadData];
         }else{
             [SharedAction showErrorWithStatus:model.status andError:model.error witViewController:viewController];

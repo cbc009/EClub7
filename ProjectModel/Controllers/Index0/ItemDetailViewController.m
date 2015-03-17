@@ -70,6 +70,7 @@
     self.webview.scrollView.scrollEnabled = NO;
     [self loadWebPageWithString:self.goodModel.url inWebView:self.webview];
 }
+
 - (void)loadWebPageWithString:(NSString*)urlString inWebView:(UIWebView *)webView{
     NSURL *url =[NSURL URLWithString:urlString];
     NSURLRequest *request =[NSURLRequest requestWithURL:url];
@@ -138,6 +139,22 @@
     [SharedAction shareWithTitle:self.title andDesinationUrl:self.goodModel.share_url Text:self.goodModel.name andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.goodModel.bigpicture] InViewController:self];
 }
 
+//- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
+//    double alph = fabs(velocity.y);
+//    NSLog(@"%f",alph);
+//    if (alph<2.5) {
+//        [self.navigationController setNavigationBarHidden:NO animated:YES];
+//        self.navigationController.navigationBar.alpha=alph*0.3;
+//    }else {
+//        [self.navigationController setNavigationBarHidden:YES animated:YES];
+//        
+//    }
+//    
+//    
+//}
+//- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView;{
+//    NSLog(@"hjhshs");
+//}
 
 
 @end
