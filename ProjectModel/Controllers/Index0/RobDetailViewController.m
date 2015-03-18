@@ -1,0 +1,253 @@
+//
+//  RobDetailViewController.m
+//  Club
+//
+//  Created by MartinLi on 15-3-8.
+//  Copyright (c) 2015年 martin. All rights reserved.
+//
+
+#import "RobDetailViewController.h"
+#import "RobIndex1_Cell.h"
+#import "Index0_Cell.h"
+#import "WebCell.h"
+#import "RobTitleCell.h"
+#import "RobedRecordsViewController.h"
+#import "NSString+MT.h"
+#import <UIImageView+WebCache.h>
+#import "SellerDetailViewController.h"
+#import "WebViewController.h"
+#import "RobService.h"
+#import "Status.h"
+#import <BmobSDK/Bmob.h>
+@interface RobDetailViewController ()<UIWebViewDelegate>
+{
+    RobService *robService;
+    NSString *sharurl;
+}
+@end
+
+@implementation RobDetailViewController
+{
+    UserInfo *user;
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title=@"抢购详情";
+    robService =[RobService new];
+    SharedData *sharedData =[SharedData sharedInstance];
+    user=sharedData.user;
+    sharurl = [NSString stringWithFormat:Robuy_Share_URL,self.robGoodsMOdel.goods_id];
+    self.tableView.autoresizesSubviews=NO;
+    self.tableView.showsVerticalScrollIndicator =NO;
+    self.tableView.tableFooterView =[UIView new];
+
+//     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.robNowButton.layer.cornerRadius=5;
+}
+- (void)loadWebPageWithString:(NSString*)urlString inWebView:(UIWebView *)webView{
+    NSURL *url =[NSURL URLWithString:urlString];
+    NSURLRequest *request =[NSURLRequest requestWithURL:url];
+    [webView loadRequest:request];
+}
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 8;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (section==0){
+        return 1;
+    }else if (section==1){
+        return 1;
+    }else if(section==2){
+        return 1;
+    }else if(section==3){
+        return 1;
+    }else if(section==4){
+        return 2;
+    }else if(section==5){
+        return 2;
+    }else if(section==6){
+        return 2;
+    }else{
+        return 1;
+    }
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+     NSInteger section =indexPath.section;
+     NSInteger row =indexPath.row;
+    if (section==0) {
+        RobTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RobTitleCell" forIndexPath:indexPath];
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        cell.goodName.text=self.robGoodsMOdel.name;
+        cell.saleNum.text=[NSString stringWithFormat:@"已抢%@",self.robGoodsMOdel.actual_nums];
+        if ([self.robGoodsMOdel.discount isEqualToString:@"0.00"]) {
+            cell.price.text=[NSString stringWithFormat:@"%@E币",self.robGoodsMOdel.point];
+        }else{
+            cell.price.text=[NSString stringWithFormat:@"￥:%@",self.robGoodsMOdel.discount];
+        }
+        cell.goodNum.text =[NSString stringWithFormat:@"抢购数量:%@",self.robGoodsMOdel.provider_nums];
+        cell.starttime=self.robGoodsMOdel.start_seconds;
+        cell.endtime=self.robGoodsMOdel.end_seconds;
+        cell.marketPrice.text=[NSString stringWithFormat:@"￥:%@",self.robGoodsMOdel.price];
+        [cell.goodPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.robGoodsMOdel.bigpicture]] placeholderImage:[UIImage imageNamed:@"e"]];
+        [cell.goodNum.layer setBorderWidth:1];   //边框宽度
+        [cell.goodNum.layer setBorderColor:[UIColor redColor].CGColor];//边框颜色
+        return cell;
+    }else if(section==1){
+        Index0_Cell *cell=[tableView dequeueReusableCellWithIdentifier:@"Index0_Cell" forIndexPath:indexPath];
+        cell.title.textColor=[UIColor blackColor];
+        cell.title.text=@"查看图文详情";
+        cell.title.font=[UIFont fontWithName:@"TrebuchetMS-Bold" size:17];
+        cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+        return cell;
+    }else if(section==2){
+        Index0_Cell *cell=[tableView dequeueReusableCellWithIdentifier:@"Index0_Cell" forIndexPath:indexPath];
+        cell.title.textColor=[UIColor blackColor];
+        cell.title.font=[UIFont fontWithName:@"TrebuchetMS-Bold" size:17];
+        cell.title.text=@"抢购商品提供方";
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        return cell;
+    }else if(section==3){
+        RobIndex1_Cell *cell =[tableView dequeueReusableCellWithIdentifier:@"RobIndex1_Cell" forIndexPath:indexPath];
+        cell.sellerName.text=self.robGoodsMOdel.seller_name;
+        cell.sellerDetail.text =self.robGoodsMOdel.seller_intro;
+        [cell.sellerPIc sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.robGoodsMOdel.seller_picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+        return cell;
+    }else if (section==4){
+        Index0_Cell *cell=[tableView dequeueReusableCellWithIdentifier:@"Index0_Cell" forIndexPath:indexPath];
+        
+        cell.accessoryType=UITableViewCellAccessoryNone;
+        if (row==0) {
+            cell.title.textColor=[UIColor blackColor];
+            cell.title.font=[UIFont fontWithName:@"TrebuchetMS-Bold" size:17];
+            cell.title.text=@"抢购时间";
+            cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        }else{
+        cell.title.font=[UIFont systemFontOfSize:12];
+        cell.title.textColor=[UIColor grayColor];
+        cell.title.text=self.robGoodsMOdel.robuy_time;
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        }
+        return cell;
+    }else if(section==5){
+        Index0_Cell *cell=[tableView dequeueReusableCellWithIdentifier:@"Index0_Cell" forIndexPath:indexPath];
+        cell.accessoryType=UITableViewCellAccessoryNone;
+        if (row==0) {
+            cell.title.textColor=[UIColor blackColor];
+            cell.title.font=[UIFont fontWithName:@"TrebuchetMS-Bold" size:17];
+            cell.title.text=@"领取方式";
+             cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        }else if(row==1){
+            cell.title.font=[UIFont systemFontOfSize:12];
+            cell.title.text=self.robGoodsMOdel.receive_from;
+             cell.selectionStyle=UITableViewCellSelectionStyleNone;
+            cell.title.textColor=[UIColor grayColor];
+        }
+        return cell;
+    }else if(section==6){
+        Index0_Cell *cell=[tableView dequeueReusableCellWithIdentifier:@"Index0_Cell" forIndexPath:indexPath];
+        cell.accessoryType=UITableViewCellAccessoryNone;
+        if (row==0) {
+            cell.title.textColor=[UIColor blackColor];
+            cell.title.font=[UIFont fontWithName:@"TrebuchetMS-Bold" size:17];
+            cell.title.text=@"领取地址";
+            cell.selectionStyle=UITableViewCellSelectionStyleNone;
+            
+        }else{
+            cell.selectionStyle=UITableViewCellSelectionStyleNone;
+            cell.title.textColor=[UIColor grayColor];
+            cell.title.font=[UIFont systemFontOfSize:12];
+            cell.title.text =self.robGoodsMOdel.receive_address;
+        }
+        return cell;
+    }else if(section==7){
+        Index0_Cell *cell=[tableView dequeueReusableCellWithIdentifier:@"Index0_Cell" forIndexPath:indexPath];
+        cell.title.textColor=[UIColor blackColor];
+        cell.title.text=@"查看抢购名单";
+        cell.title.font=[UIFont fontWithName:@"TrebuchetMS-Bold" size:17];
+        cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+        return cell;
+    }else{
+
+        return nil;
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath   {
+    NSInteger section = indexPath.section;
+    if (section==0) {
+        return 308;
+    }else if (section==3){
+        return 82;
+    }else if (section==7) {
+        return 40;
+    }else{
+        return 34;
+    }
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section==3||section==0||section==1) {
+        return 0;
+    }else{
+       return 8;
+    }
+}
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section==7) {
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+        RobedRecordsViewController *robRecodVic = [storyBoard instantiateViewControllerWithIdentifier:@"RobedRecordsViewController"];
+        robRecodVic.gid = self.robGoodsMOdel.goods_id;
+        [self.navigationController pushViewController:robRecodVic animated:YES];
+    }else if (indexPath.section==1) {
+        WebViewController *target = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
+        target.urlString = [NSString stringWithFormat:Robuy_Goods_Detail_URL,self.robGoodsMOdel.goods_id];
+        target.title = @"图文简介";
+        target.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:target animated:YES];    }
+
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (IBAction)robNow:(id)sender {
+    NSString *lifehall_id =[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
+    [robService robWithToken:user.token andLifehallId:lifehall_id andUser_type:user.user_type andRobModel:self.robGoodsMOdel inTabBarController:self.tabBarController withDone:^(Status *model){
+        NSString *message =[NSString stringWithFormat:@"恭喜你在E小区免费抢到%@赶快去告诉朋友吧",self.robGoodsMOdel.name];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"抢菜信息" message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去告诉朋友", nil];
+        [alertView show];
+        //存储到Bmob后台
+            BmobObject *object = [BmobObject objectWithClassName:@"RobOrder"];
+            [object setObject:user.loginname forKey:@"loginname"];
+            [object setObject:self.robGoodsMOdel.name forKey:@"goodName"];
+            [object setObject:self.robGoodsMOdel.goods_id forKey:@"goodId"];
+            [object saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+            //进行操作
+        }];
+    }];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"sellerPush"]) {
+        SellerDetailViewController *viewController = segue.destinationViewController;
+        viewController.agent_id=[NSString stringWithFormat:@"%ld",(long)user.agent_id];
+        viewController.seller_id=self.robGoodsMOdel.seller_id;
+    }else if([segue.identifier isEqualToString:@"sellerPush"]){
+}
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex==1) {
+        [SharedAction shareWithTitle:self.robGoodsMOdel.name andDesinationUrl:sharurl Text:self.robGoodsMOdel.name andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.robGoodsMOdel.bigpicture] InViewController:self];
+    }
+}
+- (IBAction)share:(id)sender {
+   
+   [SharedAction shareWithTitle:self.robGoodsMOdel.name andDesinationUrl:sharurl Text:self.robGoodsMOdel.name andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.robGoodsMOdel.bigpicture] InViewController:self];
+}
+@end

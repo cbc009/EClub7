@@ -18,7 +18,7 @@
 
 @end
 @interface Rob_Record_Info : JSONModel
-@property(nonatomic,strong)NSArray<Member_Info> *member;
+@property(nonatomic,strong)NSArray<Member_Info> *arr_member;
 @end
 
 @interface Member_History : JSONModel

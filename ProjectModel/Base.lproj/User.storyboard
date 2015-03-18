@@ -205,7 +205,7 @@
                 <navigationController storyboardIdentifier="UserNavigationController" definesPresentationContext="YES" id="x9g-ws-mTQ" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Lef-fs-QlH">
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="1" green="0.031759160459999998" blue="0.1169535164" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="RhK-Tp-mCG" kind="relationship" relationship="rootViewController" id="L2Y-a9-STt"/>
@@ -213,7 +213,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qLg-ct-gTr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-283" y="-105"/>
+            <point key="canvasLocation" x="-283" y="-137"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="EZ9-Wp-iCT">

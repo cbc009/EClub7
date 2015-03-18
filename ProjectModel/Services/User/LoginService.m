@@ -20,7 +20,7 @@
 #import "SharedAction.h"
 #import "BuyService.h"
 @implementation LoginService
-
+//这个不需要我多说了 吧
 -(void)loginWithName:(NSString *)name andPasswd:(NSString *)passwd onViewController:(LoginViewController *)viewController{
     if ([self validateLoginInfosWithName:name andPasswd:passwd]) {
         NSString *password = [MyMD5 md5:passwd];
@@ -42,7 +42,7 @@
         
     }
 }
-
+//看名字也知道这是设置用户信息
 -(void)setSharedDataWithUser:(UserInfo *)user andUserName:(NSString *)username andPassWord:(NSString *)password{
     SharedData *sharedData = [SharedData sharedInstance];
     sharedData.user = user;
@@ -50,7 +50,7 @@
     sharedData.password = password;
     sharedData.loginStatus = @"YES";
 }
-
+//跳转注册页面
 -(void)pushRegisterViewControllerOnViewController:(LoginViewController *)viewController{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"User" bundle:nil];
     RegisterViewController *registerViewController = [[RegisterViewController alloc] init];

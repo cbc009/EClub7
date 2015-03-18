@@ -67,6 +67,9 @@
          TradeOrder *order1 = [self.items objectAtIndex:row];
         cell.demo.text = order1.demo;
         cell.time.text = [order1.regtime substringToIndex:10];
+//        if (<#condition#>) {
+//            <#statements#>
+//        }
         cell.total.text = order1.status;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
@@ -167,10 +170,10 @@
     }else if (selectedSegmentIndex1==1){
         [myOrderService loadOrderWithPage:pageString andToken:user.token andUser_type:user.user_type andSelectedSegmentIndex:selectedSegmentIndex1 inTabBarController:self.tabBarController withDone:^(RobOrderInfo *model){
             if (rereshinType1==0) {
-                self.items = (NSMutableArray *)model.order;
+                self.items = (NSMutableArray *)model.arr_order;
                 [_tableview headerEndRefreshing];
             }else{
-                [self.items addObjectsFromArray:model.order];
+                [self.items addObjectsFromArray:model.arr_order];
                   [_tableview footerEndRefreshing];
             }
             self.orderType=RobOrderType;

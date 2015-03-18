@@ -15,7 +15,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="XVv-3b-Z7a">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="1" green="0.031759160459999998" blue="0.1169535164" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="uUi-nd-aOk" kind="relationship" relationship="rootViewController" id="YpS-Tg-Ova"/>
@@ -435,13 +435,14 @@
                                                                     <constraint firstItem="zk2-ZJ-F82" firstAttribute="leading" secondItem="BlC-5v-wha" secondAttribute="leadingMargin" constant="-8" id="BTf-2z-cxd"/>
                                                                     <constraint firstItem="DUL-Bj-4FF" firstAttribute="top" secondItem="zk2-ZJ-F82" secondAttribute="bottom" constant="2" id="Nfz-Ys-6Jl"/>
                                                                     <constraint firstItem="zk2-ZJ-F82" firstAttribute="top" secondItem="BlC-5v-wha" secondAttribute="topMargin" constant="-2" id="QW2-MO-aCk"/>
+                                                                    <constraint firstItem="DUL-Bj-4FF" firstAttribute="top" secondItem="zk2-ZJ-F82" secondAttribute="bottom" constant="2" id="eFN-F5-lRZ"/>
                                                                     <constraint firstItem="DUL-Bj-4FF" firstAttribute="leading" secondItem="BlC-5v-wha" secondAttribute="leadingMargin" constant="-8" id="ld9-GZ-34h"/>
                                                                     <constraint firstItem="zk2-ZJ-F82" firstAttribute="trailing" secondItem="BlC-5v-wha" secondAttribute="trailingMargin" constant="-19" id="oO9-f5-zGX"/>
                                                                 </constraints>
                                                             </tableViewCellContentView>
                                                             <connections>
                                                                 <outlet property="content" destination="DUL-Bj-4FF" id="aNK-NI-b6E"/>
-                                                                <outlet property="lableHeight" destination="l8F-iw-e9j" id="vrD-ki-I3b"/>
+                                                                <outlet property="lableHeight" destination="l8F-iw-e9j" id="trg-Np-FhO"/>
                                                                 <outlet property="name" destination="zk2-ZJ-F82" id="PRs-H1-PBp"/>
                                                             </connections>
                                                         </tableViewCell>
@@ -463,6 +464,7 @@
                                                 <constraint firstItem="p0r-T0-m76" firstAttribute="top" secondItem="MyJ-4a-aOg" secondAttribute="topMargin" constant="2" id="CUu-lg-dXn"/>
                                                 <constraint firstItem="UzH-Ia-AQA" firstAttribute="top" secondItem="8re-gm-Zs0" secondAttribute="bottom" constant="4" id="Ddy-fQ-OSA"/>
                                                 <constraint firstItem="8re-gm-Zs0" firstAttribute="trailing" secondItem="MyJ-4a-aOg" secondAttribute="trailingMargin" id="Dzu-9B-bnw"/>
+                                                <constraint firstItem="L4F-mW-lBC" firstAttribute="top" secondItem="DdU-g7-gUp" secondAttribute="top" constant="-3" id="Qt4-Jc-4gD"/>
                                                 <constraint firstItem="UzH-Ia-AQA" firstAttribute="leading" secondItem="MyJ-4a-aOg" secondAttribute="leadingMargin" constant="68" id="Uu5-mi-ND3"/>
                                                 <constraint firstItem="IoT-lI-G9i" firstAttribute="bottom" secondItem="MyJ-4a-aOg" secondAttribute="bottomMargin" id="YnD-Xf-dJR"/>
                                                 <constraint firstItem="L4F-mW-lBC" firstAttribute="top" secondItem="UzH-Ia-AQA" secondAttribute="bottom" constant="2" id="ZNr-nA-OaF"/>

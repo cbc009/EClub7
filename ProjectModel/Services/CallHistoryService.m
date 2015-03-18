@@ -32,13 +32,15 @@
 -(void)loadAdverPicFromUrl:(NSString *)urlString inViewController:(CallPhoneViewController *)viewController{
     [AdvertPic getModelFromURLWithString:urlString completion:^(AdvertPic *model,JSONModelError *err){
         if (model.status==2) {
-            NSArray *pictures = model.info.picture;
-            [self loadAdPictureWithImgInfos:pictures InViewController:viewController];
+            AdvertPicInfo *Info =model.info;
+            Picture_Arr_advert *pictures =Info.arr_advert[0];
+            NSArray *pictures1 = pictures.arr_info;
+            [self loadAdPictureWithImgInfos:pictures1 InViewController:viewController];
         }else if (model.status==808){
             //如果第4个位置没有广告图就加在第1个位置的广告图
             SharedData *sharedData = [SharedData sharedInstance];
             UserInfo *user = sharedData.user;
-            NSString *urlString = [NSString stringWithFormat:AdPictUrl,user.city,1];
+            NSString *urlString = [NSString stringWithFormat:AdPictUrl,user.agent_id,1];
             [self loadAdverPicFromUrl:urlString inViewController:viewController];
         }else{
             [SharedAction showErrorWithStatus:model.status andError:model.error witViewController:viewController];

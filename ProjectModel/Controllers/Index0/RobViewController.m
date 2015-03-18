@@ -7,8 +7,6 @@
 //
 
 #import "RobViewController.h"
-#import "PastItemsTableViewController.h"
-#import "RobedRecordsTableViewController.h"
 #import "RobService.h"
 #import "SharedData.h"
 #import "Member_Login.h"
@@ -16,12 +14,27 @@
 #import "SharedAction.h"
 #import "WebViewController.h"
 #import "Status.h"
-#import <BmobSDK/Bmob.h>
+#import "ChangeLifehallViewController.h"
+
+#import "Index0_1Cell.h"
+#import "RobCell.h"
+#import "Index0Service.h"
+#import "Robuy_Goods.h"
+#import <UIImageView+WebCache.h>
+#import "RobDetailViewController.h"
+#import "MJRefresh.h"
 @interface RobViewController ()
 {
     RobService *robService;
+    Index0Service *index0Service;;
     UserInfo *user;
         int count;
+    NSMutableArray *timeArray;
+    NSMutableArray *timeEndArray;
+    NSTimer *timwer;
+    NSInteger page;
+    NSInteger ChangeUp;
+    ChangeLifehallViewController *changeLifehallViewController;
     
 }
 @property(nonatomic,assign)NSInteger second1;
@@ -38,69 +51,56 @@
 
 -(void)loadView{
     [super loadView];
+    
 }
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    self.title = @"抢购";
-    robService = [[RobService alloc] init];
-    SharedData *sharedData = [SharedData sharedInstance];
-    user = sharedData.user;
-    //给 self.robModel
-    __block RobViewController *aBlockSelf = self;
-    __block RobService *rob = robService;
-    [robService setRobModelWithToken:user.token andUser_type:user.user_type inRootTabBarController:self.tabBarController withDone:^(RobModel *model){
-        [rob setItemInfosWithController:aBlockSelf andGoodModel:model.info];
-        RobModelInfo *object =model.info;
-        aBlockSelf.second1 =object.seconds;
-        aBlockSelf.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:aBlockSelf selector:@selector(countDownTimer) userInfo:nil repeats:YES];
-        [rob loadAdverPicWithPos:1 inViewController:aBlockSelf];
-    }];
-}
--(void)countDownTimer{
-    if (self.second1>0) {
-        NSString *startTitle = [NSString stringWithFormat:@"%@开抢",[self toDetailTime:self.second1]];
-        [self.startTimeButton setTitle:startTitle forState:UIControlStateNormal];
-        self.second1--;
-    }else{
-        [self.timer invalidate];
-    }
-}
-
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 }
-
-- (void)didReceiveMemoryWarning
+- (void)viewDidLoad
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewDidLoad];
+    ChangeUp=0;
+    self.title = @"抢购";
+    timeArray=[NSMutableArray new];
+    timeEndArray=[NSMutableArray new];
+    robService = [[RobService alloc] init];
+    SharedData *sharedData = [SharedData sharedInstance];
+    user = sharedData.user;
+    self.goodNums =[NSMutableArray new];
+    index0Service=[[Index0Service alloc] init];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.title=@"乔庄生活馆";
+    [robService loadAdverPicWithPos:3 inViewController:self];
+    [SharedAction setupRefreshWithTableView:self.tableView toTarget:self];
+    [self headerRereshing];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+    changeLifehallViewController = [storyboard instantiateViewControllerWithIdentifier:@"ChangeLifehallViewController"];
+    changeLifehallViewController.delegate=self;
 }
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"robRecords"]) {
-        //抢菜记录
-//        RobedRecordsTableViewController *viewController = segue.destinationViewController;
-//        [robService loadRecordsInRecordsController:viewController];
-    }else if([segue.identifier isEqualToString:@"pastItems"]){
-}
+-(void)loadDataWithLifehallid:(NSString *)lifehall_id andGoods:(NSString *)goodsId andType:(NSInteger )type{
+    __block RobViewController *aBlockSelf = self;
+    [robService setRobModelWithLifehallid:lifehall_id orDetail:@"" inRootTabBarController:self.tabBarController withDone:^(Robuy_Goods_info *model){
+        if (type==0) {
+            aBlockSelf.goodNums=(NSMutableArray *)model.arr_goods;
+        }else{
+            [aBlockSelf.goodNums addObjectsFromArray:model.arr_goods];
+        }
+        [aBlockSelf.tableView reloadData];
+    }];
 }
 
-//抢
-- (IBAction)buyOrRobAction:(id)sender {
-    [robService robWithToken:user.token andUser_type:user.user_type andRobModel:self.robModel inTabBarController:self.tabBarController withDone:^(Status *model){
-        NSString *message =[NSString stringWithFormat:@"恭喜你在E小区免费抢到%@赶快去告诉朋友吧",self.robModel.name];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"抢菜信息" message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去告诉朋友", nil];
-        [alertView show];
-        //存储到Bmob后台
-        BmobObject *object = [BmobObject objectWithClassName:@"RobOrder"];
-        [object setObject:user.loginname forKey:@"loginname"];
-        [object setObject:self.robModel.name forKey:@"goodName"];
-        [object setObject:self.robModel.gid forKey:@"goodId"];
-        [object saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
-            //进行操作
-        }];
-    }];
+
+- (IBAction)changeLifeHall:(id)sender {
+   
+    if (ChangeUp==0) {
+        ChangeUp=1;
+        [self.view addSubview:changeLifehallViewController.view];
+    }
+}
+-(void)changeLifeId:(NSString *)lifeHallId andLifeHallName:(NSString *)lifehallName{
+    self.title=lifehallName;
+    ChangeUp=0;
+    [self loadDataWithLifehallid:lifeHallId andGoods:@"0" andType:0];
 }
 
 #pragma MartinLiPageScrollViewDelegate
@@ -115,16 +115,6 @@
         NSLog(@"暂无url");
     }
 }
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if(buttonIndex==1) {
-        [SharedAction shareWithTitle:_itemNameLabel.text andDesinationUrl:AppDownLoadURL Text:alertView.message andImageUrl:_itemPic InViewController:self];
-    }
-}
-
-- (IBAction)shareAction:(id)sender {
-    [SharedAction shareWithTitle:_itemNameLabel.text andDesinationUrl:AppDownLoadURL Text:@"在E小区中每天都有免费抢菜哦 小伙伴们赶快来" andImageUrl:_itemPic InViewController:self];
-}
 /*
  秒转化成详细时间
  */
@@ -136,5 +126,109 @@
     NSString *detailTime = [NSString stringWithFormat:@"%d:%d:%d",hour,minute,second];
     return detailTime;
 }
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 2;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (section==0){
+        return 1;
+    }else{
+        return self.goodNums.count;
+    }
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSInteger row =indexPath.row;
+    if (indexPath.section==0) {
+        Index0_1Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Index0_1Cell" forIndexPath:indexPath];
+        cell.pageview.imageType = UIImageUrlType;
+        cell.pageview.imgUrls = [index0Service namesFromPictures:self.pageviewDatas];
+        cell.pageview.titles = [index0Service titlesFromPictures:self.pageviewDatas];
+        cell.pageview.urls = [index0Service urlsFromPictures:self.pageviewDatas];
+        cell.pageview.martinLiPageScrollViewDelegate = self;
+        cell.pageview.isAutoScroll = YES;
+        cell.pageview.titleIsHidden = YES;//默认为NO（可选）
+        cell.pageview.height = cell.pageviewHeight.constant;
+        cell.pageview.pageViewType = MLPageScrollViewAdvertiseMode;//默认是广告模式（可选）
+        cell.pageview.timeInterval = 3;//默认自动滚动图片时间为2秒（可选）
+        [cell.pageview updatePageViewInSuperView:self.view];
+        return cell;
+    }else if(indexPath.section==1){
+        RobCell *cell=[tableView dequeueReusableCellWithIdentifier:@"RobCell" forIndexPath:indexPath];
+        cell.cellNums++;
+        Robuy_Goods_arr_goods_info *object = self.goodNums[row];
+        [cell.goodPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,object.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+        cell.goodName.text=object.name;
+        cell.goodNum.text=[NSString stringWithFormat:@"抢购数量:%@",object.provider_nums];
+        if ([object.discount isEqualToString:@"0.00"]) {
+            cell.goodPrice.text=[NSString stringWithFormat:@"%@E币",object.point];
+        }else{
+            cell.goodPrice.text=[NSString stringWithFormat:@"￥:%@",object.discount];
+        }
+        cell.marketPrice.text=[NSString stringWithFormat:@"￥:%@",object.price];
+        cell.saleNum.text =[NSString stringWithFormat:@"已抢:%@",object.actual_nums];
+        cell.starttime=object.start_seconds;
+        cell.endtime=object.end_seconds;
+        if (object.start_seconds >-1) {
+            cell.times.text=[NSString stringWithFormat:@"距离开始还有:%@",[self toDetailTime:object.start_seconds]];
+            [timeArray addObject:[NSString stringWithFormat:@"%ld",(long)object.start_seconds]];
+            cell.robNow.backgroundColor=[UIColor redColor];
+        }else{
+            if (object.end_seconds>-1) {
+                [timeEndArray addObject:[NSString stringWithFormat:@"%ld",(long)object.end_seconds]];
+                cell.times.text=[NSString stringWithFormat:@"距离结束还有:%@",[self toDetailTime:object.end_seconds]];
+                cell.robNow.backgroundColor=[UIColor redColor];
+            }else{
+                cell.times.text=@"今天抢购已结束";
+                cell.robNow.backgroundColor=[UIColor grayColor];
+            }
+            
+        }
+        [cell.goodNum.layer setBorderColor:[UIColor redColor].CGColor];//边框颜色
+        [cell.goodNum.layer setBorderWidth:0.5];   //边框宽度
+        cell.robNow.layer.cornerRadius = 3;
+        return cell;
+    }else{
+        return nil;
+    }
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath   {
+    NSInteger section = indexPath.section;
+    if (section==0) {
+        return 123;
+    }else if (section==1){
+        return 125;
+    }else {
+        return 0;
+    }
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSInteger row = indexPath.row;
+    Robuy_Goods_arr_goods_info *robuyGood = [self.goodNums objectAtIndex:row];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+    RobDetailViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RobDetailViewController"];
+    [self.navigationController pushViewController:viewController animated:YES];
+    viewController.robGoodsMOdel = robuyGood;
+
+}
+-(void)headerRereshing
+{
+    page =1;
+    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
+    NSString *lifeHall_id =[NSString stringWithFormat:@"%ld/page/%@",(long)user.lifehall_id,pageString];
+    [self loadDataWithLifehallid:lifeHall_id andGoods:@"0" andType:0];
+     [self.tableView headerEndRefreshing];
+}
+- (void)footerRereshing
+{
+    page++;
+    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
+    NSString *lifeHall_id =[NSString stringWithFormat:@"%ld/page/%@",(long)user.lifehall_id,pageString];
+    [self loadDataWithLifehallid:lifeHall_id andGoods:@"0" andType:1];
+    [self.tableView footerEndRefreshing];
+
+}
+
 
 @end

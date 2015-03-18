@@ -24,7 +24,7 @@
 #define IOS_7_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
 #define IOS_8_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 
-#define MainTabBarColor [UIColor colorWithRed:255.0/255 green:102.0/255 blue:102.0/255 alpha:1]
+#define MainTabBarColor [UIColor redColor]
 #define MainNavBarColor [UIColor whiteColor]
 @implementation AppDelegate
 

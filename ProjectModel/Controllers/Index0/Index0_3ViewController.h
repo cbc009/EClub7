@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MartinLiPageScrollView.h"
 #import <CoreLocation/CoreLocation.h>
+
 @protocol stringDelegate<NSObject>
 -(void)passData:(NSArray *)datas;
 @end

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MyneighborViewController.h"
 @interface NeighborService : NSObject
+
 -(void)loadNeighborPhoneWithMId:(NSInteger )mid andSid:(NSInteger )sid andPage:(NSString *)page OnViewController:(MyneighborViewController*)viewController;
 -(void)loadMoreNeighborPhoneWithMId:(NSInteger )mid andSid:(NSInteger )sid andPage:(NSString *)page OnViewController:(MyneighborViewController*)viewController;
 @end

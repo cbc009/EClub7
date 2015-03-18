@@ -87,18 +87,37 @@ typedef void (^finished)(NSDictionary *info);
 //抽奖规则
 #define Prize_Latest_Rules_URL [PrexURL stringByAppendingString: @"Prize/latest_rules/from/IOS/token/%@/user_type/%d"]
 
+//抢购首页
+#define Robuy_Goods_URL [PrexURL stringByAppendingString: @"Robuy/robuy_goods/lifehall_id/%@/%@"]
+//商家信息
+#define Public_Info_URL [PrexURL stringByAppendingString: @"Public/Seller_info/agent_id/%@/seller_id/%@"]
+//抢购分享
+#define Robuy_Share_URL [PrexURL stringByAppendingString: @"Robuy/robuy_goods_share/goods_id/%@"]
+//抢购商品详情
+#define Robuy_Goods_Detail_URL [PrexURL stringByAppendingString: @"Robuy/robuy_goods_detail/goods_id/%@"]
+//新抢购
+#define Robuy_Goods_Now_URL [PrexURL stringByAppendingString: @"Robuy/robuy_orders/lifehall_id/%@/goods_id/%@/token/%@/user_type/%d/from/IOS"]
+//切换生活馆
+#define Public_Lifehall_Info_URL [PrexURL stringByAppendingString: @"Public/lifehall_info/agent_id/%@/lifehall_id/%@"]
+//往期抢购商品
+#define Robuy_Goods_history_URL [PrexURL stringByAppendingString: @"Robuy/robuy_goods_history/from/IOS/lifehall_id/%@/seller_id/%@/page/%@"]
+//我的抢菜记录
+#define Robuy_Myorder_URL [PrexURL stringByAppendingString: @"Robuy/my_robuy_order/from/IOS/token/%@/user_type/%d/page/%@"]
+//单商品的抢菜记录
+#define Robuy_Robuy_Member_URL [PrexURL stringByAppendingString: @"Robuy/robuy_member/from/IOS/goods_id/%@/page/%@"]
+
+
 //每次一抢的菜
 #define Rob_Index_URL [PrexURL stringByAppendingString: @"Rob/index/from/IOS/token/%@/user_type/%d"]
 //抢菜记录
 #define Robuy_member_URL [PrexURL stringByAppendingString: @"Rob/robuy_member/from/IOS/token/%@/user_type/%d/page/%@"]
 //单商品的抢菜记录
-#define One_Robuy_member_URL [PrexURL stringByAppendingString: @"Rob/robuy_member/from/IOS/token/%@/user_type/%d/gid/%@/page/%@"]
+//#define One_Robuy_member_URL [PrexURL stringByAppendingString: @"Rob/robuy_member/from/IOS/token/%@/user_type/%d/gid/%@/page/%@"]
 //往期抢购商品
 #define Rob_goods_history_URL [PrexURL stringByAppendingString: @"Rob/goods_history/from/IOS/token/%@/user_type/%d/page/%@"]
 //抢菜action
 #define Rob_Robuy_Order_URL [PrexURL stringByAppendingString: @"Rob/robuy_order/from/IOS/token/%@/user_type/%d/gid/%@"]
-//我的抢菜记录
-#define Robuy_Myorder_URL [PrexURL stringByAppendingString: @"Rob/myorder/from/IOS/token/%@/user_type/%d/page/%@"]
+
 
 //获取菜的类别
 #define GoodsTypeURL [MainPrexURL stringByAppendingString: @"Goods/goods_type/from/IOS/token/%@/user_type/%d"]
@@ -173,7 +192,9 @@ typedef void (^finished)(NSDictionary *info);
 //修改地址
 #define ChangeAddress [MainPrexURL stringByAppendingString: @"Base/address/from/IOS"]
 //广告图片
-#define AdPictUrl [MainPrexURL stringByAppendingString: @"Advert/advert_pic/from/IOS/city/%d/pos/%d"]
+#define AdPictUrl [MainPrexURL stringByAppendingString: @"Advert/advert_info/from/IOS/agent_id/%d/position/%d"]
+
+
 //push消息
 #define Push_History [MainPrexURL stringByAppendingString: @"Push/push_history_rec/from/IOS/token/%@/user_type/%d/page/%@"]
 //积分商品列表

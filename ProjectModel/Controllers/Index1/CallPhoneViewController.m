@@ -51,7 +51,7 @@
     [SharedAction setupRefreshWithTableView:self.tableView toTarget:self];
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
-    NSString *urlString = [NSString stringWithFormat:AdPictUrl,user.city,4];
+    NSString *urlString = [NSString stringWithFormat:AdPictUrl,user.agent_id,4];
     [callhistoryservice loadAdverPicFromUrl:urlString inViewController:self];
     
 }

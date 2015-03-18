@@ -1,17 +1,16 @@
 //
-//  RobedRecordsTableViewController.h
+//  RobedRecordsViewController.h
 //  Club
 //
-//  Created by dongway on 14-8-11.
-//  Copyright (c) 2014年 martin. All rights reserved.
+//  Created by MartinLi on 15-3-9.
+//  Copyright (c) 2015年 martin. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface RobedRecordsTableViewController : UITableViewController
+@interface RobedRecordsViewController : UIViewController
 @property(nonatomic,strong)NSMutableArray *datas;
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (nonatomic ,assign)   int page;
 @property(nonatomic,strong)NSString *gid;
-
 @end
