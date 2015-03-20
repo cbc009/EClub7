@@ -21,6 +21,7 @@
 @property(nonatomic,strong)NSString *mainid;
 @property(nonatomic,strong)NSString *name;
 @property(nonatomic,strong)NSString *picture;
+@property(nonatomic,strong)NSString *color;
 @property(nonatomic,strong)NSArray<Goods_type_subType>* subtype;
 @end
 

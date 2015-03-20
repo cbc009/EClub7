@@ -280,7 +280,6 @@
 		3390BFD41A7631790068B70B /* FeedRequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3390BFD31A7631790068B70B /* FeedRequestCell.m */; };
 		3390BFD81A7636500068B70B /* FeedbackModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3390BFD71A7636500068B70B /* FeedbackModel.m */; };
 		3390CB251AB0355C00AE0E11 /* Public_lifehall.m in Sources */ = {isa = PBXBuildFile; fileRef = 3390CB241AB0355C00AE0E11 /* Public_lifehall.m */; };
-		3390CB281AB0368400AE0E11 /* ChangeLifehallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3390CB271AB0368400AE0E11 /* ChangeLifehallViewController.m */; };
 		3390CB2B1AB036E000AE0E11 /* ChangeLifeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3390CB2A1AB036E000AE0E11 /* ChangeLifeService.m */; };
 		3391216A1A48F5DE00D8FA3D /* GroupAdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 339121691A48F5DE00D8FA3D /* GroupAdCell.m */; };
 		3391216D1A49412800D8FA3D /* KillHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3391216C1A49412800D8FA3D /* KillHistoryViewController.m */; };
@@ -914,8 +913,6 @@
 		3390BFD71A7636500068B70B /* FeedbackModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackModel.m; sourceTree = "<group>"; };
 		3390CB231AB0355C00AE0E11 /* Public_lifehall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Public_lifehall.h; sourceTree = "<group>"; };
 		3390CB241AB0355C00AE0E11 /* Public_lifehall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Public_lifehall.m; sourceTree = "<group>"; };
-		3390CB261AB0368400AE0E11 /* ChangeLifehallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeLifehallViewController.h; sourceTree = "<group>"; };
-		3390CB271AB0368400AE0E11 /* ChangeLifehallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeLifehallViewController.m; sourceTree = "<group>"; };
 		3390CB291AB036E000AE0E11 /* ChangeLifeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeLifeService.h; sourceTree = "<group>"; };
 		3390CB2A1AB036E000AE0E11 /* ChangeLifeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeLifeService.m; sourceTree = "<group>"; };
 		339121681A48F5DE00D8FA3D /* GroupAdCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupAdCell.h; sourceTree = "<group>"; };
@@ -1632,8 +1629,6 @@
 				225579FE19964597001B5FCC /* RobViewController.m */,
 				33B6614F1AAC09D20049E130 /* RobDetailViewController.h */,
 				33B661501AAC09D20049E130 /* RobDetailViewController.m */,
-				3390CB261AB0368400AE0E11 /* ChangeLifehallViewController.h */,
-				3390CB271AB0368400AE0E11 /* ChangeLifehallViewController.m */,
 				33B661521AAC24780049E130 /* SellerDetailViewController.h */,
 				33B661531AAC24780049E130 /* SellerDetailViewController.m */,
 				22F09749199E0D55007B9E7B /* RewardRecordsViewController.h */,
@@ -3114,7 +3109,6 @@
 				22082CFD19A480F70088D8C3 /* NSString+MT.m in Sources */,
 				33EF23681A4D088A00CFD4FC /* BackGroundCell.m in Sources */,
 				33B6614E1AAC09380049E130 /* WebCell.m in Sources */,
-				3390CB281AB0368400AE0E11 /* ChangeLifehallViewController.m in Sources */,
 				33F73F0C1A1D8C9400EB73CB /* ChangePayPasswordService.m in Sources */,
 				3382E9611A5F7118006EDEF1 /* GroupHistoryViewController.m in Sources */,
 				337C10731A64E64100293D68 /* PeopleDetailService.m in Sources */,

@@ -289,6 +289,7 @@
 }
 //相机相关
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     if (buttonIndex==0) {
         [self showImagePickerControllerWithSourceType:UIImagePickerControllerSourceTypeCamera];
     }else if(buttonIndex==1){
@@ -299,6 +300,7 @@
 #pragma UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     UIImage *image=nil;
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     if (picker.allowsEditing) {
         image = info[UIImagePickerControllerEditedImage];
     }else{
@@ -315,7 +317,9 @@
 }
 
 -(void)showImagePickerControllerWithSourceType:(UIImagePickerControllerSourceType)sourceType{
+    [[UINavigationBar appearance] setTintColor:[UIColor redColor]];
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.navigationController.navigationBar.tintColor=[UIColor redColor];
     picker.sourceType = sourceType;
     picker.allowsEditing = YES;
     picker.delegate = self;

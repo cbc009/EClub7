@@ -32,6 +32,7 @@
 #define ItemHeight 40.0
 #define kMode_Development             @"00"//正式上线的时候要改为00千万要记住
 //#define kResult           @"支付结果：%@"    //支付结果
+#define DEFAULT_VOID_COLOR [UIColor whiteColor]
 
 
 #import "SharedAction.h"

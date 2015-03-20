@@ -40,6 +40,7 @@
 {
     [super viewWillAppear:animated];
     loginname.text = self.loginname1;
+    loginname.keyboardType=UIKeyboardTypeNumberPad;
     password.text = self.password1;
 }
 - (void)didReceiveMemoryWarning

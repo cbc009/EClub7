@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -91,7 +91,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="67" height="89"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="2545360B-B40C-4197-9F78-20D84EB10C6E" translatesAutoresizingMaskIntoConstraints="NO" id="MzM-4p-edY">
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="72A72AEC-FCA2-41AF-8504-4041E43CB5C0" translatesAutoresizingMaskIntoConstraints="NO" id="MzM-4p-edY">
                                                                         <rect key="frame" x="4" y="6" width="58" height="58"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="58" id="LZx-DU-UQ8"/>
@@ -1705,7 +1705,7 @@
                                 <rect key="frame" x="0.0" y="474" width="320" height="45"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ss1-18-JZR">
-                                        <rect key="frame" x="65" y="8" width="206" height="30"/>
+                                        <rect key="frame" x="65" y="7" width="206" height="30"/>
                                         <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="购买">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1734,7 +1734,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cHj-1N-1T6">
-                        <barButtonItem key="rightBarButtonItem" image="icon_merchant_share_highlighted.png" id="jRm-rb-Xe9">
+                        <barButtonItem key="rightBarButtonItem" image="share icon.png" id="jRm-rb-Xe9">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="shareAction:" destination="Y90-f1-QbH" id="xrf-bT-1TU"/>
@@ -1819,7 +1819,7 @@
                                                 <constraint firstAttribute="height" constant="22" id="ASm-qy-zRr"/>
                                                 <constraint firstAttribute="width" constant="49" id="FCK-Pu-skX"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -2110,7 +2110,7 @@
                                     <constraint firstAttribute="height" constant="21" id="psZ-DS-siH"/>
                                     <constraint firstAttribute="width" constant="229" id="rce-n3-f8N"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -2120,7 +2120,7 @@
                                     <constraint firstAttribute="height" constant="21" id="bIk-31-e9H"/>
                                     <constraint firstAttribute="width" constant="62" id="e1e-qG-qOi"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -3983,7 +3983,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="2545360B-B40C-4197-9F78-20D84EB10C6E" width="200" height="200">
+        <image name="72A72AEC-FCA2-41AF-8504-4041E43CB5C0" width="200" height="200">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -6712,7 +6712,6 @@ AAAAAAAAQgAAAAAAAAAAAAAAAAACe0M
         <image name="future_kill_bg.png" width="199" height="57"/>
         <image name="home_page.png" width="28" height="28"/>
         <image name="hongbao.jpg" width="350" height="185"/>
-        <image name="icon_merchant_share_highlighted.png" width="23" height="23"/>
         <image name="killsmall2.png" width="238" height="240"/>
         <image name="naozhong_img.png" width="80" height="80"/>
         <image name="now_kill_bg.png" width="199" height="57"/>
@@ -6728,6 +6727,6 @@ AAAAAAAAQgAAAAAAAAAAAAAAAAACe0M
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="ipx-Pt-sTI"/>
-        <segue reference="1Zv-O3-HTg"/>
+        <segue reference="I3E-Zt-sYq"/>
     </inferredMetricsTieBreakers>
 </document>

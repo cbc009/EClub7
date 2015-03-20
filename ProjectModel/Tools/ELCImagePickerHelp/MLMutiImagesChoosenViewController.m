@@ -53,12 +53,14 @@ static NSString * const reuseIdentifier = @"ChoosenImageCell2";
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==0) {
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        [[UINavigationBar appearance] setTintColor:[UIColor redColor]];
         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
         picker.allowsEditing = YES;
         picker.delegate = self;
         [self.fatherController presentViewController:picker animated:YES completion:nil];
     }else if(buttonIndex==1){
         ELCImagePickerController *elcPicker = [[ELCImagePickerController alloc] init];
+        [[UINavigationBar appearance] setTintColor:[UIColor redColor]];
         elcPicker.maximumImagesCount = 100; //Set the maximum number of images to select to 100
         elcPicker.imagePickerDelegate = self;
         [self.fatherController presentViewController:elcPicker animated:YES completion:nil];
@@ -68,6 +70,7 @@ static NSString * const reuseIdentifier = @"ChoosenImageCell2";
 #pragma mark ELCImagePickerControllerDelegate Methods
 - (void)elcImagePickerController:(ELCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSArray *)info
 {
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [picker dismissViewControllerAnimated:YES completion:^{
         for (NSDictionary *dict in info) {
             if ([dict objectForKey:UIImagePickerControllerMediaType] == ALAssetTypePhoto){
@@ -86,6 +89,7 @@ static NSString * const reuseIdentifier = @"ChoosenImageCell2";
 
 - (void)elcImagePickerControllerDidCancel:(ELCImagePickerController *)picker
 {
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -114,7 +118,6 @@ static NSString * const reuseIdentifier = @"ChoosenImageCell2";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ChoosenImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-   
     if (self.imageMode==getImagesMode) {
         cell.imgView.image = self.chooseImages[indexPath.row];
     }else if(self.imageMode == browseImagesMode){
