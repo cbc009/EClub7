@@ -97,7 +97,7 @@
         [cell.herad addGestureRecognizer:chageHead];
         cell.herad.layer.masksToBounds = YES;
         cell.herad.layer.cornerRadius = 30;
-        [cell.back sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,lifeBackPicture]] placeholderImage:[UIImage imageNamed:@"e"]];
+        [cell.back sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.life_picture]] placeholderImage:[UIImage imageNamed:@"e"]];
         cell.back.userInteractionEnabled =YES;
         UITapGestureRecognizer *chageBack = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tpaChangebackGround)];
         [cell.back addGestureRecognizer:chageBack];
@@ -315,11 +315,14 @@
         }];
     }];
 }
-
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+   
+}
 -(void)showImagePickerControllerWithSourceType:(UIImagePickerControllerSourceType)sourceType{
     [[UINavigationBar appearance] setTintColor:[UIColor redColor]];
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.navigationController.navigationBar.tintColor=[UIColor redColor];
     picker.sourceType = sourceType;
     picker.allowsEditing = YES;
     picker.delegate = self;

@@ -216,6 +216,8 @@
 }
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
 }
 #pragma Notification
 /*
