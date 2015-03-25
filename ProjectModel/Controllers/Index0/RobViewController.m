@@ -75,6 +75,9 @@
     self.title=@"乔庄生活馆";
     [robService loadAdverPicWithPos:3 inViewController:self];
     [SharedAction setupRefreshWithTableView:self.tableView toTarget:self];
+    
+    [SharedAction removeLocalPushNotificationWithType:@"rob"];//这里要注意 这里是取消现在用户手机中的抢购本地推送推送
+    
     [self headerRereshing];
 }
 -(void)loadDataWithLifehallid:(NSString *)lifehall_id andGoods:(NSString *)goodsId andType:(NSInteger )type{

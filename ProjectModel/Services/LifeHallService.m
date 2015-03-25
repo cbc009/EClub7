@@ -12,6 +12,7 @@
 #import "WebViewController.h"
 #import <SVProgressHUD.h>
 @implementation LifeHallService
+//生活馆
 -(void)lifehalllifehalllistWithToken:(NSString *)token andUer_type:(NSInteger )user_type andTabbarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done
 {
     NSString *urlString =[NSString stringWithFormat:Lifehall_lifehall_list_URL,token,user_type];
@@ -20,6 +21,7 @@
         [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
     }];
 }
+//生活馆详情
 -(void)presentLifeHallDetailwithToken:(NSString *)token andUser_type:(NSInteger )uesr_type andLifeHall_id:(NSString*)lifehall_id inViewControllerOnViewController:(UIViewController *)viewController{
     WebViewController *target = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
     target.urlString = [NSString stringWithFormat:Lifehall_lifehall_info_URL,lifehall_id,token,uesr_type];

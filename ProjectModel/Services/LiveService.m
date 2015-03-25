@@ -13,6 +13,7 @@
 #import "BodyCell.h"
 #import "NSString+MT.h"
 @implementation LiveService
+//加载生活圈信息
 -(void)loadLiveDataWithToken:(NSString *)token andUser_type:(NSInteger )user_type andPageString:(NSString *)pageString withTabBarViewController:(UITabBarController*)tabBarController doneObject:(doneWithObject)done
 {
     NSString *urlString = [NSString stringWithFormat:LiveURL,token,user_type,pageString];

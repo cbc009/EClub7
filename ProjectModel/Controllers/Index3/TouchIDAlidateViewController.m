@@ -36,13 +36,14 @@
 */
 
 - (IBAction)nextStep:(id)sender {
+    
     [self.password resignFirstResponder];
     SharedData *sharedData = [SharedData sharedInstance];
     sharedData.fingerIsOpened = @"yes";
     sharedData.payPassword = self.password.text;
     [self.navigationController popViewControllerAnimated:YES];
-    
     [self.touchIDSetDelegagte touchIDSetSuccessed];
 
 }
+
 @end
