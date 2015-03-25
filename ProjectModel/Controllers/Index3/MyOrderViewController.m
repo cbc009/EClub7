@@ -67,9 +67,6 @@
          TradeOrder *order1 = [self.items objectAtIndex:row];
         cell.demo.text = order1.demo;
         cell.time.text = [order1.regtime substringToIndex:10];
-//        if (<#condition#>) {
-//            <#statements#>
-//        }
         cell.total.text = order1.status;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;

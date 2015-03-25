@@ -13,8 +13,8 @@
 @interface TradeOrder : JSONModel
 @property(nonatomic,strong)NSString *orderid;
 @property(nonatomic,strong)NSString *regtime;
-@property(nonatomic,strong)NSString <Optional>*status;
-@property(nonatomic,strong)NSString<Optional> *demo;
+@property(nonatomic,strong)NSString *status;
+@property(nonatomic,strong)NSString *demo;
 @end
 
 @interface TradeOrderInfo : JSONModel

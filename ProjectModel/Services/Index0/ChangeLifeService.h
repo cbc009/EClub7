@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "RootTabBarViewController.h"
 @interface ChangeLifeService : NSObject
+//修改生活馆
 -(void)publiclifehallWithagentid:(NSString *)agent_id andLifehallId:(NSString *)lifehall_id inTabBarController:(UITabBarController*)tabBarController withDone:(doneWithObject)done;
 @end

@@ -75,10 +75,10 @@
 }
 
 - (MASConstraint *)addConstraintWithAttributes:(MASAttribute)attrs {
-    MASAttribute anyAttribute = MASAttributeLeft | MASAttributeRight | MASAttributeTop | MASAttributeBottom | MASAttributeLeading | MASAttributeTrailing | MASAttributeWidth | MASAttributeHeight | MASAttributeCenterX | MASAttributeCenterY | MASAttributeBaseline;
+    __unused MASAttribute anyAttribute = MASAttributeLeft | MASAttributeRight | MASAttributeTop | MASAttributeBottom | MASAttributeLeading | MASAttributeTrailing | MASAttributeWidth | MASAttributeHeight | MASAttributeCenterX | MASAttributeCenterY | MASAttributeBaseline;
     
     NSAssert((attrs & anyAttribute) != 0, @"You didn't pass any attribute to make.attributes(...)");
-    NSLog(@"%ld",(long)anyAttribute);
+    
     NSMutableArray *attributes = [NSMutableArray array];
     
     if (attrs & MASAttributeLeft) [attributes addObject:self.view.mas_left];

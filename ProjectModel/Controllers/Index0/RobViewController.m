@@ -14,8 +14,6 @@
 #import "SharedAction.h"
 #import "WebViewController.h"
 #import "Status.h"
-#import "ChangeLifehallViewController.h"
-
 #import "Index0_1Cell.h"
 #import "RobCell.h"
 #import "Index0Service.h"
@@ -23,7 +21,9 @@
 #import <UIImageView+WebCache.h>
 #import "RobDetailViewController.h"
 #import "MJRefresh.h"
-@interface RobViewController ()
+#import "ChangeLifeService.h"
+#import "Public_lifehall.h"
+@interface RobViewController ()<RMPickerViewControllerDelegate>
 {
     RobService *robService;
     Index0Service *index0Service;;
@@ -34,11 +34,13 @@
     NSTimer *timwer;
     NSInteger page;
     NSInteger ChangeUp;
-    ChangeLifehallViewController *changeLifehallViewController;
-    
+    ChangeLifeService *changeLifeService;
 }
 @property(nonatomic,assign)NSInteger second1;
 @property(nonatomic,strong)NSTimer *timer;
+@property(nonatomic,strong)NSMutableArray *components;
+@property (nonatomic,strong)NSMutableArray *lifeIdArray;
+
 @end
 
 @implementation RobViewController
@@ -60,9 +62,10 @@
 {
     [super viewDidLoad];
     ChangeUp=0;
-    self.title = @"抢购";
     timeArray=[NSMutableArray new];
     timeEndArray=[NSMutableArray new];
+    self.components=[NSMutableArray new];
+    self.lifeIdArray=[NSMutableArray new];
     robService = [[RobService alloc] init];
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
@@ -73,9 +76,6 @@
     [robService loadAdverPicWithPos:3 inViewController:self];
     [SharedAction setupRefreshWithTableView:self.tableView toTarget:self];
     [self headerRereshing];
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
-    changeLifehallViewController = [storyboard instantiateViewControllerWithIdentifier:@"ChangeLifehallViewController"];
-    changeLifehallViewController.delegate=self;
 }
 -(void)loadDataWithLifehallid:(NSString *)lifehall_id andGoods:(NSString *)goodsId andType:(NSInteger )type{
     __block RobViewController *aBlockSelf = self;
@@ -91,17 +91,30 @@
 
 
 - (IBAction)changeLifeHall:(id)sender {
-   
     if (ChangeUp==0) {
         ChangeUp=1;
-        [self.view addSubview:changeLifehallViewController.view];
+        changeLifeService =[[ChangeLifeService alloc] init];
+        __block RobViewController *blockSelf =self;
+        [changeLifeService publiclifehallWithagentid:[NSString stringWithFormat:@"%ld",(long)user.agent_id] andLifehallId:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] inTabBarController:blockSelf.tabBarController withDone:^(Public_Lifehall_INfo *model){
+            [self setPickwithDatas:model.arr_lifehall];
+        }];
     }
 }
--(void)changeLifeId:(NSString *)lifeHallId andLifeHallName:(NSString *)lifehallName{
-    self.title=lifehallName;
-    ChangeUp=0;
-    [self loadDataWithLifehallid:lifeHallId andGoods:@"0" andType:0];
+-(void)setPickwithDatas:(NSArray *)datas{
+    self.pickerVC = [RMPickerViewController pickerController];
+    count = (int)datas.count;
+    for (NSInteger i=0; i<count; i++) {
+        Public_Lifehall_INfo_arr_lifehall *object =datas[i];
+        [self.components addObject:object.lifehall_name];
+        [self.lifeIdArray addObject:object.lifehall_id];
+    }
+    self.pickerVC.delegate = self;
+    self.pickerVC.titleLabel.text = @"选择";
+    self.pickerVC.disableBlurEffects = YES;
+    [self.pickerVC show];
 }
+
+
 
 #pragma MartinLiPageScrollViewDelegate
 -(void)imgViewDidTouchActionAtIndex:(NSInteger)index inArray:(NSArray *)array{
@@ -180,6 +193,7 @@
                 cell.robNow.backgroundColor=[UIColor redColor];
             }else{
                 cell.times.text=@"今天抢购已结束";
+                [cell.robNow setTitle:@"抢购结束" forState:UIControlStateNormal];
                 cell.robNow.backgroundColor=[UIColor grayColor];
             }
             
@@ -229,6 +243,36 @@
     [self.tableView footerEndRefreshing];
 
 }
+#pragma mark - RMPickerViewController Delegates
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    return 1;
+}
+-(NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+   
+    return [self.components count];
+}
+-(NSString*) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    return self.components[row];
+}
 
+- (void)pickerViewController:(RMPickerViewController *)vc didSelectRows:(NSArray *)selectedRows {
+    NSString *value = [self valueFromSelectedRows:selectedRows andComponents:self.components];
+    NSString *lifeIDValue =[self valueFromSelectedRows:selectedRows andComponents:self.lifeIdArray];
+    ChangeUp=0;
+    [self changeLifeId:lifeIDValue andLifeHallName:value];
+}
 
+-(NSString *)valueFromSelectedRows:(NSArray *)selectedRows andComponents:(NSArray *)components{
+    NSMutableString *value = [[NSMutableString alloc] init];
+    for (int i=0; i<selectedRows.count; i++) {
+        NSString *value = components[i];
+        return value;
+         }
+    return value;
+}
+-(void)changeLifeId:(NSString *)lifeHallId andLifeHallName:(NSString *)lifehallName{
+    self.title=lifehallName;
+    ChangeUp=0;
+    [self loadDataWithLifehallid:lifeHallId andGoods:@"0" andType:0];
+}
 @end

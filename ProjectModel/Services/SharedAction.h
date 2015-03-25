@@ -48,4 +48,5 @@ typedef void (^doneWithObjectAndStatus)(int status,id object);
 +(void)removeLocalPushNotificationWithType:(NSString *)type;
 +(BOOL)notifyTime2:(NSString *)time;
 +(void)fingerPayWithDone:(done)done;
++ (UIColor *)colorWithHexString:(NSString *)stringToConvert;
 @end

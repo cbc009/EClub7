@@ -38,14 +38,9 @@
     UserInfo *user = sharedData.user;
     self.title=user.lifehall_name;
     index0Service = [[Index0Service alloc] init];
-    [self locationNow];
+//    [self locationNow];
     NSLog(@"%@",sharedData.loginStatus);
-//    if (![[sharedData loginStatus] isEqualToString:@"YES"]) {
-//        [SharedAction presentLoginViewControllerInViewController:self];
-//    }else{
-        //需要重新加载userDefaults的数据（可能数据库的数据会经常变化）
-        [index0Service loadUserDefaultsInViewController:self witLoginStatus:sharedData.loginStatus];
-//    }
+    [index0Service loadUserDefaultsInViewController:self witLoginStatus:sharedData.loginStatus];
     self.collectionDatas = [NSArray arrayWithObjects:@"抢购",@"秒杀",@"团购",@"购物车",@"充值",@"抽奖",@"兑换",@"钱包", nil];
     self.collectionImgs = [NSArray arrayWithObjects:@"qianggou.png",@"miaosha.png",@"tuangou.png",@"gouwuche.png",@"chongzhi.png",@"choujiang.png",@"duihuan.png",@"qianbao.png", nil];
 }
@@ -102,6 +97,7 @@
         NSArray *subtypes = goods_type.subtype;
         [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,goods_type.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
         cell.firstType.text = goods_type.name;
+        cell.firstType.textColor=[SharedAction colorWithHexString:goods_type.color];
         cell.secondType.text = [self subtypeStringFromArray:subtypes];
         return cell;
     }
@@ -231,6 +227,7 @@
     self.locMgr.desiredAccuracy = kCLLocationAccuracyBest;
     self.locMgr.distanceFilter = 1000.0f;
     [self.locMgr startUpdatingLocation];
+    
 }
 #pragma CLLocationManagerDelegate
 

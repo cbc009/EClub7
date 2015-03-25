@@ -189,6 +189,7 @@
 
 #pragma UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     UIImage *image=nil;
     if (picker.allowsEditing) {
         image = info[UIImagePickerControllerEditedImage];
@@ -206,11 +207,17 @@
 }
 
 -(void)showImagePickerControllerWithSourceType:(UIImagePickerControllerSourceType)sourceType{
+    [[UINavigationBar appearance] setTintColor:[UIColor redColor]];
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.sourceType = sourceType;
     picker.allowsEditing = YES;
     picker.delegate = self;
     [self presentViewController:picker animated:YES completion:nil];
+}
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
 }
 #pragma Notification
 /*

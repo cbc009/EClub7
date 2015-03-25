@@ -85,8 +85,6 @@
     page = 1;
     [service base_accountWithToken:user.token andUserType:user.user_type inTabBarController:self.tabBarController andPage:page withDone:^(Info *model){
         datas = [NSMutableArray arrayWithArray: model.trade];
-        
-        NSLog(@"%@",datas);
         [self.tableview reloadData];
         [self.tableview headerEndRefreshing];
     }];
