@@ -43,7 +43,7 @@
         [self addGestureRecognizer:pan];
         
         //
-        CGFloat width = frame.size.width/9.0;
+        CGFloat width = frame.size.width/11.0;
         self.starWidth = width;
         for(int i = 0;i<5;i++){
             UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width*ZOOM+3, width*ZOOM+2)];
@@ -85,6 +85,7 @@
         }
     }
 }
+
 -(void)pan:(UIPanGestureRecognizer *)gesture{
     if(self.enable){
         CGPoint point = [gesture locationInView:self];

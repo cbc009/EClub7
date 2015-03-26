@@ -17,7 +17,7 @@
     [self addSubview:bar];
     bar.starNumber=2.5;
     bar.enable=NO;
-    bar.frame=CGRectMake(75, 40, 100, 20);
+    bar.frame=CGRectMake(80, 40, 100, 20);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

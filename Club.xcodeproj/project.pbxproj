@@ -275,6 +275,7 @@
 		33766DA51AC3A5130083B5E9 /* selerdetail_03.png in Resources */ = {isa = PBXBuildFile; fileRef = 33766DA31AC3A5130083B5E9 /* selerdetail_03.png */; };
 		33766DA71AC3A5CE0083B5E9 /* bule_03_03.png in Resources */ = {isa = PBXBuildFile; fileRef = 33766DA61AC3A5CE0083B5E9 /* bule_03_03.png */; };
 		33766DAA1AC3AFC20083B5E9 /* ShoopGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33766DA91AC3AFC20083B5E9 /* ShoopGoodsViewController.m */; };
+		33766DAD1AC3F7830083B5E9 /* RemarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33766DAC1AC3F7830083B5E9 /* RemarkViewController.m */; };
 		3377183F1A50EB6A001D8CB6 /* LiveData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3377183E1A50EB6A001D8CB6 /* LiveData.m */; };
 		337C10671A64C3A100293D68 /* PeopleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 337C10661A64C3A100293D68 /* PeopleDetailViewController.m */; };
 		337C106A1A64CA9A00293D68 /* PeopleDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 337C10691A64CA9A00293D68 /* PeopleDetailCell.m */; };
@@ -943,6 +944,8 @@
 		33766DA61AC3A5CE0083B5E9 /* bule_03_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bule_03_03.png; sourceTree = "<group>"; };
 		33766DA81AC3AFC20083B5E9 /* ShoopGoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoopGoodsViewController.h; sourceTree = "<group>"; };
 		33766DA91AC3AFC20083B5E9 /* ShoopGoodsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoopGoodsViewController.m; sourceTree = "<group>"; };
+		33766DAB1AC3F7830083B5E9 /* RemarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemarkViewController.h; sourceTree = "<group>"; };
+		33766DAC1AC3F7830083B5E9 /* RemarkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemarkViewController.m; sourceTree = "<group>"; };
 		3377183D1A50EB6A001D8CB6 /* LiveData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveData.h; sourceTree = "<group>"; };
 		3377183E1A50EB6A001D8CB6 /* LiveData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveData.m; sourceTree = "<group>"; };
 		337C10651A64C3A100293D68 /* PeopleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeopleDetailViewController.h; sourceTree = "<group>"; };
@@ -1767,6 +1770,8 @@
 				33766D9C1AC3A36E0083B5E9 /* ShowDetailViewController.m */,
 				33766DA81AC3AFC20083B5E9 /* ShoopGoodsViewController.h */,
 				33766DA91AC3AFC20083B5E9 /* ShoopGoodsViewController.m */,
+				33766DAB1AC3F7830083B5E9 /* RemarkViewController.h */,
+				33766DAC1AC3F7830083B5E9 /* RemarkViewController.m */,
 			);
 			name = Index0;
 			path = Controllers/Index0;
@@ -3327,6 +3332,7 @@
 				3397CBCB1A67AE720046B30C /* DAKeyboardControl.m in Sources */,
 				337086481A5E2D5D006A7688 /* LifeHallViewController.m in Sources */,
 				33E7CFC119F7A79A00D49EA6 /* KillDetailCell.m in Sources */,
+				33766DAD1AC3F7830083B5E9 /* RemarkViewController.m in Sources */,
 				22F0974B199E0D55007B9E7B /* RewardRecordsViewController.m in Sources */,
 				2267B495199A14D400FA9FED /* ItemInfosCell.m in Sources */,
 				8F4793111A1C5E9400546648 /* Member_Login.m in Sources */,

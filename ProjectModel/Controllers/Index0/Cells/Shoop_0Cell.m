@@ -18,7 +18,7 @@
     bar.enable=NO;
     [self addSubview:bar];
     //    bar.center.y = 12;
-    bar.frame=CGRectMake(self.frame.origin.x+130,65, 100, 20);
+    bar.frame=CGRectMake(self.frame.origin.x+135,65, 100, 20);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
