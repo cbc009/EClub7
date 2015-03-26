@@ -1,23 +1,24 @@
 //
-//  ShoopsDetailCell.m
+//  Shoop_0Cell.m
 //  Club
 //
-//  Created by MartinLi on 15-3-25.
+//  Created by MartinLi on 15-3-26.
 //  Copyright (c) 2015年 martin. All rights reserved.
 //
 
-#import "ShoopsDetailCell.h"
+#import "Shoop_0Cell.h"
 #import "RatingBar.h"
-@implementation ShoopsDetailCell
+@implementation Shoop_0Cell
 {
     RatingBar *bar;
 }
 - (void)awakeFromNib {
     bar = [[RatingBar alloc] initWithFrame:CGRectMake(75, 50, 160, 20)];
-    [self addSubview:bar];
-    bar.starNumber=2.5;
+    bar.starNumber=4;
     bar.enable=NO;
-    bar.frame=CGRectMake(75, 40, 100, 20);
+    [self addSubview:bar];
+    //    bar.center.y = 12;
+    bar.frame=CGRectMake(self.frame.origin.x+130,65, 100, 20);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -25,7 +26,5 @@
 
     // Configure the view for the selected state
 }
-//- (IBAction)tap:(id)sender {
-//    NSLog(@"%ld",(long)bar.starNumber);
-//}
+
 @end

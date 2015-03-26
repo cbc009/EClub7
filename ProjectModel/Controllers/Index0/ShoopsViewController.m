@@ -17,6 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title=@"商家";
     self.tableview.backgroundColor=[SharedAction colorWithHexString:@"#f2f2f2"];
     self.tableview.separatorStyle=UITableViewCellSeparatorStyleNone;
     // Do any additional setup after loading the view.
@@ -39,6 +40,7 @@
     return 128;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+   [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
     ShoopDetailViewController *shoopDetailVic=[storBoard instantiateViewControllerWithIdentifier:@"ShoopDetailViewController"];
 //    [self presentViewController:shoopDetailVic animated:YES completion:nil];

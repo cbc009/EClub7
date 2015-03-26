@@ -27,12 +27,12 @@
 }
 
 - (IBAction)add:(id)sender {
-    self.number.text = [itemDetailService addNumber:self.number];
+    self.number.text = [SharedAction addNumber:self.number];
     
 }
 
 - (IBAction)reduce:(id)sender {
-    self.number.text = [itemDetailService reduceNumber:self.number];
+    self.number.text = [SharedAction reduceNumber:self.number];
 
     
 }

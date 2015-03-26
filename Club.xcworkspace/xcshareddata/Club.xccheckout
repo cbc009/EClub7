@@ -58,25 +58,25 @@
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>BD8BF37D48E52F4702C53EB99DD2E9DA97A1ABFC</string>
-			<key>IDESourceControlWCCName</key>
-			<string>Club4</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>BD8BF37D48E52F4702C53EB99DD2E9DA97A1ABFC</string>
-			<key>IDESourceControlWCCName</key>
-			<string>Club4</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.subversion</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>9d6c210e-53c6-57e2-087c-ce57b7db7bff++505</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Club4</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>BD8BF37D48E52F4702C53EB99DD2E9DA97A1ABFC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Club4</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>BD8BF37D48E52F4702C53EB99DD2E9DA97A1ABFC</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Club4</string>
 		</dict>

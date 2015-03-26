@@ -11,7 +11,7 @@
 // 发布代码于最专业的源码分享网站: Code4App.com
 
 #import "RatingBar.h"
-#define ZOOM 0.5f
+#define ZOOM 0.6f
 @interface RatingBar()
 @property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UIView *topView;
@@ -43,10 +43,10 @@
         [self addGestureRecognizer:pan];
         
         //
-        CGFloat width = frame.size.width/7.0;
+        CGFloat width = frame.size.width/9.0;
         self.starWidth = width;
         for(int i = 0;i<5;i++){
-            UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width*ZOOM, width*ZOOM)];
+            UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width*ZOOM+3, width*ZOOM+2)];
             img.center = CGPointMake((i+1)*width, frame.size.height/2);
             img.image = [UIImage imageNamed:@"bt_star_a"];
             [self.bottomView addSubview:img];

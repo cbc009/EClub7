@@ -204,11 +204,11 @@
     }
 }
 - (IBAction)reduce:(id)sender {
-    self.numbs.text = [itemDetailService reduceNumber:self.numbs];
+    self.numbs.text = [SharedAction reduceNumber:self.numbs];
 }
 
 - (IBAction)add:(id)sender {
-    self.numbs.text = [itemDetailService addNumber:self.numbs];
+    self.numbs.text = [SharedAction addNumber:self.numbs];
 
 }
 @end

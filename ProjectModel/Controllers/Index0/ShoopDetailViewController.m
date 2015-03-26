@@ -9,6 +9,7 @@
 #import "ShoopDetailViewController.h"
 #import "JSDropDownMenu.h"
 #import "ShoopsDetailCell.h"
+#import "ShowViewController.h"
 @interface ShoopDetailViewController ()<JSDropDownMenuDataSource,JSDropDownMenuDelegate>
 {
     NSMutableArray *_data1;
@@ -25,6 +26,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+
+    self.tableview.autoresizesSubviews=YES;
     // Do any additional setup after loading the view, typically from a nib.
     
     NSArray *food = @[@"全部美食", @"火锅", @"川菜", @"西餐", @"自助餐"];
@@ -172,7 +176,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    return 8;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ShoopsDetailCell *cell =[tableView dequeueReusableCellWithIdentifier:@"ShoopsDetailCell" forIndexPath:indexPath];
@@ -182,11 +186,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 64;
 }
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
-//    ShoopDetailViewController *shoopDetailVic=[storBoard instantiateViewControllerWithIdentifier:@"ShoopDetailViewController"];
-//    //    [self presentViewController:shoopDetailVic animated:YES completion:nil];
-//    [self.navigationController pushViewController:shoopDetailVic animated:YES];
-//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+    ShowViewController *showVic=[storBoard instantiateViewControllerWithIdentifier:@"ShowViewController"];
+    [self.navigationController pushViewController:showVic animated:YES];
+}
 
 @end

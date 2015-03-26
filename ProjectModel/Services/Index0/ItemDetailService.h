@@ -10,8 +10,6 @@
 #import "ItemDetailViewController.h"
 @interface ItemDetailService : NSObject
 
--(NSString *)reduceNumber:(UILabel *)countLabel;
--(NSString *)addNumber:(UILabel *)countLabel;
 
 -(void)presentPurchaseCarViewControllerWithToken:(NSString*)token andUser_type:(NSInteger )user_type andGid:(NSString *)gid andNums:(NSString *)nums inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 

@@ -8,14 +8,20 @@
 
 #import "TouchIDAlidateViewController.h"
 #import "TouchIDSetViewController.h"
+#import "Status.h"
+#import "MyMD5.h"
 @interface TouchIDAlidateViewController ()
-
+{
+    UserInfo *user;
+}
 @end
 
 @implementation TouchIDAlidateViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    SharedData *sharedData =[SharedData sharedInstance];
+    user=sharedData.user;
     // Do any additional setup after loading the view.
     [self.password becomeFirstResponder];
 }
@@ -36,13 +42,18 @@
 */
 
 - (IBAction)nextStep:(id)sender {
+    NSString *passwd2 = [MyMD5 md5:self.password.text];
+    [SharedAction confirmPssswordWithToken:user.token andUser_type:user.user_type andType:@"2" andPassword:passwd2 inTabBarController:self.tabBarController withDone:^(Status *model){
+        if (model.status==2) {
+            [self.password resignFirstResponder];
+            SharedData *sharedData = [SharedData sharedInstance];
+            sharedData.fingerIsOpened = @"yes";
+            sharedData.payPassword = self.password.text;
+            [self.navigationController popViewControllerAnimated:YES];
+            [self.touchIDSetDelegagte touchIDSetSuccessed];
+        }
+    }];
     
-    [self.password resignFirstResponder];
-    SharedData *sharedData = [SharedData sharedInstance];
-    sharedData.fingerIsOpened = @"yes";
-    sharedData.payPassword = self.password.text;
-    [self.navigationController popViewControllerAnimated:YES];
-    [self.touchIDSetDelegagte touchIDSetSuccessed];
 
 }
 

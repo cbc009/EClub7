@@ -13,6 +13,7 @@
 #import "JSONModelLib.h"
 #import "NSString+MT.h"
 #import "BalanceModel.h"
+#import "Status.h"
 #import <LocalAuthentication/LocalAuthentication.h>
 
 @implementation SharedAction
@@ -555,6 +556,43 @@
                             blue:((float) b / 255.0f)
                            alpha:1.0f];
 }
++(void)confirmPssswordWithToken:(NSString *)token andUser_type:(NSInteger )user_type andType:(NSString *)type andPassword:(NSString *)password inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
+    NSString *urlString =[NSString stringWithFormat:Confirm_Psssword,password,type,token,user_type];
+    [Status getModelFromURLWithString:urlString completion:^(Status *model,JSONModelError *error){
+        if (!error) {
+            if (model.status==806) {
+                done(model);
+                [SVProgressHUD showSuccessWithStatus:model.error];
+            }else if(model.status==2){
+                done(model);
+                [SVProgressHUD dismiss];
+            }
+        }else{
+            NSLog(@"%@",error);
+        }
 
+    } ];
 
+}
+/*
+ 数量减1
+ */
++(NSString *)reduceNumber:(UILabel *)countLabel{
+    int currentCount = [countLabel.text intValue];
+    if (currentCount>0) {
+        currentCount--;
+    }
+    return [NSString stringWithFormat:@"%d",currentCount];
+}
+
+/*
+ 数量＋1
+ */
++(NSString *)addNumber:(UILabel *)countLabel{
+    int currentCount = [countLabel.text intValue];
+    if (currentCount<20) {
+        currentCount++;
+    }
+    return [NSString stringWithFormat:@"%d",currentCount];
+}
 @end
