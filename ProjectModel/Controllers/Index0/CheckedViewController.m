@@ -1,34 +1,24 @@
 //
-//  RemarkViewController.m
+//  CheckedViewController.m
 //  Club
 //
-//  Created by MartinLi on 15-3-26.
+//  Created by MartinLi on 15-3-27.
 //  Copyright (c) 2015年 martin. All rights reserved.
 //
 
-#import "RemarkViewController.h"
-#import "BigRatingBar.h"
-@interface RemarkViewController ()
-{
-    BigRatingBar *bar;
-}
+#import "CheckedViewController.h"
+
+@interface CheckedViewController ()
+
 @end
 
-@implementation RemarkViewController
+@implementation CheckedViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    for (int i=0; i<4; i++) {
-        bar = [[BigRatingBar alloc] initWithFrame:CGRectMake(75, 60, 160, 20)];
-        bar.tag=i;
-        bar.frame=CGRectMake(90, 15+43*i, 100, 20);
-        [self.backView addSubview:bar];
-    }
+    // Do any additional setup after loading the view.
 }
 
-- (void)textViewDidBeginEditing:(UITextView *)textView{
-    self.mTextview.text=@"";
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

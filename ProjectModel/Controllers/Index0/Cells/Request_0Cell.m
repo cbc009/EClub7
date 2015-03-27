@@ -1,17 +1,17 @@
 //
-//  Shoop_0Cell.m
+//  RequestCell.m
 //  Club
 //
-//  Created by MartinLi on 15-3-26.
+//  Created by MartinLi on 15-3-27.
 //  Copyright (c) 2015年 martin. All rights reserved.
 //
 
-#import "Shoop_0Cell.h"
+#import "Request_0Cell.h"
 
-@implementation Shoop_0Cell
+@implementation Request_0Cell
 
 - (void)awakeFromNib {
- 
+    // Initialization code
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

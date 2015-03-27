@@ -10,5 +10,7 @@
 #import "MartinLiPageScrollView.h"
 @interface Index0_1Cell : UITableViewCell
 @property (weak, nonatomic) IBOutlet MartinLiPageScrollView *pageview;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pageviewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pageHeight;
+
+
 @end

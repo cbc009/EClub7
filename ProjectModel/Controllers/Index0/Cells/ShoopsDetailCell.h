@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ShoopsDetailCell : UITableViewCell
-
+@property(nonatomic,assign) CGFloat starNumber;
 @end

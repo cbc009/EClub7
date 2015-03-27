@@ -11,5 +11,6 @@
 @interface RemarkViewController : UIViewController
 @property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *backScrollers;
 @property (weak, nonatomic) IBOutlet UIView *backView;
+@property (weak, nonatomic) IBOutlet UITextView *mTextview;
 
 @end

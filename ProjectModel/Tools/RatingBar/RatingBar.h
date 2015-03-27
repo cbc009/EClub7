@@ -15,7 +15,6 @@
 @interface RatingBar : UIView
 @property (nonatomic,assign) NSInteger starNumber;
 
-@property (nonatomic,assign) CGFloat witSize;
 /*
  *调整底部视图的颜色
  */

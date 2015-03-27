@@ -80,7 +80,7 @@
         cell.pageview.martinLiPageScrollViewDelegate = self;
         cell.pageview.isAutoScroll = YES;
         cell.pageview.titleIsHidden = YES;//默认为NO（可选）
-        cell.pageview.height = cell.pageviewHeight.constant;
+        cell.pageview.height = cell.pageHeight.constant;
         cell.pageview.pageViewType = MLPageScrollViewAdvertiseMode;//默认是广告模式（可选）
         cell.pageview.timeInterval = 3;//默认自动滚动图片时间为2秒（可选）
         [cell.pageview updatePageViewInSuperView:self.view];

@@ -111,7 +111,7 @@
 - (IBAction)reduceAction:(id)sender {
 
     if (![self.goodModel.unit_num integerValue]<[self.count.text integerValue]){
-        [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"由于当前商品是特价商品所以不能购买低于%@ %@",self.goodModel.unit_num,self.goodModel.unit]];
+        [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"当前商品不能购买低于%@ %@",self.goodModel.unit_num,self.goodModel.unit]];
         self.count.text=self.goodModel.unit_num;
     }else{
         self.count.text = [SharedAction reduceNumber:self.count];

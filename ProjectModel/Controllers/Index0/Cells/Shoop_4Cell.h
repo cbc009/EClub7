@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface Shoop_4Cell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UITableView *tableview;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableviewHeight;
 
 @end

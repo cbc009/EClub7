@@ -14,7 +14,7 @@
 #import "SharedAction.h"
 #import "WebViewController.h"
 #import "Status.h"
-#import "Index0_1Cell.h"
+#import "Index0_3Cell.h"
 #import "RobCell.h"
 #import "Index0Service.h"
 #import "Robuy_Goods.h"
@@ -156,15 +156,15 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row =indexPath.row;
     if (indexPath.section==0) {
-        Index0_1Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Index0_1Cell" forIndexPath:indexPath];
+        Index0_3Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Index0_3Cell" forIndexPath:indexPath];
         cell.pageview.imageType = UIImageUrlType;
         cell.pageview.imgUrls = [index0Service namesFromPictures:self.pageviewDatas];
         cell.pageview.titles = [index0Service titlesFromPictures:self.pageviewDatas];
         cell.pageview.urls = [index0Service urlsFromPictures:self.pageviewDatas];
         cell.pageview.martinLiPageScrollViewDelegate = self;
-        cell.pageview.isAutoScroll = YES;
+        cell.pageview.isAutoScroll = NO;
         cell.pageview.titleIsHidden = YES;//默认为NO（可选）
-        cell.pageview.height = cell.pageviewHeight.constant;
+        cell.pageview.height = cell.pageViewHeight.constant;
         cell.pageview.pageViewType = MLPageScrollViewAdvertiseMode;//默认是广告模式（可选）
         cell.pageview.timeInterval = 3;//默认自动滚动图片时间为2秒（可选）
         [cell.pageview updatePageViewInSuperView:self.view];

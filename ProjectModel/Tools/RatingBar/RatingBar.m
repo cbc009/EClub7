@@ -47,7 +47,7 @@
         self.starWidth = width;
         for(int i = 0;i<5;i++){
             UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width*ZOOM+3, width*ZOOM+2)];
-            img.center = CGPointMake((i+1)*width, frame.size.height/2);
+            img.center = CGPointMake((i+0.5)*width, frame.size.height/2);
             img.image = [UIImage imageNamed:@"bt_star_a"];
             [self.bottomView addSubview:img];
             UIImageView *img2 = [[UIImageView alloc] initWithFrame:img.frame];
@@ -71,7 +71,7 @@
 -(void)setStarNumber:(NSInteger)starNumber{
     if(_starNumber!=starNumber){
         _starNumber = starNumber;
-        self.topView.frame = CGRectMake(0, 0, self.starWidth*(starNumber+1), self.bounds.size.height);
+        self.topView.frame = CGRectMake(0, 0, self.starWidth*(starNumber+0.5), self.bounds.size.height);
     }
 }
 -(void)tap:(UITapGestureRecognizer *)gesture{
