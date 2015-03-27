@@ -43,7 +43,7 @@
         [self addGestureRecognizer:pan];
         
         //
-        CGFloat width = frame.size.width/11.0;
+        CGFloat width = frame.size.width/5.0;
         self.starWidth = width;
         for(int i = 0;i<5;i++){
             UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width*ZOOM+3, width*ZOOM+2)];
@@ -71,7 +71,7 @@
 -(void)setStarNumber:(NSInteger)starNumber{
     if(_starNumber!=starNumber){
         _starNumber = starNumber;
-        self.topView.frame = CGRectMake(0, 0, self.starWidth*(starNumber+0.5), self.bounds.size.height);
+        self.topView.frame = CGRectMake(0, 0, self.starWidth*starNumber, self.bounds.size.height);
     }
 }
 -(void)tap:(UITapGestureRecognizer *)gesture{

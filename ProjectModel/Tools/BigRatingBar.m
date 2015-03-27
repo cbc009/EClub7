@@ -23,6 +23,7 @@
         self.backgroundColor = [UIColor whiteColor];
         self.bottomView = [[UIView alloc] initWithFrame:self.bounds];
         self.topView = [[UIView alloc] initWithFrame:CGRectZero];
+//        self.bottomView.backgroundColor=[UIColor grayColor];
         
         [self addSubview:self.bottomView];
         [self addSubview:self.topView];
@@ -38,7 +39,7 @@
         [self addGestureRecognizer:pan];
         
         //
-        CGFloat width = frame.size.width/8.0;
+        CGFloat width = frame.size.width/5.0;
         self.starWidth = width;
         for(int i = 0;i<5;i++){
             UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width*ZOOM+3, width*ZOOM+2)];

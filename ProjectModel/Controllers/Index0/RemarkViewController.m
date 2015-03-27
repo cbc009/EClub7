@@ -27,6 +27,7 @@
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView{
+    NSLog(@"%ld,%ld",(long)bar.tag,(long)bar.starNumber);
     self.mTextview.text=@"";
 }
 - (void)didReceiveMemoryWarning {

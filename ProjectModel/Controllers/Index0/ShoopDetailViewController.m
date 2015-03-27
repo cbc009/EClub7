@@ -185,11 +185,11 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ShoopsDetailCell *cell =[tableView dequeueReusableCellWithIdentifier:@"ShoopsDetailCell" forIndexPath:indexPath];
-   RatingBar *bar = [[RatingBar alloc] initWithFrame:CGRectMake(75, 50, 160, 20)];
+    RatingBar *bar = [[RatingBar alloc] initWithFrame:CGRectMake(85, 40, 80, 20)];
     [cell addSubview:bar];
     bar.starNumber=[starNumberArray[indexPath.row] floatValue];
     bar.enable=NO;
-    bar.frame=CGRectMake(80, 40, 100, 20);
+    bar.frame=CGRectMake(85, 40, 60, 20);
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
