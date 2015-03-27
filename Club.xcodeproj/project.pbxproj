@@ -202,6 +202,7 @@
 		336302001A636428001461A3 /* LifecircleService.m in Sources */ = {isa = PBXBuildFile; fileRef = 336301FF1A636428001461A3 /* LifecircleService.m */; };
 		336302131A63D594001461A3 /* main_custom_manage.png in Resources */ = {isa = PBXBuildFile; fileRef = 336302111A63D594001461A3 /* main_custom_manage.png */; };
 		336302141A63D594001461A3 /* project.png in Resources */ = {isa = PBXBuildFile; fileRef = 336302121A63D594001461A3 /* project.png */; };
+		3364F0E71AC4ED9D00F0CDE9 /* BigRatingBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3364F0E61AC4ED9D00F0CDE9 /* BigRatingBar.m */; };
 		3365BADC1A709760003C220C /* CreatePayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3365BADB1A709760003C220C /* CreatePayViewController.m */; };
 		3365BADF1A70A012003C220C /* UPPayViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3365BADE1A70A012003C220C /* UPPayViewController.mm */; };
 		3365BAE21A70A0D9003C220C /* UPay_Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 3365BAE11A70A0D9003C220C /* UPay_Order.m */; };
@@ -834,6 +835,8 @@
 		336301FF1A636428001461A3 /* LifecircleService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifecircleService.m; sourceTree = "<group>"; };
 		336302111A63D594001461A3 /* main_custom_manage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_custom_manage.png; sourceTree = "<group>"; };
 		336302121A63D594001461A3 /* project.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = project.png; sourceTree = "<group>"; };
+		3364F0E51AC4ED9D00F0CDE9 /* BigRatingBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BigRatingBar.h; path = ../BigRatingBar.h; sourceTree = "<group>"; };
+		3364F0E61AC4ED9D00F0CDE9 /* BigRatingBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BigRatingBar.m; path = ../BigRatingBar.m; sourceTree = "<group>"; };
 		3365BADB1A709760003C220C /* CreatePayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePayViewController.m; sourceTree = "<group>"; };
 		3365BADD1A70A012003C220C /* UPPayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPPayViewController.h; sourceTree = "<group>"; };
 		3365BADE1A70A012003C220C /* UPPayViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UPPayViewController.mm; sourceTree = "<group>"; };
@@ -2616,6 +2619,8 @@
 				33CF8FF21AC2B6F000BBDDB6 /* bt_star_b@2x.png */,
 				33CF8FF31AC2B6F000BBDDB6 /* RatingBar.h */,
 				33CF8FF41AC2B6F000BBDDB6 /* RatingBar.m */,
+				3364F0E51AC4ED9D00F0CDE9 /* BigRatingBar.h */,
+				3364F0E61AC4ED9D00F0CDE9 /* BigRatingBar.m */,
 			);
 			path = RatingBar;
 			sourceTree = "<group>";
@@ -3359,6 +3364,7 @@
 				8FEAA2701A19FB9C001E792C /* NSDataEx.m in Sources */,
 				8FEAA26F1A19FB9C001E792C /* MD5DataSigner.m in Sources */,
 				33CF8FFC1AC2B73900BBDDB6 /* ShoopsDetailCell.m in Sources */,
+				3364F0E71AC4ED9D00F0CDE9 /* BigRatingBar.m in Sources */,
 				227240D819B353B0005210B2 /* MyOrderService.m in Sources */,
 				22082D0019A4961C0088D8C3 /* RobOrderModel.m in Sources */,
 				2207A6FA19B2BCF50067B00C /* Buying.m in Sources */,

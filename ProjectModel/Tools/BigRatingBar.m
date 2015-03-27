@@ -1,24 +1,19 @@
 //
-//  RatingBar.m
-//  MyRatingBar
+//  BigRatingBar.m
+//  Club
 //
-//  Created by Leaf on 14-8-28.
-//  Copyright (c) 2014年 Leaf. All rights reserved.
+//  Created by MartinLi on 15-3-27.
+//  Copyright (c) 2015年 martin. All rights reserved.
 //
 
-// 版权属于原作者
-// http://code4app.com (cn) http://code4app.net (en)
-// 发布代码于最专业的源码分享网站: Code4App.com
-
-#import "RatingBar.h"
-#define ZOOM 0.6f
-@interface RatingBar()
+#import "BigRatingBar.h"
+#define ZOOM 0.8f
+@interface BigRatingBar()
 @property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UIView *topView;
 @property (nonatomic,assign) CGFloat starWidth;
 @end
-
-@implementation RatingBar
+@implementation BigRatingBar
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -43,7 +38,7 @@
         [self addGestureRecognizer:pan];
         
         //
-        CGFloat width = frame.size.width/11.0;
+        CGFloat width = frame.size.width/8.0;
         self.starWidth = width;
         for(int i = 0;i<5;i++){
             UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width*ZOOM+3, width*ZOOM+2)];
@@ -97,13 +92,5 @@
         }
     }
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

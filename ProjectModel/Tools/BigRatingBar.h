@@ -1,18 +1,14 @@
 //
-//  RatingBar.h
-//  MyRatingBar
+//  BigRatingBar.h
+//  Club
 //
-//  Created by Leaf on 14-8-28.
-//  Copyright (c) 2014年 Leaf. All rights reserved.
+//  Created by MartinLi on 15-3-27.
+//  Copyright (c) 2015年 martin. All rights reserved.
 //
-
-// 版权属于原作者
-// http://code4app.com (cn) http://code4app.net (en)
-// 发布代码于最专业的源码分享网站: Code4App.com
 
 #import <UIKit/UIKit.h>
 
-@interface RatingBar : UIView
+@interface BigRatingBar : UIView
 @property (nonatomic,assign) NSInteger starNumber;
 
 @property (nonatomic,assign) CGFloat witSize;

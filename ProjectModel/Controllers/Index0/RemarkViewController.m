@@ -7,10 +7,10 @@
 //
 
 #import "RemarkViewController.h"
-#import "RatingBar.h"
+#import "BigRatingBar.h"
 @interface RemarkViewController ()
 {
-    RatingBar *bar;
+    BigRatingBar *bar;
 }
 @end
 
@@ -18,12 +18,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.backScroller.scrollEnabled=NO;
-    bar = [[RatingBar alloc] initWithFrame:CGRectMake(75, 50, 160, 20)];
-    [self.backView addSubview:bar];
-    bar.starNumber=2.5;
-//    bar.enable=NO;
-    bar.frame=CGRectMake(80, 140, 100, 20);
+    for (int i=0; i<4; i++) {
+        bar = [[BigRatingBar alloc] initWithFrame:CGRectMake(75, 60, 160, 20)];
+        bar.tag=i;
+        bar.frame=CGRectMake(90, 15+43*i, 100, 20);
+        [self.backView addSubview:bar];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

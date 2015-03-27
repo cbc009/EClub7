@@ -14,7 +14,9 @@
 }
 - (void)awakeFromNib {
     bar = [[RatingBar alloc] initWithFrame:CGRectMake(75, 50, 160, 20)];
+    bar.witSize=0.6;
     bar.starNumber=4;
+    bar.witSize=0.6;
     bar.enable=NO;
     [self addSubview:bar];
     //    bar.center.y = 12;
