@@ -109,11 +109,18 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)reduceAction:(id)sender {
-    self.count.text = [itemDetailService reduceNumber:self.count];
+
+    if (![self.goodModel.unit_num integerValue]<[self.count.text integerValue]){
+        [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"由于当前商品是特价商品所以不能购买低于%@ %@",self.goodModel.unit_num,self.goodModel.unit]];
+        self.count.text=self.goodModel.unit_num;
+    }else{
+        self.count.text = [SharedAction reduceNumber:self.count];
+    }
+    
 }
 
 - (IBAction)addAction:(id)sender {
-    self.count.text = [itemDetailService addNumber:self.count];
+    self.count.text = [SharedAction addNumber:self.count];
 }
 
 - (IBAction)buyAction:(id)sender {

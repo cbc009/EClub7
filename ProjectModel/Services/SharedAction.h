@@ -49,4 +49,8 @@ typedef void (^doneWithObjectAndStatus)(int status,id object);
 +(BOOL)notifyTime2:(NSString *)time;
 +(void)fingerPayWithDone:(done)done;
 + (UIColor *)colorWithHexString:(NSString *)stringToConvert;
++(void)confirmPssswordWithToken:(NSString *)token andUser_type:(NSInteger )user_type andType:(NSString *)type andPassword:(NSString *)password inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
+
++(NSString *)reduceNumber:(UILabel *)countLabel;
++(NSString *)addNumber:(UILabel *)countLabel;
 @end

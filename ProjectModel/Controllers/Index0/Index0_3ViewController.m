@@ -34,6 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+ 
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
     self.title=user.lifehall_name;
@@ -193,8 +194,8 @@
         storyboardName = @"Index0";
         identifier = @"PointViewController";
     }else if(row==7){
-        storyboardName = @"Index3";
-        identifier = @"MyWalletViewController";
+        storyboardName = @"Index0";
+        identifier = @"ShoopsViewController";
     }
     if (storyboardName!=nil&&identifier!=nil) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];

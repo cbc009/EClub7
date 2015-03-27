@@ -190,6 +190,8 @@ typedef void (^finished)(NSDictionary *info);
 #define ChangePayPassword [MainPrexURL stringByAppendingString: @"Base/paypasswd/from/IOS/token/%@/user_type/%d/paypassword/%@/passwordold/%@"]
 //修改昵称
 #define ChangeUserName [MainPrexURL stringByAppendingString: @"Base/nick/from/IOS"]
+//确认支付密码
+#define Confirm_Psssword [MainPrexURL stringByAppendingString: @"Public/member_finger_verify/from/IOS/password/%@/type/%@/token/%@/user_type/%d"]
 //修改地址
 #define ChangeAddress [MainPrexURL stringByAppendingString: @"Base/address/from/IOS"]
 //广告图片
