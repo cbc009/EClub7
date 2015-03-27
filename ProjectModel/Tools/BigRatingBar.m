@@ -79,6 +79,7 @@
         }else{
             _starNumber = count-1;
         }
+        [self.delegate senderStarNumber:_starNumber withBar:self];
     }
 }
 
@@ -91,6 +92,7 @@
             _starNumber = count;
         }
     }
+    [self.delegate senderStarNumber:_starNumber withBar:self];
 }
 
 @end

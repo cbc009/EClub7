@@ -12,5 +12,9 @@
 @property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *backScrollers;
 @property (weak, nonatomic) IBOutlet UIView *backView;
 @property (weak, nonatomic) IBOutlet UITextView *mTextview;
+@property (weak, nonatomic) IBOutlet UILabel *index0;
+@property (weak, nonatomic) IBOutlet UILabel *index1;
+@property (weak, nonatomic) IBOutlet UILabel *index2;
+@property (weak, nonatomic) IBOutlet UILabel *index3;
 
 @end

@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class BigRatingBar;
+@protocol BigRatingBarDelegate <NSObject>
+-(void)senderStarNumber:(NSInteger)starNumber withBar:(BigRatingBar*)bar;
+@end
 @interface BigRatingBar : UIView
+@property(nonatomic,retain)id<BigRatingBarDelegate>delegate;
 @property (nonatomic,assign) NSInteger starNumber;
 
 @property (nonatomic,assign) CGFloat witSize;

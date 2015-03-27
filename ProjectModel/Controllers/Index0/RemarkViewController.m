@@ -8,27 +8,52 @@
 
 #import "RemarkViewController.h"
 #import "BigRatingBar.h"
-@interface RemarkViewController ()
+@interface RemarkViewController ()<BigRatingBarDelegate>
 {
-    BigRatingBar *bar;
+    BigRatingBar *ratingbar;
 }
 @end
 
 @implementation RemarkViewController
 
 - (void)viewDidLoad {
+
     [super viewDidLoad];
     for (int i=0; i<4; i++) {
-        bar = [[BigRatingBar alloc] initWithFrame:CGRectMake(75, 60, 160, 20)];
-        bar.tag=i;
-        bar.frame=CGRectMake(90, 15+43*i, 100, 20);
-        [self.backView addSubview:bar];
+        ratingbar = [[BigRatingBar alloc] initWithFrame:CGRectMake(75, 15+42*i, 160, 20)];
+        ratingbar.frame=CGRectMake(90, 15+42*i, 140, 20);
+        ratingbar.tag=i;
+        ratingbar.delegate=self;
+        [self.backView addSubview:ratingbar];
+    
     }
 }
-
+-(void)senderStarNumber:(NSInteger)starNumber withBar:(BigRatingBar*)bar{
+     NSString *str=[NSString stringWithFormat:@"%ld分",(long)starNumber+1];
+    switch (bar.tag) {
+        case 0:
+            self.index0.text=str;
+            break;
+        case 1:
+            self.index1.text=str;;
+            break;
+        case 2:
+            self.index2.text=str;;
+            break;
+        case 3:
+            self.index3.text=str;
+            break;
+        default:
+            break;
+    }
+    
+}
 - (void)textViewDidBeginEditing:(UITextView *)textView{
-    NSLog(@"%ld,%ld",(long)bar.tag,(long)bar.starNumber);
-    self.mTextview.text=@"";
+//    self.mTextview.text=@"";
+//    NSLog(@"bar:%ld",(long)bar.starNumber);
+//    NSLog(@"bar1:%ld",(long)bar1.starNumber);
+//    NSLog(@"bar2:%ld",(long)bar2.starNumber);
+//    NSLog(@"bar3:%ld",(long)bar3.starNumber);
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
