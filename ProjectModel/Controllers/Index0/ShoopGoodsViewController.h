@@ -18,5 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIButton *buyNow;
 - (IBAction)share:(id)sender;
+- (IBAction)buyNow:(id)sender;
 
 @end

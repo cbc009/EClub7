@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "TPKeyboardAvoidingScrollView.h"
 @interface CheckedViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *backScrollView;
 
 @end

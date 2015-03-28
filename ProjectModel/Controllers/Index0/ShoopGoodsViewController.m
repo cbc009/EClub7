@@ -7,7 +7,7 @@
 //
 
 #import "ShoopGoodsViewController.h"
-
+#import "CheckedViewController.h"
 @interface ShoopGoodsViewController ()
 
 @end
@@ -56,5 +56,11 @@
 }
 - (IBAction)share:(id)sender {
 //     [SharedAction shareWithTitle:self.title andDesinationUrl:self.goodModel.share_url Text:self.goodModel.name andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.goodModel.bigpicture] InViewController:self];
+}
+
+- (IBAction)buyNow:(id)sender {
+    UIStoryboard *storyBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+    CheckedViewController *checkedViewController=[storyBoard instantiateViewControllerWithIdentifier:@"CheckedViewController"];
+    [self.navigationController pushViewController:checkedViewController animated:YES];
 }
 @end
