@@ -8,6 +8,7 @@
 
 #import "RemarkViewController.h"
 #import "BigRatingBar.h"
+#import <UIImageView+WebCache.h>
 @interface RemarkViewController ()<BigRatingBarDelegate>
 {
     BigRatingBar *ratingbar;
@@ -19,17 +20,19 @@
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+    self.sellerName.text=self.models.seller_name;
+    [self.sellerPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.models.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+    
     for (int i=0; i<4; i++) {
         ratingbar = [[BigRatingBar alloc] initWithFrame:CGRectMake(75, 15+42*i, 160, 20)];
         ratingbar.frame=CGRectMake(90, 15+42*i, 140, 20);
         ratingbar.tag=i;
         ratingbar.delegate=self;
         [self.backView addSubview:ratingbar];
-    
     }
 }
 -(void)senderStarNumber:(NSInteger)starNumber withBar:(BigRatingBar*)bar{
-     NSString *str=[NSString stringWithFormat:@"%ld分",(long)starNumber+1];
+    NSString *str=[NSString stringWithFormat:@"%ld分",(long)starNumber+1];
     switch (bar.tag) {
         case 0:
             self.index0.text=str;
@@ -49,25 +52,15 @@
     
 }
 - (void)textViewDidBeginEditing:(UITextView *)textView{
-//    self.mTextview.text=@"";
-//    NSLog(@"bar:%ld",(long)bar.starNumber);
-//    NSLog(@"bar1:%ld",(long)bar1.starNumber);
-//    NSLog(@"bar2:%ld",(long)bar2.starNumber);
-//    NSLog(@"bar3:%ld",(long)bar3.starNumber);
+    self.mTextview.text=@"";
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)postremark:(id)sender {
+    
 }
-*/
-
 @end

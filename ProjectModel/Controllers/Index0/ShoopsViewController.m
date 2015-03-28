@@ -9,18 +9,32 @@
 #import "ShoopsViewController.h"
 #import "ShoopsCell.h"
 #import "ShoopDetailViewController.h"
+#import "SellerService.h"
+#import "Public_Seller.h"
+#import "Seller_Seller_Goods.h"
+#import <UIImageView+WebCache.h>
 @interface ShoopsViewController ()
-
+{
+    SellerService *sellerService;
+    UserInfo *user;
+}
 @end
 
 @implementation ShoopsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title=@"商家";
+    self.title=@"商户类型";
+    sellerService=[SellerService new];
+    SharedData *shareData =[SharedData sharedInstance];
+    user =shareData.user;
     self.tableview.backgroundColor=[SharedAction colorWithHexString:@"#f2f2f2"];
     self.tableview.separatorStyle=UITableViewCellSeparatorStyleNone;
-    // Do any additional setup after loading the view.
+    NSString *typeString=[NSString stringWithFormat:@"agent_id/%ld",(long)user.agent_id];
+    [sellerService publickSellerListWithTypeString:typeString inTabBarController:self.tabBarController withDone:^(Public_Seller_info *model){
+        self.data=model.arr_seller_type;
+        [self.tableview reloadData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,34 +43,44 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    return self.data.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+      NSInteger row =indexPath.row;
     ShoopsCell *cell =[tableView dequeueReusableCellWithIdentifier:@"ShoopsCell" forIndexPath:indexPath];
     cell.backgroundColor=[SharedAction colorWithHexString:@"#f2f2f2"];
+    Public_Seller_arr_seller_type_info *object=self.data[row];
+    cell.fatherName.text=object.seller_type_name;
+    if (![object.sub_type isEqualToArray:@[]]) {
+        NSString *sonName;
+        sonName=@"";
+        for (int i=0; i<object.sub_type.count; i++) {
+            Public_Seller_sub_type_info *model =object.sub_type[i];
+            sonName =[NSString stringWithFormat:@"%@ %@",sonName,model.sub_type_name];
+        }
+        cell.sonName.text=sonName;
+    }else{
+        cell.sonName.hidden=YES;
+    }
+     [cell.imageview sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,object.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+//    cell.sonNam
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 128;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSInteger row =indexPath.row;
    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
     ShoopDetailViewController *shoopDetailVic=[storBoard instantiateViewControllerWithIdentifier:@"ShoopDetailViewController"];
-//    [self presentViewController:shoopDetailVic animated:YES completion:nil];
+    shoopDetailVic.cateArray=self.data;
+    Public_Seller_arr_seller_type_info *object=self.data[row];
+    
+    shoopDetailVic.models=self.data[row];
+    shoopDetailVic.seller_type=object.seller_type;
     [self.navigationController pushViewController:shoopDetailVic animated:YES];
 }
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    return 4;
-//}
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

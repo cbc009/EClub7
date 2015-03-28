@@ -56,4 +56,9 @@
     return  [NSString  heightWithString:name font:[UIFont systemFontOfSize:10.0] maxSize:CGSizeMake(DeviceFrame.size.width-80, 200)];
     
 }
+- (IBAction)remark:(id)sender {
+}
+
+- (IBAction)like:(id)sender {
+}
 @end

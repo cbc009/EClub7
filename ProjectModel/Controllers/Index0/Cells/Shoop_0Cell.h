@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface Shoop_0Cell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *picture;
+@property (weak, nonatomic) IBOutlet UILabel *sellerName;
+@property (weak, nonatomic) IBOutlet UILabel *totle;
 
 @end

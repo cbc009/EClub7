@@ -218,6 +218,10 @@
 		3367EB4C1A6E3B330009EABA /* icon_payment_disabled_302.png in Resources */ = {isa = PBXBuildFile; fileRef = 3367EB471A6E3B330009EABA /* icon_payment_disabled_302.png */; };
 		3367EB4E1A6E3CA00009EABA /* icon_search_history@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3367EB4D1A6E3CA00009EABA /* icon_search_history@2x.png */; };
 		3367EB501A6E3EC00009EABA /* t017ba8cdea5f942761.png in Resources */ = {isa = PBXBuildFile; fileRef = 3367EB4F1A6E3EC00009EABA /* t017ba8cdea5f942761.png */; };
+		33681A5B1AC66949005F8B08 /* Seller_Seller_Goods.m in Sources */ = {isa = PBXBuildFile; fileRef = 33681A5A1AC66949005F8B08 /* Seller_Seller_Goods.m */; };
+		33681A5E1AC66A19005F8B08 /* SellerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 33681A5D1AC66A19005F8B08 /* SellerService.m */; };
+		33681A611AC670D8005F8B08 /* Public_Seller.m in Sources */ = {isa = PBXBuildFile; fileRef = 33681A5F1AC670D8005F8B08 /* Public_Seller.m */; };
+		33681A641AC67A8B005F8B08 /* Public_Seller_info_model.m in Sources */ = {isa = PBXBuildFile; fileRef = 33681A631AC67A8B005F8B08 /* Public_Seller_info_model.m */; };
 		336A1CB01A466A280091A1D4 /* SecondeChangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 336A1CAF1A466A280091A1D4 /* SecondeChangeViewController.m */; };
 		336A1CB31A466C690091A1D4 /* SecondItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 336A1CB21A466C690091A1D4 /* SecondItemCell.m */; };
 		336A1CB61A466E7A0091A1D4 /* SecondeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 336A1CB51A466E7A0091A1D4 /* SecondeService.m */; };
@@ -860,6 +864,14 @@
 		3367EB471A6E3B330009EABA /* icon_payment_disabled_302.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_payment_disabled_302.png; sourceTree = "<group>"; };
 		3367EB4D1A6E3CA00009EABA /* icon_search_history@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_search_history@2x.png"; sourceTree = "<group>"; };
 		3367EB4F1A6E3EC00009EABA /* t017ba8cdea5f942761.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = t017ba8cdea5f942761.png; sourceTree = "<group>"; };
+		33681A571AC6692B005F8B08 /* Seller_Seller_Goods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Seller_Seller_Goods.h; sourceTree = "<group>"; };
+		33681A5A1AC66949005F8B08 /* Seller_Seller_Goods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Seller_Seller_Goods.m; sourceTree = "<group>"; };
+		33681A5C1AC66A19005F8B08 /* SellerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SellerService.h; sourceTree = "<group>"; };
+		33681A5D1AC66A19005F8B08 /* SellerService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SellerService.m; sourceTree = "<group>"; };
+		33681A5F1AC670D8005F8B08 /* Public_Seller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Public_Seller.m; sourceTree = "<group>"; };
+		33681A601AC670D8005F8B08 /* Public_Seller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Public_Seller.h; sourceTree = "<group>"; };
+		33681A621AC67A8B005F8B08 /* Public_Seller_info_model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Public_Seller_info_model.h; sourceTree = "<group>"; };
+		33681A631AC67A8B005F8B08 /* Public_Seller_info_model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Public_Seller_info_model.m; sourceTree = "<group>"; };
 		336A1CAE1A466A280091A1D4 /* SecondeChangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondeChangeViewController.h; sourceTree = "<group>"; };
 		336A1CAF1A466A280091A1D4 /* SecondeChangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondeChangeViewController.m; sourceTree = "<group>"; };
 		336A1CB11A466C690091A1D4 /* SecondItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SecondItemCell.h; path = ProjectModel/Controllers/Index2/SecondItemCell.h; sourceTree = SOURCE_ROOT; };
@@ -2127,6 +2139,8 @@
 				33DBE7381A3051CD00C7CCF5 /* MorePush_historyService.m */,
 				3390CB291AB036E000AE0E11 /* ChangeLifeService.h */,
 				3390CB2A1AB036E000AE0E11 /* ChangeLifeService.m */,
+				33681A5C1AC66A19005F8B08 /* SellerService.h */,
+				33681A5D1AC66A19005F8B08 /* SellerService.m */,
 			);
 			path = Index0;
 			sourceTree = "<group>";
@@ -2197,6 +2211,7 @@
 		22B4981719AF54A400901ED6 /* JsonModel */ = {
 			isa = PBXGroup;
 			children = (
+				33681A561AC66916005F8B08 /* Sellers */,
 				3390BFD51A76362F0068B70B /* Feedback */,
 				334E5E161A6CA5EB0072CF15 /* PartnerModel */,
 				33318E731A65FE8A00B2E11F /* Balance */,
@@ -2515,6 +2530,20 @@
 				33A913211A7F732D00499C59 /* UPPayPluginPro.h */,
 			);
 			name = UPPayPlugin;
+			sourceTree = "<group>";
+		};
+		33681A561AC66916005F8B08 /* Sellers */ = {
+			isa = PBXGroup;
+			children = (
+				33681A621AC67A8B005F8B08 /* Public_Seller_info_model.h */,
+				33681A631AC67A8B005F8B08 /* Public_Seller_info_model.m */,
+				33681A601AC670D8005F8B08 /* Public_Seller.h */,
+				33681A5F1AC670D8005F8B08 /* Public_Seller.m */,
+				33681A571AC6692B005F8B08 /* Seller_Seller_Goods.h */,
+				33681A5A1AC66949005F8B08 /* Seller_Seller_Goods.m */,
+			);
+			name = Sellers;
+			path = mhistory/Sellers;
 			sourceTree = "<group>";
 		};
 		336A1CB71A466F070091A1D4 /* Seconde */ = {
@@ -3390,6 +3419,7 @@
 				33CF8FFC1AC2B73900BBDDB6 /* ShoopsDetailCell.m in Sources */,
 				3364F0E71AC4ED9D00F0CDE9 /* BigRatingBar.m in Sources */,
 				227240D819B353B0005210B2 /* MyOrderService.m in Sources */,
+				33681A641AC67A8B005F8B08 /* Public_Seller_info_model.m in Sources */,
 				22082D0019A4961C0088D8C3 /* RobOrderModel.m in Sources */,
 				2207A6FA19B2BCF50067B00C /* Buying.m in Sources */,
 				33EF236E1A4D08C500CFD4FC /* BodyCell.m in Sources */,
@@ -3405,6 +3435,7 @@
 				33E7CFBE19F7A73D00D49EA6 /* KillDetailViewController.m in Sources */,
 				338AB5B01AC50C9C009100E4 /* Request_0Cell.m in Sources */,
 				333F57FA1A34260B00A55D56 /* CallHistory.m in Sources */,
+				33681A611AC670D8005F8B08 /* Public_Seller.m in Sources */,
 				334D09731A34619C00EE5D77 /* InputCell.m in Sources */,
 				33DBE7371A3051B700C7CCF5 /* Push_history.m in Sources */,
 				33EF23711A4D093400CFD4FC /* RequestCell.m in Sources */,
@@ -3414,6 +3445,7 @@
 				3377183F1A50EB6A001D8CB6 /* LiveData.m in Sources */,
 				336A1CBA1A466F5D0091A1D4 /* SecondeChange.m in Sources */,
 				338AFF111A7B4650000B1C17 /* Search_label.m in Sources */,
+				33681A5B1AC66949005F8B08 /* Seller_Seller_Goods.m in Sources */,
 				33315F2F1A352FE0008FC8C3 /* SiginModel.m in Sources */,
 				33DBE7651A3059F600C7CCF5 /* PointCollectionViewCell.m in Sources */,
 				8F56D6F91A0F97A800035A0C /* KillIconCell.m in Sources */,
@@ -3447,6 +3479,7 @@
 				33F475461A412EC1003F7C0E /* RegisterViewController.m in Sources */,
 				33766D9A1AC39D3A0083B5E9 /* ShoopsCollectionViewCell.m in Sources */,
 				33B661511AAC09D20049E130 /* RobDetailViewController.m in Sources */,
+				33681A5E1AC66A19005F8B08 /* SellerService.m in Sources */,
 				3360154C1A3993D30070732C /* SerchViewController.m in Sources */,
 				33BE46091AAD34B300195463 /* RobedRecordsViewController.m in Sources */,
 				8FEAA2721A19FB9C001E792C /* RSADataSigner.m in Sources */,

@@ -1,0 +1,36 @@
+ //
+ //  Seller_Seller_Goods.h 
+ //  auton //
+ //  Created by MartinLi on 15-3-5. 
+ //  Copyright (c) 2015年 Club. All rights reserved.
+ //
+ #import "JSONModel.h"
+
+@protocol Seller_Seller_Goods_info <NSObject>
+@end
+@protocol Seller_Seller_Goods_arr_goods_info <NSObject>
+@end
+
+@interface Seller_Seller_Goods_arr_goods_info : JSONModel
+@property(nonatomic,strong)NSString *goods_name;
+@property(nonatomic,strong)NSString *unit;
+@property(nonatomic,strong)NSString *discount;
+@property(nonatomic,strong)NSArray *send_time;
+@property(nonatomic,strong)NSString *actual_nums;
+@property(nonatomic,strong)NSString *picture;
+@property(nonatomic,strong)NSString *price;
+@property(nonatomic,strong)NSString *bigpicture;
+@property(nonatomic,strong)NSString *point;
+@property(nonatomic,strong)NSString *goods_id;
+@property(nonatomic,strong)NSString *provider_nums;
+@end
+
+@interface Seller_Seller_Goods_info : JSONModel 
+@property(nonatomic,strong)NSArray<Seller_Seller_Goods_arr_goods_info> *arr_goods; 
+@end
+
+@interface Seller_Seller_Goods : JSONModel 
+@property(nonatomic,strong)Seller_Seller_Goods_info<Optional> *info;
+@property(nonatomic,assign)NSInteger status;
+@property(nonatomic,strong)NSString<Optional> *error; 
+@end

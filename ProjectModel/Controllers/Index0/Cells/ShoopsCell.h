@@ -11,5 +11,7 @@
 @interface ShoopsCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIView *btView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageview;
+@property (weak, nonatomic) IBOutlet UILabel *fatherName;
+@property (weak, nonatomic) IBOutlet UILabel *sonName;
 
 @end

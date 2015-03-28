@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "MartinLiPageScrollView.h"
-#import <CoreLocation/CoreLocation.h>
+
 
 @protocol stringDelegate<NSObject>
 -(void)passData:(NSArray *)datas;
 @end
-@interface Index0_3ViewController : UIViewController<UITabBarDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,MartinLiPageScrollViewDelegate,CLLocationManagerDelegate>
+@interface Index0_3ViewController : UIViewController<UITabBarDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,MartinLiPageScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property(nonatomic,strong)NSArray *balance;
 @property(nonatomic,strong)NSArray *pageviewDatas;

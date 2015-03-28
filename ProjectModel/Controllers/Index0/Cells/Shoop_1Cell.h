@@ -16,6 +16,7 @@
 @interface Shoop_1Cell : UITableViewCell
 @property(nonatomic,retain)id<ShowMoreItemsCellDelegate>delegate;
 @property (weak, nonatomic) IBOutlet UICollectionView *collection;
+@property(nonatomic,strong)NSArray *datas;
 - (IBAction)more:(id)sender;
 
 @end

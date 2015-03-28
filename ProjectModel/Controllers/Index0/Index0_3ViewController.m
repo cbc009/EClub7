@@ -27,7 +27,7 @@
     Index0Service *index0Service;
     BuyService *buyService;
 }
-@property (nonatomic,strong)CLLocationManager *locMgr;
+
 @end
 
 @implementation Index0_3ViewController
@@ -39,7 +39,7 @@
     UserInfo *user = sharedData.user;
     self.title=user.lifehall_name;
     index0Service = [[Index0Service alloc] init];
-//    [self locationNow];
+
     NSLog(@"%@",sharedData.loginStatus);
     [index0Service loadUserDefaultsInViewController:self witLoginStatus:sharedData.loginStatus];
     self.collectionDatas = [NSArray arrayWithObjects:@"抢购",@"秒杀",@"团购",@"购物车",@"充值",@"抽奖",@"兑换",@"钱包", nil];
@@ -221,28 +221,5 @@
     }
 }
 
--(void)locationNow{
-    self.locMgr = [[CLLocationManager alloc] init];
-    self.locMgr.delegate = self;
-    self.locMgr.distanceFilter=kCLDistanceFilterNone;
-    self.locMgr.desiredAccuracy = kCLLocationAccuracyBest;
-    self.locMgr.distanceFilter = 1000.0f;
-    [self.locMgr startUpdatingLocation];
-    
-}
-#pragma CLLocationManagerDelegate
 
-- (void)locationManager:(CLLocationManager *)manager
-     didUpdateLocations:(NSArray *)locations{
-    CLLocation *loc = [locations firstObject];
-     //维度：loc.coordinate.latitude
-   //经度：loc.coordinate.longitude
-    NSLog(@"纬度=%f，经度=%f",loc.coordinate.latitude,loc.coordinate.longitude);
-    [manager stopUpdatingLocation];
-    
-}
-- (void)locationManager:(CLLocationManager *)manager
-       didFailWithError:(NSError *)error{
-    NSLog(@"33%@",error);
-}
 @end
