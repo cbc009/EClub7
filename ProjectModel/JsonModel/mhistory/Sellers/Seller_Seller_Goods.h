@@ -15,14 +15,18 @@
 @property(nonatomic,strong)NSString *goods_name;
 @property(nonatomic,strong)NSString *unit;
 @property(nonatomic,strong)NSString *discount;
-@property(nonatomic,strong)NSArray *send_time;
+@property(nonatomic,strong)NSArray <Optional>*send_time;
 @property(nonatomic,strong)NSString *actual_nums;
 @property(nonatomic,strong)NSString *picture;
 @property(nonatomic,strong)NSString *price;
 @property(nonatomic,strong)NSString *bigpicture;
 @property(nonatomic,strong)NSString *point;
 @property(nonatomic,strong)NSString *goods_id;
-@property(nonatomic,strong)NSString *provider_nums;
+@property(nonatomic,strong)NSString <Optional>*seller_name;
+@property(nonatomic,strong)NSString <Optional>*seller_picture;
+@property(nonatomic,strong)NSString <Optional>*seller_intro;
+@property(nonatomic,strong)NSString <Optional>*receive_address;
+@property(nonatomic,strong)NSString <Optional>*receive_from;
 @end
 
 @interface Seller_Seller_Goods_info : JSONModel 

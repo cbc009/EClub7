@@ -10,6 +10,7 @@
 @end
 
 @interface Public_Seller_info_model_arr_seller_info : JSONModel
+
 @property(nonatomic,assign)NSInteger attitude_praises;
 @property(nonatomic,strong)NSString *intro;
 @property(nonatomic,strong)NSString *seller_status;

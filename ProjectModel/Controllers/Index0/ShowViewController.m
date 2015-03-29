@@ -12,6 +12,10 @@
 #import <UIImageView+WebCache.h>
 #import "RemarkViewController.h"
  #import "Seller_Seller_Goods.h"
+#import "Seller_Seller_Comment.h"
+#import "DAKeyboardControl.h"
+#import "Status.h"
+#import "RemarkService.h"
 #import "NSString+MT.h"
 #import "SellerService.h"
 #import "Shoop_0Cell.h"
@@ -21,27 +25,57 @@
 #import "Shoop_4Cell.h"
 #import "Index0_Cell.h"
 #import "RatingBar.h"
-@interface ShowViewController ()<ShowMoreItemsCellDelegate,Shoop_3Delegate>
+@interface ShowViewController ()<ShowMoreItemsCellDelegate,Shoop_3Delegate,Shoop4CellDelegate,Shoop0Delegate,UITextViewDelegate>
 {
     NSString *identifer;
     UINib *nib;
     SellerService *sellerService;
     UserInfo *user;
+     UITapGestureRecognizer *tap;
+    RemarkService *remarkService;
+    Shoop_4Cell *selectCell;
+    UIView *ratingBarView;
+    NSInteger type;//这个就是发送评论的类型
+    NSString *oTherid;
+    NSString *otherNames;
+    NSString *regNames;
 }
+@property(nonatomic,strong)UIToolbar *toolBar;
+@property(nonatomic,strong)UITextView *mytextView;
+@property(nonatomic,strong)UIButton *sendButton;
 @end
 
 @implementation ShowViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     SharedData *sharedData =[SharedData sharedInstance];
     user=sharedData.user;
     sellerService =[SellerService new];
-    
+    remarkService =[RemarkService new];
+   
     
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [sellerService sellerSellerCommentInfoWithSeller_id:self.models.seller_id andPageString:@"1" inTabBarController:self.tabBarController withDone:^(Seller_Seller_Comment_info *object){
+        self.datas=object.arr_comment;
+        
+        [self.tablewView reloadData];
+    }];
+}
+-(void)setRatingBarView{
+    
+    ratingBarView=[[UIView alloc] initWithFrame:CGRectMake(80, 50,100, 20)];
+    
+
+}
+
+
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 5;
+    return 6;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     switch (section) {
@@ -58,7 +92,10 @@
             return 2;
             break;
         case 4:
-            return 5;
+            return 1;
+            break;
+        case 5:
+            return self.datas.count;
             break;
         default:
             break;
@@ -68,6 +105,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger section=indexPath.section;
     NSInteger row =indexPath.row;
+    CGFloat topicHeight;
+     Seller_Seller_Comment_arr_comment_info *model =self.datas[row];
+    topicHeight=0;
     switch (section) {
         case 0:
             return 105;
@@ -85,14 +125,18 @@
                 return [NSString heightWithString:self.models.intro font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-16, 300)]+10;
             }
             break;
-        case 4:
-            if (row==0) {
-                return 33;
-            }else{
-             return 125;
+        case 5:
+            topicHeight=[NSString heightWithString:model.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-80, 300)]+70;
+            for (int i=0; i<model.sub_comment.count; i++) {
+                Sub_Comment_Info *object=model.sub_comment[i];
+                topicHeight =topicHeight+[NSString heightWithString:[NSString stringWithFormat:@"%@回复了:%@%@",object.content,object.regname,object.other_name] font:[UIFont systemFontOfSize:10] maxSize:CGSizeMake(DeviceFrame.size.width-80, 300)]+1;
             }
+            return topicHeight;
             break;
-            
+        case 4:
+            return 33;
+            break;
+
         default:
             break;
     }
@@ -103,12 +147,13 @@
     NSInteger row =indexPath.row;
     if (section==0) {
         Shoop_0Cell *cell =[tableView dequeueReusableCellWithIdentifier:@"Shoop_0Cell" forIndexPath:indexPath];
-        cell.sellerName.text=self.models.seller_name;
+       cell.sellerName.text=self.models.seller_name;
        [cell.picture sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.models.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
         cell.totle.text=[NSString stringWithFormat:@"%ld分",(long)self.models.total_praises];
         RatingBar*bar = [[RatingBar alloc] initWithFrame:CGRectMake(80, 50,100, 20)];
         bar.starNumber=self.models.total_praises;
         bar.enable=NO;
+        cell.delegate=self;
         [cell addSubview:bar];
         bar.frame=CGRectMake(cell.frame.origin.x+145,65,100, 20);
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
@@ -129,7 +174,7 @@
             cell.title.text=@"简介";
         }else{
             cell.title.text=self.models.intro;
-            cell.topicHeight.constant=[NSString heightWithString:self.models.intro font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-16, 300)];
+            cell.topicHeight.constant=[NSString heightWithString:self.models.intro font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-64, 300)];
         }
         return cell;
     }else if (section==2){
@@ -148,17 +193,36 @@
         }
         return cell;
     }else if(section==4){
-        if (row==0) {
             Shoop_3Cell *cell =[tableView dequeueReusableCellWithIdentifier:@"Shoop_3Cell" forIndexPath:indexPath];
             cell.selectionStyle=UITableViewCellSelectionStyleNone;
-            
             cell.delegate=self;
             return cell;
-        }else{
+    }else if(section==5){
+        
             Shoop_4Cell *cell =[tableView dequeueReusableCellWithIdentifier:@"Shoop_4Cell" forIndexPath:indexPath];
+        if (cell == nil){}
             cell.selectionStyle=UITableViewCellSelectionStyleNone;
+            Seller_Seller_Comment_arr_comment_info *model =self.datas[row];
+//            CGRect fram=cell.time.frame;
+//            RatingBar*bar;
+//            if ((bar=nil)) {
+//                bar= [[RatingBar alloc] initWithFrame:CGRectMake(fram.origin.x-100, fram.origin.y+15,100, 20)];
+//            }
+//            bar.starNumber=[model.total_praises integerValue]-1;
+//            bar.enable=NO;
+//            cell.delegate=self;
+//            [cell addSubview:bar];
+//            bar.frame=CGRectMake(fram.origin.x-100, fram.origin.y+15,100, 20);
+            cell.delegate=self;
+            [cell.heardPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.models.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+            cell.topicHeight.constant=[NSString heightWithString:model.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-80, 300)];
+            cell.nickName.text=model.regname;
+            cell.content.text=model.content;
+            cell.number.text=model.praise_nums;
+            cell.time.text=model.regtime;
+            cell.datas=(NSMutableArray*)model.sub_comment;
+            [cell.tableview reloadData];
             return cell;
-        }
     }
     return nil;
 }
@@ -169,11 +233,14 @@
 -(void)moreItmes:(id)sender InCell:(UITableViewCell *)cell{
     UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
     ShowDetailViewController *ShowDetailVic=[storBoard instantiateViewControllerWithIdentifier:@"ShowDetailViewController"];
+    ShowDetailVic.seller_id=self.models.seller_id;
     [self.navigationController pushViewController:ShowDetailVic animated:YES];
 }
--(void)pushShoopsGoodVicIncell:(UITableViewCell *)cell{
+-(void)pushShoopsGoodVicIncell:(UITableViewCell *)cell andModel:(Seller_Seller_Goods_arr_goods_info *)model{
+   
     UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
     ShoopGoodsViewController *shoopGoodVic=[storBoard instantiateViewControllerWithIdentifier:@"ShoopGoodsViewController"];
+    shoopGoodVic.models=model;
     [self.navigationController pushViewController:shoopGoodVic animated:YES];
 }
 -(void)pushRemarkWithsender:(id)sender inCell:(Shoop_3Cell*)cell{
@@ -182,5 +249,169 @@
     remarkVIC.models=self.models;
    [self.navigationController pushViewController:remarkVIC animated:YES];
 
+}
+-(void)likeWithSender:(id)sender inCell:(Shoop_4Cell*)cell{
+    NSIndexPath *indexpath = [self.tablewView indexPathForCell:cell];
+    Seller_Seller_Comment_arr_comment_info *object = self.datas[indexpath.row];
+
+    [remarkService seller_comment_releaseWuthType:@"1" andSeller_id:self.models.seller_id andContent:@"" andPraise_nums:@"1" andComment_id:object.comment_id andOther_id:@"" andTotal_praises:@"" andAttitude_praises:@"" andNeat_praises:@"" andDescrip_praises:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(Status *model){
+//        [SVProgressHUD showSuccessWithStatus:@"点赞成功"];
+        NSInteger num = [cell.number.text integerValue];
+        num++;
+        cell.number.text=[NSString stringWithFormat:@"%ld",(long)num];
+        
+    }];
+}
+
+-(void)remarkWithSender:(id)sender inCell:(Shoop_4Cell*)cell{
+    type=0;
+    NSIndexPath *indexpath = [self.tablewView indexPathForCell:cell];
+    Seller_Seller_Comment_arr_comment_info *model;
+    [self.tablewView scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    model = self.datas[indexpath.row];
+    regNames=model.regname;
+    NSLog(@"indexpath:%ld",(long)indexpath.row);
+    selectCell=cell;
+    //再次弹出键盘来之前先移除之前的键盘防止对象不消失一直存在
+    if (self.mytextView!=nil) {
+        [self handleAfterKeyboardHidden];
+        [self.view removeKeyboardControl];
+    }
+        [self setupTextSendKeyboard];
+    [self handleAfterKeyboardShown];
+
+    
+}
+-(void)setupTextSendKeyboard{
+    self.toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f,
+                                                               self.view.bounds.size.height - 40.0f,
+                                                               self.view.bounds.size.width,
+                                                               40.0f)];
+    self.toolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+    self.toolBar.hidden=YES;
+    [self.view addSubview:self.toolBar];
+    
+    self.mytextView = [[UITextView alloc] initWithFrame:CGRectMake(10.0f,
+                                                                   6.0f,
+                                                                   self.toolBar.bounds.size.width - 20.0f - 68.0f,
+                                                                   30.0f)];
+    self.mytextView.text=[NSString stringWithFormat:@"回复%@:",regNames];
+    self.mytextView.textColor=[UIColor grayColor];
+    self.mytextView.delegate=self;
+    
+    self.mytextView.autoresizingMask=UIViewAutoresizingFlexibleHeight;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChanged:) name:UITextViewTextDidChangeNotification object:nil];
+    
+    [self.toolBar addSubview:self.mytextView];
+    
+    self.sendButton= [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.sendButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    [self.sendButton setTitle:@"发送" forState:UIControlStateNormal];
+    self.sendButton.frame = CGRectMake(self.toolBar.bounds.size.width - 68.0f,
+                                       6.0f,
+                                       58.0f,
+                                       29.0f);
+    [self.sendButton addTarget:self action:@selector(sendAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.toolBar addSubview:self.sendButton];
+    
+    
+    self.view.userInteractionEnabled = YES;
+    tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleAfterKeyboardHidden)];
+    [self.view addGestureRecognizer:tap];
+    
+    self.view.keyboardTriggerOffset = self.toolBar.bounds.size.height;
+    __weak typeof(self) weakSelf = self;
+    [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
+        
+        CGRect toolBarFrame = weakSelf.toolBar.frame;
+        toolBarFrame.origin.y = keyboardFrameInView.origin.y - toolBarFrame.size.height;
+        weakSelf.toolBar.frame = toolBarFrame;
+    }];
+}
+- (void)textViewDidBeginEditing:(UITextView *)textView{
+    self.mytextView.text=@"";
+    self.mytextView.textColor=[UIColor blackColor];
+}
+- (void)textDidChanged:(NSNotification *)notif //监听文字改变 换行时要更改输入框的位置
+{
+    CGSize contentSize = self.mytextView.contentSize;
+    if (contentSize.height > 70){
+        return;
+    }
+    CGFloat topic_height = [NSString heightWithString:self.mytextView.text font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(self.toolBar.bounds.size.width - 20.0f - 68.0f, 60)];
+    self.toolBar.frame=CGRectMake(0.0f,
+                                  self.view.bounds.size.height - 275.0f-topic_height,
+                                  self.view.bounds.size.width,
+                                  topic_height+12.7+12);
+    self.sendButton.frame = CGRectMake(self.toolBar.bounds.size.width - 68.0f,
+                                       6.0f,
+                                       58.0f,
+                                       12+topic_height);
+}
+//点击“发送”，评论
+-(void)sendAction:(UIButton *)sender{
+    NSString *types;
+    NSString *Praise_nums;
+    NSLog(@"%@",self.mytextView.text);
+    NSIndexPath *indexpath = [self.tablewView indexPathForCell:selectCell];
+    Seller_Seller_Comment_arr_comment_info *object = self.datas[indexpath.row];
+    [self handleAfterKeyboardHidden];
+    if (type==0) {
+        types=@"2";
+        Praise_nums=@"1";
+        oTherid=@"0";
+    }else{
+        Praise_nums=@"0";
+        types=@"3";
+    }
+    [remarkService seller_comment_releaseWuthType:types andSeller_id:self.models.seller_id andContent:self.mytextView.text andPraise_nums:Praise_nums andComment_id:object.comment_id andOther_id:oTherid andTotal_praises:@"" andAttitude_praises:@"" andNeat_praises:@"" andDescrip_praises:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(Status *model){
+        Sub_Comment_Info *commentInfo = [Sub_Comment_Info new];
+        commentInfo.content = self.mytextView.text;
+        commentInfo.regname = user.nickname;
+        commentInfo.regid=[NSString stringWithFormat:@"%ld",(long)user.mid];
+        commentInfo.other_name=otherNames;
+        
+        [selectCell.datas addObject:commentInfo];
+        NSArray *indexpaths = [NSArray arrayWithObjects:[NSIndexPath indexPathForRow:selectCell.datas.count-1 inSection:0], nil];
+        [selectCell.tableview insertRowsAtIndexPaths:indexpaths withRowAnimation:UITableViewRowAnimationBottom];
+        [selectCell.tableview reloadRowsAtIndexPaths:indexpaths withRowAnimation:UITableViewRowAnimationBottom];
+        NSArray *this_indexpaths = [NSArray arrayWithObjects:[self.tablewView indexPathForCell: selectCell], nil];
+        [self.tablewView reloadRowsAtIndexPaths:this_indexpaths withRowAnimation:UITableViewRowAnimationBottom];
+        self.mytextView.text = @"";
+        [self.view removeKeyboardControl];
+    }];
+
+}
+-(void)downWithSender:(id)sender inCell:(Shoop_0Cell *)cell{
+    NSLog(@"dsss");
+}
+-(void)handleAfterKeyboardShown{
+//    [self.mytextView becomeFirstResponder];
+    self.toolBar.hidden = NO;
+}
+
+-(void)handleAfterKeyboardHidden{
+    [self.view removeGestureRecognizer:tap];
+    [self.mytextView resignFirstResponder];
+    self.toolBar.hidden = YES;
+}
+-(void)replyWithRegid:(NSString *)regid andRegName:(NSString *)regName andOtherName:(NSString *)otherName inCell:(Shoop_4Cell*)cell{
+    oTherid=regid;
+    otherNames =otherName;
+    regNames=regName;
+     type=1;
+    //再次弹出键盘来之前先移除之前的键盘防止对象不消失一直存在
+    if (self.mytextView!=nil) {
+        [self handleAfterKeyboardHidden];
+        [self.view removeKeyboardControl];
+    }
+    [self setupTextSendKeyboard];
+    [self handleAfterKeyboardShown];
+    NSIndexPath *indexpath = [self.tablewView indexPathForCell:cell];
+    Seller_Seller_Comment_arr_comment_info *model = self.datas[indexpath.row];
+    [self.tablewView scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    model = self.datas[indexpath.row];
+    NSLog(@"indexpath:%ld",(long)indexpath.row);
+    selectCell=cell;
 }
 @end

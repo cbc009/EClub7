@@ -9,9 +9,17 @@
 #import "RemarkViewController.h"
 #import "BigRatingBar.h"
 #import <UIImageView+WebCache.h>
+#import "RemarkService.h"
+#import "Status.h"
 @interface RemarkViewController ()<BigRatingBarDelegate>
 {
     BigRatingBar *ratingbar;
+    RemarkService *remarkService;
+    NSInteger starNumber0;
+    NSInteger starNumber1;
+    NSInteger starNumber2;
+    NSInteger starNumber3;
+    UserInfo *user;
 }
 @end
 
@@ -20,6 +28,14 @@
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+    SharedData *sharedData =[SharedData sharedInstance];
+    user=sharedData.user;
+    starNumber0=0;
+    starNumber1=0;
+    starNumber2=0;
+    starNumber3=0;
+    
+    remarkService =[RemarkService new];
     self.sellerName.text=self.models.seller_name;
     [self.sellerPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.models.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
     
@@ -36,15 +52,19 @@
     switch (bar.tag) {
         case 0:
             self.index0.text=str;
+            starNumber0=starNumber+1;
             break;
         case 1:
-            self.index1.text=str;;
+            self.index1.text=str;
+            starNumber1=starNumber+1;
             break;
         case 2:
-            self.index2.text=str;;
+            self.index2.text=str;
+            starNumber2=starNumber+1;
             break;
         case 3:
             self.index3.text=str;
+            starNumber3=starNumber+1;
             break;
         default:
             break;
@@ -53,6 +73,7 @@
 }
 - (void)textViewDidBeginEditing:(UITextView *)textView{
     self.mTextview.text=@"";
+    self.mTextview.textColor=[UIColor blackColor];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,6 +82,11 @@
 }
 
 - (IBAction)postremark:(id)sender {
+    [remarkService seller_comment_releaseWuthType:@"1" andSeller_id:self.models.seller_id andContent:self.mTextview.text andPraise_nums:@"0" andComment_id:@"" andOther_id:@"" andTotal_praises:[NSString stringWithFormat:@"%ld",(long)starNumber0] andAttitude_praises:[NSString stringWithFormat:@"%ld",(long)starNumber1] andNeat_praises:[NSString stringWithFormat:@"%ld",(long)starNumber2] andDescrip_praises:[NSString stringWithFormat:@"%ld",(long)starNumber3] andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(Status *model){
+            [SVProgressHUD showSuccessWithStatus:@"感谢您的评论"];
+            [self.navigationController popViewControllerAnimated:YES];
+        
+    }];
     
 }
 @end

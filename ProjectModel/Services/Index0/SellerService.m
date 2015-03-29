@@ -12,6 +12,7 @@
  #import "Public_Seller_info_model.h"
 #import <JSONModelLib.h>
 #import "SVProgressHUD.h"
+#import "Seller_Seller_Comment.h"
 @implementation SellerService
 -(void)sellerSellerGood_typesWith:(NSString *)good_type andSeller_id:(NSString *)seller_id andLifehall_id:(NSString *)lifehall_id andPage:(NSString *)pageString inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
     NSString *urlString=[NSString stringWithFormat:Seller_Seller_Goods_URL,good_type,seller_id,lifehall_id,pageString];
@@ -33,5 +34,11 @@
         [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info withDone:done];
     }];
 
+}
+-(void)sellerSellerCommentInfoWithSeller_id:(NSString *)seller_id andPageString:(NSString *)pageString inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
+    NSString *urlString=[NSString stringWithFormat:Seller_Seller_Comment_Info_URL,seller_id,pageString];
+    [Seller_Seller_Comment getModelFromURLWithString:urlString completion:^(Seller_Seller_Comment *model,JSONModelError*eroor){
+        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:eroor andObject:model.info withDone:done];
+    }];
 }
 @end

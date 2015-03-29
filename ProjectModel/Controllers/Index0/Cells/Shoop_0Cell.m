@@ -20,4 +20,7 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)done:(id)sender {
+    [self.delegate downWithSender:sender inCell:self];
+}
 @end

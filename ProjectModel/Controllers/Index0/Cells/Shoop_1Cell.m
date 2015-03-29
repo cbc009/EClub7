@@ -10,7 +10,7 @@
 #import "ShoopsCollectionViewCell.h"
 #import "ShoopGoodsViewController.h"
 #import <UIImageView+WebCache.h>
-#import "Seller_Seller_Goods.h"
+
 @implementation Shoop_1Cell
 
 - (void)awakeFromNib {
@@ -36,7 +36,8 @@
     return cell;
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    [self.delegate pushShoopsGoodVicIncell:self];
+    Seller_Seller_Goods_arr_goods_info *model =self.datas[indexPath.row];
+    [self.delegate pushShoopsGoodVicIncell:self andModel:model];
 }
 - (IBAction)more:(id)sender {
     [self.delegate moreItmes:sender InCell:self];

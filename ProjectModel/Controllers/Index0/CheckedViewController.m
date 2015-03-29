@@ -34,4 +34,8 @@
 }
 */
 
+- (IBAction)buySelf:(id)sender {
+}
+- (IBAction)buyOther:(id)sender {
+}
 @end

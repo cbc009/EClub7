@@ -11,5 +11,10 @@
 @interface CheckedViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *backScrollView;
+@property (weak, nonatomic) IBOutlet UITableView *tableview;
+- (IBAction)buySelf:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *buyselfs;
+- (IBAction)buyOther:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *buyOthers;
 
 @end

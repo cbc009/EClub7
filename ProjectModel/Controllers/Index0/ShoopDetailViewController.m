@@ -55,7 +55,9 @@
     _data1 =[NSMutableArray new];
      _data5=[NSMutableArray new];
    _data6=[NSMutableArray new];
-    
+    typeString =[NSString stringWithFormat:@"seller_type/%@",self.seller_type];
+        
+     [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
     NSMutableArray *_data4;
     for (int i=0 ;i<self.cateArray.count;i++) {
           NSMutableArray *matherArray=[NSMutableArray new];
@@ -75,7 +77,7 @@
     NSLog(@"%@",_data6);
     
     _data2 = [NSMutableArray arrayWithObjects:@"附近", @"1000m", @"2000m", @"3000m", @"4000m", @"5000m", @"6000m", nil];
-    _data3 = [NSMutableArray arrayWithObjects:@"不限人数", @"单人餐", @"双人餐", @"3~4人餐", nil];
+    _data3 = [NSMutableArray arrayWithObjects:@"不限人数", @"单人餐", @"双人餐", @"6573~4人餐", nil];
     JSDropDownMenu *menu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:45];
     menu.indicatorColor = [UIColor colorWithRed:175.0f/255.0f green:175.0f/255.0f blue:175.0f/255.0f alpha:1.0];
     menu.separatorColor = [UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0];
@@ -211,9 +213,6 @@
         _currentData3Index = indexPath.row;
     }
 }
-
-
-
 
 -(void)locationNow{
     self.locMgr = [[CLLocationManager alloc] init];
