@@ -12,6 +12,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (nonatomic,strong)NSString *seller_type;
 @property (nonatomic,strong)NSArray *data;
-@property (nonatomic,retain)Public_Seller_arr_seller_type_info *models;
+//@property (nonatomic,retain)Public_Seller_arr_seller_type_info *models;
 @property (nonatomic,strong)NSArray *cateArray;
 @end

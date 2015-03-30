@@ -28,9 +28,9 @@
     sellerService=[SellerService new];
     SharedData *shareData =[SharedData sharedInstance];
     user =shareData.user;
-    self.tableview.backgroundColor=[SharedAction colorWithHexString:@"#f2f2f2"];
+    self.tableview.backgroundColor=[SharedAction colorWithHexString:@"#f2f2f2"];//设置背景颜色
     self.tableview.separatorStyle=UITableViewCellSeparatorStyleNone;
-    NSString *typeString=[NSString stringWithFormat:@"agent_id/%ld",(long)user.agent_id];
+    NSString *typeString=[NSString stringWithFormat:@"agent_id/%ld",(long)user.agent_id];//获取商户类型所有的
     [sellerService publickSellerListWithTypeString:typeString inTabBarController:self.tabBarController withDone:^(Public_Seller_info *model){
         self.data=model.arr_seller_type;
         [self.tableview reloadData];
@@ -52,6 +52,7 @@
     Public_Seller_arr_seller_type_info *object=self.data[row];
     cell.fatherName.text=object.seller_type_name;
     if (![object.sub_type isEqualToArray:@[]]) {
+        //子类名拼成一个字符串用的
         NSString *sonName;
         sonName=@"";
         for (int i=0; i<object.sub_type.count; i++) {
@@ -69,16 +70,18 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 128;
 }
+//选择一行
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row =indexPath.row;
    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
     ShoopDetailViewController *shoopDetailVic=[storBoard instantiateViewControllerWithIdentifier:@"ShoopDetailViewController"];
+    //把所有的分类一起传过去
     shoopDetailVic.cateArray=self.data;
     Public_Seller_arr_seller_type_info *object=self.data[row];
     
-    shoopDetailVic.models=self.data[row];
-    shoopDetailVic.seller_type=object.seller_type;
+//    shoopDetailVic.models=self.data[row];//这里的models就是用来传一组数据过去的
+    shoopDetailVic.seller_type=object.seller_type;//seller_type是商家分类
     [self.navigationController pushViewController:shoopDetailVic animated:YES];
 }
 

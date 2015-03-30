@@ -31,8 +31,6 @@
     SharedData *sharedData =[SharedData sharedInstance];
     user=sharedData.user;
     checkService =[CheckService new];
-//    self.viewHeight.constant=75;
-//    self.senderView.hidden=YES;
     self.mone.text=[NSString stringWithFormat:@"使用账户余额:  ￥%0.2f",user.amount];
     self.redBag.text=[NSString stringWithFormat:@"使用红包余额:  ￥%0.2f",user.amount_red];
     [self.buyselfs setBackgroundImage:[UIImage imageNamed:@"checked_true"] forState:UIControlStateNormal];

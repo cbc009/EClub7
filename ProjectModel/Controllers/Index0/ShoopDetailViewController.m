@@ -35,7 +35,6 @@
     NSString *typeString;
   
     NSMutableArray *_data5;
-    NSMutableArray *_data6;
     
     
     
@@ -54,11 +53,10 @@
     [self locationNow];
     _data1 =[NSMutableArray new];
      _data5=[NSMutableArray new];
-   _data6=[NSMutableArray new];
     typeString =[NSString stringWithFormat:@"seller_type/%@",self.seller_type];
         
      [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
-    NSMutableArray *_data4;
+    NSMutableArray *_data4;//这里就是得到数组 给下拉菜单
     for (int i=0 ;i<self.cateArray.count;i++) {
           NSMutableArray *matherArray=[NSMutableArray new];
         NSMutableArray *fatherArray =[NSMutableArray new];
@@ -69,15 +67,12 @@
             [matherArray addObject:object.sub_type_name];
             [fatherArray addObject:object.sub_type_id];
         }
-        _data4=[NSMutableArray arrayWithObjects:@{@"title":model.seller_type_name,@"data":matherArray},nil];
-        [_data1 addObjectsFromArray:_data4];
-        [_data6 addObject:fatherArray];
+        _data4=[NSMutableArray arrayWithObjects:@{@"title":model.seller_type_name,@"data":matherArray},nil];//这里是单个大类对应的小类数组
+        [_data1 addObjectsFromArray:_data4];//这里是将所有的大类以及小类的数组 放到一起
     }
-   
-    NSLog(@"%@",_data6);
+    _data2 = [NSMutableArray arrayWithObjects:@"附近", @"1000m", @"2000m", @"3000m", @"4000m", @"5000m", @"6000m", nil];//这个就是那个右边的数组
     
-    _data2 = [NSMutableArray arrayWithObjects:@"附近", @"1000m", @"2000m", @"3000m", @"4000m", @"5000m", @"6000m", nil];
-    _data3 = [NSMutableArray arrayWithObjects:@"不限人数", @"单人餐", @"双人餐", @"6573~4人餐", nil];
+    _data3 = [NSMutableArray arrayWithObjects:@"不限人数", @"单人餐", @"双人餐", @"6573~4人餐", nil];//这个数组没用到
     JSDropDownMenu *menu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:45];
     menu.indicatorColor = [UIColor colorWithRed:175.0f/255.0f green:175.0f/255.0f blue:175.0f/255.0f alpha:1.0];
     menu.separatorColor = [UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0];
@@ -225,7 +220,7 @@
 }
 #pragma CLLocationManagerDelegate
 
-- (void)locationManager:(CLLocationManager *)manager
+- (void)locationManager:(CLLocationManager *)manager//定位
      didUpdateLocations:(NSArray *)locations{
     CLLocation *loc = [locations firstObject];
     //维度：loc.coordinate.latitude
@@ -277,7 +272,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 64;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{//选择下面的一行
     NSInteger row =indexPath.row;
     Public_Seller_info_model_arr_seller_info *model =self.data[row];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -305,7 +300,7 @@
     
 }
 
--(void)publicSellerInfoWithAgent_id:(NSString *)agent_id1 andTypeString:(NSString *)typeString1 andPage:(NSString *)pageString{
+-(void)publicSellerInfoWithAgent_id:(NSString *)agent_id1 andTypeString:(NSString *)typeString1 andPage:(NSString *)pageString{//获取商家信息
     [sellerService publicSellerInfoWithAgent_id:agent_id1 anrTypeString:typeString1 inTabBarController:self.tabBarController withDone:^(Public_Seller_info_model_info *model){
         self.data=model.arr_seller;
         

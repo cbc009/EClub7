@@ -48,7 +48,7 @@
     // 创建可变属性化字符串
     NSUInteger length = [name length];
     NSUInteger length1=[name1 length];
-    if (row==0) {
+    if ([model.other_name isEqualToString:@""]) {
         name=[NSString stringWithFormat:@"%@: %@",name,string];
     }else{
         name=[NSString stringWithFormat:@"%@回复了%@: %@",name,name1,string];
