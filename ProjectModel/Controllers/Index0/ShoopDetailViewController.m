@@ -264,13 +264,13 @@
     if (model.distance<500) {
         cell.street.text=@"<500m";
     }else if (model.distance<1000&model.distance>500) {
-        cell.street.text=@"<1000m";
+        cell.street.text=@"<1km";
     }else if (model.distance>1000&model.distance<2000) {
-        cell.street.text=@"<2000m";
+        cell.street.text=@"<2km";
     }else if (model.distance>2000&model.distance<3000) {
-        cell.street.text=@"<3000m";
+        cell.street.text=@"<3km";
     }else{
-        cell.street.text=@"超过4km";
+        cell.street.text=@"超过3km";
     }
     return cell;
 }

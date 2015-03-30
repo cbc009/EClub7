@@ -34,11 +34,17 @@
      UITapGestureRecognizer *tap;
     RemarkService *remarkService;
     Shoop_4Cell *selectCell;
-    UIView *ratingBarView;
     NSInteger type;//这个就是发送评论的类型
     NSString *oTherid;
     NSString *otherNames;
     NSString *regNames;
+    RatingBar *ratingbar;
+    NSArray *startArray;
+    NSArray *titleArray;
+    NSInteger keyBoardDown;//控制那个评价是否显示0消失 1显示
+    UIView *ratingBarView;
+    UITapGestureRecognizer *tap1;//隐藏ratingBarView
+    Shoop_1Cell *shoopCell;
 }
 @property(nonatomic,strong)UIToolbar *toolBar;
 @property(nonatomic,strong)UITextView *mytextView;
@@ -52,25 +58,30 @@
     
     SharedData *sharedData =[SharedData sharedInstance];
     user=sharedData.user;
+    keyBoardDown=0;
     sellerService =[SellerService new];
     remarkService =[RemarkService new];
+    startArray= @[[NSString stringWithFormat:@"%ld",(long)(self.models.total_praises)],[NSString stringWithFormat:@"%ld",(long)(self.models.attitude_praises)],[NSString stringWithFormat:@"%ld",(long)(self.models.neat_praises)],[NSString stringWithFormat:@"%ld",(long)(self.models.descrip_praises)]];
+    titleArray=@[@"总体:",@"服务态度:",@"店内环境:",@"描述相符:"];
+    
+    [sellerService sellerSellerCommentInfoWithSeller_id:self.models.seller_id andPageString:@"1" inTabBarController:self.tabBarController withDone:^(Seller_Seller_Comment_info *object){
+        self.datas=object.arr_comment;
+        [self.tablewView reloadData];
+        [sellerService sellerSellerGood_typesWith:@"1" andSeller_id:self.models.seller_id andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:@"1" inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
+            shoopCell.datas=model.arr_goods;
+            [shoopCell.collection reloadData];
+        }];
+    }];
+
+    [self setRatingBarView];
    
     
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [sellerService sellerSellerCommentInfoWithSeller_id:self.models.seller_id andPageString:@"1" inTabBarController:self.tabBarController withDone:^(Seller_Seller_Comment_info *object){
-        self.datas=object.arr_comment;
-        
-        [self.tablewView reloadData];
-    }];
+    
 }
--(void)setRatingBarView{
-    
-    ratingBarView=[[UIView alloc] initWithFrame:CGRectMake(80, 50,100, 20)];
-    
 
-}
 
 
 
@@ -110,7 +121,7 @@
     topicHeight=0;
     switch (section) {
         case 0:
-            return 105;
+            return 93;
             break;
         case 1:
             return 136;
@@ -126,10 +137,15 @@
             }
             break;
         case 5:
-            topicHeight=[NSString heightWithString:model.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-80, 300)]+70;
+            topicHeight=[NSString heightWithString:model.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-80, 300)]+50;
             for (int i=0; i<model.sub_comment.count; i++) {
+                if (model.sub_comment.count<2) {
+                    Sub_Comment_Info *object=model.sub_comment[0];
+                    topicHeight =topicHeight+[NSString heightWithString:[NSString stringWithFormat:@"%@: %@",object.content,object.regname] font:[UIFont systemFontOfSize:10] maxSize:CGSizeMake(DeviceFrame.size.width-80, 300)]+2;
+                }else{
                 Sub_Comment_Info *object=model.sub_comment[i];
-                topicHeight =topicHeight+[NSString heightWithString:[NSString stringWithFormat:@"%@回复了:%@%@",object.content,object.regname,object.other_name] font:[UIFont systemFontOfSize:10] maxSize:CGSizeMake(DeviceFrame.size.width-80, 300)]+1;
+                topicHeight =topicHeight+[NSString heightWithString:[NSString stringWithFormat:@"%@回复了: %@%@",object.content,object.regname,object.other_name] font:[UIFont systemFontOfSize:10] maxSize:CGSizeMake(DeviceFrame.size.width-80, 300)]+2;
+                }
             }
             return topicHeight;
             break;
@@ -150,21 +166,18 @@
        cell.sellerName.text=self.models.seller_name;
        [cell.picture sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.models.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
         cell.totle.text=[NSString stringWithFormat:@"%ld分",(long)self.models.total_praises];
-        RatingBar*bar = [[RatingBar alloc] initWithFrame:CGRectMake(80, 50,100, 20)];
+        RatingBar*bar = [[RatingBar alloc] initWithFrame:CGRectMake(65, 50,100, 20)];
         bar.starNumber=self.models.total_praises;
         bar.enable=NO;
         cell.delegate=self;
         [cell addSubview:bar];
-        bar.frame=CGRectMake(cell.frame.origin.x+145,65,100, 20);
+        bar.frame=CGRectMake(cell.frame.origin.x+125,55,100, 20);
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
          return cell;
     }else if(section==1){
         Shoop_1Cell *cell =[tableView dequeueReusableCellWithIdentifier:@"Shoop_1Cell" forIndexPath:indexPath];
+        shoopCell=cell;
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
-        [sellerService sellerSellerGood_typesWith:@"1" andSeller_id:self.models.seller_id andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:@"1" inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
-            cell.datas=model.arr_goods;
-            [cell.collection reloadData];
-        }];
         cell.delegate = self;
         return cell;
     }else if (section==3){
@@ -198,9 +211,7 @@
             cell.delegate=self;
             return cell;
     }else if(section==5){
-        
             Shoop_4Cell *cell =[tableView dequeueReusableCellWithIdentifier:@"Shoop_4Cell" forIndexPath:indexPath];
-        if (cell == nil){}
             cell.selectionStyle=UITableViewCellSelectionStyleNone;
             Seller_Seller_Comment_arr_comment_info *model =self.datas[row];
 //            CGRect fram=cell.time.frame;
@@ -253,13 +264,14 @@
 -(void)likeWithSender:(id)sender inCell:(Shoop_4Cell*)cell{
     NSIndexPath *indexpath = [self.tablewView indexPathForCell:cell];
     Seller_Seller_Comment_arr_comment_info *object = self.datas[indexpath.row];
-
     [remarkService seller_comment_releaseWuthType:@"1" andSeller_id:self.models.seller_id andContent:@"" andPraise_nums:@"1" andComment_id:object.comment_id andOther_id:@"" andTotal_praises:@"" andAttitude_praises:@"" andNeat_praises:@"" andDescrip_praises:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(Status *model){
-//        [SVProgressHUD showSuccessWithStatus:@"点赞成功"];
         NSInteger num = [cell.number.text integerValue];
         num++;
         cell.number.text=[NSString stringWithFormat:@"%ld",(long)num];
-        
+        object.praise_nums=cell.number.text;
+//        [self.datas addObject:object];
+//        [self.datas exchangeObjectAtIndex:self.datas.count-1 withObjectAtIndex:indexpath.row];
+//        [self.datas removeObject:self.datas[self.datas.count-1]];
     }];
 }
 
@@ -383,7 +395,49 @@
 
 }
 -(void)downWithSender:(id)sender inCell:(Shoop_0Cell *)cell{
-    NSLog(@"dsss");
+    if (keyBoardDown==1) {
+        keyBoardDown=0;
+        [ratingBarView removeFromSuperview];
+    }else{
+        keyBoardDown=1;
+         [self.view addGestureRecognizer:tap1];
+        [self.tablewView addSubview:ratingBarView];
+    }
+}
+-(void)setRatingBarView{
+    tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ratingBarViewHidden)];
+    
+
+    ratingBarView =[[UIView alloc] initWithFrame:CGRectMake(125, 95, 170, 100)];
+    ratingBarView.backgroundColor=[UIColor whiteColor];
+    ratingBarView.alpha=1;
+//    ratingBarView.layer.backgroundColor=(__bridge CGColorRef)([UIColor grayColor]);
+//    ratingBarView.layer.borderWidth=0.5;
+    UILabel *title;
+    UILabel *point;
+    for (int i=0; i<4; i++) {
+        ratingbar = [[RatingBar alloc] initWithFrame:CGRectMake(47, 15+20*i, 100, 20)];
+        title=[[UILabel alloc] initWithFrame:CGRectMake(5, 15+20*i, 40, 20)];
+        point =[[UILabel alloc] initWithFrame:CGRectMake(150, 15+20*i, 20, 20)];
+        point.text=[NSString stringWithFormat:@"%@分",startArray[i]];
+        [point setFont:[UIFont fontWithName:@"Helvetica" size:9.0]];
+        title.backgroundColor=[UIColor whiteColor];
+        title.text=titleArray[i];
+        [title setFont:[UIFont fontWithName:@"Helvetica" size:9.0]];
+        ratingbar.frame=CGRectMake(47, 15+20*i, 100, 20);
+        ratingbar.tag=i;
+        ratingbar.enable=NO;
+        ratingbar.starNumber=[startArray[i] integerValue];
+        [ratingBarView addSubview:ratingbar];
+        [ratingBarView addSubview:title];
+        [ratingBarView addSubview:point];
+    }
+}
+
+-(void)ratingBarViewHidden{
+    keyBoardDown=0;
+    [self.view removeGestureRecognizer:tap1];
+    [ratingBarView removeFromSuperview];
 }
 -(void)handleAfterKeyboardShown{
 //    [self.mytextView becomeFirstResponder];

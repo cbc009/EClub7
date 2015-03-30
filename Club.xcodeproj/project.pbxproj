@@ -207,6 +207,8 @@
 		3365BADC1A709760003C220C /* CreatePayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3365BADB1A709760003C220C /* CreatePayViewController.m */; };
 		3365BADF1A70A012003C220C /* UPPayViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3365BADE1A70A012003C220C /* UPPayViewController.mm */; };
 		3365BAE21A70A0D9003C220C /* UPay_Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 3365BAE11A70A0D9003C220C /* UPay_Order.m */; };
+		3367BA4A1AC8D7D500F7B939 /* CheckCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3367BA491AC8D7D500F7B939 /* CheckCell.m */; };
+		3367BA4D1AC8E78700F7B939 /* CheckService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3367BA4C1AC8E78700F7B939 /* CheckService.m */; };
 		3367E6C51A6F3BE300DA866D /* icon_merchant_share_highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3367E6C31A6F3BE300DA866D /* icon_merchant_share_highlighted@2x.png */; };
 		3367E6C61A6F3BE300DA866D /* icon_merchant_share_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3367E6C41A6F3BE300DA866D /* icon_merchant_share_normal@2x.png */; };
 		3367E6CC1A6FADF400DA866D /* ic_banklist_enabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 3367E6C91A6FADF400DA866D /* ic_banklist_enabled.png */; };
@@ -857,6 +859,10 @@
 		3365BADE1A70A012003C220C /* UPPayViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UPPayViewController.mm; sourceTree = "<group>"; };
 		3365BAE01A70A0D9003C220C /* UPay_Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPay_Order.h; sourceTree = "<group>"; };
 		3365BAE11A70A0D9003C220C /* UPay_Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPay_Order.m; sourceTree = "<group>"; };
+		3367BA481AC8D7D500F7B939 /* CheckCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckCell.h; sourceTree = "<group>"; };
+		3367BA491AC8D7D500F7B939 /* CheckCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckCell.m; sourceTree = "<group>"; };
+		3367BA4B1AC8E78700F7B939 /* CheckService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckService.h; sourceTree = "<group>"; };
+		3367BA4C1AC8E78700F7B939 /* CheckService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckService.m; sourceTree = "<group>"; };
 		3367E6C31A6F3BE300DA866D /* icon_merchant_share_highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_merchant_share_highlighted@2x.png"; sourceTree = "<group>"; };
 		3367E6C41A6F3BE300DA866D /* icon_merchant_share_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_merchant_share_normal@2x.png"; sourceTree = "<group>"; };
 		3367E6C91A6FADF400DA866D /* ic_banklist_enabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_banklist_enabled.png; sourceTree = "<group>"; };
@@ -2091,6 +2097,8 @@
 				33766D991AC39D3A0083B5E9 /* ShoopsCollectionViewCell.m */,
 				33F5E8081AC7D9DF006CC823 /* ShoopGoodsCell.h */,
 				33F5E8091AC7D9DF006CC823 /* ShoopGoodsCell.m */,
+				3367BA481AC8D7D500F7B939 /* CheckCell.h */,
+				3367BA491AC8D7D500F7B939 /* CheckCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2159,6 +2167,8 @@
 				33F5E8001AC7868D006CC823 /* RemarkService.m */,
 				33F5E8051AC7D598006CC823 /* ShoopService.h */,
 				33F5E8061AC7D598006CC823 /* ShoopService.m */,
+				3367BA4B1AC8E78700F7B939 /* CheckService.h */,
+				3367BA4C1AC8E78700F7B939 /* CheckService.m */,
 			);
 			path = Index0;
 			sourceTree = "<group>";
@@ -3424,6 +3434,7 @@
 				224B354E1995DD60009523F6 /* Index1ViewController.m in Sources */,
 				33B661451AAC08CE0049E130 /* RobTitleCell.m in Sources */,
 				33DDF3B91A4A8B45004D7527 /* MySecondTableViewCell.m in Sources */,
+				3367BA4D1AC8E78700F7B939 /* CheckService.m in Sources */,
 				33EF23841A4D27A900CFD4FC /* LiveModel.m in Sources */,
 				337086551A5E50D2006A7688 /* APPQRCodeCell.m in Sources */,
 				22F09737199DDFEF007B9E7B /* QRCodeViewController.m in Sources */,
@@ -3481,6 +3492,7 @@
 				8F4DBC021A09EA8F0037CCFD /* BuyGoodTypeCell.m in Sources */,
 				224B35541995DD78009523F6 /* Index2ViewController.m in Sources */,
 				336F28C61A8072D400EE4020 /* SomeoneContent.m in Sources */,
+				3367BA4A1AC8D7D500F7B939 /* CheckCell.m in Sources */,
 				33A913171A7F289F00499C59 /* PayTypeCell.m in Sources */,
 				3390BFD41A7631790068B70B /* FeedRequestCell.m in Sources */,
 				22156BF219B4184300D0EEB6 /* TradeOrderCell.m in Sources */,

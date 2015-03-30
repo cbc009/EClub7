@@ -65,6 +65,8 @@
 - (IBAction)buyNow:(id)sender {
     UIStoryboard *storyBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
     CheckedViewController *checkedViewController=[storyBoard instantiateViewControllerWithIdentifier:@"CheckedViewController"];
+    checkedViewController.models=self.models;
+    checkedViewController.numbs=self.numbs.text;
     [self.navigationController pushViewController:checkedViewController animated:YES];
 }
 @end

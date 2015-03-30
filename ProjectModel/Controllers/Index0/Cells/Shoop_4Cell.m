@@ -21,6 +21,9 @@
 //    self.tableview.autoresizesSubviews=NO;
     self.tableview.scrollEnabled=NO;
     self.datas=[NSMutableArray new];
+    self.heardPic.layer.masksToBounds = YES;
+    self.heardPic.layer.cornerRadius=20;
+    
     [self.tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
 
@@ -36,7 +39,7 @@
     NSInteger row =indexPath.row;
     Request_0Cell *cell =[tableView dequeueReusableCellWithIdentifier:@"Request_0Cell" forIndexPath:indexPath];
      cell.selectionStyle=UITableViewCellSelectionStyleNone;
-    const CGFloat fontSize = 9;
+    const CGFloat fontSize = 10;
     Sub_Comment_Info *model=self.datas[row];
     name=model.regname;
     name1=model.other_name;
@@ -46,9 +49,9 @@
     NSUInteger length = [name length];
     NSUInteger length1=[name1 length];
     if (row==0) {
-        name=[NSString stringWithFormat:@"%@:%@",name,string];
+        name=[NSString stringWithFormat:@"%@: %@",name,string];
     }else{
-        name=[NSString stringWithFormat:@"%@回复了%@:%@",name,name1,string];
+        name=[NSString stringWithFormat:@"%@回复了%@: %@",name,name1,string];
     }
     // 设置基本字体
     NSMutableAttributedString *attrString =[[NSMutableAttributedString alloc] initWithString:name];
@@ -66,12 +69,12 @@
                        range:NSMakeRange(length+3, length1)];
     
     cell.detaillabel.attributedText=attrString;
-    cell.labelHeight.constant=[NSString  heightWithString:string font:[UIFont systemFontOfSize:9] maxSize:CGSizeMake(DeviceFrame.size.width-80, 200)];
+//    cell.labelHeight.constant=[NSString  heightWithString:string font:[UIFont systemFontOfSize:10] maxSize:CGSizeMake(DeviceFrame.size.width-80, 200)];
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
    
-    return  [NSString  heightWithString:name font:[UIFont systemFontOfSize:9] maxSize:CGSizeMake(DeviceFrame.size.width-80, 200)];
+    return  [NSString  heightWithString:name font:[UIFont systemFontOfSize:10] maxSize:CGSizeMake(DeviceFrame.size.width-80, 200)]+1;
     
 }
 - (IBAction)remark:(id)sender {

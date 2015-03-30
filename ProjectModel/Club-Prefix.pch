@@ -115,6 +115,8 @@ typedef void (^finished)(NSDictionary *info);
 
 //商家信息
 #define Public_Seller_Info_URL [PrexURL stringByAppendingString: @"Public/seller_info/agent_id/%@/%@"]
+//商品下单
+#define Seller_Seller_Order_URL [PrexURL stringByAppendingString: @"Seller/seller_order/from/IOS"]
 //发表商家评论
 #define Seller_Seller_Comment_ReleaseURL [PrexURL stringByAppendingString: @"Seller/seller_comment_release/from/IOS"]
 //商家评论信息
