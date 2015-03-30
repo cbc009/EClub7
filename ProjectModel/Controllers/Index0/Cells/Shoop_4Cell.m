@@ -12,9 +12,9 @@
 #import "Seller_Seller_Comment.h"
 @implementation Shoop_4Cell
 {
-    NSString *string;
-    NSString *name;
-    NSString *name1;
+//    NSString *string;
+//    NSString *name;
+//    NSString *name1;
 
 }
 -(void)awakeFromNib {
@@ -23,7 +23,6 @@
     self.datas=[NSMutableArray new];
     self.heardPic.layer.masksToBounds = YES;
     self.heardPic.layer.cornerRadius=20;
-    
     [self.tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
 
@@ -37,44 +36,54 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row =indexPath.row;
-    Request_0Cell *cell =[tableView dequeueReusableCellWithIdentifier:@"Request_0Cell" forIndexPath:indexPath];
-     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     const CGFloat fontSize = 10;
     Sub_Comment_Info *model=self.datas[row];
-    name=model.regname;
-    name1=model.other_name;
-    
-    string =model.content;
+    NSString *name2=model.regname;
+    NSString *name3=model.other_name;
+    NSString *string2 =model.content;
+    NSUInteger length = [name2 length];
+    NSUInteger length1=[name3 length];
+    if ([model.other_name isEqualToString:@""]) {
+        name2=[NSString stringWithFormat:@"%@: %@",name2,string2];
+    }else{
+        name2=[NSString stringWithFormat:@"%@回复了%@: %@",name2,name3,string2];
+    }
+    // 设置基本字体
     // 创建可变属性化字符串
-    NSUInteger length = [name length];
-    NSUInteger length1=[name1 length];
+    NSMutableAttributedString *attrString =[[NSMutableAttributedString alloc] initWithString:name2];
+    UIFont *baseFont = [UIFont systemFontOfSize:fontSize];
+    [attrString addAttribute:NSFontAttributeName value:baseFont
+                       range:NSMakeRange(0, length)];
+    
+    UIColor *color = [UIColor grayColor];
+    [attrString addAttribute:(id)NSForegroundColorAttributeName
+                       value:color
+                       range:NSMakeRange(0, length)];
+    
+    [attrString addAttribute:(id)NSForegroundColorAttributeName
+                       value:color
+                       range:NSMakeRange(length+3, length1)];
+
+    Request_0Cell *cell =[tableView dequeueReusableCellWithIdentifier:@"Request_0Cell" forIndexPath:indexPath];
+    cell.selectionStyle=UITableViewCellSelectionStyleNone;
+    cell.detaillabel.attributedText=attrString;
+    return cell;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSInteger row =indexPath.row;
+    Sub_Comment_Info *model=self.datas[row];
+     NSString *name=model.regname;
+     NSString *name1=model.other_name;
+     NSString *string =model.content;
     if ([model.other_name isEqualToString:@""]) {
         name=[NSString stringWithFormat:@"%@: %@",name,string];
     }else{
         name=[NSString stringWithFormat:@"%@回复了%@: %@",name,name1,string];
     }
-    // 设置基本字体
-    NSMutableAttributedString *attrString =[[NSMutableAttributedString alloc] initWithString:name];
-    UIFont *baseFont = [UIFont systemFontOfSize:fontSize];
-    [attrString addAttribute:NSFontAttributeName value:baseFont
-                       range:NSMakeRange(0, length)];
-
-    UIColor *color = [UIColor grayColor];
-    [attrString addAttribute:(id)NSForegroundColorAttributeName
-                       value:color
-                       range:NSMakeRange(0, length)];
-   
-    [attrString addAttribute:(id)NSForegroundColorAttributeName
-                       value:color
-                       range:NSMakeRange(length+3, length1)];
     
-    cell.detaillabel.attributedText=attrString;
-//    cell.labelHeight.constant=[NSString  heightWithString:string font:[UIFont systemFontOfSize:10] maxSize:CGSizeMake(DeviceFrame.size.width-80, 200)];
-    return cell;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return  [NSString  heightWithString:name font:[UIFont systemFontOfSize:10] maxSize:CGSizeMake(DeviceFrame.size.width-64, 200)];
    
-    return  [NSString  heightWithString:name font:[UIFont systemFontOfSize:10] maxSize:CGSizeMake(DeviceFrame.size.width-80, 200)]+1;
     
 }
 - (IBAction)remark:(id)sender {

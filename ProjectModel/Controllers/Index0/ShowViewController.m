@@ -14,6 +14,7 @@
  #import "Seller_Seller_Goods.h"
 #import "Seller_Seller_Comment.h"
 #import "DAKeyboardControl.h"
+#import "MJRefresh.h"
 #import "Status.h"
 #import "RemarkService.h"
 #import "NSString+MT.h"
@@ -44,6 +45,9 @@
     UIView *ratingBarView;//星星下面的那个白色视图
     UITapGestureRecognizer *tap1;//隐藏ratingBarView
     Shoop_1Cell *shoopCell;
+    RatingBar*bars;
+    NSInteger page;
+
 }
 @property(nonatomic,strong)UIToolbar *toolBar;
 @property(nonatomic,strong)UITextView *mytextView;
@@ -54,7 +58,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    page=1;
+    NSString *pageString=[NSString stringWithFormat:@"%ld",(long)page];
     SharedData *sharedData =[SharedData sharedInstance];
     user=sharedData.user;
     keyBoardDown=0;
@@ -62,16 +67,18 @@
     remarkService =[RemarkService new];
     startArray= @[[NSString stringWithFormat:@"%ld",(long)(self.models.total_praises)],[NSString stringWithFormat:@"%ld",(long)(self.models.attitude_praises)],[NSString stringWithFormat:@"%ld",(long)(self.models.neat_praises)],[NSString stringWithFormat:@"%ld",(long)(self.models.descrip_praises)]];//也是点那个下拉按钮弹出来的打的分数
     titleArray=@[@"总体:",@"服务态度:",@"店内环境:",@"描述相符:"];//点那个向下按钮的时候弹出来的
-    //获取下面的用户评论信息
-    [sellerService sellerSellerCommentInfoWithSeller_id:self.models.seller_id andPageString:@"1" inTabBarController:self.tabBarController withDone:^(Seller_Seller_Comment_info *object){
-        self.datas=object.arr_comment;
-        [self.tablewView reloadData];//那个Cell里面获取商家商品的
-        [sellerService sellerSellerGood_typesWith:@"1" andSeller_id:self.models.seller_id andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:@"1" inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
-            shoopCell.datas=model.arr_goods;
-            [shoopCell.collection reloadData];
-        }];
+    //那个Cell里面获取商家商品的
+    [sellerService sellerSellerGood_typesWith:@"1" andSeller_id:self.models.seller_id andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:@"1" inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
+        shoopCell.datas=model.arr_goods;
+        [shoopCell.collection reloadData];
     }];
-
+    [sellerService sellerSellerCommentInfoWithSeller_id:self.models.seller_id andPageString:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Comment_info *object){
+        self.datas=(NSMutableArray *)object.arr_comment;
+        [self.tablewView reloadData];
+    }];
+//    [SharedAction setupRefreshWithTableView:self.tablewView toTarget:self];
+//    [self.tablewView headerEndRefreshing];
+  
     [self setRatingBarView];
 }
 
@@ -128,16 +135,16 @@
             }
             break;
         case 5://下面评论 一行的高度//这里计算外面的
-            topicHeight=[NSString heightWithString:model.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-80, 300)]+50;
+            topicHeight=[NSString heightWithString:model.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-80, 300)]+60;
             for (int i=0; i<model.sub_comment.count; i++) {
                 //这里进行了一下判断 就是他
-                if (model.sub_comment.count<2) {
-                    Sub_Comment_Info *object=model.sub_comment[0];
-                    topicHeight =topicHeight+[NSString heightWithString:[NSString stringWithFormat:@"%@: %@",object.content,object.regname] font:[UIFont systemFontOfSize:10] maxSize:CGSizeMake(DeviceFrame.size.width-80, 300)]+2;
-                }else{
+//                if (model.sub_comment.count<2) {
+//                    Sub_Comment_Info *object=model.sub_comment[0];
+//                    topicHeight =topicHeight+[NSString heightWithString:[NSString stringWithFormat:@"%@: %@",object.content,object.regname] font:[UIFont systemFontOfSize:10] maxSize:CGSizeMake(DeviceFrame.size.width-64, 300)];
+//                }else{
                 Sub_Comment_Info *object=model.sub_comment[i];//计算里面的高度
-                topicHeight =topicHeight+[NSString heightWithString:[NSString stringWithFormat:@"%@回复了: %@%@",object.content,object.regname,object.other_name] font:[UIFont systemFontOfSize:10] maxSize:CGSizeMake(DeviceFrame.size.width-80, 300)]+2;
-                }
+                topicHeight =topicHeight+[NSString heightWithString:[NSString stringWithFormat:@"%@回复了: %@%@",object.content,object.regname,object.other_name] font:[UIFont systemFontOfSize:10] maxSize:CGSizeMake(DeviceFrame.size.width-64, 300)];
+//                }
             }
             return topicHeight;
             break;
@@ -208,19 +215,16 @@
             Shoop_4Cell *cell =[tableView dequeueReusableCellWithIdentifier:@"Shoop_4Cell" forIndexPath:indexPath];
             cell.selectionStyle=UITableViewCellSelectionStyleNone;
             Seller_Seller_Comment_arr_comment_info *model =self.datas[row];
-//            CGRect fram=cell.time.frame;
-//            RatingBar*bar;
-//            if ((bar=nil)) {
-//                bar= [[RatingBar alloc] initWithFrame:CGRectMake(fram.origin.x-100, fram.origin.y+15,100, 20)];
-//            }
-//            bar.starNumber=[model.total_praises integerValue]-1;
-//            bar.enable=NO;
-//            cell.delegate=self;
-//            [cell addSubview:bar];
-//            bar.frame=CGRectMake(fram.origin.x-100, fram.origin.y+15,100, 20);
+            bars= [[RatingBar alloc] initWithFrame:CGRectMake(0, 0,112, 20)];
+            bars.starNumber=[model.total_praises integerValue];
+            bars.enable=NO;
+            cell.delegate=self;
+            bars.frame=CGRectMake(0, 0,112, 20);
+            [cell.ratBarView addSubview:bars];
+        
             cell.delegate=self;
             [cell.heardPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.models.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
-            cell.topicHeight.constant=[NSString heightWithString:model.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-80, 300)];
+            cell.topicHeight.constant=[NSString heightWithString:model.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-64, 300)];
             cell.nickName.text=model.regname;
             cell.content.text=model.content;
             cell.number.text=model.praise_nums;
@@ -392,7 +396,8 @@
     }];
 
 }
--(void)downWithSender:(id)sender inCell:(Shoop_0Cell *)cell{//这里是哪个下拉的星星
+//这里是哪个下拉的星星
+-(void)downWithSender:(id)sender inCell:(Shoop_0Cell *)cell{
     if (keyBoardDown==1) {
         keyBoardDown=0;
         [ratingBarView removeFromSuperview];
@@ -405,8 +410,6 @@
 //创建下拉的星星
 -(void)setRatingBarView{
     tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ratingBarViewHidden)];
-    
-
     ratingBarView =[[UIView alloc] initWithFrame:CGRectMake(125, 95, 170, 100)];
     ratingBarView.backgroundColor=[UIColor whiteColor];
     ratingBarView.alpha=1;
@@ -440,7 +443,7 @@
 }
 //键盘出来
 -(void)handleAfterKeyboardShown{
-//    [self.mytextView becomeFirstResponder];//这里我没让他聚焦了
+    [self.mytextView becomeFirstResponder];//这里我没让他聚焦了
     self.toolBar.hidden = NO;
 }
 //隐藏键盘
@@ -469,4 +472,17 @@
     NSLog(@"indexpath:%ld",(long)indexpath.row);
     selectCell=cell;
 }
+//
+//- (void)footerRereshing
+//{
+//    page++;
+//    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
+//    [sellerService sellerSellerCommentInfoWithSeller_id:self.models.seller_id andPageString:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Comment_info *object){
+//        self.datas =object.arr_comment;
+//        [self.tablewView reloadData];
+//    }];
+//    [self.tablewView footerEndRefreshing];
+//    
+//}
+
 @end

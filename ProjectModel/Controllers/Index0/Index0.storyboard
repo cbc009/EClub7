@@ -2634,7 +2634,7 @@
                                                     </connections>
                                                 </button>
                                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="clS-mk-dH5">
-                                                    <rect key="frame" x="56" y="80" width="256" height="105"/>
+                                                    <rect key="frame" x="56" y="84" width="256" height="101"/>
                                                     <prototypes>
                                                         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Request_0Cell" id="QPG-xW-e8M" customClass="Request_0Cell">
                                                             <rect key="frame" x="0.0" y="0.0" width="256" height="44"/>
@@ -2694,11 +2694,19 @@
                                                         <action selector="like:" destination="M0W-q6-KjI" eventType="touchUpInside" id="FaG-2E-boV"/>
                                                     </connections>
                                                 </button>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8fJ-Iz-5OA">
+                                                    <rect key="frame" x="56" y="58" width="112" height="20"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="PtI-Rj-x10"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="clS-mk-dH5" firstAttribute="top" secondItem="RjA-Pv-c1Y" secondAttribute="bottom" constant="8" id="4rw-he-KXM"/>
+                                                <constraint firstItem="clS-mk-dH5" firstAttribute="top" secondItem="RjA-Pv-c1Y" secondAttribute="bottom" constant="12" id="4rw-he-KXM"/>
                                                 <constraint firstItem="kiz-vP-gGy" firstAttribute="trailing" secondItem="mgJ-zf-vvg" secondAttribute="trailingMargin" id="72y-PI-wax"/>
                                                 <constraint firstItem="vbT-sm-28S" firstAttribute="top" secondItem="IN8-ys-q4l" secondAttribute="top" constant="-2" id="8lb-MG-G4t"/>
+                                                <constraint firstItem="8fJ-Iz-5OA" firstAttribute="leading" secondItem="mgJ-zf-vvg" secondAttribute="leadingMargin" constant="48" id="9BS-iD-HRv"/>
                                                 <constraint firstItem="kiz-vP-gGy" firstAttribute="leading" secondItem="JJx-Jh-aeX" secondAttribute="trailing" constant="8" id="HUK-xb-dv7"/>
                                                 <constraint firstItem="KAO-uJ-sG5" firstAttribute="trailing" secondItem="mgJ-zf-vvg" secondAttribute="trailingMargin" id="Htw-zQ-L4D"/>
                                                 <constraint firstItem="RjA-Pv-c1Y" firstAttribute="trailing" secondItem="mgJ-zf-vvg" secondAttribute="trailingMargin" id="QHb-IH-Ef3"/>
@@ -2709,7 +2717,9 @@
                                                 <constraint firstItem="vbT-sm-28S" firstAttribute="top" secondItem="mgJ-zf-vvg" secondAttribute="topMargin" constant="-1" id="f5F-hN-ry5"/>
                                                 <constraint firstItem="KAO-uJ-sG5" firstAttribute="leading" secondItem="IN8-ys-q4l" secondAttribute="trailing" constant="6" id="fHh-re-44d"/>
                                                 <constraint firstItem="clS-mk-dH5" firstAttribute="trailing" secondItem="mgJ-zf-vvg" secondAttribute="trailingMargin" id="gko-zE-YmR"/>
+                                                <constraint firstItem="8fJ-Iz-5OA" firstAttribute="top" secondItem="kiz-vP-gGy" secondAttribute="bottom" constant="2" id="hrP-zL-hyh"/>
                                                 <constraint firstItem="clS-mk-dH5" firstAttribute="leading" secondItem="mgJ-zf-vvg" secondAttribute="leadingMargin" constant="48" id="jBe-rp-hA9"/>
+                                                <constraint firstItem="RjA-Pv-c1Y" firstAttribute="leading" secondItem="8fJ-Iz-5OA" secondAttribute="trailing" constant="6" id="lLj-F2-7mB"/>
                                                 <constraint firstItem="kiz-vP-gGy" firstAttribute="top" secondItem="vbT-sm-28S" secondAttribute="bottom" constant="2" id="mQb-K3-QVr"/>
                                                 <constraint firstItem="JJx-Jh-aeX" firstAttribute="leading" secondItem="mgJ-zf-vvg" secondAttribute="leadingMargin" id="nPg-QS-Xts"/>
                                                 <constraint firstItem="RjA-Pv-c1Y" firstAttribute="top" secondItem="kiz-vP-gGy" secondAttribute="bottom" constant="2" id="ppi-yP-AU6"/>
@@ -2722,6 +2732,7 @@
                                             <outlet property="heardPic" destination="JJx-Jh-aeX" id="6aq-07-awr"/>
                                             <outlet property="nickName" destination="vbT-sm-28S" id="hC4-DA-ooL"/>
                                             <outlet property="number" destination="IN8-ys-q4l" id="O38-nh-mSc"/>
+                                            <outlet property="ratBarView" destination="8fJ-Iz-5OA" id="0Ab-yy-ntn"/>
                                             <outlet property="tableview" destination="clS-mk-dH5" id="yV1-Ay-JTM"/>
                                             <outlet property="time" destination="RjA-Pv-c1Y" id="blX-pC-PfU"/>
                                             <outlet property="topicHeight" destination="2OO-wJ-PlK" id="O4M-B3-33G"/>
@@ -2826,7 +2837,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZP-BK-s5F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-523" y="2531"/>
+            <point key="canvasLocation" x="-523" y="2527"/>
         </scene>
         <!--Shoop Goods View Controller-->
         <scene sceneID="SlR-OQ-IqB">

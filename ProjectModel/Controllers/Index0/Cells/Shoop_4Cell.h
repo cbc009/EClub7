@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topicHeight;
 @property (weak, nonatomic) IBOutlet UILabel *time;
 @property (strong,nonatomic)NSMutableArray *datas;
+@property (weak, nonatomic) IBOutlet UIView *ratBarView;
 - (IBAction)remark:(id)sender;
 - (IBAction)like:(id)sender;
 

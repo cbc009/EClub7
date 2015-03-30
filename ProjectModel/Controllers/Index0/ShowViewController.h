@@ -14,4 +14,5 @@
 @property (nonatomic,strong)Public_Seller_info_model_arr_seller_info *models;
 @property (nonatomic,strong)NSArray *datas;
 
+
 @end

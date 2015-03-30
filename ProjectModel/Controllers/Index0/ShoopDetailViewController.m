@@ -22,7 +22,7 @@
     NSMutableArray *_data1;
     NSMutableArray *_data2;
     NSMutableArray *_data3;
-        
+    NSMutableArray *_data6;
     NSInteger _currentData1Index;
     NSInteger _currentData2Index;
     NSInteger _currentData3Index;
@@ -31,10 +31,15 @@
     SellerService *sellerService;
     UserInfo *user;
     NSInteger page;
-   
+    NSString *longitude;
+    NSString *latitude;
+    
     NSString *typeString;
+   
   
     NSMutableArray *_data5;
+    NSArray *data10;
+    NSArray *_data11;
     
     
     
@@ -53,6 +58,7 @@
     [self locationNow];
     _data1 =[NSMutableArray new];
      _data5=[NSMutableArray new];
+    _data6=[NSMutableArray new];
     typeString =[NSString stringWithFormat:@"seller_type/%@",self.seller_type];
         
      [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
@@ -67,10 +73,12 @@
             [matherArray addObject:object.sub_type_name];
             [fatherArray addObject:object.sub_type_id];
         }
+        [_data6 addObject:fatherArray];
         _data4=[NSMutableArray arrayWithObjects:@{@"title":model.seller_type_name,@"data":matherArray},nil];//这里是单个大类对应的小类数组
         [_data1 addObjectsFromArray:_data4];//这里是将所有的大类以及小类的数组 放到一起
     }
-    _data2 = [NSMutableArray arrayWithObjects:@"附近", @"1000m", @"2000m", @"3000m", @"4000m", @"5000m", @"6000m", nil];//这个就是那个右边的数组
+    _data2 = [NSMutableArray arrayWithObjects:@"附近", @"1000m", @"2000m", @"3000m", @"4000m", nil];//这个就是那个右边的数组
+    data10=@[@"500",@"1000",@"2000",@"3000",@"4000"];
     
     _data3 = [NSMutableArray arrayWithObjects:@"不限人数", @"单人餐", @"双人餐", @"6573~4人餐", nil];//这个数组没用到
     JSDropDownMenu *menu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:45];
@@ -181,32 +189,43 @@
             NSDictionary *menuDic = [_data1 objectAtIndex:indexPath.row];
             return [menuDic objectForKey:@"title"];
         } else{
-            NSLog(@"1:%ld",(long)indexPath.row);
+            NSLog(@"%ld",(long)indexPath.row);
+            
             NSInteger leftRow = indexPath.leftRow;
             NSDictionary *menuDic = [_data1 objectAtIndex:leftRow];
             return [[menuDic objectForKey:@"data"] objectAtIndex:indexPath.row];
         }
     } else if (indexPath.column==1) {
         return _data2[indexPath.row];
-        NSLog(@"2:%ld",(long)indexPath.row);
     } else {
         return _data3[indexPath.row];
-        NSLog(@"3:%ld",(long)indexPath.row);
     }
 }
 
 - (void)menu:(JSDropDownMenu *)menu didSelectRowAtIndexPath:(JSIndexPath *)indexPath {
-    NSLog(@"%ld",(long)indexPath.row);
+     NSString *seller_type;
+    NSLog(@"dsd%ld",(long)indexPath.row);
     if (indexPath.column == 0) {
         if(indexPath.leftOrRight==0){
             _currentData1Index = indexPath.row;
+            _data11=_data6[indexPath.row];
+            seller_type=_data5 [indexPath.row];
             return;
         }
     } else if(indexPath.column == 1){
+        NSString *agent_id= [NSString stringWithFormat:@"%ld",(long)user.agent_id];
+        NSString *tyString =[NSString stringWithFormat:@"distance/%@/longitude/%@/latitude/%@",data10[indexPath.row],longitude,latitude];
+        [self getSellerDetailWithAgent_id:agent_id andTypeString:tyString];
         _currentData2Index = indexPath.row;
+        return;
     } else{
         _currentData3Index = indexPath.row;
     }
+    NSString *agent_id= [NSString stringWithFormat:@"%ld",(long)user.agent_id];
+    NSString *tyString =[NSString stringWithFormat:@"seller_type/%@/seller_sub_type/%@",seller_type,_data11[indexPath.row]];
+    [self getSellerDetailWithAgent_id:agent_id andTypeString:tyString];
+    _currentData2Index = indexPath.row;
+    NSLog(@"ddd");
 }
 
 -(void)locationNow{
@@ -226,6 +245,8 @@
     //维度：loc.coordinate.latitude
     //经度：loc.coordinate.longitude
     NSLog(@"纬度=%f，经度=%f",loc.coordinate.latitude,loc.coordinate.longitude);
+    longitude=[NSString stringWithFormat:@"%f",loc.coordinate.longitude];
+    latitude=[NSString stringWithFormat:@"%f",loc.coordinate.latitude ];
     typeString =[NSString stringWithFormat:@"seller_type/%@/longitude/%f/latitude/%f",self.seller_type,loc.coordinate.longitude,loc.coordinate.latitude];
     [manager stopUpdatingLocation];
      [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
@@ -299,7 +320,12 @@
     [self.tableview footerEndRefreshing];
     
 }
-
+-(void)getSellerDetailWithAgent_id:(NSString *)agent_id1 andTypeString:(NSString *)typeString1{
+    [sellerService publicSellerInfoWithAgent_id:agent_id1 anrTypeString:typeString1 inTabBarController:self.tabBarController withDone:^(Public_Seller_info_model_info *model){
+        self.data=model.arr_seller;
+        [self.tableview reloadData];
+    }];
+}
 -(void)publicSellerInfoWithAgent_id:(NSString *)agent_id1 andTypeString:(NSString *)typeString1 andPage:(NSString *)pageString{//获取商家信息
     [sellerService publicSellerInfoWithAgent_id:agent_id1 anrTypeString:typeString1 inTabBarController:self.tabBarController withDone:^(Public_Seller_info_model_info *model){
         self.data=model.arr_seller;
