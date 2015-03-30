@@ -22,22 +22,22 @@
     NSMutableArray *_data1;
     NSMutableArray *_data2;
     NSMutableArray *_data3;
-    NSMutableArray *_data6;
+    NSMutableArray *_data6;//子分类id 大数组
     NSInteger _currentData1Index;
     NSInteger _currentData2Index;
     NSInteger _currentData3Index;
     
-    NSArray *starNumberArray;
+    NSArray *starNumberArray;//星星数量
     SellerService *sellerService;
     UserInfo *user;
     NSInteger page;
-    NSString *longitude;
-    NSString *latitude;
+    NSString *longitude;//经度
+    NSString *latitude;//纬度
     
-    NSString *typeString;
+    NSString *typeString;//由于用的都是同一个方法获取不同的数据 这是拼得字符串
    
   
-    NSMutableArray *_data5;
+    NSMutableArray *_data5;//主分类id
     NSArray *data10;
     NSArray *_data11;
     
