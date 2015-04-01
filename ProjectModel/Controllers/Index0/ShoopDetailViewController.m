@@ -36,8 +36,8 @@
     
     NSString *typeString;//由于用的都是同一个方法获取不同的数据 这是拼得字符串
    
-  
-    NSMutableArray *_data5;//主分类id
+     NSString *seller_types;//主分类 id
+    NSMutableArray *_data5;//主分类id数组
     NSArray *data10;
     NSArray *_data11;
     
@@ -59,6 +59,7 @@
     _data1 =[NSMutableArray new];
      _data5=[NSMutableArray new];
     _data6=[NSMutableArray new];
+   
     typeString =[NSString stringWithFormat:@"seller_type/%@",self.seller_type];
         
      [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
@@ -79,6 +80,8 @@
     }
     _data2 = [NSMutableArray arrayWithObjects:@"附近", @"1000m", @"2000m", @"3000m", @"4000m", nil];//这个就是那个右边的数组
     data10=@[@"500",@"1000",@"2000",@"3000",@"4000"];
+    
+     seller_types=_data5[0];//主分类id默认为第一个
     
     _data3 = [NSMutableArray arrayWithObjects:@"不限人数", @"单人餐", @"双人餐", @"6573~4人餐", nil];//这个数组没用到
     JSDropDownMenu *menu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:45];
@@ -203,13 +206,14 @@
 }
 
 - (void)menu:(JSDropDownMenu *)menu didSelectRowAtIndexPath:(JSIndexPath *)indexPath {
-     NSString *seller_type;
+  
     NSLog(@"dsd%ld",(long)indexPath.row);
     if (indexPath.column == 0) {
         if(indexPath.leftOrRight==0){
             _currentData1Index = indexPath.row;
             _data11=_data6[indexPath.row];
-            seller_type=_data5 [indexPath.row];
+            seller_types=_data5 [indexPath.row];
+            NSLog(@"%@",seller_types);
             return;
         }
     } else if(indexPath.column == 1){
@@ -222,7 +226,7 @@
         _currentData3Index = indexPath.row;
     }
     NSString *agent_id= [NSString stringWithFormat:@"%ld",(long)user.agent_id];
-    NSString *tyString =[NSString stringWithFormat:@"seller_type/%@/seller_sub_type/%@",seller_type,_data11[indexPath.row]];
+    NSString *tyString =[NSString stringWithFormat:@"seller_type/%@/seller_sub_type/%@",seller_types,_data11[indexPath.row]];
     [self getSellerDetailWithAgent_id:agent_id andTypeString:tyString];
     _currentData2Index = indexPath.row;
     NSLog(@"ddd");

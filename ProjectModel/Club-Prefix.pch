@@ -121,7 +121,8 @@ typedef void (^finished)(NSDictionary *info);
 #define Seller_Seller_Comment_ReleaseURL [PrexURL stringByAppendingString: @"Seller/seller_comment_release/from/IOS"]
 //商家评论信息
 #define Seller_Seller_Comment_Info_URL [PrexURL stringByAppendingString: @"Seller/seller_comment_info/from/IOS/seller_id/%@/page/%@"]
-
+//商家分享
+#define Seller_Seller_Goods_Share_URL [PrexURL stringByAppendingString: @"Seller/seller_goods_share/from/IOS/goods_id/%@"]
 
 
 //每次一抢的菜
