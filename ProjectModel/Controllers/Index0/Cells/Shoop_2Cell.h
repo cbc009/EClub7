@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface Shoop_2Cell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *phone;
+@property (weak, nonatomic) IBOutlet UIImageView *phonePic;
 
 @end

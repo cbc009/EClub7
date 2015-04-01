@@ -7,9 +7,12 @@
 //
 
 #import "ShoopGoodsViewController.h"
-
+#import "CheckedViewController.h"
+#import <UIImageView+WebCache.h>
 @interface ShoopGoodsViewController ()
-
+//{
+//    SellerService *SellerService;
+//}
 @end
 
 @implementation ShoopGoodsViewController
@@ -30,7 +33,16 @@
     
     self.buyNow.layer.cornerRadius=4;
     self.scrollView.autoresizesSubviews=YES;
-    // Do any additional setup after loading the view.
+    [self setValue];
+}
+-(void)setValue{
+    [self.bigPicture sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.models.bigpicture]] placeholderImage:[UIImage imageNamed:@"e"]];
+    self.goodName.text=self.models.goods_name;
+    self.price.text=self.models.price;
+    self.vipPrice.text=self.models.discount;
+    self.address.text=self.models.receive_address;
+    self.workTime.text =[NSString stringWithFormat:@"%@-%@",self.models.send_time[0],self.models.send_time[1]];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,15 +50,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (IBAction)addnumbs:(id)sender {
     self.numbs.text=[SharedAction addNumber:self.numbs];
@@ -56,5 +60,13 @@
 }
 - (IBAction)share:(id)sender {
 //     [SharedAction shareWithTitle:self.title andDesinationUrl:self.goodModel.share_url Text:self.goodModel.name andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.goodModel.bigpicture] InViewController:self];
+}
+
+- (IBAction)buyNow:(id)sender {
+    UIStoryboard *storyBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+    CheckedViewController *checkedViewController=[storyBoard instantiateViewControllerWithIdentifier:@"CheckedViewController"];
+    checkedViewController.models=self.models;
+    checkedViewController.numbs=self.numbs.text;
+    [self.navigationController pushViewController:checkedViewController animated:YES];
 }
 @end

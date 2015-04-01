@@ -7,20 +7,10 @@
 //
 
 #import "ShoopsDetailCell.h"
-#import "RatingBar.h"
+
 @implementation ShoopsDetailCell
-{
-    RatingBar *bar;
-}
+
 - (void)awakeFromNib {
-    bar = [[RatingBar alloc] initWithFrame:CGRectMake(75, 50, 160, 20)];
-    bar.witSize=0.6;
-    [self addSubview:bar];
-//    bar.witSize=0.6;
-    bar.starNumber=2.5;
-//    bar.witSize=0.6;
-    bar.enable=NO;
-    bar.frame=CGRectMake(80, 40, 100, 20);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

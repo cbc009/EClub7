@@ -10,5 +10,6 @@
 
 @interface ShoopsViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
+@property (nonatomic,strong) NSArray *data;
 
 @end

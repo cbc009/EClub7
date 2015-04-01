@@ -20,4 +20,7 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)remark:(id)sender {
+    [self.delegate pushRemarkWithsender:sender inCell:self];
+}
 @end

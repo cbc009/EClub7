@@ -10,5 +10,7 @@
 
 @interface ShowDetailViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (nonatomic,strong)NSMutableArray *datas;
+@property (nonatomic,strong)NSString *seller_id;
 
 @end

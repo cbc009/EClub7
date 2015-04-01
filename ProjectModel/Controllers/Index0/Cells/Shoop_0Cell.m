@@ -7,20 +7,11 @@
 //
 
 #import "Shoop_0Cell.h"
-#import "RatingBar.h"
+
 @implementation Shoop_0Cell
-{
-    RatingBar *bar;
-}
+
 - (void)awakeFromNib {
-    bar = [[RatingBar alloc] initWithFrame:CGRectMake(75, 50, 160, 20)];
-    bar.witSize=0.6;
-    bar.starNumber=4;
-    bar.witSize=0.6;
-    bar.enable=NO;
-    [self addSubview:bar];
-    //    bar.center.y = 12;
-    bar.frame=CGRectMake(self.frame.origin.x+135,65, 100, 20);
+ 
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -29,4 +20,7 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)done:(id)sender {
+    [self.delegate downWithSender:sender inCell:self];
+}
 @end

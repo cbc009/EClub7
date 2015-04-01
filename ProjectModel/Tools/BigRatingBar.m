@@ -23,6 +23,7 @@
         self.backgroundColor = [UIColor whiteColor];
         self.bottomView = [[UIView alloc] initWithFrame:self.bounds];
         self.topView = [[UIView alloc] initWithFrame:CGRectZero];
+//        self.bottomView.backgroundColor=[UIColor grayColor];
         
         [self addSubview:self.bottomView];
         [self addSubview:self.topView];
@@ -38,11 +39,11 @@
         [self addGestureRecognizer:pan];
         
         //
-        CGFloat width = frame.size.width/8.0;
+        CGFloat width = frame.size.width/5.0;
         self.starWidth = width;
         for(int i = 0;i<5;i++){
             UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width*ZOOM+3, width*ZOOM+2)];
-            img.center = CGPointMake((i+1)*width, frame.size.height/2);
+            img.center = CGPointMake((i+0.5)*width, frame.size.height/2);
             img.image = [UIImage imageNamed:@"bt_star_a"];
             [self.bottomView addSubview:img];
             UIImageView *img2 = [[UIImageView alloc] initWithFrame:img.frame];
@@ -51,7 +52,6 @@
             [self.topView addSubview:img2];
         }
         self.enable = YES;
-        
     }
     return self;
 }
@@ -79,6 +79,7 @@
         }else{
             _starNumber = count-1;
         }
+        [self.delegate senderStarNumber:_starNumber withBar:self];
     }
 }
 
@@ -91,6 +92,7 @@
             _starNumber = count;
         }
     }
+    [self.delegate senderStarNumber:_starNumber withBar:self];
 }
 
 @end

@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ShoopsCollectionViewCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *goodsPic;
+@property (weak, nonatomic) IBOutlet UILabel *goodsName;
 
 @end
