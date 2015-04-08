@@ -30,7 +30,7 @@
 @end
 
 @interface Seller_Seller_Goods_info : JSONModel 
-@property(nonatomic,strong)NSArray<Seller_Seller_Goods_arr_goods_info> *arr_goods; 
+@property(nonatomic,strong)NSArray<Seller_Seller_Goods_arr_goods_info,Optional> *arr_goods;
 @end
 
 @interface Seller_Seller_Goods : JSONModel 

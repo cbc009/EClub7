@@ -14,4 +14,5 @@
 @property (nonatomic,strong)NSArray *data;
 //@property (nonatomic,retain)Public_Seller_arr_seller_type_info *models;
 @property (nonatomic,strong)NSArray *cateArray;
+@property (nonatomic,strong)NSArray *distanceArray;
 @end

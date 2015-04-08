@@ -13,6 +13,7 @@
 #import <JSONModelLib.h>
 #import "SVProgressHUD.h"
 #import "Seller_Seller_Comment.h"
+#import "ChangeBaiduApi.h"
 @implementation SellerService
 -(void)sellerSellerGood_typesWith:(NSString *)good_type andSeller_id:(NSString *)seller_id andLifehall_id:(NSString *)lifehall_id andPage:(NSString *)pageString inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
     NSString *urlString=[NSString stringWithFormat:Seller_Seller_Goods_URL,good_type,seller_id,lifehall_id,pageString];
@@ -39,6 +40,16 @@
     NSString *urlString=[NSString stringWithFormat:Seller_Seller_Comment_Info_URL,seller_id,pageString];
     [Seller_Seller_Comment getModelFromURLWithString:urlString completion:^(Seller_Seller_Comment *model,JSONModelError*eroor){
         [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:eroor andObject:model.info inTabBarController:tabBarController withDone:done];
+    }];
+}
+-(void)changeBaiduApiWithLongitude:(CGFloat)longitude andLatitude:(CGFloat)latitude withDone:(doneWithObject)done{
+    NSString *urlString =[NSString stringWithFormat:BaiDuApi,longitude,latitude];
+    NSLog(@"%@",urlString);
+    [ChangeBaiduApi getModelFromURLWithString:urlString completion:^(ChangeBaiduApi *model,JSONModelError *error){
+        if (model.status==0) {
+           
+            done(model);
+        }
     }];
 }
 @end

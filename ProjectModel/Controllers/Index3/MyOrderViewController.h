@@ -12,7 +12,8 @@ enum{
     TradeOrderType,
     RobOrderType,
     GroupOrderType,
-    KillOrderType
+    KillOrderType,
+    Seller_type
 };
 
 @interface MyOrderViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>

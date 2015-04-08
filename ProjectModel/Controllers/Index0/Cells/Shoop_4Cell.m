@@ -12,9 +12,7 @@
 #import "Seller_Seller_Comment.h"
 @implementation Shoop_4Cell
 {
-//    NSString *string;
-//    NSString *name;
-//    NSString *name1;
+    UITapGestureRecognizer *tapInview;//点赞区域
 
 }
 -(void)awakeFromNib {
@@ -24,6 +22,8 @@
     self.heardPic.layer.masksToBounds = YES;
     self.heardPic.layer.cornerRadius=20;
     [self.tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    tapInview = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(likeInCell)];
+    [self.tapView addGestureRecognizer:tapInview];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -89,8 +89,11 @@
 - (IBAction)remark:(id)sender {
     [self.delegate remarkWithSender:sender inCell:self];
 }
-
+-(void)likeInCell{
+    [self.delegate likeWithTapViewInCell:self];
+}
 - (IBAction)like:(id)sender {
+    
     [self.delegate likeWithSender:sender inCell:self];
    
 }

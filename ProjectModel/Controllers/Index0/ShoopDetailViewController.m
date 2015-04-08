@@ -16,6 +16,8 @@
 #import "SellerService.h"
 #import "Public_Seller.h"
 #import <UIImageView+WebCache.h>
+#import "ChangeBaiduApi.h"
+#import "LocationXandY.h"
 #import <CoreLocation/CoreLocation.h>
 @interface ShoopDetailViewController ()<JSDropDownMenuDataSource,JSDropDownMenuDelegate,CLLocationManagerDelegate>
 {
@@ -37,6 +39,7 @@
     NSString *typeString;//由于用的都是同一个方法获取不同的数据 这是拼得字符串
    
      NSString *seller_types;//主分类 id
+    NSString *seller_sub_type;//小分类id
     NSMutableArray *_data5;//主分类id数组
     NSArray *data10;
     NSArray *_data11;
@@ -59,29 +62,43 @@
     _data1 =[NSMutableArray new];
      _data5=[NSMutableArray new];
     _data6=[NSMutableArray new];
+    _data2=[NSMutableArray new];
    
-    typeString =[NSString stringWithFormat:@"seller_type/%@",self.seller_type];
-        
-     [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
+//    typeString =[NSString stringWithFormat:@"seller_type/%@",self.seller_type];
+    
+    
     NSMutableArray *_data4;//这里就是得到数组 给下拉菜单
     for (int i=0 ;i<self.cateArray.count;i++) {
-          NSMutableArray *matherArray=[NSMutableArray new];
+        NSMutableArray *matherArray=[NSMutableArray new];
         NSMutableArray *fatherArray =[NSMutableArray new];
         Public_Seller_arr_seller_type_info *model=self.cateArray[i];
         [_data5 addObject:model.seller_type];
         for (int j=0; j<model.sub_type.count; j++) {
+          
             Public_Seller_sub_type_info *object =model.sub_type[j];
+            if (j==0&j==0) {
+                seller_sub_type=object.sub_type_id;
+            }
             [matherArray addObject:object.sub_type_name];
             [fatherArray addObject:object.sub_type_id];
         }
+        
         [_data6 addObject:fatherArray];
         _data4=[NSMutableArray arrayWithObjects:@{@"title":model.seller_type_name,@"data":matherArray},nil];//这里是单个大类对应的小类数组
         [_data1 addObjectsFromArray:_data4];//这里是将所有的大类以及小类的数组 放到一起
     }
-    _data2 = [NSMutableArray arrayWithObjects:@"附近", @"1000m", @"2000m", @"3000m", @"4000m", nil];//这个就是那个右边的数组
-    data10=@[@"500",@"1000",@"2000",@"3000",@"4000"];
+    data10=self.distanceArray;
+    for (int k=0; k<self.distanceArray.count; k++) {
+        if (k==0) {
+            [_data2 addObject:@"全部"];
+        }else{
+            [_data2 addObject:[NSString stringWithFormat:@"%@",self.distanceArray[k]]];
+        }
+    }
     
+    NSLog(@"%@",data10);
      seller_types=_data5[0];//主分类id默认为第一个
+   
     
     _data3 = [NSMutableArray arrayWithObjects:@"不限人数", @"单人餐", @"双人餐", @"6573~4人餐", nil];//这个数组没用到
     JSDropDownMenu *menu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:45];
@@ -92,12 +109,11 @@
     menu.delegate = self;
     
     [self.view addSubview:menu];
-    
+    typeString =@"distance/0";
+    [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
     sellerService=[SellerService new];
     SharedData *sharedData =[SharedData sharedInstance];
     user =sharedData.user;
-    
-    
     
 }
 
@@ -206,7 +222,6 @@
 }
 
 - (void)menu:(JSDropDownMenu *)menu didSelectRowAtIndexPath:(JSIndexPath *)indexPath {
-  
     NSLog(@"dsd%ld",(long)indexPath.row);
     if (indexPath.column == 0) {
         if(indexPath.leftOrRight==0){
@@ -218,15 +233,16 @@
         }
     } else if(indexPath.column == 1){
         NSString *agent_id= [NSString stringWithFormat:@"%ld",(long)user.agent_id];
-        NSString *tyString =[NSString stringWithFormat:@"distance/%@/longitude/%@/latitude/%@",data10[indexPath.row],longitude,latitude];
+        NSString *tyString =[NSString stringWithFormat:@"seller_type/%@/seller_sub_type/%@/distance/%@/longitude/%@/latitude/%@",seller_types,seller_sub_type,data10[indexPath.row],longitude,latitude];
         [self getSellerDetailWithAgent_id:agent_id andTypeString:tyString];
         _currentData2Index = indexPath.row;
         return;
     } else{
         _currentData3Index = indexPath.row;
     }
+    seller_sub_type=_data11[indexPath.row];
     NSString *agent_id= [NSString stringWithFormat:@"%ld",(long)user.agent_id];
-    NSString *tyString =[NSString stringWithFormat:@"seller_type/%@/seller_sub_type/%@",seller_types,_data11[indexPath.row]];
+    NSString *tyString =[NSString stringWithFormat:@"seller_type/%@/seller_sub_type/%@/distance/%@/longitude/%@/latitude/%@",seller_types,_data11[indexPath.row],@"0",@"0",@"0"];
     [self getSellerDetailWithAgent_id:agent_id andTypeString:tyString];
     _currentData2Index = indexPath.row;
     NSLog(@"ddd");
@@ -250,11 +266,14 @@
     //经度：loc.coordinate.longitude
     NSLog(@"纬度=%f，经度=%f",loc.coordinate.latitude,loc.coordinate.longitude);
     longitude=[NSString stringWithFormat:@"%f",loc.coordinate.longitude];
-    latitude=[NSString stringWithFormat:@"%f",loc.coordinate.latitude ];
-    typeString =[NSString stringWithFormat:@"seller_type/%@/longitude/%f/latitude/%f",self.seller_type,loc.coordinate.longitude,loc.coordinate.latitude];
-    [manager stopUpdatingLocation];
-     [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
- }
+    latitude=[NSString stringWithFormat:@"%f",loc.coordinate.latitude];
+    [sellerService changeBaiduApiWithLongitude:loc.coordinate.longitude andLatitude:loc.coordinate.latitude withDone:^(ChangeBaiduApi *model){
+        Result_info *object =model.result[0];
+     typeString =[NSString stringWithFormat:@"seller_type/%@/seller_sub_type/%@/distance/%@/longitude/%f/latitude/%f",self.seller_type,@"",@"",object.x,object.y];
+        [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
+    }];
+     [manager stopUpdatingLocation];
+    }
 
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error{
@@ -271,7 +290,8 @@
     Public_Seller_info_model_arr_seller_info *model =self.data[row];
     cell.work_time.text=model.work_time;
     cell.street.text=model.street;
-    
+    cell.name.text=model.seller_name;
+    cell.sellerType.text=model.sub_type_name;
     [cell.imageview sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
     cell.logistics.text=model.logistics;
     
@@ -280,18 +300,7 @@
     bar.starNumber=model.total_praises;
     bar.enable=NO;
     bar.frame=CGRectMake(85, 40, 60, 20);
-    
-    if (model.distance<500) {
-        cell.street.text=@"<500m";
-    }else if (model.distance<1000&model.distance>500) {
-        cell.street.text=@"<1km";
-    }else if (model.distance>1000&model.distance<2000) {
-        cell.street.text=@"<2km";
-    }else if (model.distance>2000&model.distance<3000) {
-        cell.street.text=@"<3km";
-    }else{
-        cell.street.text=@"超过3km";
-    }
+    cell.street.text=[NSString stringWithFormat:@"%@ %@",model.street,model.distance];
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -303,7 +312,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
     ShowViewController *showVic=[storBoard instantiateViewControllerWithIdentifier:@"ShowViewController"];
-    showVic.seller_id=model.seller_id;
+    showVic.seller_id=self.seller_type;
     showVic.models=model;
     [self.navigationController pushViewController:showVic animated:YES];
 }
@@ -333,7 +342,6 @@
 -(void)publicSellerInfoWithAgent_id:(NSString *)agent_id1 andTypeString:(NSString *)typeString1 andPage:(NSString *)pageString{//获取商家信息
     [sellerService publicSellerInfoWithAgent_id:agent_id1 anrTypeString:typeString1 inTabBarController:self.tabBarController withDone:^(Public_Seller_info_model_info *model){
         self.data=model.arr_seller;
-        
         [self.tableview reloadData];
     }];
     

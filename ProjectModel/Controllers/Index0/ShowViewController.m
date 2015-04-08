@@ -13,6 +13,7 @@
 #import "RemarkViewController.h"
  #import "Seller_Seller_Goods.h"
 #import "Seller_Seller_Comment.h"
+#import "MapViewController.h"
 #import "DAKeyboardControl.h"
 #import "MJRefresh.h"
 #import "Status.h"
@@ -47,10 +48,12 @@
     Shoop_1Cell *shoopCell;
     RatingBar*bars;
     NSInteger page;
+    
 
 }
 @property(nonatomic,strong)UIToolbar *toolBar;
 @property(nonatomic,strong)UITextView *mytextView;
+@property(nonatomic,strong)UILabel *myLabel;
 @property(nonatomic,strong)UIButton *sendButton;
 @end
 
@@ -115,7 +118,7 @@
     NSInteger section=indexPath.section;
     NSInteger row =indexPath.row;
     CGFloat topicHeight;
-     Seller_Seller_Comment_arr_comment_info *model =self.datas[row];
+    Seller_Seller_Comment_arr_comment_info *model;
     topicHeight=0;
     switch (section) {
         case 0:
@@ -131,10 +134,14 @@
             if (row==0) {
                 return 39;
             }else{//计算那个简介下面那行的高度 可能试条很长的文字
-                return [NSString heightWithString:self.models.intro font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-16, 300)]+10;
+                CGFloat topicHeight1;
+                topicHeight1=[NSString heightWithString:self.models.intro font:[UIFont systemFontOfSize:15.0] maxSize:CGSizeMake(DeviceFrame.size.width, 300)]+10;
+                NSLog(@"%f",topicHeight1);
+                return topicHeight1;
             }
             break;
         case 5://下面评论 一行的高度//这里计算外面的
+             model =self.datas[row];
             topicHeight=[NSString heightWithString:model.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-80, 300)]+60;
             for (int i=0; i<model.sub_comment.count; i++) {
                 //这里进行了一下判断 就是他
@@ -181,16 +188,6 @@
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         cell.delegate = self;
         return cell;
-    }else if (section==3){
-        Index0_Cell *cell =[tableView dequeueReusableCellWithIdentifier:@"Index0_Cell" forIndexPath:indexPath];
-        cell.selectionStyle=UITableViewCellSelectionStyleNone;
-        if (row==0) {
-            cell.title.text=@"简介";
-        }else{
-            cell.title.text=self.models.intro;
-            cell.topicHeight.constant=[NSString heightWithString:self.models.intro font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-64, 300)];
-        }
-        return cell;
     }else if (section==2){
         Shoop_2Cell *cell =[tableView dequeueReusableCellWithIdentifier:@"Shoop_2Cell" forIndexPath:indexPath];
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
@@ -204,6 +201,16 @@
             cell.phonePic.image=[UIImage imageNamed:@"place"];
             cell.phone.text=self.models.address;
             cell.phone.font=[UIFont systemFontOfSize:12];
+        }
+        return cell;
+    }else if (section==3){
+        Index0_Cell *cell =[tableView dequeueReusableCellWithIdentifier:@"Index0_Cell" forIndexPath:indexPath];
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        if (row==0) {
+            cell.title.text=@"简介";
+        }else{
+            cell.title.text=self.models.intro;
+            cell.topicHeight.constant=[NSString heightWithString:self.models.intro font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width, 300)];
         }
         return cell;
     }else if(section==4){
@@ -239,12 +246,29 @@
     
     return 8;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+     if (indexPath.section==2&indexPath.row==0) {
+         [self callWithPhoneNumber:self.models.phone];
+     } else if (indexPath.section==2&indexPath.row==2) {
+        UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+        MapViewController *mapViewController=[storBoard instantiateViewControllerWithIdentifier:@"MapViewController"];
+        mapViewController.Longitude=self.models.longitude;
+        mapViewController.Latitude=self.models.latitude;
+        mapViewController.sellername=self.models.seller_name;
+        NSLog(@"longitude:%@latitude:%@",self.models.longitude,self.models.latitude);
+        [self.navigationController pushViewController:mapViewController animated:YES];
+    }
+}
+//加载更多
 -(void)moreItmes:(id)sender InCell:(UITableViewCell *)cell{
     UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
     ShowDetailViewController *ShowDetailVic=[storBoard instantiateViewControllerWithIdentifier:@"ShowDetailViewController"];
     ShowDetailVic.seller_id=self.models.seller_id;
     [self.navigationController pushViewController:ShowDetailVic animated:YES];
 }
+//push到单个商品页面
 -(void)pushShoopsGoodVicIncell:(UITableViewCell *)cell andModel:(Seller_Seller_Goods_arr_goods_info *)model{
    
     UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
@@ -252,6 +276,7 @@
     shoopGoodVic.models=model;
     [self.navigationController pushViewController:shoopGoodVic animated:YES];
 }
+//push到评论页面
 -(void)pushRemarkWithsender:(id)sender inCell:(Shoop_3Cell*)cell{
     UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
     RemarkViewController *remarkVIC=[storBoard instantiateViewControllerWithIdentifier:@"RemarkViewController"];
@@ -290,8 +315,17 @@
     }
         [self setupTextSendKeyboard];
     [self handleAfterKeyboardShown];
-
     
+}//点赞
+-(void)likeWithTapViewInCell:(Shoop_4Cell*)cell{
+    NSIndexPath *indexpath = [self.tablewView indexPathForCell:cell];
+    Seller_Seller_Comment_arr_comment_info *object = self.datas[indexpath.row];
+    [remarkService seller_comment_releaseWuthType:@"1" andSeller_id:self.models.seller_id andContent:@"" andPraise_nums:@"1" andComment_id:object.comment_id andOther_id:@"" andTotal_praises:@"" andAttitude_praises:@"" andNeat_praises:@"" andDescrip_praises:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(Status *model){
+        NSInteger num = [cell.number.text integerValue];
+        num++;
+        cell.number.text=[NSString stringWithFormat:@"%ld",(long)num];
+        object.praise_nums=cell.number.text;
+    }];
 }
 -(void)setupTextSendKeyboard{
     self.toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f,
@@ -306,9 +340,15 @@
                                                                    6.0f,
                                                                    self.toolBar.bounds.size.width - 20.0f - 68.0f,
                                                                    30.0f)];
-    self.mytextView.text=[NSString stringWithFormat:@"回复%@:",regNames];
-    self.mytextView.textColor=[UIColor grayColor];
+    
     self.mytextView.delegate=self;
+    self.myLabel=[[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                          0,
+                                                           self.mytextView.bounds.size.width,
+                                                           self.mytextView.bounds.size.height)];
+    self.myLabel.text=[NSString stringWithFormat:@"回复%@:",regNames];
+    self.myLabel.textColor=[UIColor grayColor];
+    [self.mytextView addSubview:self.myLabel];
     
     self.mytextView.autoresizingMask=UIViewAutoresizingFlexibleHeight;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChanged:) name:UITextViewTextDidChangeNotification object:nil];
@@ -340,13 +380,11 @@
     }];
 }
 
-- (void)textViewDidBeginEditing:(UITextView *)textView{//开始编辑的时候把textView设置成空得
-    self.mytextView.text=@"";
-    self.mytextView.textColor=[UIColor blackColor];
-}
 
 - (void)textDidChanged:(NSNotification *)notif //监听文字改变 换行时要更改输入框的位置
 {
+    self.myLabel.text=@"";
+    self.myLabel.textColor=[UIColor grayColor];
     CGSize contentSize = self.mytextView.contentSize;
     if (contentSize.height > 70){
         return;
@@ -394,23 +432,28 @@
         self.mytextView.text = @"";
         [self.view removeKeyboardControl];
     }];
-
 }
-//这里是哪个下拉的星星
+
+//这里是那个下拉的星星
 -(void)downWithSender:(id)sender inCell:(Shoop_0Cell *)cell{
     if (keyBoardDown==1) {
         keyBoardDown=0;
+        [self.view removeGestureRecognizer:tap1];//这里要移除tap1 不然会点不了
+         ratingBarView.frame= CGRectMake(125, 95, 170,0);
         [ratingBarView removeFromSuperview];
     }else{
         keyBoardDown=1;
-         [self.view addGestureRecognizer:tap1];
-        [self.tablewView addSubview:ratingBarView];
+        [self.view addGestureRecognizer:tap1];
+        [UIView animateWithDuration:1 animations:^{
+            ratingBarView.frame= CGRectMake(125, 95, 170, 100);
+            }];
+         [self.tablewView addSubview:ratingBarView];
     }
 }
 //创建下拉的星星
 -(void)setRatingBarView{
     tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ratingBarViewHidden)];
-    ratingBarView =[[UIView alloc] initWithFrame:CGRectMake(125, 95, 170, 100)];
+    ratingBarView =[[UIView alloc] initWithFrame:CGRectMake(125, 95, 170, 0)];
     ratingBarView.backgroundColor=[UIColor whiteColor];
     ratingBarView.alpha=1;
 //    ratingBarView.layer.backgroundColor=(__bridge CGColorRef)([UIColor grayColor]);
@@ -418,7 +461,7 @@
     UILabel *title;
     UILabel *point;
     for (int i=0; i<4; i++) {
-        ratingbar = [[RatingBar alloc] initWithFrame:CGRectMake(47, 15+20*i, 100, 20)];
+        ratingbar = [[RatingBar alloc] initWithFrame:CGRectMake(47, 10+20*i, 100, 20)];
         title=[[UILabel alloc] initWithFrame:CGRectMake(5, 15+20*i, 40, 20)];
         point =[[UILabel alloc] initWithFrame:CGRectMake(150, 15+20*i, 20, 20)];
         point.text=[NSString stringWithFormat:@"%@分",startArray[i]];
@@ -438,12 +481,13 @@
 //隐藏星星
 -(void)ratingBarViewHidden{
     keyBoardDown=0;
+      ratingBarView.frame= CGRectMake(125, 95, 170,0);
     [self.view removeGestureRecognizer:tap1];//这里要移除tap1 不然会点不了
     [ratingBarView removeFromSuperview];
 }
 //键盘出来
 -(void)handleAfterKeyboardShown{
-    [self.mytextView becomeFirstResponder];//这里我没让他聚焦了
+    [self.mytextView becomeFirstResponder];
     self.toolBar.hidden = NO;
 }
 //隐藏键盘
@@ -472,17 +516,12 @@
     NSLog(@"indexpath:%ld",(long)indexpath.row);
     selectCell=cell;
 }
-//
-//- (void)footerRereshing
-//{
-//    page++;
-//    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
-//    [sellerService sellerSellerCommentInfoWithSeller_id:self.models.seller_id andPageString:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Comment_info *object){
-//        self.datas =object.arr_comment;
-//        [self.tablewView reloadData];
-//    }];
-//    [self.tablewView footerEndRefreshing];
-//    
-//}
+-(void)callWithPhoneNumber:(NSString *)phoneNumber {
+    NSString *tel = [NSString stringWithFormat:@"tel:%@",phoneNumber];
+    UIWebView *callWebview = [[UIWebView alloc] init];
+    NSURL *telURL = [NSURL URLWithString:tel];
+    [callWebview loadRequest:[NSURLRequest requestWithURL:telURL]];
+    [self.view addSubview:callWebview];
+}
 
 @end

@@ -20,12 +20,13 @@
 @property(nonatomic,strong)NSString *seller_type_name;
 @property(nonatomic,strong)NSString *picture;
 @property(nonatomic,strong)NSString *seller_type;
-@property(nonatomic,strong)NSArray <Public_Seller_sub_type_info,Optional>*sub_type;
+@property(nonatomic,strong)NSArray <Public_Seller_sub_type_info,Optional,Optional>*sub_type;
 @property(nonatomic,strong)NSString <Optional>*color;
 @end
 
 @interface Public_Seller_info : JSONModel 
-@property(nonatomic,strong)NSArray<Public_Seller_arr_seller_type_info> *arr_seller_type; 
+@property(nonatomic,strong)NSArray<Public_Seller_arr_seller_type_info,Optional> *arr_seller_type;
+@property(nonatomic,strong)NSArray<Optional> *arr_distance;
 @end
 
 @interface Public_Seller : JSONModel 

@@ -33,7 +33,7 @@
     NSMutableArray *timeEndArray;
     NSTimer *timwer;
     NSInteger page;
-    NSInteger ChangeUp;
+    NSInteger ChangeUp;//防止重复点击切换生活馆按钮出现多个pickview
     ChangeLifeService *changeLifeService;
 }
 @property(nonatomic,assign)NSInteger second1;
@@ -57,6 +57,10 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self.pickerVC removeFromParentViewController];
 }
 - (void)viewDidLoad
 {
@@ -261,10 +265,12 @@
 - (void)pickerViewController:(RMPickerViewController *)vc didSelectRows:(NSArray *)selectedRows {
     NSString *value = [self valueFromSelectedRows:selectedRows andComponents:self.components];
     NSString *lifeIDValue =[self valueFromSelectedRows:selectedRows andComponents:self.lifeIdArray];
-    ChangeUp=0;
+   
     [self changeLifeId:lifeIDValue andLifeHallName:value];
 }
-
+- (void)pickerViewControllerDidCancel:(RMPickerViewController *)vc{
+    ChangeUp=0;
+}
 -(NSString *)valueFromSelectedRows:(NSArray *)selectedRows andComponents:(NSArray *)components{
     NSMutableString *value = [[NSMutableString alloc] init];
     for (int i=0; i<selectedRows.count; i++) {

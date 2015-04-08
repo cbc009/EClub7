@@ -42,15 +42,12 @@
     self.vipPrice.text=self.models.discount;
     self.address.text=self.models.receive_address;
     self.workTime.text =[NSString stringWithFormat:@"%@-%@",self.models.send_time[0],self.models.send_time[1]];
-
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
 
 - (IBAction)addnumbs:(id)sender {
     self.numbs.text=[SharedAction addNumber:self.numbs];

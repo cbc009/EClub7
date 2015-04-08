@@ -11,6 +11,8 @@
 #import "TradeOrderCell.h"
 #import "RobOrderData.h"
 #import <UIImageView+WebCache.h>
+#import "Seller_Order_model.h"
+#import "Seller_Order_Cell.h"
 #import "NSString+MT.h"
 #import "MyOrderService.h"
 #import "OrderDetailData.h"
@@ -101,6 +103,14 @@
         cell.time.text = order.regtime;
         cell.status.text = order.status;
         return cell;
+    }else if(self.orderType==Seller_type){
+        Seller_Order_Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Seller_Order_Cell" forIndexPath:indexPath];
+        NSInteger row = indexPath.row;
+        Seller_Order_model_arr_order_info *order = [self.items objectAtIndex:row];
+        cell.goodsName.text=order.goods_name;
+        cell.goodStatus.text=order.status_name;
+        cell.orderID.text=order.order_id;
+        return cell;
     }else{
         return nil;
     }
@@ -114,6 +124,8 @@
         return 119.0f;
     }else if(self.orderType == KillOrderType){
         return 100;
+    }else if(self.orderType==Seller_type){
+        return 40;
     }else{
         return 0;
     }
@@ -151,6 +163,7 @@
 //selectedSegmentIndex1=1 我的抢菜订单
 //selectedSegmentIndex1=2 我的团购订单
 //selectedSegmentIndex1=3 我的秒杀订单
+//selectedSegmentIndex1=4 商户订单
 -(void)rereShingWithPageString:(NSString *)pageString andRereShingType:(NSInteger )rereshinType1{
        if (selectedSegmentIndex1==0) {
         [myOrderService loadOrderWithPage:pageString andToken:user.token andUser_type:user.user_type andSelectedSegmentIndex:selectedSegmentIndex1 inTabBarController:self.tabBarController withDone:^(TradeOrderInfo *model){
@@ -188,7 +201,7 @@
             self.orderType=GroupOrderType;
             [self.tableview reloadData];
         }];
-    }else{
+    }else if(selectedSegmentIndex1==3){
         [myOrderService loadOrderWithPage:pageString andToken:user.token andUser_type:user.user_type andSelectedSegmentIndex:selectedSegmentIndex1 inTabBarController:self.tabBarController withDone:^(MySecondInfo *model){
             if (rereshinType1==0) {
                 self.items = (NSMutableArray *)model.order;
@@ -198,6 +211,18 @@
                   [_tableview footerEndRefreshing];
             }
             self.orderType=KillOrderType;
+            [self.tableview reloadData];
+        }];
+    }else if(selectedSegmentIndex1==4){
+        [myOrderService loadOrderWithPage:pageString andToken:user.token andUser_type:user.user_type andSelectedSegmentIndex:selectedSegmentIndex1 inTabBarController:self.tabBarController withDone:^(Seller_Order_model_info *model){
+            if (rereshinType1==0) {
+                self.items = (NSMutableArray *)model.arr_order;
+                [_tableview headerEndRefreshing];
+            }else{
+                [self.items addObjectsFromArray:model.arr_order];
+                [_tableview footerEndRefreshing];
+            }
+            self.orderType=Seller_type;
             [self.tableview reloadData];
         }];
     }
@@ -213,6 +238,14 @@
         TradeOrder *order1 = [self.items objectAtIndex:row];
         TradeOrderDetailViewController *viewController = segue.destinationViewController;
         viewController.orderid = order1.orderid;
+        }
+    }else  if ([segue.identifier isEqualToString:@"pushToSellerOrder"]) {
+        if (self.orderType==TradeOrderType){
+            NSIndexPath *indexPath = [self.tableview indexPathForSelectedRow];
+            NSInteger row = indexPath.row;
+            TradeOrder *order1 = [self.items objectAtIndex:row];
+//            TradeOrderDetailViewController *viewController = segue.destinationViewController;
+//            viewController.orderid = order1.orderid;
         }
     }
 }

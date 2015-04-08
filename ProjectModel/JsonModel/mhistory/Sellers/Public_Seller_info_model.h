@@ -26,14 +26,14 @@
 @property(nonatomic,strong)NSString *work_time;
 @property(nonatomic,assign)NSInteger total_praises;
 @property(nonatomic,strong)NSString *receive_time;
-@property(nonatomic,assign)NSInteger distance;
+@property(nonatomic,strong)NSString *distance;
 @property(nonatomic,strong)NSString *seller_id;
 @property(nonatomic,strong)NSString *seller_name;
 @property(nonatomic,strong)NSString *logistics;
 @end
 
 @interface Public_Seller_info_model_info : JSONModel 
-@property(nonatomic,strong)NSArray<Public_Seller_info_model_arr_seller_info> *arr_seller; 
+@property(nonatomic,strong)NSArray<Public_Seller_info_model_arr_seller_info,Optional> *arr_seller;
 @end
 
 @interface Public_Seller_info_model : JSONModel 

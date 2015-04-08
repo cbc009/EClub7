@@ -20,6 +20,10 @@
 #define StatusBarFrame [[UIApplication sharedApplication] statusBarFrame]
 #define NavigationBarFrame self.navigationController.navigationBar.frame
 #define TabBarFrame self.tabBarController.tabBar.frame
+#define BaiDuMapAPK @"wuNUu7yiWF7snoYySQ1pG8yU"
+#define BaiDuApi @"http://api.map.baidu.com/geoconv/v1/?coords=%f,%f&from=1&to=5&ak=FD94c641fb4e80ad87865b1df9dbfffb"
+
+
 #define UMengKEY @"540a742dfd98c5505f013088"
 #define WeiXinAppID @"wx5189b838a4d16d8b"
 #define WeiXinAppSecret @"421410d78db22d85d7f811938ff3d172"
@@ -33,6 +37,7 @@
 #define kMode_Development             @"00"//正式上线的时候要改为00千万要记住
 //#define kResult           @"支付结果：%@"    //支付结果
 #define DEFAULT_VOID_COLOR [UIColor whiteColor]
+#define DEGREES_TO_RADIANS(angle) ((angle)/180.0 *M_PI)
 
 
 #import "SharedAction.h"
@@ -48,8 +53,8 @@ typedef void (^finished)(NSDictionary *info);
 
 #define MainGreenColor [UIColor colorWithRed:64.0/255 green:198.0/255 blue:119.0/255 alpha:1]
 
-#define IP @"http://scope.stcyclub.com"
-//#define IP @"http://www.greenwh.com"
+//#define IP @"http://scope.stcyclub.com"
+#define IP @"http://www.greenwh.com"
 
 #define MainPrexURL [NSString stringWithFormat:@"%@/wap.php/",IP]
 #define PrexImgPath [NSString stringWithFormat:@"%@/Static/Uploads/img/",IP]
@@ -123,6 +128,9 @@ typedef void (^finished)(NSDictionary *info);
 #define Seller_Seller_Comment_Info_URL [PrexURL stringByAppendingString: @"Seller/seller_comment_info/from/IOS/seller_id/%@/page/%@"]
 //商家分享
 #define Seller_Seller_Goods_Share_URL [PrexURL stringByAppendingString: @"Seller/seller_goods_share/from/IOS/goods_id/%@"]
+//商户订单
+#define Seller_My_Seller_Order_URL [PrexURL stringByAppendingString: @"Seller/my_seller_order/from/IOS/token/%@/user_type/%d/page/%@"]
+
 
 
 //每次一抢的菜

@@ -7,6 +7,7 @@
 //
 
 #import "MyOrderService.h"
+#import "Seller_Order_model.h"
 #import "SharedData.h"
 #import "Member_Login.h"
 #import "RobOrderData.h"
@@ -39,6 +40,12 @@
         NSString *urlString = [NSString stringWithFormat:KillOrderURL,token,user_type,pageString];
         [SharedAction show];
         [MySecond getModelFromURLWithString:urlString completion:^(MySecond *object,JSONModelError *error){
+            [SharedAction commonActionWithUrl:urlString andStatus:object.status andError:object.error andJSONModelError:error andObject:object.info inTabBarController:tabBarController withDone:done];
+        }];
+    }else if(selectedSegmentIndex==4){
+        NSString *urlString = [NSString stringWithFormat:Seller_My_Seller_Order_URL,token,user_type,pageString];
+        [SharedAction show];
+        [Seller_Order_model getModelFromURLWithString:urlString completion:^(Seller_Order_model *object,JSONModelError *error){
             [SharedAction commonActionWithUrl:urlString andStatus:object.status andError:object.error andJSONModelError:error andObject:object.info inTabBarController:tabBarController withDone:done];
         }];
     }

@@ -42,7 +42,7 @@
 
     NSLog(@"%@",sharedData.loginStatus);
     [index0Service loadUserDefaultsInViewController:self witLoginStatus:sharedData.loginStatus];
-    self.collectionDatas = [NSArray arrayWithObjects:@"抢购",@"秒杀",@"团购",@"购物车",@"充值",@"抽奖",@"兑换",@"钱包", nil];
+    self.collectionDatas = [NSArray arrayWithObjects:@"抢购",@"秒杀",@"团购",@"购物车",@"充值",@"抽奖",@"兑换",@"商家", nil];
     self.collectionImgs = [NSArray arrayWithObjects:@"qianggou.png",@"miaosha.png",@"tuangou.png",@"gouwuche.png",@"chongzhi.png",@"choujiang.png",@"duihuan.png",@"qianbao.png", nil];
 }
 
