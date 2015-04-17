@@ -47,6 +47,7 @@
     page = 1;
     self.title = self.titletext;
     [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
+      [self.tableview headerBeginRefreshing];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -136,7 +137,7 @@
     Goods_type_subType *subtype = self.subtypes[index];
     subtypeId = subtype.subid;
     page = 1;
-    [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
+    [self.tableview headerBeginRefreshing];
 }
 
 /*

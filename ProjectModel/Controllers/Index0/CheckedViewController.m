@@ -28,6 +28,7 @@
     type=0;
     type1=0;
     [super viewDidLoad];
+    self.title=@"订单确认";
     SharedData *sharedData =[SharedData sharedInstance];
     user=sharedData.user;
     checkService =[CheckService new];
@@ -62,6 +63,7 @@
     return cell;
 
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 44;
 }
@@ -126,24 +128,28 @@
         }
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    NSString *lifeHall_id=[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
-    NSString *passwd = [MyMD5 md5:[[alertView textFieldAtIndex:0] text]];
-    NSString *payMode;
-    NSString *receive_type;
-    if (type1==1) {
-        payMode = @"1";
-    }else{
-        payMode=@"2";
+    if (buttonIndex==1) {
+        NSString *lifeHall_id=[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
+        NSString *passwd = [MyMD5 md5:[[alertView textFieldAtIndex:0] text]];
+        NSString *payMode;
+        NSString *receive_type;
+        if (type1==1) {
+            payMode = @"1";
+        }else{
+            payMode=@"2";
+        }
+        if (type==0) {
+            receive_type=@"1";
+        }else{
+            receive_type=@"2";
+        }
+        [checkService sellerOrderWithGoodsType:@"1" andGoodsId:self.models.goods_id andGoodsNums:self.numbs andLifehall_id:lifeHall_id andPay_mode:payMode andPaypassword:passwd andReceive_type:receive_type andMessage:self.message.text andAddress:self.address.text andMobole:self.phone.text andSend_time:self.send_time.titleLabel.text andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
+            if ([model[@"status"] isEqualToNumber: @2]) {
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
+        }];
     }
-    if (type==0) {
-        receive_type=@"1";
-    }else{
-        receive_type=@"2";
-    }
-    [checkService sellerOrderWithGoodsType:@"1" andGoodsId:self.models.goods_id andGoodsNums:self.numbs andLifehall_id:lifeHall_id andPay_mode:payMode andPaypassword:passwd andReceive_type:receive_type andMessage:self.message.text andAddress:self.address.text andMobole:self.phone.text andSend_time:self.send_time.titleLabel.text andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(Status *model){
-        NSLog(@"dddd");
-    
-    }];
+   
 
 }
 #pragma SelectedChildViewControllerDelegate

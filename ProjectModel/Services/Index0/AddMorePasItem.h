@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PastItemsTableViewController.h"
 #import "RewardRecordsViewController.h"
 @interface AddMorePasItem : NSObject
 //加载抢购历史

@@ -11,8 +11,8 @@
 @end
 
 @interface Result_info : JSONModel
-@property(nonatomic,assign)CGFloat x;
-@property(nonatomic,assign) CGFloat y;
+@property(nonatomic,assign)double x;
+@property(nonatomic,assign) double y;
 @end
 @interface ChangeBaiduApi : JSONModel
 @property(nonatomic,assign)NSInteger status;

@@ -27,6 +27,7 @@
 -(void)loadView{
     [super loadView];
    [SharedAction setupRefreshWithTableView:self.tableView toTarget:self];
+    [self.tableView headerBeginRefreshing];
 }
 
 - (void)viewDidLoad {

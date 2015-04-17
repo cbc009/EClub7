@@ -37,6 +37,7 @@
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
     [SharedAction setupRefreshWithTableView:self.tableView toTarget:self];
+    [self.tableView headerBeginRefreshing];
 }
 -(void)viewDidDisappear:(BOOL)animated
 {

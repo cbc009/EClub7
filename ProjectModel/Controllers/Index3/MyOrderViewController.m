@@ -7,6 +7,7 @@
 //
 
 #import "MyOrderViewController.h"
+#import "SellerOrderDetailViewController.h"
 #import "OrderCell.h"
 #import "TradeOrderCell.h"
 #import "RobOrderData.h"
@@ -37,13 +38,16 @@
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
     selectedSegmentIndex1=0;
+   self.segment.selectedSegmentIndex=0;
     myOrderService = [[MyOrderService alloc] init];
     [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
+    [self.tableview headerBeginRefreshing];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title=@"我的订单";
     self.tableview.tableFooterView = [UIView new];
    
     self.items=[[NSMutableArray alloc] init];
@@ -133,12 +137,19 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath  {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(self.orderType==Seller_type){
+        UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index3" bundle:nil];
+        SellerOrderDetailViewController *sellerOrdeVic=[storBoard instantiateViewControllerWithIdentifier:@"SellerOrderDetailViewController"];
+        sellerOrdeVic.model=self.items[indexPath.row];
+        [self.navigationController pushViewController:sellerOrdeVic animated:YES];
+
+    }
 }
 
 - (IBAction)swicthAction:(id)sender {
     UISegmentedControl *seg = (UISegmentedControl *)sender;
     selectedSegmentIndex1=seg.selectedSegmentIndex;
-    [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
+    [self.tableview headerBeginRefreshing];
 }
 
 -(void)headerRereshing
@@ -241,9 +252,9 @@
         }
     }else  if ([segue.identifier isEqualToString:@"pushToSellerOrder"]) {
         if (self.orderType==TradeOrderType){
-            NSIndexPath *indexPath = [self.tableview indexPathForSelectedRow];
-            NSInteger row = indexPath.row;
-            TradeOrder *order1 = [self.items objectAtIndex:row];
+//            NSIndexPath *indexPath = [self.tableview indexPathForSelectedRow];
+//            NSInteger row = indexPath.row;
+//            TradeOrder *order1 = [self.items objectAtIndex:row];
 //            TradeOrderDetailViewController *viewController = segue.destinationViewController;
 //            viewController.orderid = order1.orderid;
         }

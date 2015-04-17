@@ -14,6 +14,7 @@
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic,strong)NSMutableArray *datas;
 @property (nonatomic,retain) RMPickerViewController *pickerVC;
 @property (nonatomic,strong)NSMutableArray *goodNums;
 @property (nonatomic,strong)NSArray *pageviewDatas;

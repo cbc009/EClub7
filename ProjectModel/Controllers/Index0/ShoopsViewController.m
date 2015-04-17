@@ -81,6 +81,7 @@
     //把所有的分类一起传过去
     shoopDetailVic.cateArray=self.data;
     shoopDetailVic.distanceArray=distanceArray0;
+    shoopDetailVic.index=row;
     Public_Seller_arr_seller_type_info *object=self.data[row];
     
 //    shoopDetailVic.models=self.data[row];//这里的models就是用来传一组数据过去的

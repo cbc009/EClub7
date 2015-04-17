@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "MartinLiPageScrollView.h"
 @interface GroupsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,MartinLiPageScrollViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
-@property (weak, nonatomic) IBOutlet MartinLiPageScrollView *pageView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *height;
 @property(nonatomic,strong)NSArray *pageviewDatas;
-@property(nonatomic,strong)NSArray *datas;
+@property(nonatomic,strong)NSMutableArray *datas;
 @end

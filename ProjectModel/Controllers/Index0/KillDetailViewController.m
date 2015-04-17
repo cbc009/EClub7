@@ -7,6 +7,15 @@
 //
 
 #import "KillDetailViewController.h"
+#import "ShowViewController.h"
+#import "CheckService.h"
+#import "PointIndex0Cell.h"
+#import "PointIndex1Cell.h"
+#import "PointIndex2Cell.h"
+#import "RobIndex1_Cell.h"
+#import "KillDetailCell0.h"
+#import "SellerService.h"
+#import "GoodsCountDownModel.h"
 #import "KillDetailCell.h"
 #import <UIImageView+WebCache.h>
 #import "SVProgressHUD.h"
@@ -22,7 +31,7 @@
 #import <UIImageView+WebCache.h>
 #import "Status.h"
 #import <BmobSDK/Bmob.h>
-@interface KillDetailViewController ()<UITableViewDataSource,UITableViewDelegate,KillServiceDelegate>
+@interface KillDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     NSTimer *timer;
     NSInteger countDownSeconds;
@@ -30,6 +39,9 @@
     KillService *killService;
     WebViewController *target;
     UserInfo *user;
+    SellerService *sellerService;
+    KillDetailCell0 *countDownCell;
+    CheckService *checkService;
 
 }
 @end
@@ -44,21 +56,18 @@
     [super viewDidLoad];
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
-    self.title = self.good.name;
+    checkService= [CheckService new];
+    sellerService=[SellerService new];
+    self.title = self.good.goods_name;
     groupService = [[GroupService alloc] init];
     killService = [[KillService alloc] init];
-    killService.delegate = self;
-    self.tableview.scrollEnabled =YES;
-    [killService kill_CountDownWithToken:user.token andUser_type:user.user_type andGid:self.good.gid intabBarController:self.tabBarController withObject:^(Kill_CountDown_Info *model){
-        [self startCountDownActionWithSeconds:model.seconds];
-        [self.tableview reloadData];
+//    killService.delegate = self;
+    [sellerService sellerCountDownWithGoodsType:@"4" andGoodId:self.good.goods_id inTabBarController:self.tabBarController withDone:^(GoodsCount_Info *model){
+        countDownCell.starttime =[model.start_second integerValue];
+        countDownSeconds=[model.start_second integerValue];
+        [self.tableView reloadData];
     }];
-    [killService kill_Second_MemberWithToken:user.token andUser_type:user.user_type andGid:self.good.gid inTabBarController:self.tabBarController withDone:^(KillSuccess_Info *model){
-       
-        self.datas =(NSArray *)model.member;
-        [self.tableview reloadData];
-    }];
-    
+  
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -73,136 +82,142 @@
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 5;
 
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section==2) {
-        return self.datas.count;
+    if (section==4) {
+        return 2;
     }
     return 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSInteger row =indexPath.row;
     if (indexPath.section==0) {
-        KillDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"KillDetailCell" forIndexPath:indexPath];
-        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.good.bigpicture]] placeholderImage:[UIImage imageNamed:@"e"]];
-        cell.price.text = [NSString stringWithFormat:@"%@元/%@",self.good.price,self.good.unit];
-        cell.discount.text = [NSString stringWithFormat:@"%@元/%@",self.good.discount,self.good.unit];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        PointIndex0Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"PointIndex0Cell" forIndexPath:indexPath];
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        [cell.goodPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.good.bigpicture]] placeholderImage:[UIImage imageNamed:@"e"]];
+        cell.goodName.text=self.good.goods_name;
+        cell.title.text=@"秒杀价:";
+        cell.discount.text=[NSString stringWithFormat:@"￥%@/%@",self.good.discount,self.good.unit];
+        cell.nums.text=[NSString stringWithFormat:@"原价:￥%@/%@",self.good.price,self.good.unit];
         return cell;
     }else if (indexPath.section==1){
-        KillPromptCell *cell = [tableView dequeueReusableCellWithIdentifier:@"KillPromptCell"forIndexPath:indexPath];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        PointIndex2Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"PointIndex2Cell" forIndexPath:indexPath];
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        cell.title.font=[UIFont fontWithName:@"TrebuchetMS-Bold" size:14];
+        cell.title.text=@"商品提供方";
+        cell.detail.hidden=YES;
         return cell;
-    }else if (indexPath.section==2){
-        NSInteger row = indexPath.row;
-        KillSercessViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"KillSercessViewCell"forIndexPath:indexPath];
-        Success_Member_info *model = self.datas[row];
-        cell.nickname.text  = model.nickname;
-        [cell.herad sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
-        cell.herad.layer.masksToBounds = YES;
-        cell.herad.layer.cornerRadius = 30;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+    }else if(indexPath.section==2){
+        RobIndex1_Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"RobIndex1_Cell" forIndexPath:indexPath];
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        cell.sellerName.text=self.good.seller_name;
+        cell.sellerDetail.text =self.good.seller_intro;
+        [cell.sellerPIc sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.good.seller_picture]] placeholderImage:[UIImage imageNamed:@"e"]];
         return cell;
-    } else {
+    }else if(indexPath.section==3){
+        KillDetailCell0 *cell = [tableView dequeueReusableCellWithIdentifier:@"KillDetailCell0" forIndexPath:indexPath];
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        countDownCell=cell;
+        return cell;
+    }else if(indexPath.section==4){
+        PointIndex2Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"PointIndex2Cell" forIndexPath:indexPath];
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        if (row==0) {
+            cell.title.text=@"领取方式:";
+            cell.detail.text=self.good.receive_from;
+        }else{
+            cell.title.text=@"领取地址:";
+            cell.detail.text=self.good.receive_address;
+        }
+        return cell;
+    }else{
         return nil;
     }
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section==2) {
+        UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+        ShowViewController *showVic=[storBoard instantiateViewControllerWithIdentifier:@"ShowViewController"];
+        showVic.seller_id=self.good.seller_id;
+        [sellerService sellerInfoWithAgentid:[NSString stringWithFormat:@"%ld",(long)user.agent_id] andSeller_type:@"" andSellerid:self.good.seller_id inRootTabBarController:self.tabBarController withDone:^(Public_Seller_info_model_info *model){
+            showVic.models=model.arr_seller[0];
+            [self.navigationController pushViewController:showVic animated:YES];
+        }];
+    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section==0) {
-          return 400;
-    }else if (indexPath.section==2){
-        return 80;
-    }else
-    {
-        return 34;
-    }
-}
-#pragma KillServiceDelegate
--(void)startCountDownActionWithSeconds:(NSInteger)seconds{
-//    initTime = seconds;
-    countDownSeconds = seconds;
-    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDownTimer) userInfo:nil repeats:YES];
-}
-
-
-- (IBAction)buyAction:(id)sender {
-    if (countDownSeconds == -1) {
-        [SVProgressHUD showErrorWithStatus:@"商品已过期"];
-    }else if (countDownSeconds==0) {
-    [killService kill_CountDownWithToken:user.token andUser_type:user.user_type andGid:self.good.gid intabBarController:self.tabBarController withObject:^(Status *model){
-        NSString *message =[NSString stringWithFormat:@"恭喜你在E小区免费抢到%@赶快去告诉朋友吧",self.good.name];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"秒杀信息" message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去告诉朋友", nil];
-        alertView.tag=1;
-        [alertView show];
-        self.buyButton.backgroundColor = [UIColor grayColor];
-        //存储到Bmob后台
-        BmobObject *object = [BmobObject objectWithClassName:@"KillOrder"];
-        [object setObject:user.loginname forKey:@"loginname"];
-        [object setObject:self.good.name forKey:@"goodName"];
-        [object setObject:self.good.gid forKey:@"goodId"];
-        [object saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
-        }];
-    }];
+    NSInteger section =indexPath.section;
+    if (section==0) {
+        return 265;
+    }else if (section==1){
+        return 35;
+    }else if(section==2){
+        return 82;
+    }else if(section==3){
+        return 63;
+    }else if(section==4){
+        return 35;
     }else{
-        [SVProgressHUD showErrorWithStatus:@"还没到时间,请耐心等候"];
+        return 0;
+    }
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section==1||section==3) {
+        return 8;
+    }else{
+        return 0;
     }
 }
 
--(void)countDownTimer{
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    KillDetailCell *cell = (KillDetailCell *)[self.tableview cellForRowAtIndexPath:indexPath];
-    if (countDownSeconds==-1) {
-        self.buyButton.hidden=YES;
-        cell.result.text = [NSString stringWithFormat:@"秒光了瞬间秒杀%@ %@",self.good.actual_num,self.good.unit];
-        [self.buyButton setBackgroundColor:[UIColor grayColor]];
-        [timer invalidate];
-    }else if (countDownSeconds==0) {
-        [self.buyButton setBackgroundColor:[UIColor redColor]];
-        [timer invalidate];
-    }else{
-        countDownSeconds--;
-        cell.result.text = [NSString stringWithFormat:@"距离开抢时间%@",[groupService toDetailTime:countDownSeconds]];
-    }
-}
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag==1) {
         if (buttonIndex==0) {
         }else if(buttonIndex==1) {
-            [SharedAction shareWithTitle:self.good.name andDesinationUrl:AppDownLoadURL Text:alertView.message andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.good.bigpicture] InViewController:self];
+            [SharedAction shareWithTitle:self.good.goods_name andDesinationUrl:AppDownLoadURL Text:alertView.message andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.good.bigpicture] InViewController:self];
         }
     }
     if (buttonIndex==0) {
         
     }else if(buttonIndex==1) {
-        [SharedAction shareWithTitle:self.good.name andDesinationUrl:AppDownLoadURL Text:alertView.message andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.good.bigpicture] InViewController:self];
+        [SharedAction shareWithTitle:self.good.goods_name andDesinationUrl:AppDownLoadURL Text:alertView.message andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.good.bigpicture] InViewController:self];
     }
-}
-- (IBAction)shareAction:(id)sender {
-    [SharedAction shareWithTitle:self.good.name andDesinationUrl:AppDownLoadURL Text:@"E小区中有秒杀的活动哦 小伙伴赶快来" andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.good.bigpicture] InViewController:self];
 }
 
-- (IBAction)segAction:(UISegmentedControl *)sender {
-    if (sender.selectedSegmentIndex==0) {
-        [target.view removeFromSuperview];
-        [target removeFromParentViewController];
-    }else{
-        if (!target) {
-            [SVProgressHUD show];
-            target = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
-            target.urlString = [NSString stringWithFormat:Kill_Goods_Detail_URL,user.token,user.user_type,self.good.gid];
-            target.view.frame = CGRectMake(0, NavigationBarFrame.size.height+StatusBarFrame.size.height, DeviceFrame.size.width, DeviceFrame.size.height-NavigationBarFrame.size.height+StatusBarFrame.size.height);
+
+- (IBAction)buyNow:(id)sender {
+    if (countDownSeconds == -1) {
+        [SVProgressHUD showErrorWithStatus:@"商品已过期"];
+    }else if (countDownSeconds==0) {
+    NSString *lifeHall_id=[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
+    [checkService sellerOrderWithGoodsType:@"4" andGoodsId:self.good.goods_id andGoodsNums:@"1" andLifehall_id:lifeHall_id andPay_mode:@"" andPaypassword:@"" andReceive_type:@"" andMessage:@"" andAddress:@"" andMobole:@"" andSend_time:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
+        if ([model[@"status"] isEqualToNumber: @2]) {
+                    NSString *message =[NSString stringWithFormat:@"恭喜你在E小区免费抢到%@赶快去告诉朋友吧",self.good.goods_name];
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"秒杀信息" message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去告诉朋友", nil];
+                    alertView.tag=1;
+                    [alertView show];
+                    self.killeNOw.backgroundColor = [UIColor grayColor];
+                    //存储到Bmob后台
+                    BmobObject *object = [BmobObject objectWithClassName:@"KillOrder"];
+                    [object setObject:user.loginname forKey:@"loginname"];
+                    [object setObject:self.good.goods_name forKey:@"goodName"];
+                    [object setObject:self.good.goods_id forKey:@"goodId"];
+                    [object saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                    }];
         }
-        [self addChildViewController:target];
-        [self.view addSubview:target.view];
-        [SVProgressHUD dismiss];
+    }];
+    } else{
+        [SVProgressHUD showErrorWithStatus:@"还没到时间,请耐心等候"];
     }
-    
+}
+- (IBAction)share:(id)sender {
+    [SharedAction shareWithTitle:self.good.goods_name andDesinationUrl:AppDownLoadURL Text:@"E小区中有秒杀的活动哦 小伙伴赶快来" andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.good.bigpicture] InViewController:self];
+
 }
 @end

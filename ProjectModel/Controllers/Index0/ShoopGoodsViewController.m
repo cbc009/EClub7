@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title=self.models.goods_name;
     self.reduce.layer.cornerRadius=2;
     self.reduce.layer.borderWidth=1;
     self.reduce.layer.borderColor=[UIColor redColor].CGColor;

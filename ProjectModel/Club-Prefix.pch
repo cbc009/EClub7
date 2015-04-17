@@ -114,7 +114,7 @@ typedef void (^finished)(NSDictionary *info);
 
 
 //商户商品
-#define Seller_Seller_Goods_URL [PrexURL stringByAppendingString: @"Seller/seller_goods/goods_type/%@/from/IOS/seller_id/%@/lifehall_id/%@/page/%@"]
+#define Seller_Seller_Goods_URL [PrexURL stringByAppendingString: @"Seller/seller_goods/goods_type/%@/agent_id/%@/from/IOS/seller_id/%@/lifehall_id/%@/page/%@"]
 //商户分类
 #define Public_Seller_Type_URL [PrexURL stringByAppendingString: @"Public/seller_type/%@"]
 
@@ -130,13 +130,16 @@ typedef void (^finished)(NSDictionary *info);
 #define Seller_Seller_Goods_Share_URL [PrexURL stringByAppendingString: @"Seller/seller_goods_share/from/IOS/goods_id/%@"]
 //商户订单
 #define Seller_My_Seller_Order_URL [PrexURL stringByAppendingString: @"Seller/my_seller_order/from/IOS/token/%@/user_type/%d/page/%@"]
-
+//商户退货
+#define Seller_Order_Return_URL [PrexURL stringByAppendingString: @"Seller/seller_order_return/from/IOS/token/%@/user_type/%d/order_id/%@"]
+//商户订单
+#define Seller_Countdown_URL [PrexURL stringByAppendingString: @"Seller/countdown/from/IOS/goods_type/%@/goods_id/%@"]
 
 
 //每次一抢的菜
 #define Rob_Index_URL [PrexURL stringByAppendingString: @"Rob/index/from/IOS/token/%@/user_type/%d"]
 //抢菜记录
-#define Robuy_member_URL [PrexURL stringByAppendingString: @"Rob/robuy_member/from/IOS/token/%@/user_type/%d/page/%@"]
+#define Robuy_member_URL [PrexURL stringByAppendingString: @"Rob/robuy_member/from/IOS/token/%@/user_type/%d/order_id/%@"]
 //单商品的抢菜记录
 //#define One_Robuy_member_URL [PrexURL stringByAppendingString: @"Rob/robuy_member/from/IOS/token/%@/user_type/%d/gid/%@/page/%@"]
 //往期抢购商品

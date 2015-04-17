@@ -7,6 +7,8 @@
 //
 
 #import "RobViewController.h"
+#import "SellerService.h"
+#import "Seller_Seller_Goods.h"
 #import "RobService.h"
 #import "SharedData.h"
 #import "Member_Login.h"
@@ -26,7 +28,8 @@
 @interface RobViewController ()<RMPickerViewControllerDelegate>
 {
     RobService *robService;
-    Index0Service *index0Service;;
+    SellerService *sellerServicel;
+    Index0Service *index0Service;
     UserInfo *user;
         int count;
     NSMutableArray *timeArray;
@@ -66,6 +69,8 @@
 {
     [super viewDidLoad];
     ChangeUp=0;
+    sellerServicel=[SellerService new];
+    self.datas=[NSMutableArray new];
     timeArray=[NSMutableArray new];
     timeEndArray=[NSMutableArray new];
     self.components=[NSMutableArray new];
@@ -79,22 +84,12 @@
     self.title=@"乔庄生活馆";
     [robService loadAdverPicWithPos:3 inViewController:self];
     [SharedAction setupRefreshWithTableView:self.tableView toTarget:self];
+    [self.tableView headerBeginRefreshing];
     
     [SharedAction removeLocalPushNotificationWithType:@"rob"];//这里要注意 这里是取消现在用户手机中的抢购本地推送推送
     
-    [self headerRereshing];
 }
--(void)loadDataWithLifehallid:(NSString *)lifehall_id andGoods:(NSString *)goodsId andType:(NSInteger )type{
-    __block RobViewController *aBlockSelf = self;
-    [robService setRobModelWithLifehallid:lifehall_id orDetail:@"" inRootTabBarController:self.tabBarController withDone:^(Robuy_Goods_info *model){
-        if (type==0) {
-            aBlockSelf.goodNums=(NSMutableArray *)model.arr_goods;
-        }else{
-            [aBlockSelf.goodNums addObjectsFromArray:model.arr_goods];
-        }
-        [aBlockSelf.tableView reloadData];
-    }];
-}
+
 
 
 - (IBAction)changeLifeHall:(id)sender {
@@ -153,7 +148,7 @@
     if (section==0){
         return 1;
     }else{
-        return self.goodNums.count;
+        return self.datas.count;
     }
 }
 
@@ -176,9 +171,9 @@
     }else if(indexPath.section==1){
         RobCell *cell=[tableView dequeueReusableCellWithIdentifier:@"RobCell" forIndexPath:indexPath];
         cell.cellNums++;
-        Robuy_Goods_arr_goods_info *object = self.goodNums[row];
+        Seller_Seller_Goods_arr_goods_info *object = self.datas[row];
         [cell.goodPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,object.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
-        cell.goodName.text=object.name;
+        cell.goodName.text=object.goods_name;
         cell.goodNum.text=[NSString stringWithFormat:@"抢购数量:%@",object.provider_nums];
         if ([object.discount isEqualToString:@"0.00"]) {
             cell.goodPrice.text=[NSString stringWithFormat:@"%@E币",object.point];
@@ -187,16 +182,16 @@
         }
         cell.marketPrice.text=[NSString stringWithFormat:@"￥:%@",object.price];
         cell.saleNum.text =[NSString stringWithFormat:@"已抢:%@",object.actual_nums];
-        cell.starttime=object.start_seconds;
-        cell.endtime=object.end_seconds;
-        if (object.start_seconds >-1) {
-            cell.times.text=[NSString stringWithFormat:@"距离开始还有:%@",[self toDetailTime:object.start_seconds]];
+        cell.starttime=[object.start_seconds integerValue];
+        cell.endtime=[object.end_seconds integerValue];
+        if ([object.start_seconds integerValue]>-1) {
+            cell.times.text=[NSString stringWithFormat:@"距离开始还有:%@",[self toDetailTime:[object.start_seconds integerValue]]];
             [timeArray addObject:[NSString stringWithFormat:@"%ld",(long)object.start_seconds]];
             cell.robNow.backgroundColor=[UIColor redColor];
         }else{
-            if (object.end_seconds>-1) {
+            if ([object.end_seconds integerValue]>-1) {
                 [timeEndArray addObject:[NSString stringWithFormat:@"%ld",(long)object.end_seconds]];
-                cell.times.text=[NSString stringWithFormat:@"距离结束还有:%@",[self toDetailTime:object.end_seconds]];
+                cell.times.text=[NSString stringWithFormat:@"距离结束还有:%@",[self toDetailTime:[object.end_seconds integerValue]]];
                 cell.robNow.backgroundColor=[UIColor redColor];
             }else{
                 cell.times.text=@"今天抢购已结束";
@@ -226,7 +221,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSInteger row = indexPath.row;
-    Robuy_Goods_arr_goods_info *robuyGood = [self.goodNums objectAtIndex:row];
+    Seller_Seller_Goods_arr_goods_info *robuyGood = [self.datas objectAtIndex:row];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
     RobDetailViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RobDetailViewController"];
     [self.navigationController pushViewController:viewController animated:YES];
@@ -237,19 +232,35 @@
 {
     page =1;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
-    NSString *lifeHall_id =[NSString stringWithFormat:@"%ld/page/%@",(long)user.lifehall_id,pageString];
-    [self loadDataWithLifehallid:lifeHall_id andGoods:@"0" andType:0];
-     [self.tableView headerEndRefreshing];
+    [sellerServicel sellerSellerGood_typesWith:@"3" andAgentId:@""  andSeller_id:@"" andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
+        self.datas=(NSMutableArray*)model.arr_goods;
+        [self.tableView reloadData];
+        [self.tableView headerEndRefreshing];
+    }];
+    
 }
 - (void)footerRereshing
 {
     page++;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
-    NSString *lifeHall_id =[NSString stringWithFormat:@"%ld/page/%@",(long)user.lifehall_id,pageString];
-    [self loadDataWithLifehallid:lifeHall_id andGoods:@"0" andType:1];
-    [self.tableView footerEndRefreshing];
+    [sellerServicel sellerSellerGood_typesWith:@"3" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id]  andSeller_id:@"" andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
+        [self.datas addObjectsFromArray:model.arr_goods];
+        [self.tableView reloadData];
+        [self.tableView headerEndRefreshing];
+    }];
 
 }
+//-(void)loadDataWithLifehallid:(NSString *)lifehall_id andGoods:(NSString *)goodsId andType:(NSInteger )type{
+//    
+//    [robService setRobModelWithLifehallid:lifehall_id orDetail:@"" inRootTabBarController:self.tabBarController withDone:^(Robuy_Goods_info *model){
+//        if (type==0) {
+//            aBlockSelf.goodNums=(NSMutableArray *)model.arr_goods;
+//        }else{
+//            [aBlockSelf.goodNums addObjectsFromArray:model.arr_goods];
+//        }
+//        [aBlockSelf.tableView reloadData];
+//    }];
+//}
 #pragma mark - RMPickerViewController Delegates
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
     return 1;
@@ -280,8 +291,10 @@
     return value;
 }
 -(void)changeLifeId:(NSString *)lifeHallId andLifeHallName:(NSString *)lifehallName{
+    user.lifehall_id=[lifeHallId integerValue];
+    user.lifehall_name=lifehallName;
     self.title=lifehallName;
     ChangeUp=0;
-    [self loadDataWithLifehallid:lifeHallId andGoods:@"0" andType:0];
+    [self headerRereshing];
 }
 @end

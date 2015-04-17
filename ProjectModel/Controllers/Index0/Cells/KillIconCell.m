@@ -11,7 +11,12 @@
 @implementation KillIconCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    self.dot.layer.cornerRadius=2;
+ 
+    self.dtae.layer.cornerRadius=8;
+//    self.dtae.layer.borderWidth=1;
+//    self.dtae.layer.borderColor=[UIColor redColor].CGColor;
+   
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

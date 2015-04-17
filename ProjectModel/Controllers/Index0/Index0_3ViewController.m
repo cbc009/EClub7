@@ -8,6 +8,7 @@
 
 #import "Index0_3ViewController.h"
 #import "BuyGoodTypeCell.h"
+#import "Index1_3Cell.h"
 #import "Index0Service.h"
 #import <UIImageView+WebCache.h>
 #import "Goods_type.h"
@@ -20,6 +21,7 @@
 #import "BuyService.h"
 #import "Index0_1Cell.h"
 #import "Index0_2Cell.h"
+#import "NoticeCell.h"
 #import "LoginViewController.h"
 #import "SerchViewController.h"
 @interface Index0_3ViewController ()<LoginViewControllerDelegate>
@@ -42,8 +44,8 @@
 
     NSLog(@"%@",sharedData.loginStatus);
     [index0Service loadUserDefaultsInViewController:self witLoginStatus:sharedData.loginStatus];
-    self.collectionDatas = [NSArray arrayWithObjects:@"抢购",@"秒杀",@"团购",@"购物车",@"充值",@"抽奖",@"兑换",@"商家", nil];
-    self.collectionImgs = [NSArray arrayWithObjects:@"qianggou.png",@"miaosha.png",@"tuangou.png",@"gouwuche.png",@"chongzhi.png",@"choujiang.png",@"duihuan.png",@"qianbao.png", nil];
+    self.collectionDatas = [NSArray arrayWithObjects:@"充值",@"抽奖",@"商户",@"购物车",nil];
+    self.collectionImgs = [NSArray arrayWithObjects:@"chongzhi.png",@"choujiang.png",@"qianbao.png",@"gouwuche.png", nil];
 }
 
 
@@ -59,13 +61,15 @@
 
 #pragma UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return 5;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section==0||section==1){
+    if (section==0||section==1||section==2||section==3){
         return 1;
-    }else{
+    }else if(section==4){
         return self.goodTypes.count;
+    }else {
+        return 0;
     }
 }
 
@@ -87,9 +91,17 @@
         return cell;
     }else if(section==1){
         Index0_2Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Index0_2Cell" forIndexPath:indexPath];
-        MainItemLayout *layout = [[MainItemLayout alloc] init];
+//        MainItemLayout *layout = [[MainItemLayout alloc] init];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.collectionview.collectionViewLayout = layout;
+//        cell.collectionview.collectionViewLayout = layout;
+        return cell;
+    }else if(section==2){
+        NoticeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NoticeCell" forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }else if(section==3){
+        Index1_3Cell * cell = [tableView dequeueReusableCellWithIdentifier:@"Index1_3Cell" forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else{
         BuyGoodTypeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BuyGoodTypeCell" forIndexPath:indexPath];
@@ -102,7 +114,6 @@
         cell.secondType.text = [self subtypeStringFromArray:subtypes];
         return cell;
     }
-    
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath   {
@@ -110,16 +121,19 @@
     if (section==0) {
         return 110;
     }else if (section==1){
-        return 210;
+        return 65;
+    }else if(section==2){
+        return 30;
+    }else if(section==3){
+        return 230;
     }else{
         return 109;
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section==0) {
+    if (section==0||section==3) {
         return 0;
-
     }else{
         return 8;
     }
@@ -157,7 +171,7 @@
 
 #pragma UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.collectionDatas.count;
+    return 4;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     MainItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MainItemCell" forIndexPath:indexPath];
@@ -172,30 +186,31 @@
     NSString *storyboardName = nil;
     NSString *identifier = nil;
     if (row==0) {
-        //抢菜
-        storyboardName = @"Index0";
-        identifier = @"RobViewController";
+        storyboardName = @"Index3";
+        identifier = @"CreatePayViewController";
     }else if (row==1){
         storyboardName = @"Index0";
-        identifier = @"KillListViewController";
+        identifier = @"Index1ViewController";
     }else if(row==2){
         storyboardName = @"Index0";
-        identifier = @"GroupsViewController";
+        identifier = @"ShoopsViewController";
     }else if(row==3){
         storyboardName = @"Index0";
         identifier = @"PurchaseCarItemsViewController";
     }else if(row==4){
-        storyboardName = @"Index3";
-         identifier = @"CreatePayViewController";
+        storyboardName = @"Index0";
+        identifier = @"RobViewController";
+
     }else if(row==5){
         storyboardName = @"Index0";
-        identifier = @"Index1ViewController";
+        identifier = @"KillListViewController";
+
     }else if(row==6){
         storyboardName = @"Index0";
         identifier = @"PointViewController";
     }else if(row==7){
         storyboardName = @"Index0";
-        identifier = @"ShoopsViewController";
+        identifier = @"GroupsViewController";
     }
     if (storyboardName!=nil&&identifier!=nil) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];

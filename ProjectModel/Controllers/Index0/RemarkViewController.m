@@ -28,6 +28,7 @@
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+    self.title=@"点评";
     SharedData *sharedData =[SharedData sharedInstance];
     user=sharedData.user;
     starNumber0=0;
@@ -86,8 +87,16 @@
     [remarkService seller_comment_releaseWuthType:@"1" andSeller_id:self.models.seller_id andContent:self.mTextview.text andPraise_nums:@"0" andComment_id:@"" andOther_id:@"" andTotal_praises:[NSString stringWithFormat:@"%ld",(long)starNumber0] andAttitude_praises:[NSString stringWithFormat:@"%ld",(long)starNumber1] andNeat_praises:[NSString stringWithFormat:@"%ld",(long)starNumber2] andDescrip_praises:[NSString stringWithFormat:@"%ld",(long)starNumber3] andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(Status *model){
             [SVProgressHUD showSuccessWithStatus:@"感谢您的评论"];
             [self.navigationController popViewControllerAnimated:YES];
-        
     }];
     
+}
+- (IBAction)post:(id)sender {
+    //这里的数字 1或者0 或者 @“” 可以看文档 就是他有些要求是这样的
+    [remarkService seller_comment_releaseWuthType:@"1" andSeller_id:self.models.seller_id andContent:self.mTextview.text andPraise_nums:@"0" andComment_id:@"" andOther_id:@"" andTotal_praises:[NSString stringWithFormat:@"%ld",(long)starNumber0] andAttitude_praises:[NSString stringWithFormat:@"%ld",(long)starNumber1] andNeat_praises:[NSString stringWithFormat:@"%ld",(long)starNumber2] andDescrip_praises:[NSString stringWithFormat:@"%ld",(long)starNumber3] andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
+        if ([model[@"status"] isEqualToNumber: @2]) {
+            [SVProgressHUD showSuccessWithStatus:@"感谢您的评论"];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }];
 }
 @end

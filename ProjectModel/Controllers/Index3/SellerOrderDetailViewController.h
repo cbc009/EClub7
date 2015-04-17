@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Seller_Order_model.h"
 @interface SellerOrderDetailViewController : UIViewController
-
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property(nonatomic,strong)Seller_Order_model_arr_order_info *model;
 @end

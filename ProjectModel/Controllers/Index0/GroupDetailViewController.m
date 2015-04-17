@@ -8,6 +8,17 @@
 
 #import "GroupDetailViewController.h"
 #import <UIImageView+WebCache.h>
+#import "CheckService.h"
+#import "PointIndex0Cell.h"
+#import "PointIndex1Cell.h"
+#import "PointIndex2Cell.h"
+#import "RobIndex1_Cell.h"
+#import "ShowViewController.h"
+#import "Public_Seller_info_model.h"
+#import "SellerService.h"
+#import "GroupDetailCell.h"
+#import "MyMD5.h"
+
 #import "GroupService.h"
 #import "ItemDetailService.h"
 #import "SharedAction.h"
@@ -27,6 +38,10 @@
     NSString *htmlStr;
     CGFloat height1;
     UserInfo  *user;
+    SellerService *sellerService;
+    PointIndex1Cell *numberCell;
+    SharedData *sharedData;
+    CheckService *checkService;
 }
 @property (weak, nonatomic) IBOutlet UIButton *addGroupButton;
 @end
@@ -45,40 +60,11 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    SharedData *sharedData= [SharedData sharedInstance];
+    self.title=self.groupGood.goods_name;
+    checkService=[CheckService new];
+    sellerService =[SellerService new];
+    sharedData= [SharedData sharedInstance];
     user = sharedData.user;
-    if (self.groupGood==nil) {
-        self.title = self.historyGorupGood.name;
-        gid = self.historyGorupGood.gid;
-        self.numbs.text = @"1";
-        [self.goodPicture sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.historyGorupGood.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
-        self.people.text = [NSString stringWithFormat:@"已参团人数%@",self.historyGorupGood.actual_num];
-        self.price.text = [NSString stringWithFormat:@"%@元/%@",self.historyGorupGood.discount,self.historyGorupGood.unit];
-        self.discount.text = [NSString stringWithFormat:@"会   员   价  :%@元/%@",self.historyGorupGood.price,self.historyGorupGood.unit];
-        self.time.text = @"已结束";
-         self.addGroupButton.hidden = YES;
-        self.addBut.hidden=YES;
-        self.reduceBut.hidden=YES;
-        self.numbs.hidden=YES;
-        self.numbes.hidden=YES;
-        groupService = [[GroupService alloc] init];
-        self.webview.scrollView.scrollEnabled = NO;
-        [self loadWebPageWithString:[NSString stringWithFormat:GroupDetail,sharedData.user.token,sharedData.user.user_type,self.historyGorupGood.gid] inWebView:self.webview];
-    }else{
-    self.title = self.groupGood.name;
-    gid = self.groupGood.gid;
-    self.numbs.text = @"1";
-    [self.goodPicture sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.groupGood.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
-    self.people.text = [NSString stringWithFormat:@"已参团人数%@",self.groupGood.actual_num];
-    self.price.text = [NSString stringWithFormat:@"%@元/%@",self.groupGood.discount,self.groupGood.unit];
-    self.discount.text = [NSString stringWithFormat:@"会   员   价  :%@元/%@",self.groupGood.price,self.groupGood.unit];
-    groupService = [[GroupService alloc] init];
-    itemDetailService = [[ItemDetailService alloc] init];
-    countDownSeconds =self.groupGood.seconds;
-    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDownTimer) userInfo:nil repeats:YES];
-    self.webview.scrollView.scrollEnabled = NO;
-    [self loadWebPageWithString:self.groupGood.url inWebView:self.webview];
-    }
 }
 
 - (void)loadWebPageWithString:(NSString*)urlString inWebView:(UIWebView *)webView{
@@ -87,112 +73,128 @@
     [webView loadRequest:request];
 }
 
-
-#pragma UIWebViewDelegate
-- (void)webViewDidStartLoad:(UIWebView *)webView{
-    [SVProgressHUD show];
-}
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    [SVProgressHUD dismiss];
-    CGRect frame = webView.frame;
-    CGSize mWebViewTextSize = [webView sizeThatFits:CGSizeMake(1.0f, 1.0f)];
-    frame.size = mWebViewTextSize;
-    self.webview.frame = frame;
-    [self.scrollview setContentSize:CGSizeMake(DeviceFrame.size.width, mWebViewTextSize.height+480)];
-    self.webviewHeight.constant = mWebViewTextSize.height+50;
-}
-//- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request   navigationType:(UIWebViewNavigationType)navigationType {
-//    return YES;
-//}
 #pragma UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
   
 }
 - (IBAction)shareAction:(id)sender {
-    [SharedAction shareWithTitle:self.groupGood.name andDesinationUrl:AppDownLoadURL Text:@"在E小区中团购了我喜欢的宝贝好开心" andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.groupGood.bigpicture] InViewController:self];
+    [SharedAction shareWithTitle:self.groupGood.goods_name andDesinationUrl:AppDownLoadURL Text:@"在E小区中团购了我喜欢的宝贝好开心" andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.groupGood.bigpicture] InViewController:self];
 }
-//tag ==1 余额不足 tag==2//没有会员卡 tag==4密码错误 tag==5异地登陆
-#pragma UIAlertDelegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-   if (alertView.tag==1) {
-        if (buttonIndex==0) {
-        }else if(buttonIndex == 1){
-            [groupService presentCreatePayViewControllerOnViewController:self];
-        }
-   }else  if (alertView.tag==2) {
-       if (buttonIndex==0) {
-       }else if(buttonIndex == 1){
-       }
-   }else if (alertView.tag==4){
-        NSString *password = [[alertView textFieldAtIndex:0] text]; 
-        if (buttonIndex==0) {
-        }else if(buttonIndex == 1){
-            [self addToGroupWithPassword:password];
-        }
-    }else {
-        NSString *password = [[alertView textFieldAtIndex:0] text];
-        if (buttonIndex==0) {
-        }else if(buttonIndex == 1){
-            [self addToGroupWithPassword:password];
-        }
-    }
-}
-
--(void)addToGroupWithPassword:(NSString *)password{
-    __block GroupDetailViewController *blockSelf =self;
-    __block UserInfo *block_user = user;
-    __block Group_Good_Info *block_good = self.groupGood;
-    __block NSNumber *number = [NSNumber numberWithInt:[self.numbs.text intValue]];
-    [groupService addToGroupWithPassword:password andToken:block_user.token andUser_type:block_user.user_type andGid:block_good.gid andNums:self.numbs.text inTabBarController:self.tabBarController withDoneObject:^(id model){
-        NSNumber *stat = (NSNumber *)[model objectForKey:@"status"];
-        NSInteger status2 = [stat integerValue];
-        if (status2==806) {
-            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"密码错误" message:@"支付密码错误请重新输入" delegate:blockSelf cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-            alertView.tag=4;
-            alertView.alertViewStyle = UIAlertViewStyleSecureTextInput;
-            [alertView show];
-        }else{
-        //存储到Bmob后台
-        BmobObject *object = [BmobObject objectWithClassName:@"GroupOrder"];
-        [object setObject:block_user.loginname forKey:@"loginname"];
-        [object setObject:block_good.name forKey:@"name"];
-        [object setObject:block_good.gid forKey:@"gid"];
-        [object setObject:block_good.price forKey:@"price"];
-        [object setObject:number forKey:@"number"];
-        [object saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
-            //进行操作
-        }];
-        }
-    }];
-        
-}
-
--(void)countDownTimer{
-    if (countDownSeconds==0) {
-        self.addGroupButton.enabled = NO;
-        [timer invalidate];
-    }else{
-        countDownSeconds--;
-        self.time.text = [groupService toDetailTime:countDownSeconds];
-    }
-}
-
-- (IBAction)pay:(id)sender {
+    return 6;
     
-    if ([self.numbs.text isEqualToString:@"0"]){
-        [SVProgressHUD showErrorWithStatus:@"购买数量不能为空"];
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (section==5) {
+        return 2;
+    }
+    return 1;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSInteger row =indexPath.row;
+    if (indexPath.section==0) {
+        PointIndex0Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"PointIndex0Cell" forIndexPath:indexPath];
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        [cell.goodPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.groupGood.bigpicture]] placeholderImage:[UIImage imageNamed:@"e"]];
+        cell.goodName.text=self.groupGood.goods_name;
+        cell.title.text=@"团购价:";
+        cell.discount.text=[NSString stringWithFormat:@"￥%@/%@",self.groupGood.discount,self.groupGood.unit];
+        cell.price.text=[NSString stringWithFormat:@"原价:￥%@/%@",self.groupGood.price,self.groupGood.unit];
+        cell.nums.text=[NSString stringWithFormat:@"%@已参团",self.groupGood.actual_nums];
+        return cell;
+    }else if (indexPath.section==1){
+        PointIndex2Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"PointIndex2Cell" forIndexPath:indexPath];
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        cell.title.font=[UIFont fontWithName:@"TrebuchetMS-Bold" size:14];
+        cell.title.text=@"商品提供方";
+        cell.detail.hidden=YES;
+        return cell;
+        
+    }else if(indexPath.section==2){
+        RobIndex1_Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"RobIndex1_Cell" forIndexPath:indexPath];
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        cell.sellerName.text=self.groupGood.seller_name;
+        cell.sellerDetail.text =self.groupGood.seller_intro;
+        [cell.sellerPIc sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.groupGood.seller_picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+        return cell;
+    }else if(indexPath.section==3){
+        GroupDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GroupDetailCell" forIndexPath:indexPath];
+        cell.end_seconds=[self.groupGood.end_seconds integerValue];
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        return cell;
+    }else if(indexPath.section==4){
+        
+        PointIndex1Cell *cell =[tableView dequeueReusableCellWithIdentifier:@"PointIndex1Cell" forIndexPath:indexPath];
+        numberCell=cell;
+        return cell;
+    }else if(indexPath.section==5){
+        PointIndex2Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"PointIndex2Cell" forIndexPath:indexPath];
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        if (row==0) {
+            cell.title.text=@"领取方式:";
+            cell.detail.text=self.groupGood.receive_from;
+        }else{
+            cell.title.text=@"领取地址:";
+            cell.detail.text=self.groupGood.receive_address;
+        }
+        return cell;
     }else{
-        SharedData *sharedData = [SharedData sharedInstance];
-        float price =[self.groupGood.discount floatValue]*[self.numbs.text floatValue];
-        NSString *stringFloat = [NSString stringWithFormat:@"%0.2f",price];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认支付" message: [NSString stringWithFormat:@"请输入支付密码初始密码为手机后六位,您需要支付%@",stringFloat] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        return nil;
+    }
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section==2) {
+        UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+        ShowViewController *showVic=[storBoard instantiateViewControllerWithIdentifier:@"ShowViewController"];
+        showVic.seller_id=self.groupGood.seller_id;
+        [sellerService sellerInfoWithAgentid:[NSString stringWithFormat:@"%ld",(long)user.agent_id] andSeller_type:@"" andSellerid:self.groupGood.seller_id inRootTabBarController:self.tabBarController withDone:^(Public_Seller_info_model_info *model){
+            showVic.models=model.arr_seller[0];
+            [self.navigationController pushViewController:showVic animated:YES];
+        }];
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSInteger section =indexPath.section;
+    if (section==0) {
+        return 285;
+    }else if (section==1){
+        return 35;
+    }else if(section==2){
+        return 82;
+    }else if(section==3){
+        return 38;
+    }else if(section==4){
+        return 38;
+    }else{
+        return 35;
+    }
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section==1||section==3) {
+        return 8;
+    }else{
+        return 0;
+    }
+}
+
+
+- (IBAction)buyNow:(id)sender {
+    if ([numberCell.nums.text isEqualToString:@"0"]) {
+        [SVProgressHUD showErrorWithStatus:@"购买数量不能为0"];
+    }else{
+        NSInteger totalPoint = [numberCell.nums.text integerValue]* [self.groupGood.discount integerValue];
+        NSString *message = [NSString stringWithFormat:@"您即将支付%ld元购买%@,支付密码为手机号码后六位",(long)totalPoint,self.title];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认支付" message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
         alertView.alertViewStyle = UIAlertViewStyleSecureTextInput;
         if ([sharedData.fingerIsOpened isEqualToString:@"yes"]) {
             [SharedAction fingerPayWithDone:^(BOOL success,id object){
                 if (success) {
-                    [self addToGroupWithPassword:sharedData.payPassword];
+                    [self payWithPassword:sharedData.payPassword];
                 }else{
                     [alertView show];
                 }
@@ -200,15 +202,19 @@
         }else{
             [alertView show];
         }
-       
     }
-}
-- (IBAction)reduce:(id)sender {
-    self.numbs.text = [SharedAction reduceNumber:self.numbs];
-}
 
-- (IBAction)add:(id)sender {
-    self.numbs.text = [SharedAction addNumber:self.numbs];
-
+}
+-(void)payWithPassword:(NSString *)password
+{
+    NSString *passwd = [MyMD5 md5:password];
+    NSString *lifeHall_id=[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
+    [checkService sellerOrderWithGoodsType:@"3" andGoodsId:self.groupGood.goods_id andGoodsNums:numberCell.nums.text andLifehall_id:lifeHall_id andPay_mode:@"" andPaypassword:passwd andReceive_type:@"" andMessage:@"" andAddress:@"" andMobole:@"" andSend_time:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
+        if ([model[@"status"] isEqualToNumber: @2]) {
+            UIAlertView *aletview=[[UIAlertView alloc]initWithTitle:@"兑换成功" message:@"购买成功请及时到生活馆领取" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            aletview.tag=3;
+            [aletview show];
+        }
+    }];
 }
 @end

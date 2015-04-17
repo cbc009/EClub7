@@ -104,6 +104,7 @@
 
 #pragma UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+//    self.tableviewHeight.constant=34*self.items.count+1;
     return self.items.count+1;
 }
 

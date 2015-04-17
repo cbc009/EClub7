@@ -39,6 +39,7 @@
     UINib *nib = [UINib nibWithNibName:@"RobedRecordCell" bundle:nil];
     [self.tableview registerNib:nib forCellReuseIdentifier:identifer];
     [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
+    [self.tableview headerBeginRefreshing];
     
 }
 

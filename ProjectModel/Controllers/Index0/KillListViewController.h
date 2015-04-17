@@ -10,5 +10,5 @@
 
 @interface KillListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
-@property(nonatomic,strong)NSArray *datas;
+@property(nonatomic,strong)NSMutableArray *datas;
 @end

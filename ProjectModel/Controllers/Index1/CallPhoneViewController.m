@@ -49,6 +49,7 @@
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden=NO;
     [SharedAction setupRefreshWithTableView:self.tableView toTarget:self];
+     [self.tableView headerBeginRefreshing];
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
     NSString *urlString = [NSString stringWithFormat:AdPictUrl,user.agent_id,4];

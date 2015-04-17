@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //适配ios7
+    self.title=self.sellername;
     if( ([[[UIDevice currentDevice] systemVersion] doubleValue]>=7.0))
     {
         //        self.edgesForExtendedLayout=UIRectEdgeNone;

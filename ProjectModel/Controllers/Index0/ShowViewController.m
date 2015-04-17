@@ -61,6 +61,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title=self.models.seller_name;
     page=1;
     NSString *pageString=[NSString stringWithFormat:@"%ld",(long)page];
     SharedData *sharedData =[SharedData sharedInstance];
@@ -71,7 +72,8 @@
     startArray= @[[NSString stringWithFormat:@"%ld",(long)(self.models.total_praises)],[NSString stringWithFormat:@"%ld",(long)(self.models.attitude_praises)],[NSString stringWithFormat:@"%ld",(long)(self.models.neat_praises)],[NSString stringWithFormat:@"%ld",(long)(self.models.descrip_praises)]];//也是点那个下拉按钮弹出来的打的分数
     titleArray=@[@"总体:",@"服务态度:",@"店内环境:",@"描述相符:"];//点那个向下按钮的时候弹出来的
     //那个Cell里面获取商家商品的
-    [sellerService sellerSellerGood_typesWith:@"1" andSeller_id:self.models.seller_id andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:@"1" inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
+  
+    [sellerService sellerSellerGood_typesWith:@"1" andAgentId:@"" andSeller_id:self.models.seller_id andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:@"1" inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
         shoopCell.datas=model.arr_goods;
         [shoopCell.collection reloadData];
     }];
@@ -118,6 +120,7 @@
     NSInteger section=indexPath.section;
     NSInteger row =indexPath.row;
     CGFloat topicHeight;
+    CGFloat topicHeight1;
     Seller_Seller_Comment_arr_comment_info *model;
     topicHeight=0;
     switch (section) {
@@ -132,13 +135,12 @@
             break;
         case 3:
             if (row==0) {
-                return 39;
-            }else{//计算那个简介下面那行的高度 可能试条很长的文字
-                CGFloat topicHeight1;
-                topicHeight1=[NSString heightWithString:self.models.intro font:[UIFont systemFontOfSize:15.0] maxSize:CGSizeMake(DeviceFrame.size.width, 300)]+10;
-                NSLog(@"%f",topicHeight1);
-                return topicHeight1;
-            }
+                topicHeight1 =39;
+            }else{
+                //计算那个简介下面那行的高度 可能试条很长的文字
+                topicHeight1=[NSString heightWithString:self.models.intro font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-16, 300)]+18;
+                }
+            return topicHeight1;
             break;
         case 5://下面评论 一行的高度//这里计算外面的
              model =self.datas[row];
@@ -193,12 +195,14 @@
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         if (row==0) {
             cell.phonePic.image=[UIImage imageNamed:@"phone"];
+            cell.phone.textColor=[UIColor blueColor];
             cell.phone.text=self.models.phone;
         }else if(row==1){
             cell.phonePic.image=[UIImage imageNamed:@"time"];
             cell.phone.text=self.models.work_time;
         }else{
             cell.phonePic.image=[UIImage imageNamed:@"place"];
+            cell.phone.textColor=[UIColor blueColor];
             cell.phone.text=self.models.address;
             cell.phone.font=[UIFont systemFontOfSize:12];
         }
@@ -210,7 +214,7 @@
             cell.title.text=@"简介";
         }else{
             cell.title.text=self.models.intro;
-            cell.topicHeight.constant=[NSString heightWithString:self.models.intro font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width, 300)];
+//            topicHeight1=[NSString heightWithString:self.models.intro font:[UIFont systemFontOfSize:13] maxSize:CGSizeMake(DeviceFrame.size.width-16, 300)];
         }
         return cell;
     }else if(section==4){
@@ -230,7 +234,7 @@
             [cell.ratBarView addSubview:bars];
         
             cell.delegate=self;
-            [cell.heardPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.models.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+            [cell.heardPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
             cell.topicHeight.constant=[NSString heightWithString:model.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-64, 300)];
             cell.nickName.text=model.regname;
             cell.content.text=model.content;
@@ -306,7 +310,6 @@
     [self.tablewView scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionTop animated:YES];
     model = self.datas[indexpath.row];
     regNames=model.regname;
-    NSLog(@"indexpath:%ld",(long)indexpath.row);
     selectCell=cell;
     //再次弹出键盘来之前先移除之前的键盘防止对象不消失一直存在
     if (self.mytextView!=nil) {
@@ -403,7 +406,6 @@
 -(void)sendAction:(UIButton *)sender{
     NSString *types;//这个地方的type就是文档中得那个type
     NSString *Praise_nums;
-    NSLog(@"%@",self.mytextView.text);
     NSIndexPath *indexpath = [self.tablewView indexPathForCell:selectCell];
     Seller_Seller_Comment_arr_comment_info *object = self.datas[indexpath.row];
     [self handleAfterKeyboardHidden];
@@ -439,8 +441,10 @@
     if (keyBoardDown==1) {
         keyBoardDown=0;
         [self.view removeGestureRecognizer:tap1];//这里要移除tap1 不然会点不了
-         ratingBarView.frame= CGRectMake(125, 95, 170,0);
-        [ratingBarView removeFromSuperview];
+        [UIView animateWithDuration:1 animations:^{
+            ratingBarView.frame= CGRectMake(125, 95, 170,0);
+        }];
+//        [ratingBarView removeFromSuperview];
     }else{
         keyBoardDown=1;
         [self.view addGestureRecognizer:tap1];
@@ -454,6 +458,7 @@
 -(void)setRatingBarView{
     tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ratingBarViewHidden)];
     ratingBarView =[[UIView alloc] initWithFrame:CGRectMake(125, 95, 170, 0)];
+    ratingBarView.clipsToBounds=YES;
     ratingBarView.backgroundColor=[UIColor whiteColor];
     ratingBarView.alpha=1;
 //    ratingBarView.layer.backgroundColor=(__bridge CGColorRef)([UIColor grayColor]);
@@ -481,9 +486,11 @@
 //隐藏星星
 -(void)ratingBarViewHidden{
     keyBoardDown=0;
-      ratingBarView.frame= CGRectMake(125, 95, 170,0);
     [self.view removeGestureRecognizer:tap1];//这里要移除tap1 不然会点不了
-    [ratingBarView removeFromSuperview];
+    [UIView animateWithDuration:1 animations:^{
+        ratingBarView.frame= CGRectMake(125, 95, 170,0);
+    }];
+//    [ratingBarView removeFromSuperview];
 }
 //键盘出来
 -(void)handleAfterKeyboardShown{
@@ -513,7 +520,6 @@
     Seller_Seller_Comment_arr_comment_info *model = self.datas[indexpath.row];
     [self.tablewView scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionTop animated:YES];
     model = self.datas[indexpath.row];
-    NSLog(@"indexpath:%ld",(long)indexpath.row);
     selectCell=cell;
 }
 -(void)callWithPhoneNumber:(NSString *)phoneNumber {

@@ -15,14 +15,14 @@
 #import "PointGoodsModel.h"
 #import "SVProgressHUD.h"
 @implementation PointVIewControllerService
--(void)presentPointGoodViewControllerWithDatas:(NSDictionary *)dic OnPointViewController:(PointViewController *)viewController
-{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
-    PointGoodViewController *pointGoodVIewController = [storyboard instantiateViewControllerWithIdentifier:@"PointGoodViewController"];
-    pointGoodVIewController.hidesBottomBarWhenPushed = YES;
-    pointGoodVIewController.dict = dic;
-    [viewController.navigationController pushViewController:pointGoodVIewController animated:YES];
-}
+//-(void)presentPointGoodViewControllerWithDatas:(NSDictionary *)dic OnPointViewController:(PointViewController *)viewController
+//{
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+//    PointGoodViewController *pointGoodVIewController = [storyboard instantiateViewControllerWithIdentifier:@"PointGoodViewController"];
+//    pointGoodVIewController.hidesBottomBarWhenPushed = YES;
+//    pointGoodVIewController.dict = dic;
+//    [viewController.navigationController pushViewController:pointGoodVIewController animated:YES];
+//}
 -(void)loadDataWithToken:(NSString *)token andUser_type:(NSInteger )user_type AndPage:(NSString *)page intabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done
 {
     NSString *urlString = [NSString stringWithFormat:PointGoodslist,token,user_type,page];

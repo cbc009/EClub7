@@ -7,6 +7,11 @@
 //
 
 #import "RobDetailViewController.h"
+#import "Public_Seller_info_model.h"
+#import "CheckService.h"
+#import "SellerService.h"
+#import "SellerService.h"
+#import "ShowViewController.h"
 #import "RobIndex1_Cell.h"
 #import "Index0_Cell.h"
 #import "WebCell.h"
@@ -16,6 +21,7 @@
 #import <UIImageView+WebCache.h>
 #import "SellerDetailViewController.h"
 #import "WebViewController.h"
+#import "GoodsCountDownModel.h"
 #import "RobService.h"
 #import "Status.h"
 #import <BmobSDK/Bmob.h>
@@ -23,6 +29,10 @@
 {
     RobService *robService;
     NSString *sharurl;
+    NSInteger countDownSeconds;
+    CheckService *checkService;
+    SellerService *sellerService;
+    RobTitleCell *countDownCell;
 }
 @end
 
@@ -34,12 +44,20 @@
     [super viewDidLoad];
     self.title=@"抢购详情";
     robService =[RobService new];
+    checkService =[CheckService new];
+    sellerService =[SellerService new];
     SharedData *sharedData =[SharedData sharedInstance];
     user=sharedData.user;
     sharurl = [NSString stringWithFormat:Robuy_Share_URL,self.robGoodsMOdel.goods_id];
     self.tableView.autoresizesSubviews=NO;
     self.tableView.showsVerticalScrollIndicator =NO;
     self.tableView.tableFooterView =[UIView new];
+    [sellerService sellerCountDownWithGoodsType:@"3" andGoodId:self.robGoodsMOdel.goods_id inTabBarController:self.tabBarController withDone:^(GoodsCount_Info *model){
+        countDownCell.starttime=[self.robGoodsMOdel.start_seconds integerValue];
+        countDownSeconds=[self.robGoodsMOdel.start_seconds integerValue];
+        countDownCell.endtime=[self.robGoodsMOdel.end_seconds integerValue];
+        [self.tableView reloadData];
+    }];
 
 //     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.robNowButton.layer.cornerRadius=5;
@@ -83,7 +101,7 @@
     if (section==0) {
         RobTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RobTitleCell" forIndexPath:indexPath];
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
-        cell.goodName.text=self.robGoodsMOdel.name;
+        cell.goodName.text=self.robGoodsMOdel.goods_name;
         cell.saleNum.text=[NSString stringWithFormat:@"已抢%@",self.robGoodsMOdel.actual_nums];
         if ([self.robGoodsMOdel.discount isEqualToString:@"0.00"]) {
             cell.price.text=[NSString stringWithFormat:@"%@E币",self.robGoodsMOdel.point];
@@ -91,8 +109,7 @@
             cell.price.text=[NSString stringWithFormat:@"￥:%@",self.robGoodsMOdel.discount];
         }
         cell.goodNum.text =[NSString stringWithFormat:@"抢购数量:%@",self.robGoodsMOdel.provider_nums];
-        cell.starttime=self.robGoodsMOdel.start_seconds;
-        cell.endtime=self.robGoodsMOdel.end_seconds;
+        countDownCell=cell;
         cell.marketPrice.text=[NSString stringWithFormat:@"￥:%@",self.robGoodsMOdel.price];
         [cell.goodPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.robGoodsMOdel.bigpicture]] placeholderImage:[UIImage imageNamed:@"e"]];
         [cell.goodNum.layer setBorderWidth:1];   //边框宽度
@@ -130,7 +147,7 @@
         }else{
         cell.title.font=[UIFont systemFontOfSize:12];
         cell.title.textColor=[UIColor grayColor];
-        cell.title.text=self.robGoodsMOdel.robuy_time;
+        cell.title.text=self.robGoodsMOdel.start_time;
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         }
         return cell;
@@ -200,54 +217,57 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section==7) {
-        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
-        RobedRecordsViewController *robRecodVic = [storyBoard instantiateViewControllerWithIdentifier:@"RobedRecordsViewController"];
-        robRecodVic.gid = self.robGoodsMOdel.goods_id;
-        [self.navigationController pushViewController:robRecodVic animated:YES];
+    if (indexPath.section==3) {
+        UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+        ShowViewController *showVic=[storBoard instantiateViewControllerWithIdentifier:@"ShowViewController"];
+        showVic.seller_id=self.robGoodsMOdel.seller_id;
+        [sellerService sellerInfoWithAgentid:[NSString stringWithFormat:@"%ld",(long)user.agent_id] andSeller_type:@"" andSellerid:self.robGoodsMOdel.seller_id inRootTabBarController:self.tabBarController withDone:^(Public_Seller_info_model_info *model){
+            showVic.models=model.arr_seller[0];
+            [self.navigationController pushViewController:showVic animated:YES];
+        }];
     }else if (indexPath.section==1) {
         WebViewController *target = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
         target.urlString = [NSString stringWithFormat:Robuy_Goods_Detail_URL,self.robGoodsMOdel.goods_id];
         target.title = @"图文简介";
         target.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:target animated:YES];    }
+        [self.navigationController pushViewController:target animated:YES];
+    }
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (IBAction)robNow:(id)sender {
+    
     NSString *lifehall_id =[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
-    [robService robWithToken:user.token andLifehallId:lifehall_id andUser_type:user.user_type andRobModel:self.robGoodsMOdel inTabBarController:self.tabBarController withDone:^(Status *model){
-        NSString *message =[NSString stringWithFormat:@"恭喜你在E小区免费抢到%@赶快去告诉朋友吧",self.robGoodsMOdel.name];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"抢菜信息" message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去告诉朋友", nil];
-        [alertView show];
-        //存储到Bmob后台
-            BmobObject *object = [BmobObject objectWithClassName:@"RobOrder"];
-            [object setObject:user.loginname forKey:@"loginname"];
-            [object setObject:self.robGoodsMOdel.name forKey:@"goodName"];
-            [object setObject:self.robGoodsMOdel.goods_id forKey:@"goodId"];
-            [object saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
-            //进行操作
+        [checkService sellerOrderWithGoodsType:@"4" andGoodsId:self.robGoodsMOdel.goods_id andGoodsNums:@"1" andLifehall_id:lifehall_id andPay_mode:@"" andPaypassword:@"" andReceive_type:@"" andMessage:@"" andAddress:@"" andMobole:@"" andSend_time:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
+            if ([model[@"status"] isEqualToNumber: @2]) {
+                NSString *message =[NSString stringWithFormat:@"恭喜你在E小区免费抢到%@赶快去告诉朋友吧",self.robGoodsMOdel.goods_name];
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"抢菜信息" message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去告诉朋友", nil];
+                alertView.tag=1;
+                [alertView show];
+                self.robNowButton.backgroundColor = [UIColor grayColor];
+                //存储到Bmob后台
+                    BmobObject *object = [BmobObject objectWithClassName:@"RobOrder"];
+                    [object setObject:user.loginname forKey:@"loginname"];
+                    [object setObject:self.robGoodsMOdel.goods_name forKey:@"goodName"];
+                    [object setObject:self.robGoodsMOdel.goods_id forKey:@"goodId"];
+                    [object saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+                    //进行操作
+                }];
+            }
         }];
-    }];
+
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"sellerPush"]) {
-        SellerDetailViewController *viewController = segue.destinationViewController;
-        viewController.agent_id=[NSString stringWithFormat:@"%ld",(long)user.agent_id];
-        viewController.seller_id=self.robGoodsMOdel.seller_id;
-    }else if([segue.identifier isEqualToString:@"sellerPush"]){
-}
-}
+
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if(buttonIndex==1) {
-        [SharedAction shareWithTitle:self.robGoodsMOdel.name andDesinationUrl:sharurl Text:self.robGoodsMOdel.name andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.robGoodsMOdel.bigpicture] InViewController:self];
+        [SharedAction shareWithTitle:self.robGoodsMOdel.goods_name andDesinationUrl:sharurl Text:self.robGoodsMOdel.goods_name andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.robGoodsMOdel.bigpicture] InViewController:self];
     }
 }
 - (IBAction)share:(id)sender {
    
-   [SharedAction shareWithTitle:self.robGoodsMOdel.name andDesinationUrl:sharurl Text:self.robGoodsMOdel.name andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.robGoodsMOdel.bigpicture] InViewController:self];
+   [SharedAction shareWithTitle:self.robGoodsMOdel.goods_name andDesinationUrl:sharurl Text:self.robGoodsMOdel.goods_name andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.robGoodsMOdel.bigpicture] InViewController:self];
 }
 @end

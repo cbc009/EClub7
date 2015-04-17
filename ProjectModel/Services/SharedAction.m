@@ -301,7 +301,7 @@
         notifyTime = [date dateByAddingTimeInterval:secondsPerDay];
     }
     NSLog(@"设置本地推送时间:%@",[dateFormatter stringFromDate:notifyTime]);
-    return date;
+    return notifyTime;
 }
 //对比当前时间是不是在所需设置的时间之前
 +(BOOL)notifyTime2:(NSString *)time{
@@ -446,7 +446,7 @@
 {
     // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
     [tableview addHeaderWithTarget:target action:@selector(headerRereshing)];
-    [tableview headerBeginRefreshing];
+//    [tableview headerBeginRefreshing];
     // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
     [tableview addFooterWithTarget:target action:@selector(footerRereshing)];
     // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)

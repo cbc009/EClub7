@@ -21,6 +21,10 @@
 @property(nonatomic,strong)NSString *receive_url;
 @property(nonatomic,strong)NSString *point;
 @property(nonatomic,strong)NSString *goods_id;
+@property(nonatomic,strong)NSString *actual_nums;
+@property(nonatomic,strong)NSString *oprt_time;
+@property(nonatomic,strong)NSString *seller_id;
+@property(nonatomic,strong)NSString *receive_time;
 @property(nonatomic,strong)NSString *regtime;
 @property(nonatomic,strong)NSString *status_name;
 @property(nonatomic,strong)NSString *goods_type;
@@ -28,6 +32,10 @@
 @property(nonatomic,strong)NSString *status;
 @property(nonatomic,strong)NSString *seller_picture;
 @property(nonatomic,strong)NSString *seller_intro;
+@property(nonatomic,assign)CGFloat amount_total;
+@property(nonatomic,assign)CGFloat amount;
+@property(nonatomic,assign)CGFloat amount_red;
+@property(nonatomic,assign)CGFloat amount_point;
 @end
 
 @interface Seller_Order_model_info : JSONModel 

@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Robuy_Goods.h"
+#import "Seller_Seller_Goods.h"
 @interface RobDetailViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 - (IBAction)robNow:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *robNowButton;
-@property(nonatomic,strong)Robuy_Goods_arr_goods_info *robGoodsMOdel;
+@property(nonatomic,strong)Seller_Seller_Goods_arr_goods_info *robGoodsMOdel;
 @end
