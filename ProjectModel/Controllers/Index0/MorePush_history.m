@@ -73,8 +73,8 @@
 {
     page=1;
     NSString *pageString = [NSString stringWithFormat:@"%d",page];
-    [morePush_historyService loadPush_historyWithToken:user.token andUser_type:user.user_type andPage:pageString inTabBarcontroller:self.tabBarController withdon:^(PushInfo *model){
-        self.datas =(NSMutableArray *)model.push;
+    [morePush_historyService loadPush_historyWithAgentID:user.agent_id andPage:pageString inTabBarcontroller:self.tabBarController withdon:^(PushInfo *model){
+        self.datas =(NSMutableArray *)model.arr_info;
         [self.tableView reloadData];
         [self.tableView headerEndRefreshing];
     }];
@@ -84,8 +84,8 @@
 {
     page++;
     NSString *pageString = [NSString stringWithFormat:@"%d",page];
-    [morePush_historyService loadPush_historyWithToken:user.token andUser_type:user.user_type andPage:pageString inTabBarcontroller:self.tabBarController withdon:^(PushInfo *model){
-        [self.datas addObjectsFromArray:model.push ];
+    [morePush_historyService loadPush_historyWithAgentID:user.agent_id andPage:pageString inTabBarcontroller:self.tabBarController withdon:^(PushInfo *model){
+        [self.datas addObjectsFromArray:model.arr_info ];
         [self.tableView reloadData];
         [self.tableView footerEndRefreshing];
     }];

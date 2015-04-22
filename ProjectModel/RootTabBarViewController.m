@@ -8,6 +8,7 @@
 
 #import "RootTabBarViewController.h"
 #import "LoginViewController.h"
+
 #import "BuyService.h"
 #import "Index0Service.h"
 @interface RootTabBarViewController ()<UIAlertViewDelegate,LoginViewControllerDelegate>
@@ -28,10 +29,18 @@
     UINavigationController *index2Nav = [storyboard2 instantiateViewControllerWithIdentifier:@"Index2NavViewController"];
     UIStoryboard *storyboard3 = [UIStoryboard storyboardWithName:@"Index3" bundle:nil];
     UINavigationController *index3Nav = [storyboard3 instantiateViewControllerWithIdentifier:@"Index3Nav"];
+ 
+    UIStoryboard *storyboard4 = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+    UINavigationController *index0Nav4 = [storyboard4 instantiateViewControllerWithIdentifier:@"Index4NavViewController"];
+    
     [self addChildViewController:index0Nav];
     [self addChildViewController:index1Nav];
-    [self addChildViewController:index2Nav];
+    [self addChildViewController:index0Nav4];
     [self addChildViewController:index3Nav];
+    [self addChildViewController:index2Nav];
+    
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -107,7 +116,7 @@
         SharedData *sharedData = [SharedData sharedInstance];
         BuyService *buyService = [[BuyService alloc] init];
         Index0Service *index0Service = [Index0Service new];
-        [buyService loadGoodTypesWithToken:sharedData.user.token andUser_type:sharedData.user.user_type InViewController:index0ViewController];
+//        [buyService loadGoodTypesWithToken:sharedData.user.token andUser_type:sharedData.user.user_type InViewController:index0ViewController];
         [index0Service loadAdverPicWithPos:1 andAgentID:sharedData.user.agent_id inViewController:index0ViewController];
     }];
     

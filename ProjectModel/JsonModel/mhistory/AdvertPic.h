@@ -8,8 +8,8 @@
 
 #import "JSONModel.h"
 
-@protocol Picture_Arr_advert <NSObject>
-@end
+//@protocol Picture_Arr_advert <NSObject>
+//@end
 @protocol Arr_Advert_info <NSObject>
 @end
 @interface Arr_Advert_info :JSONModel
@@ -25,7 +25,7 @@
 
 
 @interface AdvertPicInfo : JSONModel
-@property(nonatomic,strong)NSArray<Picture_Arr_advert,Optional> *arr_advert;
+@property(nonatomic,strong)Picture_Arr_advert *arr_advert;
 @end
 
 @interface AdvertPic : JSONModel

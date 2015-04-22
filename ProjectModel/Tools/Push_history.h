@@ -14,14 +14,15 @@
 
 
 @interface push : JSONModel
-@property (nonatomic ,copy)NSString *id;
+@property (nonatomic ,copy)NSString *notice_id;
 @property (nonatomic ,copy)NSString *content;
 @property (nonatomic ,copy)NSString *regtime;
+@property (nonatomic ,copy)NSString *title;
 @end
 
 
 @interface PushInfo : JSONModel
-@property(nonatomic,strong)NSMutableArray<push,Optional> *push;
+@property(nonatomic,strong)NSMutableArray<push,Optional> *arr_info;
 @end
 
 @interface Push_history : JSONModel

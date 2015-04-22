@@ -43,7 +43,7 @@
     if (!ret) {
         NSLog(@"manager start failed!");
     }
-    
+//   [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     return YES;
 }
 

@@ -39,7 +39,6 @@
 #define DEFAULT_VOID_COLOR [UIColor whiteColor]
 #define DEGREES_TO_RADIANS(angle) ((angle)/180.0 *M_PI)
 
-
 #import "SharedAction.h"
 #import "SharedData.h"
 #import "Member_Login.h"
@@ -135,6 +134,18 @@ typedef void (^finished)(NSDictionary *info);
 //商户订单
 #define Seller_Countdown_URL [PrexURL stringByAppendingString: @"Seller/countdown/from/IOS/goods_type/%@/goods_id/%@"]
 
+//获取首页信息
+#define Login_Index_URL [PrexURL stringByAppendingString: @"Login/index/agent_id/%d/lifehall_id/%d"]
+//今日上新产品
+#define Login_Latest_URL [PrexURL stringByAppendingString: @"Login/latest/agent_id/%d"]
+//今日上新中单个商品的信息
+#define Goods_Goods_Info_URL [PrexURL stringByAppendingString: @"Goods/goods_info/gid/%@"]
+//切换代理商
+#define Public_Agent_Info_URL [PrexURL stringByAppendingString: @"Public/agent_info/province/%@"]
+//切换省份
+#define Public_Province_Info_URL [PrexURL stringByAppendingString: @"Public/province_info/type/%@"]
+
+
 
 //每次一抢的菜
 #define Rob_Index_URL [PrexURL stringByAppendingString: @"Rob/index/from/IOS/token/%@/user_type/%d"]
@@ -227,7 +238,7 @@ typedef void (^finished)(NSDictionary *info);
 
 
 //push消息
-#define Push_History [MainPrexURL stringByAppendingString: @"Push/push_history_rec/from/IOS/token/%@/user_type/%d/page/%@"]
+#define Push_History [MainPrexURL stringByAppendingString: @"Public/push_info/agent_id/%d/page/%@"]
 //积分商品列表
 #define PointGoodslist [MainPrexURL stringByAppendingString: @"Exchange/goodslist/from/IOS/token/%@/user_type/%d/page/%@"]
 //积分商品详情页
@@ -291,3 +302,10 @@ typedef void (^finished)(NSDictionary *info);
 #define Lifecircle_Myinfo_info_URL [PrexURL stringByAppendingString: @"Lifecircle/myinfo/from/IOS/mid/%d/token/%@/user_type/%d/page/%@"]
 //个人发布的单条信息
 #define Lifecircle_Life_Info_URL [PrexURL stringByAppendingString: @"Lifecircle/life_info/from/IOS/xid/%@/token/%@/user_type/%d"]
+
+
+
+
+
+
+

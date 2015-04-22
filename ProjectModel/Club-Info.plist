@@ -83,7 +83,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.68</string>
+	<string>2.00</string>
 	<key>LSApplicationCategoryType</key>
 	<array>
 		<dict>
@@ -103,5 +103,7 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>

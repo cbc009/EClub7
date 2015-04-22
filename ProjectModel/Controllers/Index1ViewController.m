@@ -78,6 +78,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title=@"E小区";
     // Do any additional setup after loading the view, typically from a nib.
     SharedData *sharedData = [SharedData sharedInstance];
     user= sharedData.user;

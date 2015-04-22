@@ -8,7 +8,10 @@
 
 #import "Index0Service.h"
 #import "SVProgressHUD.h"
+
+#import "Index0Models.h"
 #import "LoginViewController.h"
+#import "Index0Models.h"
 #import "SharedData.h"
 #import "Member_Login.h"
 #import "JSONModelLib.h"
@@ -22,7 +25,7 @@
 #import "BuyService.h"
 @implementation Index0Service
 
--(void)loadUserDefaultsInViewController:(UIViewController *)viewController witLoginStatus:(NSString *)loginStatus{
+-(void)loadUserDefaultsInViewController:(Index0_3ViewController *)viewController witLoginStatus:(NSString *)loginStatus{
     if ([viewController.tabBarController.presentedViewController isKindOfClass:[UINavigationController class]]) {
         UINavigationController *nav = (UINavigationController *)viewController.tabBarController.presentedViewController;
         if ([nav.viewControllers.firstObject isKindOfClass:[LoginViewController class]]) {
@@ -43,11 +46,10 @@
         [Member_Login getModelFromURLWithString:urlString completion:^(Member_Login *model,JSONModelError *error){
             if (model.status==2) {
                 sharedData.user=model.info;
-                BuyService *buyService = [[BuyService alloc] init];
-                [buyService loadGoodTypesWithToken:model.info.token andUser_type:model.info.user_type InViewController:viewController];
+                viewController.cityLabel.text=sharedData.user.agent_name;
                 [SharedAction setUMessageTagsWithUser:model.info];
                 [self loadAdverPicWithPos:1 andAgentID:sharedData.user.agent_id inViewController:viewController];
-                
+                [self loginIndexWithAgentId:sharedData.user.agent_id andLifeHallId:sharedData.user.lifehall_id inViewCOntroller:viewController];
             }else{
                 [SVProgressHUD showErrorWithStatus:model.error];
                 [SharedAction presentLoginViewControllerInViewController:viewController];
@@ -58,6 +60,20 @@
     }
 }
 
+-(void)loginIndexWithAgentId:(NSInteger)agent_id andLifeHallId:(NSInteger)lifeHall_id inViewCOntroller:(Index0_3ViewController*)viewController{
+    NSString *urlString =[NSString stringWithFormat:Login_Index_URL,agent_id,lifeHall_id];
+    
+    [Index0Models getModelFromURLWithString:urlString completion:^(Index0Models *model,JSONModelError *error){
+        if (model.status==2) {
+            viewController.objects=model.info;
+            [viewController.tableview reloadData];
+        }else{
+            [SVProgressHUD showErrorWithStatus:model.error];
+        }
+    }];
+
+}
+
 //-(void)loadGoodTypeWithToken:(NSString *)token andUser_type:(NSInteger )user_type
 
 /*
@@ -66,10 +82,9 @@
 -(void)loadAdverPicWithPos:(NSInteger)pos andAgentID:(NSInteger)agent_id inViewController:(Index0_3ViewController *)viewController{
     NSString *urlString = [NSString stringWithFormat:AdPictUrl,agent_id,pos];
     [AdvertPic getModelFromURLWithString:urlString completion:^(AdvertPic *model,JSONModelError *err){
-        NSLog(@"%@",urlString);
         if (model.status==2) {
             AdvertPicInfo *Info =model.info;
-            Picture_Arr_advert *pictures =Info.arr_advert[0];
+            Picture_Arr_advert *pictures =Info.arr_advert;
             NSArray *pictures1 = pictures.arr_info;
             viewController.pageviewDatas = pictures1;
             [viewController.tableview reloadData];

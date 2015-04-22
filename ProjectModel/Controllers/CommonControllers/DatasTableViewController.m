@@ -79,7 +79,6 @@
         default:
             break;
     }
-    
 }
 
 -(NSArray *)propertiesByDatas:(NSArray *)datas withKey:(NSString *)key{

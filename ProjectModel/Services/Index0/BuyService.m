@@ -20,6 +20,8 @@
 #import "MartinLiPageScrollView.h"
 #import "SharedAction.h"
 #import "Index0Service.h"
+#import "Login_latest_model.h"
+#import "TypeGoods.h"
 #define MainGrayColor [UIColor colorWithRed:215.0/255 green:215.0/255 blue:215.0/255 alpha:1]
 @implementation BuyService
 
@@ -39,14 +41,13 @@
 /*
     加载商品类别
  */
--(void)loadGoodTypesWithToken:(NSString *)token andUser_type:(NSInteger )user_type InViewController:(Index0_3ViewController *)viewController{
+-(void)loadGoodTypesWithToken:(NSString *)token andUser_type:(NSInteger )user_type InViewController:(GoodTypeViewController *)viewController{
     [SVProgressHUD show];
     NSString *urlString = [NSString stringWithFormat:GoodsTypeURL,token,user_type];
     [Goods_type getModelFromURLWithString:urlString completion:^(Goods_type *model,JSONModelError *error){
-        NSLog(@"%@",urlString);
         if (model.status==2) {
             viewController.goodTypes = model.info.goods_type;
-            [viewController.tableview reloadData];
+            [viewController.tableView reloadData];
             [SVProgressHUD dismiss];
         }else{
             [SharedAction  showErrorWithStatus:model.status andError:model.error witViewController:viewController];
@@ -64,4 +65,20 @@
         [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
     }];
 }
+
+-(void)loginLatestwithAgentId:(NSInteger)agentId inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
+    NSString *urlString =[NSString stringWithFormat:Login_Latest_URL,agentId];
+    [Login_latest_model getModelFromURLWithString:urlString completion:^(Login_latest_model *model,JSONModelError *error){
+
+     [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
+    }];
+}
+
+-(void)goods_Goods_InfoWithGoodId:(NSString *)goods_id nTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
+    NSString *urlString =[NSString stringWithFormat:Goods_Goods_Info_URL,goods_id];
+    [TypeGoods getModelFromURLWithString:urlString completion:^(TypeGoods *model,JSONModelError *error){
+        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
+    }];
+}
+
 @end
