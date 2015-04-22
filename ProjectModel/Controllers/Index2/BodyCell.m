@@ -24,6 +24,7 @@
    
     self.herad.userInteractionEnabled =YES;
     UITapGestureRecognizer *chageBack = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goSomeDetail)];
+    
     [self.herad addGestureRecognizer:chageBack];
 
 //    self.automaticallyAdjustsScrollViewInsets = YES;

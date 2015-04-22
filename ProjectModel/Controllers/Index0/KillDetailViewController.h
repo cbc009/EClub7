@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Seller_Seller_Goods.h"
 #import "Kills.h"
 #import "Kill_CountDown.h"
 @interface KillDetailViewController : UIViewController<UIAlertViewDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tableview;
-@property (weak, nonatomic) IBOutlet UIButton *buyButton;
+
 @property (nonatomic,strong)NSArray *datas;
-@property(nonatomic,strong)KillGood *good;
-- (IBAction)segAction:(UISegmentedControl *)sender;
+@property(nonatomic,strong)Seller_Seller_Goods_arr_goods_info *good;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+- (IBAction)buyNow:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *killeNOw;
+- (IBAction)share:(id)sender;
 @end

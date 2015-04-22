@@ -37,6 +37,13 @@
     [[UITabBar appearance] setTintColor:MainTabBarColor];
     [[UINavigationBar appearance] setTintColor:MainNavBarColor];
     
+    _mapManager = [[BMKMapManager alloc]init];
+    // 如果要关注网络及授权验证事件，请设定     generalDelegate参数
+    BOOL ret = [_mapManager start:BaiDuMapAPK  generalDelegate:nil];
+    if (!ret) {
+        NSLog(@"manager start failed!");
+    }
+//   [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     return YES;
 }
 
@@ -111,7 +118,8 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    NSLog(@"url=%@   sourceApplication=%@",url,sourceApplication);
+    
+    NSLog(@"url=%@   sourceApplication=%@   url.host=%@",url,sourceApplication,url.host);
     //如果极简SDK不可用，会跳转支付宝钱包进行支付，需要将支付宝钱包的支付结果回传给SDK
     if ([url.host isEqualToString:@"safepay"]) {
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {

@@ -8,6 +8,7 @@
 
 #import "GroupsViewController.h"
 #import "CurrentGroupCell.h"
+#import "MJRefresh.h"
 #import "GroupService.h"
 #import "Groups_Goods.h"
 #import <UIImageView+WebCache.h>
@@ -15,11 +16,15 @@
 #import "WebViewController.h"
 #import "GroupAdCell.h"
 #import "Index0Service.h"
+#import "SellerService.h"
+#import "Seller_Seller_Goods.h"
 @interface GroupsViewController ()
 {
     GroupService *groupService;
      Index0Service *index0Service;
     UserInfo *user;
+    NSInteger page;
+    SellerService *sellerService;
 }
 @end
 
@@ -35,17 +40,19 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    page=0;
     index0Service = [[Index0Service alloc] init];
+    sellerService=[SellerService new];
+    self.datas=[NSMutableArray new];
     groupService = [[GroupService alloc] init];
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
+    self.tableview.separatorStyle=UITableViewCellSeparatorStyleNone;
     _tableview.showsVerticalScrollIndicator =NO;
     self.tableview.tableFooterView =[UIView new];
-    [groupService groupsGoodsfutureWithToken:user.token andUser_type:user.user_type intabBarController:self.tabBarController withDone:^(Groups_Info *model){
-        self.datas = model.goods;
-        [self.tableview reloadData];
-
-    }];
+    [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
+    [self.tableview headerBeginRefreshing];
+    
     self.automaticallyAdjustsScrollViewInsets = YES;
     NSString *urlString = [NSString stringWithFormat:AdPictUrl,user.agent_id,2];
     [groupService loadAdverPicFromUrl:urlString inViewController:self];
@@ -59,20 +66,13 @@
 //    }
 //    }
 //}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
@@ -106,15 +106,44 @@
     static NSString *identifier = @"currentGroupCell";
     CurrentGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
     NSInteger row = indexPath.row;
-    Group_Good_Info *model = [self.datas objectAtIndex:row];
-    cell.name.text = model.name;
-    cell.price.text = [NSString stringWithFormat:@"原价:%@%@",model.price,model.unit];
-    cell.discount.text = [NSString stringWithFormat:@"会员价:%@%@",model.discount,model.unit];
-    cell.endTime.text = [NSString stringWithFormat:@"%@截止",model.end_time];
-    cell.number.text = [NSString stringWithFormat:@"当前参团人数:%@",model.actual_num];
-    cell.expectNumber.text = [NSString stringWithFormat:@"%@人起团",model.expect_num];
-    [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
-    
+    Seller_Seller_Goods_arr_goods_info *model = [self.datas objectAtIndex:row];
+        cell.goodsName.text=model.goods_name;
+        [cell.goodsPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+        cell.price.text=model.price;
+        cell.end_seconds=[model.end_seconds integerValue];
+        cell.discount.text=[NSString stringWithFormat:@"￥%@/%@",model.discount,model.unit];
+        
+        CGFloat actnumbers=([model.discount floatValue]/[model.price floatValue])*10;
+        cell.allowance.text=[NSString stringWithFormat:@"%0.1f",actnumbers];
+        
+        NSMutableAttributedString *actString =[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@已参团",model.actual_nums]];
+        
+        const CGFloat fontSize1 = 18;
+        const CGFloat fontSize2 = 14;
+        
+        UIColor *color = [UIColor redColor];
+        UIColor *color1 = [UIColor blackColor];
+        
+        UIFont *baseFont = [UIFont systemFontOfSize:fontSize1];
+        UIFont *baseFont1 = [UIFont systemFontOfSize:fontSize2];
+        
+        NSUInteger length1 = [model.actual_nums length];
+        
+        [actString addAttribute:NSFontAttributeName value:baseFont
+                           range:NSMakeRange(0, length1)];
+        [actString addAttribute:(id)NSForegroundColorAttributeName
+                           value:color
+                           range:NSMakeRange(0, length1)];
+        
+        [actString addAttribute:NSFontAttributeName value:baseFont1
+                          range:NSMakeRange(length1, 3)];
+        [actString addAttribute:(id)NSForegroundColorAttributeName
+                          value:color1
+                          range:NSMakeRange(length1, 3)];
+        
+        cell.actnumber.attributedText=actString;
+        
+
     return cell;
     }
 }
@@ -122,13 +151,13 @@
     if (indexPath.section==0) {
         return 147;
     }else{
-        return 105;
+        return 171;
     }
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSInteger row = indexPath.row;
-    Group_Good_Info *groupGood = [self.datas objectAtIndex:row];
+    Seller_Seller_Goods_arr_goods_info *groupGood = [self.datas objectAtIndex:row];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
     GroupDetailViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"GroupDetailViewController"];
     [self.navigationController pushViewController:viewController animated:YES];
@@ -146,5 +175,27 @@
     }else{
         NSLog(@"暂无url");
     }
+}
+-(void)headerRereshing
+{
+    page =1;
+    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
+    [sellerService sellerSellerGood_typesWith:@"2" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id] andSeller_id:@"0" andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
+        self.datas=(NSMutableArray*)model.arr_goods;
+        [self.tableview reloadData];
+        [self.tableview headerEndRefreshing];
+    }];
+    
+}
+- (void)footerRereshing
+{
+    page++;
+    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
+    [sellerService sellerSellerGood_typesWith:@"2" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id] andSeller_id:@"0" andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
+        [self.datas addObjectsFromArray:model.arr_goods];
+        [self.tableview reloadData];
+        [self.tableview headerEndRefreshing];
+    }];
+    
 }
 @end

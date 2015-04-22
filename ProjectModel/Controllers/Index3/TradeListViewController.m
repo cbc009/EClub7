@@ -46,6 +46,7 @@
     datas = [[NSMutableArray alloc] initWithArray:self.items];
     service = [AccountService new];
     [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
+    [self.tableview headerBeginRefreshing];
 }
 -(void)viewDidDisappear:(BOOL)animated
 {

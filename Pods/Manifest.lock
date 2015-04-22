@@ -1,23 +1,23 @@
 PODS:
-  - AFNetworking (2.5.1):
-    - AFNetworking/NSURLConnection (= 2.5.1)
-    - AFNetworking/NSURLSession (= 2.5.1)
-    - AFNetworking/Reachability (= 2.5.1)
-    - AFNetworking/Security (= 2.5.1)
-    - AFNetworking/Serialization (= 2.5.1)
-    - AFNetworking/UIKit (= 2.5.1)
-  - AFNetworking/NSURLConnection (2.5.1):
+  - AFNetworking (2.5.2):
+    - AFNetworking/NSURLConnection (= 2.5.2)
+    - AFNetworking/NSURLSession (= 2.5.2)
+    - AFNetworking/Reachability (= 2.5.2)
+    - AFNetworking/Security (= 2.5.2)
+    - AFNetworking/Serialization (= 2.5.2)
+    - AFNetworking/UIKit (= 2.5.2)
+  - AFNetworking/NSURLConnection (2.5.2):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.1):
+  - AFNetworking/NSURLSession (2.5.2):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.1)
-  - AFNetworking/Security (2.5.1)
-  - AFNetworking/Serialization (2.5.1)
-  - AFNetworking/UIKit (2.5.1):
+  - AFNetworking/Reachability (2.5.2)
+  - AFNetworking/Security (2.5.2)
+  - AFNetworking/Serialization (2.5.2)
+  - AFNetworking/UIKit (2.5.2):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - BmobSDK (1.4.12)
@@ -31,7 +31,7 @@ PODS:
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
-  - SVProgressHUD (1.1.2)
+  - SVProgressHUD (1.1.3)
   - TPKeyboardAvoiding (1.2.6)
   - UMengAnalytics (3.1.8)
   - UMengAnalytics-NO-IDFA (3.1.11)
@@ -59,22 +59,22 @@ DEPENDENCIES:
   - UMengSocial (~> 4.2.1)
 
 SPEC CHECKSUMS:
-  AFNetworking: 8bee59492a6ff15d69130efa4d0dc67e0094a52a
-  BmobSDK: e91ff5b4468e6b6528406816636352fc49ad6c11
-  ELCImagePickerController: 4dc83bb6ce995f4964b0080d77ad5a01141e6db2
-  HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
-  JSONModel: cbdef0fdff1cc70e913a860861d3072860efd3a1
-  libqrencode: ebfece8f6983de7a4a6d33c3a30e2910ecf43b7c
-  MarqueeLabel: 7685fc894573bfe40aa4859db160d1a221beee83
-  Masonry: 2cb49fd14d203d2db5ca6bb017135b235dde9980
-  RMPickerViewController: 0f26f3e53d326ce86fe0337cc84366fae0e8c78c
+  AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36
+  BmobSDK: 4f215609254408b3289d6021a76cf20666696b77
+  ELCImagePickerController: b1b7084434a7d49f2cfc916bde1f3ba353d38de9
+  HexColors: abfd172e329dab59888614ccba6f216cec59289d
+  JSONModel: 6ffcb4ffa3659c9e9a2e5d45d6c7705bab187c03
+  libqrencode: 43dc34b89af83ea4b07c409cd8e09c87aa3a1c9f
+  MarqueeLabel: 494d72fbe5627a18d8b1c49341d9a14a270749af
+  Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
+  RMPickerViewController: 1a64e211e86ac3d961214c9c376de7c0241ac25b
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
-  SVProgressHUD: da7a49e789af645d9279ffbca62318945a832438
-  TPKeyboardAvoiding: 0797ad5f2366e2435e605202b01f3b7cff5d82cd
-  UMengAnalytics: c263b4e0f27e91551b7e79eacdf812f1bae0e256
-  UMengAnalytics-NO-IDFA: 9072529f7ac9d9b063eede39ad58661cbcd7c643
-  UMengFeedback: 39ad590db2195efb0f3d748032209efb6a322f83
-  UMengMessage: 9cc3861519f1f08e5e0457b6a656f2ff6ffd13d5
-  UMengSocial: c53282eaf74fbb41aebe431b497ed6b634cf357f
+  SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
+  TPKeyboardAvoiding: ee4dd35e3bb7bb64bfbda47e7cc9ba872ff10f77
+  UMengAnalytics: fe0fa30f2686541eda3ae778d036cc368bc1abd4
+  UMengAnalytics-NO-IDFA: 113fee70a03af45c89b60b8f5b15cf1accfebeab
+  UMengFeedback: 0e04794921d5daca7abdc12d4761cd831492c192
+  UMengMessage: 48fac77da8a71729c3d9c40eed16151d8917d9b3
+  UMengSocial: aedae57452047daa708306f23ff21883a07cd779
 
 COCOAPODS: 0.35.0

@@ -32,6 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [SharedAction setupRefreshWithTableView:self.tableView toTarget:self];
+    [self.tableView headerBeginRefreshing];
     self.automaticallyAdjustsScrollViewInsets =NO;
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;

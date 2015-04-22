@@ -11,11 +11,13 @@
 @class Request_0Cell;
 @protocol Shoop4CellDelegate <NSObject>
 -(void)likeWithSender:(id)sender inCell:(Shoop_4Cell*)cell;
+-(void)likeWithTapViewInCell:(Shoop_4Cell*)cell;
 -(void)remarkWithSender:(id)sender inCell:(Shoop_4Cell*)cell;
 -(void)replyWithRegid:(NSString *)regid andRegName:(NSString *)regName andOtherName:(NSString *)otherName inCell:(Shoop_4Cell*)cell;
 @end
 @interface Shoop_4Cell : UITableViewCell
 @property (weak,nonatomic)id<Shoop4CellDelegate>delegate;
+@property (weak, nonatomic) IBOutlet UIView *tapView;
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableviewHeight;
 @property (weak, nonatomic) IBOutlet UIImageView *heardPic;

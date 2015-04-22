@@ -7,19 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Seller_Seller_Goods.h"
 @interface PointGoodViewController : UIViewController<UIAlertViewDelegate>
-@property (weak, nonatomic) IBOutlet UIImageView *goodImage;
-
-@property (weak, nonatomic) IBOutlet UILabel *ePrize;
-@property (weak, nonatomic) IBOutlet UILabel *num;
 @property (assign ,nonatomic) NSInteger gid;
 @property (assign ,nonatomic) NSInteger goods_num;
 @property (strong ,nonatomic) NSArray *datas;
-@property (strong ,nonatomic) NSDictionary *dict;
-- (IBAction)Add:(id)sender;
-- (IBAction)Releas:(id)sender;
-
-- (IBAction)addGood:(id)sender;
+@property  (strong,nonatomic) Seller_Seller_Goods_arr_goods_info *models;
+@property (weak, nonatomic) IBOutlet UIButton *pointBuy;
+@property (weak, nonatomic) IBOutlet UITableView *tableview;
+- (IBAction)share:(id)sender;
 
 @end

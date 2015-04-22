@@ -10,5 +10,5 @@
 #import "MorePush_history.h"
 @interface MorePush_historyService : NSObject
 //加载历史推送消息
--(void)loadPush_historyWithToken:(NSString *)token andUser_type:(NSInteger )user_type andPage:(NSString *)page inTabBarcontroller:(UITabBarController *)tabBarController withdon:(doneWithObject)done;
+-(void)loadPush_historyWithAgentID:(NSInteger)agent_id andPage:(NSString *)page inTabBarcontroller:(UITabBarController *)tabBarController withdon:(doneWithObject)done;
 @end

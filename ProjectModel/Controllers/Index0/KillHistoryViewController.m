@@ -57,8 +57,7 @@
     if (row%2==0) {
         KillIconCell *cell = [tableView dequeueReusableCellWithIdentifier:@"KillIconCell" forIndexPath:indexPath];
         KillGood1 *good = self.datas[index];
-        cell.date.text = good.start_time;
-        cell.backImage.image = [UIImage imageNamed:@"finish_kill_bg"];
+        cell.dtae.text = good.start_time;
         return cell;
     }else{
         KillGoodCell *cell = [tableView dequeueReusableCellWithIdentifier:@"KillGoodCell" forIndexPath:indexPath];
@@ -70,14 +69,14 @@
         return cell;
     }
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSInteger index = indexPath.row/2;
-    KillGood *good = self.datas[index];
-    KillDetailViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"KillDetailViewController"];
-    viewController.good = good;
-    [self.navigationController pushViewController:viewController animated:YES];
-}
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    NSInteger index = indexPath.row/2;
+//    KillGood *good = self.datas[index];
+//    KillDetailViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"KillDetailViewController"];
+////    viewController.good = good;
+//    [self.navigationController pushViewController:viewController animated:YES];
+//}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row = indexPath.row;

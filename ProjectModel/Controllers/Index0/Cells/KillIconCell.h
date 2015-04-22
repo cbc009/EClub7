@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface KillIconCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *date;
+
+@property (weak, nonatomic) IBOutlet UILabel *dtae;
+
 @property (weak, nonatomic) IBOutlet UIImageView *backImage;
+@property (weak, nonatomic) IBOutlet UIView *dot;
 
 @end

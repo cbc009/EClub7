@@ -10,9 +10,7 @@
  #import "Public_Seller_info_model.h"
 @interface ShowViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITableView *tablewView;
-@property(nonatomic,strong)NSString *seller_id;
+@property (nonatomic,strong)NSString *seller_id;
 @property (nonatomic,strong)Public_Seller_info_model_arr_seller_info *models;
 @property (nonatomic,strong)NSArray *datas;
-
-
 @end

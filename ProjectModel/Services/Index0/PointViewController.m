@@ -9,17 +9,20 @@
 #import "PointViewController.h"
 #import "PointCollectionViewCell.h"
 #import "PointViewControllerService.h"
+#import "PointGoodViewController.h"
 #import <UIImageView+WebCache.h>
 #import "SharedData.h"
 #import "Member_Login.h"
 #import "MJRefresh.h"
 #import "SVProgressHUD.h"
 #import "PointGoodsModel.h"
+#import "SellerService.h"
 @interface PointViewController () <UICollectionViewDataSource,UICollectionViewDelegate>
 {
     NSString *identifier;
     PointVIewControllerService *pointViewControllerService;
     NSMutableDictionary *dic;
+    SellerService *sellerService;
 }
 
 @end
@@ -30,13 +33,10 @@
     [super viewDidLoad];
     self.title = @"商品兑换";
     self.page = 1;
+    sellerService =[SellerService new];
+    self.datas=[NSMutableArray new];
     pointViewControllerService  = [[PointVIewControllerService alloc] init];
     dic = [[NSMutableDictionary alloc] init];
-//    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-//    layout.itemSize = CGSizeMake(146,171);
-//
-//    layout.minimumInteritemSpacing = 0;
-//    self.collectionview.collectionViewLayout = layout;
     identifier = @"PointCollectionViewCell";
     [self setupRefresh];
 }
@@ -59,18 +59,20 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     PointCollectionViewCell *Cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PointCollectionViewCell" forIndexPath:indexPath];
-    dic = self.datas[indexPath.row];
-    Cell.name.text = [dic valueForKey:@"name"];
-    [Cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,[dic valueForKey:@"picture"]]] placeholderImage:[UIImage imageNamed:@"e"]];
-    Cell.EPrize.text =[NSString stringWithFormat:@"%@E币",[dic valueForKey:@"point"]];
+    Seller_Seller_Goods_arr_goods_info *model= self.datas[indexPath.row];
+    Cell.name.text = model.goods_name;
+   [Cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+    Cell.EPrize.text =[NSString stringWithFormat:@"%@E币",model.point];
     return Cell;
 }
 #pragma UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-//    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     NSInteger row = indexPath.row;
-    dic = self.datas[row];
-    [pointViewControllerService presentPointGoodViewControllerWithDatas:dic OnPointViewController:self];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+    PointGoodViewController *pointGoodVIewController = [storyboard instantiateViewControllerWithIdentifier:@"PointGoodViewController"];
+    pointGoodVIewController.hidesBottomBarWhenPushed = YES;
+    pointGoodVIewController.models = self.datas[row];
+    [self.navigationController pushViewController:pointGoodVIewController animated:YES];
    
 }
 - (void)collectionView:(UICollectionView *)colView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -108,10 +110,10 @@
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
-    [pointViewControllerService loadDataWithToken:user.token andUser_type:user.user_type AndPage:pageString intabBarController:self.tabBarController withDone:^(GoodInfo *model){
-        self.datas = (NSMutableArray *)model.goods;
+    [sellerService sellerSellerGood_typesWith:@"5" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id]  andSeller_id:@"" andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
+        self.datas=(NSMutableArray*)model.arr_goods;
         [self.collectionview reloadData];
-        [_collectionview headerEndRefreshing];
+        [self.collectionview headerEndRefreshing];
     }];
 }
 
@@ -122,10 +124,10 @@
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
-    [pointViewControllerService loadDataWithToken:user.token andUser_type:user.user_type AndPage:pageString intabBarController:self.tabBarController withDone:^(GoodInfo *model){
-        [self.datas addObjectsFromArray:model.goods];
+    [sellerService sellerSellerGood_typesWith:@"5" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id] andSeller_id:@"" andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
+        self.datas=(NSMutableArray*)model.arr_goods;
         [self.collectionview reloadData];
-        [_collectionview footerEndRefreshing];
+        [self.collectionview footerEndRefreshing];
     }];
 }
 //#pragma UIAlertDelegate

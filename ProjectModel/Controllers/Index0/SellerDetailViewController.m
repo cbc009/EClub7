@@ -39,16 +39,16 @@
     SharedData *sharedData =[SharedData sharedInstance];
     user=sharedData.user;
     self.lifeHall_id =[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
-    RobService *robService =[[RobService alloc] init];
-    [robService sellerInfoWithAgentid:self.agent_id andSeller_type:self.seller_type andSellerid:self.seller_id inRootTabBarController:self.tabBarController withDone:^(Seller_Info_info *model){
-        self.object = model.arr_seller[0];
-        [robService setRobModelWithLifehallid:self.lifeHall_id orDetail:[NSString stringWithFormat:@"seller_id/%@",self.seller_id] inRootTabBarController:self.tabBarController withDone:^(Robuy_Goods_info *model){
-            self.goodeArray=model.arr_goods;
-            cellRow=5;
-            [self.tableview reloadData];
-        }];
-    }];
-    }
+//    RobService *robService =[[RobService alloc] init];
+//    [robService sellerInfoWithAgentid:self.agent_id andSeller_type:self.seller_type andSellerid:self.seller_id inRootTabBarController:self.tabBarController withDone:^(Seller_Info_info *model){
+//        self.object = model.arr_seller[0];
+//        [robService setRobModelWithLifehallid:self.lifeHall_id orDetail:[NSString stringWithFormat:@"seller_id/%@",self.seller_id] inRootTabBarController:self.tabBarController withDone:^(Robuy_Goods_info *model){
+//            self.goodeArray=model.arr_goods;
+//            cellRow=5;//这个地方是控制就是刚进入该页面的时候不显示东西没别的意思
+//            [self.tableview reloadData];
+//        }];
+//    }];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

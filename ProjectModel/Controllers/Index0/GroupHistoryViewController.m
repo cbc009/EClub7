@@ -34,6 +34,7 @@
     self.tableView.showsVerticalScrollIndicator =NO;
     self.tableView.tableFooterView=[UIView new];
     [SharedAction setupRefreshWithTableView:self.tableView toTarget:self];
+      [self.tableView headerBeginRefreshing];
       self.automaticallyAdjustsScrollViewInsets = YES;
 
 }

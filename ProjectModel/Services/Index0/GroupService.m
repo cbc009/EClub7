@@ -42,7 +42,7 @@
     [AdvertPic getModelFromURLWithString:urlString completion:^(AdvertPic *model,JSONModelError *err){
         if (model.status) {
             AdvertPicInfo *Info =model.info;
-            Picture_Arr_advert *pictures =Info.arr_advert[0];
+            Picture_Arr_advert *pictures =Info.arr_advert;
             NSArray *pictures1 = pictures.arr_info;
             viewController.pageviewDatas =pictures1;
              [viewController.tableview reloadData];

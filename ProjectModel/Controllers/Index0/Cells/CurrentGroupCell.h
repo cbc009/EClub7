@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
 @interface CurrentGroupCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *imgView;
-@property (weak, nonatomic) IBOutlet UILabel *name;
-@property (weak, nonatomic) IBOutlet UILabel *discount;
+@property (weak, nonatomic) IBOutlet UILabel *goodsName;
+@property (weak, nonatomic) IBOutlet UIImageView *goodsPic;
 @property (weak, nonatomic) IBOutlet UILabel *price;
-@property (weak, nonatomic) IBOutlet UILabel *endTime;
-@property (weak, nonatomic) IBOutlet UILabel *number;
-@property (weak, nonatomic) IBOutlet UILabel *expectNumber;
+@property (weak, nonatomic) IBOutlet UILabel *allowance;//折扣
+@property (weak, nonatomic) IBOutlet UILabel *actnumber;
+@property (weak, nonatomic) IBOutlet UILabel *time;
+@property (weak, nonatomic) IBOutlet UILabel *discount;
+@property (nonatomic,assign) NSInteger end_seconds;
 
 @end

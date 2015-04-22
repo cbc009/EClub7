@@ -62,6 +62,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
+    [self.tableview headerBeginRefreshing];
     self.title=@"生活圈";
     liveService = [[LiveService alloc] init];
 }

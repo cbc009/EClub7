@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title=self.models.goods_name;
     self.reduce.layer.cornerRadius=2;
     self.reduce.layer.borderWidth=1;
     self.reduce.layer.borderColor=[UIColor redColor].CGColor;
@@ -42,15 +43,12 @@
     self.vipPrice.text=self.models.discount;
     self.address.text=self.models.receive_address;
     self.workTime.text =[NSString stringWithFormat:@"%@-%@",self.models.send_time[0],self.models.send_time[1]];
-
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
 
 - (IBAction)addnumbs:(id)sender {
     self.numbs.text=[SharedAction addNumber:self.numbs];
@@ -59,7 +57,8 @@
     self.numbs.text=[SharedAction reduceNumber:self.numbs];
 }
 - (IBAction)share:(id)sender {
-//     [SharedAction shareWithTitle:self.title andDesinationUrl:self.goodModel.share_url Text:self.goodModel.name andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.goodModel.bigpicture] InViewController:self];
+    NSString *share_url=[NSString stringWithFormat:Seller_Seller_Goods_Share_URL,self.models.goods_id];
+     [SharedAction shareWithTitle:self.title andDesinationUrl:share_url Text:self.models.goods_name andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.models.bigpicture] InViewController:self];
 }
 
 - (IBAction)buyNow:(id)sender {

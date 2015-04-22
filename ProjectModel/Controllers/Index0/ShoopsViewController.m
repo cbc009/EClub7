@@ -17,6 +17,7 @@
 {
     SellerService *sellerService;
     UserInfo *user;
+    NSArray *distanceArray0;
 }
 @end
 
@@ -33,6 +34,7 @@
     NSString *typeString=[NSString stringWithFormat:@"agent_id/%ld",(long)user.agent_id];//获取商户类型所有的
     [sellerService publickSellerListWithTypeString:typeString inTabBarController:self.tabBarController withDone:^(Public_Seller_info *model){
         self.data=model.arr_seller_type;
+        distanceArray0=model.arr_distance;
         [self.tableview reloadData];
     }];
 }
@@ -78,6 +80,8 @@
     ShoopDetailViewController *shoopDetailVic=[storBoard instantiateViewControllerWithIdentifier:@"ShoopDetailViewController"];
     //把所有的分类一起传过去
     shoopDetailVic.cateArray=self.data;
+    shoopDetailVic.distanceArray=distanceArray0;
+    shoopDetailVic.index=row;
     Public_Seller_arr_seller_type_info *object=self.data[row];
     
 //    shoopDetailVic.models=self.data[row];//这里的models就是用来传一组数据过去的

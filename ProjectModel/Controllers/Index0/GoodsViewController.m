@@ -47,6 +47,7 @@
     page = 1;
     self.title = self.titletext;
     [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
+      [self.tableview headerBeginRefreshing];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -66,15 +67,12 @@
 {
     PurchaseCarItemsViewController *purchaseCar = [self.storyboard instantiateViewControllerWithIdentifier:@"PurchaseCarItemsViewController"];
     [self.navigationController pushViewController:purchaseCar animated:YES];
-    
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 #pragma mark - Navigation
 
@@ -136,7 +134,7 @@
     Goods_type_subType *subtype = self.subtypes[index];
     subtypeId = subtype.subid;
     page = 1;
-    [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
+    [self.tableview headerBeginRefreshing];
 }
 
 /*

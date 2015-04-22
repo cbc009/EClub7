@@ -17,9 +17,9 @@
 @implementation MorePush_historyService
 
 
--(void)loadPush_historyWithToken:(NSString *)token andUser_type:(NSInteger )user_type andPage:(NSString *)page inTabBarcontroller:(UITabBarController *)tabBarController withdon:(doneWithObject)done
+-(void)loadPush_historyWithAgentID:(NSInteger)agent_id andPage:(NSString *)page inTabBarcontroller:(UITabBarController *)tabBarController withdon:(doneWithObject)done
 {
-    NSString *urlString = [NSString stringWithFormat:Push_History,token,user_type,page];
+    NSString *urlString = [NSString stringWithFormat:Push_History,agent_id,page];
    
     [Push_history getModelFromURLWithString:urlString completion:^(Push_history *model,JSONModelError *error){
         [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];

@@ -30,7 +30,7 @@
 @property(nonatomic,strong)NSString *neat_praises;
 @property(nonatomic,strong)NSString *descrip_praises;
 @property(nonatomic,strong)NSString *regname;
-@property(nonatomic,strong)NSArray <Optional,Sub_Comment_Info>*sub_comment;
+@property(nonatomic,strong)NSArray <Optional,Sub_Comment_Info,Optional>*sub_comment;
 @property(nonatomic,strong)NSString *praise_nums;
 @property(nonatomic,strong)NSString *regid;
 @property(nonatomic,strong)NSString *comment_id;
@@ -41,7 +41,7 @@
 @end
 
 @interface Seller_Seller_Comment_info : JSONModel 
-@property(nonatomic,strong)NSArray<Seller_Seller_Comment_arr_comment_info> *arr_comment; 
+@property(nonatomic,strong)NSArray<Seller_Seller_Comment_arr_comment_info,Optional> *arr_comment;
 @end
 
 @interface Seller_Seller_Comment : JSONModel 

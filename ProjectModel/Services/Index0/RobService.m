@@ -26,20 +26,12 @@
 
 -(void)setRobModelWithLifehallid:(NSString *)lifehallid orDetail:(NSString *)detail inRootTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
     [SVProgressHUD show];
-      NSString *urlString = [NSString stringWithFormat:Robuy_Goods_URL,lifehallid,detail];
+    NSString *urlString = [NSString stringWithFormat:Robuy_Goods_URL,lifehallid,detail];
     [Robuy_Goods getModelFromURLWithString:urlString completion:^(Robuy_Goods *model,JSONModelError *error){
         [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
     }];
 }
 
--(void)sellerInfoWithAgentid:(NSString*)agent_id andSeller_type:(NSString *)seller_type andSellerid:(NSString *)seller_id inRootTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
-    [SVProgressHUD show];
-    NSString *urlString = [NSString stringWithFormat:Public_Info_URL,agent_id,seller_id];
-    [Seller_Info getModelFromURLWithString:urlString completion:^(Seller_Info *model,JSONModelError *error){
-        [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
-    }];
-
-}
 
 /*
  加载广告图片
@@ -56,7 +48,7 @@
     [AdvertPic getModelFromURLWithString:urlString completion:^(AdvertPic *model,JSONModelError *err){
         if (model.status) {
             AdvertPicInfo *Info =model.info;
-            Picture_Arr_advert *pictures =Info.arr_advert[0];
+            Picture_Arr_advert *pictures =Info.arr_advert;
             NSArray *pictures1 = pictures.arr_info;
             viewController.pageviewDatas = pictures1;
             [viewController.tableView reloadData];
