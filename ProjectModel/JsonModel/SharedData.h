@@ -14,6 +14,7 @@
 @property(nonatomic,strong)NSString *loginname;
 @property(nonatomic,strong)NSString *password;
 @property(nonatomic,strong)NSString *loginStatus;
+@property(nonatomic,strong)NSString *starStatus;
 
 @property(nonatomic,strong)NSString *iccard;
 @property(nonatomic,strong)NSString *amount;

@@ -41,6 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     page=0;
+    self.title=@"今日巨惠";
     index0Service = [[Index0Service alloc] init];
     sellerService=[SellerService new];
     self.datas=[NSMutableArray new];

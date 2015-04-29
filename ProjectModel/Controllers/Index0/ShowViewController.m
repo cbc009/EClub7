@@ -10,6 +10,7 @@
 #import "ShowDetailViewController.h"
 #import "ShoopGoodsViewController.h"
 #import <UIImageView+WebCache.h>
+#import "WebViewController.h"
 #import "RemarkViewController.h"
  #import "Seller_Seller_Goods.h"
 #import "Seller_Seller_Comment.h"
@@ -25,9 +26,10 @@
 #import "Shoop_2Cell.h"
 #import "Shoop_3Cell.h"
 #import "Shoop_4Cell.h"
+#import "Shoop_5Cell.h"
 #import "Index0_Cell.h"
 #import "RatingBar.h"
-@interface ShowViewController ()<ShowMoreItemsCellDelegate,Shoop_3Delegate,Shoop4CellDelegate,Shoop0Delegate,UITextViewDelegate>
+@interface ShowViewController ()<ShowMoreItemsCellDelegate,Shoop_3Delegate,Shoop4CellDelegate,Shoop0Delegate,UITextViewDelegate,UIWebViewDelegate>
 {
 
     SellerService *sellerService;
@@ -48,6 +50,8 @@
     Shoop_1Cell *shoopCell;
     RatingBar*bars;
     NSInteger page;
+    
+    UIWebView *myWebView;
     
 
 }
@@ -73,7 +77,7 @@
     titleArray=@[@"总体:",@"服务态度:",@"店内环境:",@"描述相符:"];//点那个向下按钮的时候弹出来的
     //那个Cell里面获取商家商品的
   
-    [sellerService sellerSellerGood_typesWith:@"1" andAgentId:@"" andSeller_id:self.models.seller_id andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:@"1" inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
+    [sellerService sellerSellerGood_typesWith:@"1" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id] andSeller_id:self.models.seller_id andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:@"1" inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
         shoopCell.datas=model.arr_goods;
         [shoopCell.collection reloadData];
     }];
@@ -81,9 +85,6 @@
         self.datas=(NSMutableArray *)object.arr_comment;
         [self.tablewView reloadData];
     }];
-//    [SharedAction setupRefreshWithTableView:self.tablewView toTarget:self];
-//    [self.tablewView headerEndRefreshing];
-  
     [self setRatingBarView];
 }
 
@@ -103,7 +104,7 @@
             return 3;
             break;
         case 3:
-            return 2;
+            return 1;
             break;
         case 4:
             return 1;
@@ -120,7 +121,6 @@
     NSInteger section=indexPath.section;
     NSInteger row =indexPath.row;
     CGFloat topicHeight;
-    CGFloat topicHeight1;
     Seller_Seller_Comment_arr_comment_info *model;
     topicHeight=0;
     switch (section) {
@@ -134,13 +134,10 @@
             return 41;
             break;
         case 3:
-            if (row==0) {
-                topicHeight1 =39;
-            }else{
-                //计算那个简介下面那行的高度 可能试条很长的文字
-                topicHeight1=[NSString heightWithString:self.models.intro font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-16, 300)]+18;
-                }
-            return topicHeight1;
+            return 39;
+            break;
+        case 4:
+            return 33;
             break;
         case 5://下面评论 一行的高度//这里计算外面的
              model =self.datas[row];
@@ -157,15 +154,13 @@
             }
             return topicHeight;
             break;
-        case 4:
-            return 33;
-            break;
-
         default:
             break;
     }
     return 105;
 }
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger section=indexPath.section;
     NSInteger row =indexPath.row;
@@ -209,15 +204,11 @@
         return cell;
     }else if (section==3){
         Index0_Cell *cell =[tableView dequeueReusableCellWithIdentifier:@"Index0_Cell" forIndexPath:indexPath];
+        cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
-        if (row==0) {
-            cell.title.text=@"简介";
-        }else{
-            cell.title.text=self.models.intro;
-//            topicHeight1=[NSString heightWithString:self.models.intro font:[UIFont systemFontOfSize:13] maxSize:CGSizeMake(DeviceFrame.size.width-16, 300)];
-        }
+        cell.title.text=@"图文介绍";
         return cell;
-    }else if(section==4){
+    }else  if(section==4){
             Shoop_3Cell *cell =[tableView dequeueReusableCellWithIdentifier:@"Shoop_3Cell" forIndexPath:indexPath];
             cell.selectionStyle=UITableViewCellSelectionStyleNone;
             cell.delegate=self;
@@ -232,7 +223,6 @@
             cell.delegate=self;
             bars.frame=CGRectMake(0, 0,112, 20);
             [cell.ratBarView addSubview:bars];
-        
             cell.delegate=self;
             [cell.heardPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
             cell.topicHeight.constant=[NSString heightWithString:model.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-64, 300)];
@@ -252,7 +242,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
      if (indexPath.section==2&indexPath.row==0) {
          [self callWithPhoneNumber:self.models.phone];
      } else if (indexPath.section==2&indexPath.row==2) {
@@ -263,7 +252,13 @@
         mapViewController.sellername=self.models.seller_name;
         NSLog(@"longitude:%@latitude:%@",self.models.longitude,self.models.latitude);
         [self.navigationController pushViewController:mapViewController animated:YES];
-    }
+     }else if(indexPath.section==3){
+         WebViewController *target = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
+         target.loadType=1;
+         target.htmlString = self.models.intro;
+         target.hidesBottomBarWhenPushed = YES;
+         [self.navigationController pushViewController:target animated:YES];
+     }
 }
 //加载更多
 -(void)moreItmes:(id)sender InCell:(UITableViewCell *)cell{
@@ -297,9 +292,6 @@
         num++;
         cell.number.text=[NSString stringWithFormat:@"%ld",(long)num];
         object.praise_nums=cell.number.text;
-//        [self.datas addObject:object];
-//        [self.datas exchangeObjectAtIndex:self.datas.count-1 withObjectAtIndex:indexpath.row];
-//        [self.datas removeObject:self.datas[self.datas.count-1]];
     }];
 }
 //Shoop_4Cell的代理方法

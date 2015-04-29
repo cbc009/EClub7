@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MarqueeLabel.h"
 @interface NoticeCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet MarqueeLabel *marqueeLabel;
 
 @end

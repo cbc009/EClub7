@@ -47,6 +47,7 @@
 @property (nonatomic,strong)Index0Models_Arr_Model_info <Optional>*arr_model;
 @property (nonatomic,strong)NSArray<Index0Models_Arr_Seller_info>*arr_seller;
 @property (nonatomic,strong)NSArray<Index0Models_Arr_Goods_info> *arr_goods;
+@property (nonatomic,strong)NSString *push_info;
 @end
 @interface Index0Models : JSONModel
 @property(nonatomic,strong)Index0Models_info<Optional> *info;

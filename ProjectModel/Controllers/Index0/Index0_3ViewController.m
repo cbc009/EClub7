@@ -9,6 +9,8 @@
 #import "Index0_3ViewController.h"
 #import "NewsGoodsViewController.h"
 #import "ChangeAgentViewController.h"
+#import "ScollViewController.h"
+#import "AgentViewController.h"
 #import "MorePush_history.h"
 #import "BuyGoodTypeCell.h"
 #import "SerchViewController.h"
@@ -38,7 +40,8 @@
 #import "BuyService.h"
 #import "TypeGoods.h"
 #import "ItemDetailViewController.h"
-@interface Index0_3ViewController ()<LoginViewControllerDelegate,UISearchBarDelegate,TapinViewDelegate,SelectIndexDelegate,SelectedIndexDelegate>
+#import <CoreLocation/CoreLocation.h>
+@interface Index0_3ViewController ()<LoginViewControllerDelegate,UISearchBarDelegate,TapinViewDelegate,SelectIndexDelegate,SelectedIndexDelegate,CLLocationManagerDelegate>
 {
     Index0Service *index0Service;
     BuyService *buyService;
@@ -46,34 +49,45 @@
     UIImageView *changeImage;
     SellerService *sellerService;
     UserInfo *user;
+     ScollViewController*scollView;
+    NSString *longitude;//经度
+    NSString *latitude;//纬度
+    SharedData *sharedData;
     
 }
-
+@property (nonatomic,strong)CLLocationManager *locMgr;
 @end
 
 @implementation Index0_3ViewController
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    SharedData *sharedData = [SharedData sharedInstance];
+     sharedData= [SharedData sharedInstance];
     user= sharedData.user;
-    self.cityLabel.text=user.agent_name;
+    self.cityLabel.text=user.city_name;
     [self.navigationController.navigationBar addSubview:naviBarView];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNaviView];
-    SharedData *sharedData = [SharedData sharedInstance];
-     user= sharedData.user;
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeAgenTReload) name:@"AgentReload" object:nil];
+    sharedData = [SharedData sharedInstance];
+    user= sharedData.user;
+    NSLog(@"loginname:%@",sharedData.starStatus);
+    if (![sharedData.starStatus isEqualToString:@"YES"]) {
+         UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+        scollView =[storyBoard instantiateViewControllerWithIdentifier:@"ScollViewController"];
+        sharedData.starStatus=@"YES";
+        [self presentViewController:scollView animated:YES completion:nil];
+    }
     buyService=[BuyService new];
     index0Service = [[Index0Service alloc] init];
-    self.title=@"绿管家";
     self.tableview.separatorStyle=UITableViewCellSeparatorStyleNone;
-    [index0Service loadUserDefaultsInViewController:self witLoginStatus:sharedData.loginStatus];
+    [index0Service loadUserDefaultsInViewController:self witLoginStatus:sharedData.loginStatus andLongitude:@"" andLatitude:@""];
     self.title=user.lifehall_name;
      NSLog(@"%@",sharedData.loginStatus);
-
+    [self locationNow];
     self.collectionDatas = [NSArray arrayWithObjects:@"充值",@"抽奖",@"商户",@"购物车",nil];
     self.collectionImgs = [NSArray arrayWithObjects:@"chongzhi.png",@"choujiang.png",@"qianbao.png",@"gouwuche.png", nil];
 }
@@ -83,28 +97,60 @@
     [naviBarView removeFromSuperview];
     
 }
+-(void)locationNow{
+    self.locMgr = [[CLLocationManager alloc] init];
+    self.locMgr.delegate = self;
+    self.locMgr.distanceFilter=kCLDistanceFilterNone;
+    self.locMgr.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locMgr.distanceFilter = 1000.0f;
+    //定位服务是否可用
+    BOOL enable=[CLLocationManager locationServicesEnabled];
+    //是否具有定位权限
+    int status=[CLLocationManager authorizationStatus];
+    if(!enable || status<3){
+        //请求权限
+        [self.locMgr requestWhenInUseAuthorization];
+    }
+    [self.locMgr startUpdatingLocation];
+}
+
+#pragma CLLocationManagerDelegate
+//定位
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+    CLLocation *loc = [locations firstObject];
+    NSLog(@"纬度=%f，经度=%f",loc.coordinate.latitude,loc.coordinate.longitude);
+    longitude=[NSString stringWithFormat:@"%f",loc.coordinate.longitude];
+    latitude=[NSString stringWithFormat:@"%f",loc.coordinate.latitude];
+    [index0Service loadUserDefaultsInViewController:self witLoginStatus:sharedData.loginStatus andLongitude:longitude andLatitude:latitude];
+    [manager stopUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error{
+    NSLog(@"定位:%@",error);
+}
 
 -(void)setNaviView{
     naviBarView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, DeviceFrame.size.width, 44)];
     naviBarView.backgroundColor=[UIColor redColor];
-    UIView *labelView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, 120, 44)];
+    UIView *labelView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, 44)];
     UITapGestureRecognizer *tap1=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeCity)];
     [labelView addGestureRecognizer:tap1];
-     self.cityLabel=[[UILabel alloc]initWithFrame:CGRectMake(5, 5, 100, 24)];
+    self.cityLabel=[[UILabel alloc]initWithFrame:CGRectMake(5, 5, 60, 24)];
     self.cityLabel.textColor=[UIColor whiteColor];
     self.cityLabel.text=@"长沙市";
     [labelView addSubview:self.cityLabel];
     [naviBarView addSubview:labelView];
   
     UIButton *seach =[UIButton buttonWithType:UIButtonTypeCustom];
-    seach.frame=CGRectMake(110, 8, 160, 28);
+    seach.frame=CGRectMake(90, 8, 180, 28);
     [seach setBackgroundImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
     [seach setBackgroundImage:[UIImage imageNamed:@"search"] forState:UIControlStateHighlighted];
     [seach addTarget:self action:@selector(search) forControlEvents:UIControlEventTouchUpInside];
 //    [seach setTitle:@"搜索" forState:UIControlStateNormal];
     [naviBarView addSubview:seach];
     
-    changeImage=[[UIImageView alloc]initWithFrame:CGRectMake(92, 11, 15, 15)];
+    changeImage=[[UIImageView alloc]initWithFrame:CGRectMake(62, 11, 15, 15)];
     changeImage.image=[UIImage imageNamed:@"triangles"];
     [naviBarView addSubview:changeImage];
     
@@ -137,7 +183,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger section = indexPath.section;
     if (section==0) {
-        Index0_1Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Index0_1Cell" forIndexPath:indexPath];
+        Index0_1Cell *cell = [self.tableview dequeueReusableCellWithIdentifier:@"Index0_1Cell" forIndexPath:indexPath];
         cell.pageview.imageType = UIImageUrlType;
         cell.pageview.imgUrls = [index0Service namesFromPictures:self.pageviewDatas];
         cell.pageview.titles = [index0Service titlesFromPictures:self.pageviewDatas];
@@ -147,19 +193,20 @@
         cell.pageview.titleIsHidden = YES;//默认为NO（可选）
         cell.pageview.height = cell.pageHeight.constant;
         cell.pageview.pageViewType = MLPageScrollViewAdvertiseMode;//默认是广告模式（可选）
-        cell.pageview.timeInterval = 3;//默认自动滚动图片时间为2秒（可选）
+        cell.pageview.timeInterval = 4;//默认自动滚动图片时间为2秒（可选）
         [cell.pageview updatePageViewInSuperView:self.view];
         return cell;
     }else if(section==1){
-        Index0_2Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Index0_2Cell" forIndexPath:indexPath];
+        Index0_2Cell *cell = [self.tableview dequeueReusableCellWithIdentifier:@"Index0_2Cell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else if(section==2){
-        NoticeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NoticeCell" forIndexPath:indexPath];
+        NoticeCell *cell = [self.tableview dequeueReusableCellWithIdentifier:@"NoticeCell" forIndexPath:indexPath];
+        cell.marqueeLabel.text=self.objects.push_info;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else if(section==3){
-        Index1_3Cell * cell = [tableView dequeueReusableCellWithIdentifier:@"Index1_3Cell" forIndexPath:indexPath];
+        Index1_3Cell * cell = [self.tableview dequeueReusableCellWithIdentifier:@"Index1_3Cell" forIndexPath:indexPath];
         Index0Models_Arr_Model_info *model=self.objects.arr_model;
         Index0Models_Arr_Model_Team_info *models1=model.robuy;
         cell.robTitle.text=models1.title;
@@ -188,21 +235,23 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else if (section==4){
-        Index1_5Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Index1_5Cell" forIndexPath:indexPath];
+        Index1_5Cell *cell = [self.tableview dequeueReusableCellWithIdentifier:@"Index1_5Cell" forIndexPath:indexPath];
         cell.datas =self.objects.arr_seller;
         cell.delegate=self;
         [cell.collectionView reloadData];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else if (section==5){
-        Index1_6Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Index1_6Cell" forIndexPath:indexPath];
+        Index1_6Cell *cell = [self.tableview dequeueReusableCellWithIdentifier:@"Index1_6Cell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else {
-        Index1_7Cell*cell = [tableView dequeueReusableCellWithIdentifier:@"Index1_7Cell" forIndexPath:indexPath];
+        Index1_7Cell*cell = [self.tableview dequeueReusableCellWithIdentifier:@"Index1_7Cell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate=self;
         cell.datas=self.objects.arr_goods;
+    
+        [cell.collictionView reloadData];
         return cell;
     }
 }
@@ -222,7 +271,7 @@
     }else if(section==5){
         return 40;
     }else if (section==6){
-        return 489;
+        return 470;
     }else{
         return 109;
     }
@@ -337,17 +386,16 @@
 
 -(void)selectIndexInCell:(Index1_5Cell*)cell andSellerId:(NSString *)seller_id{
     sellerService =[SellerService new];
-//    SharedData *sharedData = [SharedData sharedInstance];
-//    UserInfo *user = sharedData.user;
     UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
     ShowViewController *showVic=[storBoard instantiateViewControllerWithIdentifier:@"ShowViewController"];
     showVic.seller_id=seller_id;
-    [sellerService sellerInfoWithAgentid:[NSString stringWithFormat:@"%ld",(long)user.agent_id] andSeller_type:@"" andSellerid:seller_id inRootTabBarController:self.tabBarController withDone:^(Public_Seller_info_model_info *model){
+    [sellerService sellerInfoWithAgentid:[NSString stringWithFormat:@"%ld",(long)sharedData.user.agent_id] andSeller_type:@"" andSellerid:seller_id inRootTabBarController:self.tabBarController withDone:^(Public_Seller_info_model_info *model){
         showVic.models=model.arr_seller[0];
+        showVic.hidesBottomBarWhenPushed=YES;
         [self.navigationController pushViewController:showVic animated:YES];
     }];
-
 }
+
 -(void)changeCity{
     UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"ChangeAgent" bundle:nil];
     ChangeAgentViewController *changeAgentVIewController =[storBoard instantiateViewControllerWithIdentifier:@"ChangeAgentViewController"];
@@ -366,5 +414,11 @@
     UIViewController *target = [storyboard instantiateViewControllerWithIdentifier:@"SerchViewController"];
     target.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:target animated:YES];
+}
+-(void)changeAgenTReload{
+//    Index0Service *index0Service = [Index0Service new];
+    [index0Service loadAdverPicWithPos:1 andAgentID:sharedData.user.agent_id inViewController:self];
+    [index0Service loginIndexWithAgentId:sharedData.user.agent_id andLifeHallId:sharedData.user.lifehall_id inViewCOntroller:self];
+
 }
 @end

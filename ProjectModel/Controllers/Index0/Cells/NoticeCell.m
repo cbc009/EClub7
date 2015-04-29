@@ -11,13 +11,30 @@
 @implementation NoticeCell
 
 - (void)awakeFromNib {
-    // Initialization code
+   
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    self.marqueeLabel.marqueeType = MLContinuous;
+    self.marqueeLabel.scrollDuration = 30.0f;
+    self.marqueeLabel.fadeLength = 10.0f;
+    self.marqueeLabel.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pauseTap:)];
+    tapRecognizer.numberOfTapsRequired = 1;
+    tapRecognizer.numberOfTouchesRequired = 1;
+    [self.marqueeLabel addGestureRecognizer:tapRecognizer];
 }
-
+//暂停/开始滚动
+- (void)pauseTap:(UITapGestureRecognizer *)recognizer {
+    MarqueeLabel *continuousLabel2 = (MarqueeLabel *)recognizer.view;
+    
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        if (!continuousLabel2.isPaused) {
+            [continuousLabel2 pauseLabel];
+        } else {
+            [continuousLabel2 unpauseLabel];
+        }
+    }
+}
 @end

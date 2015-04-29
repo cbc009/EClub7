@@ -37,7 +37,12 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = YES;
     activityIndicatorView = [[UIActivityIndicatorView alloc] init];
+    if (self.loadType==1) {
+        [_webview loadHTMLString:self.htmlString baseURL:nil];
+    }else{
     [self loadWebPageWithString:self.urlString inWebView:_webview];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning

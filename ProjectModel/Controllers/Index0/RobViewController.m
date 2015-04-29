@@ -81,7 +81,7 @@
     self.goodNums =[NSMutableArray new];
     index0Service=[[Index0Service alloc] init];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.title=@"乔庄生活馆";
+    self.title=user.lifehall_name;
     [robService loadAdverPicWithPos:3 inViewController:self];
     [SharedAction setupRefreshWithTableView:self.tableView toTarget:self];
     [self.tableView headerBeginRefreshing];

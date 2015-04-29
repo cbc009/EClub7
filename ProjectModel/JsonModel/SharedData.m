@@ -18,7 +18,15 @@
     });
     return sharedUser;
 }
-
+-(void)setStarStatus:(NSString *)starStatus{
+    NSUserDefaults  *userDefaults =[NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:starStatus forKey:@"starStatus"];
+    [userDefaults synchronize];
+}
+-(NSString *)starStatus{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults objectForKey:@"starStatus"];
+}
 -(void)setLoginStatus:(NSString *)loginStatus{
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:loginStatus forKey:@"loginStatus"];

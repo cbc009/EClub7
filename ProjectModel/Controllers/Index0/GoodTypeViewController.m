@@ -26,7 +26,7 @@
     [super viewDidLoad];
     SharedData *sharedData =[SharedData sharedInstance];
     user=sharedData.user;
-    self.title=@"商城";
+//    self.title=@"商城";
     buyService =[BuyService new];
     [buyService loadGoodTypesWithToken:user.token andUser_type:user.user_type InViewController:self];
     // Do any additional setup after loading the view.

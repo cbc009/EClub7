@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol ChangeAgentIdDeleGate<NSObject>
+-(void)changeAgentId:(NSString *)agentid;
+@end
 @interface AgentViewController : UIViewController
+- (IBAction)quxiao:(id)sender;
+@property (weak,nonatomic)id<ChangeAgentIdDeleGate>delegate;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong)NSArray *datas;
 @property (nonatomic,strong)NSString *titles;

@@ -25,7 +25,7 @@
 #import "BuyService.h"
 @implementation Index0Service
 
--(void)loadUserDefaultsInViewController:(Index0_3ViewController *)viewController witLoginStatus:(NSString *)loginStatus{
+-(void)loadUserDefaultsInViewController:(Index0_3ViewController *)viewController witLoginStatus:(NSString *)loginStatus andLongitude:(NSString *)longitude andLatitude:(NSString *)latitude{
     if ([viewController.tabBarController.presentedViewController isKindOfClass:[UINavigationController class]]) {
         UINavigationController *nav = (UINavigationController *)viewController.tabBarController.presentedViewController;
         if ([nav.viewControllers.firstObject isKindOfClass:[LoginViewController class]]) {
@@ -38,15 +38,15 @@
         NSString *password = sharedData.password;
         NSString *urlString;
         if ([loginStatus isEqualToString:@"YES"]) {
-            urlString= [NSString stringWithFormat:Base_Member_Login_URL,name,password];
+            urlString= [NSString stringWithFormat:Login_Member_Login_URL,name,password,longitude,latitude];
         }else{
-            urlString =Base_Free_Login_URL;
+            urlString= [NSString stringWithFormat:Login_Member_Login_URL,@"",@"",longitude,latitude];
         }
         [SVProgressHUD showWithStatus:@"正在加载用户信息"];
         [Member_Login getModelFromURLWithString:urlString completion:^(Member_Login *model,JSONModelError *error){
             if (model.status==2) {
                 sharedData.user=model.info;
-                viewController.cityLabel.text=sharedData.user.agent_name;
+                viewController.cityLabel.text=sharedData.user.city_name;
                 [SharedAction setUMessageTagsWithUser:model.info];
                 [self loadAdverPicWithPos:1 andAgentID:sharedData.user.agent_id inViewController:viewController];
                 [self loginIndexWithAgentId:sharedData.user.agent_id andLifeHallId:sharedData.user.lifehall_id inViewCOntroller:viewController];
@@ -62,8 +62,8 @@
 
 -(void)loginIndexWithAgentId:(NSInteger)agent_id andLifeHallId:(NSInteger)lifeHall_id inViewCOntroller:(Index0_3ViewController*)viewController{
     NSString *urlString =[NSString stringWithFormat:Login_Index_URL,agent_id,lifeHall_id];
-    
     [Index0Models getModelFromURLWithString:urlString completion:^(Index0Models *model,JSONModelError *error){
+        NSLog(@"%@",urlString);
         if (model.status==2) {
             viewController.objects=model.info;
             [viewController.tableview reloadData];
