@@ -84,7 +84,7 @@
     buyService=[BuyService new];
     index0Service = [[Index0Service alloc] init];
     self.tableview.separatorStyle=UITableViewCellSeparatorStyleNone;
-//    [index0Service loadUserDefaultsInViewController:self witLoginStatus:sharedData.loginStatus andLongitude:@"" andLatitude:@""];
+    [index0Service loadUserDefaultsInViewController:self witLoginStatus:sharedData.loginStatus andLongitude:@"" andLatitude:@""];
     self.title=user.lifehall_name;
      NSLog(@"%@",sharedData.loginStatus);
     [self locationNow];
@@ -196,6 +196,7 @@
         cell.pageview.timeInterval = 4;//默认自动滚动图片时间为2秒（可选）
         [cell.pageview updatePageViewInSuperView:self.view];
         cell.pageview.defaultLocationIndex = 2;//这一步必须放在最后。（可选）
+        NSLog(@"cell.pageview.width:%f",cell.pageview.frame.size.width);
         return cell;
     }else if(section==1){
         Index0_2Cell *cell = [self.tableview dequeueReusableCellWithIdentifier:@"Index0_2Cell" forIndexPath:indexPath];
