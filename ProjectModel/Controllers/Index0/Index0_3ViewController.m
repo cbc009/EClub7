@@ -84,7 +84,7 @@
     buyService=[BuyService new];
     index0Service = [[Index0Service alloc] init];
     self.tableview.separatorStyle=UITableViewCellSeparatorStyleNone;
-    [index0Service loadUserDefaultsInViewController:self witLoginStatus:sharedData.loginStatus andLongitude:@"" andLatitude:@""];
+//    [index0Service loadUserDefaultsInViewController:self witLoginStatus:sharedData.loginStatus andLongitude:@"" andLatitude:@""];
     self.title=user.lifehall_name;
      NSLog(@"%@",sharedData.loginStatus);
     [self locationNow];
@@ -109,7 +109,7 @@
     int status=[CLLocationManager authorizationStatus];
     if(!enable || status<3){
         //请求权限
-        [self.locMgr requestWhenInUseAuthorization];
+        [self.locMgr requestAlwaysAuthorization];
     }
     [self.locMgr startUpdatingLocation];
 }
@@ -195,6 +195,7 @@
         cell.pageview.pageViewType = MLPageScrollViewAdvertiseMode;//默认是广告模式（可选）
         cell.pageview.timeInterval = 4;//默认自动滚动图片时间为2秒（可选）
         [cell.pageview updatePageViewInSuperView:self.view];
+        cell.pageview.defaultLocationIndex = 2;//这一步必须放在最后。（可选）
         return cell;
     }else if(section==1){
         Index0_2Cell *cell = [self.tableview dequeueReusableCellWithIdentifier:@"Index0_2Cell" forIndexPath:indexPath];
@@ -271,7 +272,7 @@
     }else if(section==5){
         return 40;
     }else if (section==6){
-        return 470;
+        return 480;
     }else{
         return 109;
     }

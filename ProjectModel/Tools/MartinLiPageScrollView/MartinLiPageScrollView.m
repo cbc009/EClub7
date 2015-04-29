@@ -63,7 +63,7 @@
     self.showsHorizontalScrollIndicator = NO;
     self.bounces = NO;
     self.delegate = self;
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, DeviceFrame.size.width, self.height);
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, ScreenFrame.width, self.height);
     self.contentSize = CGSizeMake(self.frame.size.width*(imageCount+2), self.frame.size.height);
     [self setContentOffset:CGPointMake(self.frame.size.width, -self.contentInset.top) animated:NO];
     [self addImgViewsWithImgUrls:self.imgUrls withTitles:self.titles];
@@ -77,7 +77,7 @@
     self.showsHorizontalScrollIndicator = NO;
     self.bounces = NO;
     self.delegate = self;
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, DeviceFrame.size.width, self.height);
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, ScreenFrame.width, self.height);
     self.contentSize = CGSizeMake(self.frame.size.width*(imageCount+2), self.frame.size.height);
     [self setContentOffset:CGPointMake(self.frame.size.width, -self.contentInset.top) animated:NO];
     [self addImgViewsWithImages:self.images withTitles:self.titles];
@@ -88,7 +88,7 @@
 -(void)setAutoScrollTimer{
     if (self.isAutoScroll) {
         if(!self.timeInterval){
-            self.timeInterval=2.0;
+            self.timeInterval=3.0;
         }
         static dispatch_once_t once;
         dispatch_once(&once,^{
@@ -100,7 +100,7 @@
 //通过imgUrls  addImageViews
 -(void)addImgViewsWithImgUrls:(NSArray *)imgUrls withTitles:(NSArray *)titles{
     for (int i=0; i<imgUrls.count+2; i++) {
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*self.frame.size.width, 0, DeviceFrame.size.width, self.height)];
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*self.frame.size.width, 0, ScreenFrame.width, self.height)];
         NSString *imgUrl = nil;
         NSString *title = nil;
         

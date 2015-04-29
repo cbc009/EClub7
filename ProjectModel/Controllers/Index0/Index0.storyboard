@@ -1853,7 +1853,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6.6折" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BD2-gn-gAJ">
-                                                    <rect key="frame" x="256" y="42" width="31" height="21"/>
+                                                    <rect key="frame" x="252" y="42" width="31" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="BQW-dv-Fij"/>
                                                     </constraints>
@@ -1891,7 +1891,7 @@
                                                 <constraint firstItem="8VS-bK-LBq" firstAttribute="leading" secondItem="cvN-Hz-2j5" secondAttribute="leadingMargin" id="6TZ-Dv-PlF"/>
                                                 <constraint firstItem="BD2-gn-gAJ" firstAttribute="top" secondItem="ywb-ys-m8p" secondAttribute="bottom" constant="10" id="BgW-im-OQ9"/>
                                                 <constraint firstItem="ywb-ys-m8p" firstAttribute="top" secondItem="cvN-Hz-2j5" secondAttribute="topMargin" id="D8e-4G-ozm"/>
-                                                <constraint firstItem="BD2-gn-gAJ" firstAttribute="leading" secondItem="WiI-JM-Goa" secondAttribute="trailing" constant="8" id="DsV-PH-flv"/>
+                                                <constraint firstItem="BD2-gn-gAJ" firstAttribute="leading" secondItem="WiI-JM-Goa" secondAttribute="trailing" constant="4" id="DsV-PH-flv"/>
                                                 <constraint firstItem="aG6-ts-fu6" firstAttribute="top" secondItem="WiI-JM-Goa" secondAttribute="bottom" constant="8" id="MCT-Pv-0yG"/>
                                                 <constraint firstItem="ywb-ys-m8p" firstAttribute="leading" secondItem="8VS-bK-LBq" secondAttribute="trailing" constant="8" id="OSQ-EI-8Og"/>
                                                 <constraint firstItem="EqM-2l-56Q" firstAttribute="top" secondItem="BD2-gn-gAJ" secondAttribute="bottom" constant="8" id="TQr-R1-IKc"/>
@@ -1900,7 +1900,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="EqM-2l-56Q" secondAttribute="trailing" constant="-8" id="cs3-9p-zhl"/>
                                                 <constraint firstItem="8VS-bK-LBq" firstAttribute="top" secondItem="cvN-Hz-2j5" secondAttribute="topMargin" id="fm3-17-LwA"/>
                                                 <constraint firstItem="WiI-JM-Goa" firstAttribute="top" secondItem="ywb-ys-m8p" secondAttribute="bottom" constant="10" id="jMa-lL-XMN"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="BD2-gn-gAJ" secondAttribute="trailing" constant="-8" id="sFi-rf-VtG"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="BD2-gn-gAJ" secondAttribute="trailing" constant="-4" id="sFi-rf-VtG"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -7398,6 +7398,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ipx-Pt-sTI"/>
+        <segue reference="2n1-Fe-LER"/>
     </inferredMetricsTieBreakers>
 </document>
