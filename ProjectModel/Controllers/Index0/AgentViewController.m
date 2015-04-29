@@ -25,6 +25,7 @@
     SharedData *sharedData =[SharedData sharedInstance];
     user=sharedData.user;
     index0Service=[Index0Service new];
+
     self.tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
     // Do any additional setup after loading the view.
 }
@@ -41,6 +42,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     Agent_Info_Arr_Agent *object=self.datas[indexPath.row];
     AgentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AgentCell" forIndexPath:indexPath];
+    cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
     cell.title.text=object.agent_name;
     return cell;
 }

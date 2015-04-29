@@ -88,7 +88,7 @@
     self.title=user.lifehall_name;
      NSLog(@"%@",sharedData.loginStatus);
     [self locationNow];
-    self.collectionDatas = [NSArray arrayWithObjects:@"充值",@"抽奖",@"商户",@"购物车",nil];
+    self.collectionDatas = [NSArray arrayWithObjects:@"充值",@"抽奖",@"联盟商户",@"购物车",nil];
     self.collectionImgs = [NSArray arrayWithObjects:@"chongzhi.png",@"choujiang.png",@"qianbao.png",@"gouwuche.png", nil];
 }
 -(void)viewWillDisappear:(BOOL)animated{
@@ -367,6 +367,7 @@
     NSString *url = array[index];
     if ([url  hasPrefix:@"http"]) {
         WebViewController *target = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
+        target.navigationController.navigationItem.leftBarButtonItem.title=@"首页";
         target.urlString = url;
         target.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:target animated:YES];
@@ -407,6 +408,7 @@
 -(void)message{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
     UIViewController *target = [storyboard instantiateViewControllerWithIdentifier:@"MorePush_history"];
+    target.navigationController.navigationItem.leftBarButtonItem.title=@"首页";
     target.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:target animated:YES];
 

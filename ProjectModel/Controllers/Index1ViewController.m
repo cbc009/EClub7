@@ -7,6 +7,7 @@
 //
 
 #import "Index1ViewController.h"
+#import "RewardRecordsViewController.h"
 #import "InternetRequest.h"
 #import "Index1Service.h"
 #import "SharedData.h"
@@ -150,6 +151,17 @@
     }
 }
 
+- (IBAction)pushTorewarRecord:(id)sender {
+    if (user.user_type==2) {
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+        RewardRecordsViewController*target =[storyBoard instantiateViewControllerWithIdentifier:@"RewardRecordsViewController"];
+        target.hidesBottomBarWhenPushed=YES;
+        [self.navigationController pushViewController:target animated:YES];
+    }else{
+        [SVProgressHUD showErrorWithStatus:@"该功能需要登录以后才能使用"];
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -289,6 +301,7 @@
     }else if(buttonIndex==1) {
         [SharedAction shareWithTitle:alertView.title andDesinationUrl:AppDownLoadURL Text:alertView.message andImageUrl:@"hongbao.jpg" InViewController:self];
     }
+    
 }
 - (IBAction)shareAction:(id)sender {
     [SharedAction shareWithTitle:@"抽奖了" andDesinationUrl:AppDownLoadURL Text:@"E小区每天都有5次免费得抽奖机会哦 赶快加入吧" andImageUrl:@"hongbao.jpg" InViewController:self];

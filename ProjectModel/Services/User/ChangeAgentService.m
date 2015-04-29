@@ -13,8 +13,10 @@
 #import "Agent_Info.h"
 @implementation ChangeAgentService
 -(void)publicProvinceInfoWithType:(NSString*)type withDone:(doneWithObject)done{
+    [SVProgressHUD show];
     NSString *urlString =[NSString stringWithFormat:Public_Province_Info_URL,type];
     [Province_Info getModelFromURLWithString:urlString completion:^(Province_Info *model,JSONModelError *error){
+        [SVProgressHUD dismiss];
         if (model.status==2) {
             done(model.info);
         }else{
@@ -23,13 +25,16 @@
     }];
 }
 -(void)publicAgentInfoWithProvionecId:(NSString*)provinceId withDone:(doneWithObject)done{
+    [SVProgressHUD show];
     NSString *urlString =[NSString stringWithFormat:Public_Agent_Info_URL,provinceId];
     [Agent_Info getModelFromURLWithString:urlString completion:^(Agent_Info *model,JSONModelError *error){
+        [SVProgressHUD dismiss];
         if (model.status==2) {
             done(model.info);
         }else{
             [SVProgressHUD showErrorWithStatus:model.error];
         }
+        
     }];
 }
 @end

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -45,13 +45,21 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bhf-Xe-ON2" id="tI8-uo-23o">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="湖南省" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Fu-r7-97q">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="湖南省" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Fu-r7-97q">
                                                     <rect key="frame" x="8" y="8" width="267" height="27"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="267" id="ECH-bu-hKM"/>
+                                                        <constraint firstAttribute="height" constant="27" id="cLN-8B-tGX"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="7Fu-r7-97q" firstAttribute="top" secondItem="tI8-uo-23o" secondAttribute="topMargin" id="6gc-52-VDh"/>
+                                                <constraint firstItem="7Fu-r7-97q" firstAttribute="leading" secondItem="tI8-uo-23o" secondAttribute="leadingMargin" id="9zX-ib-BOX"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="title" destination="7Fu-r7-97q" id="Bn8-ub-ukb"/>
@@ -110,13 +118,21 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gP4-G9-4pe" id="gVL-22-mCM">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="长沙市" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tux-QV-VdQ">
-                                                    <rect key="frame" x="8" y="11" width="297" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="长沙市" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tux-QV-VdQ">
+                                                    <rect key="frame" x="8" y="11" width="256" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="256" id="emM-Ke-QXV"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="tux-QV-VdQ" secondAttribute="bottom" constant="3" id="LmW-qc-j3l"/>
+                                                <constraint firstItem="tux-QV-VdQ" firstAttribute="top" secondItem="gVL-22-mCM" secondAttribute="topMargin" constant="3" id="d1u-Ex-mU5"/>
+                                                <constraint firstItem="tux-QV-VdQ" firstAttribute="leading" secondItem="gVL-22-mCM" secondAttribute="leadingMargin" id="qbQ-6t-1HT"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="title" destination="tux-QV-VdQ" id="l0W-GG-HQB"/>

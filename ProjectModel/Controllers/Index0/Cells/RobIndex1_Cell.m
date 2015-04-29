@@ -11,7 +11,7 @@
 @implementation RobIndex1_Cell
 
 - (void)awakeFromNib {
-    // Initialization code
+    self.sellerDetails.scrollView.scrollEnabled=NO;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
