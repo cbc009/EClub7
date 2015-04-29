@@ -433,15 +433,15 @@
     if (keyBoardDown==1) {
         keyBoardDown=0;
         [self.view removeGestureRecognizer:tap1];//这里要移除tap1 不然会点不了
-        [UIView animateWithDuration:1 animations:^{
-            ratingBarView.frame= CGRectMake(125, 95, 170,0);
+        [UIView animateWithDuration:0.5 animations:^{
+            ratingBarView.frame= CGRectMake(125, 80, 170,0);
         }];
 //        [ratingBarView removeFromSuperview];
     }else{
         keyBoardDown=1;
         [self.view addGestureRecognizer:tap1];
-        [UIView animateWithDuration:1 animations:^{
-            ratingBarView.frame= CGRectMake(125, 95, 170, 100);
+        [UIView animateWithDuration:0.5 animations:^{
+            ratingBarView.frame= CGRectMake(125, 80, 170, 100);
             }];
          [self.tablewView addSubview:ratingBarView];
     }
@@ -449,7 +449,7 @@
 //创建下拉的星星
 -(void)setRatingBarView{
     tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ratingBarViewHidden)];
-    ratingBarView =[[UIView alloc] initWithFrame:CGRectMake(125, 95, 170, 0)];
+    ratingBarView =[[UIView alloc] initWithFrame:CGRectMake(125, 80, 170, 0)];
     ratingBarView.clipsToBounds=YES;
     ratingBarView.backgroundColor=[UIColor whiteColor];
     ratingBarView.alpha=1;
@@ -479,8 +479,8 @@
 -(void)ratingBarViewHidden{
     keyBoardDown=0;
     [self.view removeGestureRecognizer:tap1];//这里要移除tap1 不然会点不了
-    [UIView animateWithDuration:1 animations:^{
-        ratingBarView.frame= CGRectMake(125, 95, 170,0);
+    [UIView animateWithDuration:0.5 animations:^{
+        ratingBarView.frame= CGRectMake(125, 80, 170,0);
     }];
 //    [ratingBarView removeFromSuperview];
 }
