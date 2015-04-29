@@ -1,23 +1,23 @@
 PODS:
-  - AFNetworking (2.5.2):
-    - AFNetworking/NSURLConnection (= 2.5.2)
-    - AFNetworking/NSURLSession (= 2.5.2)
-    - AFNetworking/Reachability (= 2.5.2)
-    - AFNetworking/Security (= 2.5.2)
-    - AFNetworking/Serialization (= 2.5.2)
-    - AFNetworking/UIKit (= 2.5.2)
-  - AFNetworking/NSURLConnection (2.5.2):
+  - AFNetworking (2.5.3):
+    - AFNetworking/NSURLConnection (= 2.5.3)
+    - AFNetworking/NSURLSession (= 2.5.3)
+    - AFNetworking/Reachability (= 2.5.3)
+    - AFNetworking/Security (= 2.5.3)
+    - AFNetworking/Serialization (= 2.5.3)
+    - AFNetworking/UIKit (= 2.5.3)
+  - AFNetworking/NSURLConnection (2.5.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.2):
+  - AFNetworking/NSURLSession (2.5.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.2)
-  - AFNetworking/Security (2.5.2)
-  - AFNetworking/Serialization (2.5.2)
-  - AFNetworking/UIKit (2.5.2):
+  - AFNetworking/Reachability (2.5.3)
+  - AFNetworking/Security (2.5.3)
+  - AFNetworking/Serialization (2.5.3)
+  - AFNetworking/UIKit (2.5.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - BmobSDK (1.4.12)
@@ -37,7 +37,7 @@ PODS:
   - UMengAnalytics-NO-IDFA (3.1.11)
   - UMengFeedback (2.1)
   - UMengMessage (1.1.0.2)
-  - UMengSocial (4.2.1)
+  - UMengSocial (4.2.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5.0)
@@ -59,7 +59,7 @@ DEPENDENCIES:
   - UMengSocial (~> 4.2.1)
 
 SPEC CHECKSUMS:
-  AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36
+  AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
   BmobSDK: 4f215609254408b3289d6021a76cf20666696b77
   ELCImagePickerController: b1b7084434a7d49f2cfc916bde1f3ba353d38de9
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
@@ -75,6 +75,6 @@ SPEC CHECKSUMS:
   UMengAnalytics-NO-IDFA: 113fee70a03af45c89b60b8f5b15cf1accfebeab
   UMengFeedback: 0e04794921d5daca7abdc12d4761cd831492c192
   UMengMessage: 48fac77da8a71729c3d9c40eed16151d8917d9b3
-  UMengSocial: aedae57452047daa708306f23ff21883a07cd779
+  UMengSocial: c608958b8aec7831d2a0964b62fc4cd1ed0bd9c3
 
 COCOAPODS: 0.35.0
