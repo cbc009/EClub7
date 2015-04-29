@@ -27,6 +27,10 @@
     [super viewDidLoad];
     SharedData *sharedData =[SharedData sharedInstance];
     user=sharedData.user;
+//    self.navigationController.navigationBar.leftItemsSupplementBackButton=NO;
+    [self.navigationController.navigationBar.backItem setTitle:@"首页"];
+    
+//    [self.navigationController.navigationBar.barStyle=]
     buyService=[BuyService new];
     [buyService loginLatestwithAgentId:user.agent_id inTabBarController:self.tabBarController withDone:^(Login_latest_model_info *model){
         datas=model.arr_goods;

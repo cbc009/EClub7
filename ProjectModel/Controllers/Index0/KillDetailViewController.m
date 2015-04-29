@@ -116,7 +116,7 @@
         RobIndex1_Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"RobIndex1_Cell" forIndexPath:indexPath];
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         cell.sellerName.text=self.good.seller_name;
-        cell.sellerDetail.text =self.good.seller_intro;
+        [cell.sellerDetails  loadHTMLString:self.good.seller_intro baseURL:nil];
         [cell.sellerPIc sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.good.seller_picture]] placeholderImage:[UIImage imageNamed:@"e"]];
         return cell;
     }else if(indexPath.section==3){

@@ -11,6 +11,7 @@
 @interface RobIndex1_Cell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *sellerPIc;
 @property (weak, nonatomic) IBOutlet UILabel *sellerName;
-@property (weak, nonatomic) IBOutlet UILabel *sellerDetail;
+//@property (weak, nonatomic) IBOutlet UILabel *sellerDetail;
+@property (weak, nonatomic) IBOutlet UIWebView *sellerDetails;
 
 @end

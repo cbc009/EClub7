@@ -94,7 +94,7 @@
         RobIndex1_Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"RobIndex1_Cell" forIndexPath:indexPath];
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         cell.sellerName.text=self.models.seller_name;
-        cell.sellerDetail.text =self.models.seller_intro;
+        [cell.sellerDetails  loadHTMLString:self.models.seller_intro baseURL:nil];
         [cell.sellerPIc sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.models.seller_picture]] placeholderImage:[UIImage imageNamed:@"e"]];
         return cell;
     }else if(indexPath.section==3){
@@ -107,9 +107,11 @@
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         if (row==0) {
             cell.title.text=@"领取方式:";
+            cell.detail.font=[UIFont systemFontOfSize:12];
             cell.detail.text=self.models.receive_from;
         }else{
             cell.title.text=@"领取地址:";
+            cell.detail.font=[UIFont systemFontOfSize:12];
            cell.detail.text=self.models.receive_address;
         }
         return cell;

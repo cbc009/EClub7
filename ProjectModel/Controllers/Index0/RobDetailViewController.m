@@ -132,7 +132,7 @@
     }else if(section==3){
         RobIndex1_Cell *cell =[tableView dequeueReusableCellWithIdentifier:@"RobIndex1_Cell" forIndexPath:indexPath];
         cell.sellerName.text=self.robGoodsMOdel.seller_name;
-        cell.sellerDetail.text =self.robGoodsMOdel.seller_intro;
+        [cell.sellerDetails  loadHTMLString:self.robGoodsMOdel.seller_intro baseURL:nil];
         [cell.sellerPIc sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.robGoodsMOdel.seller_picture]] placeholderImage:[UIImage imageNamed:@"e"]];
         return cell;
     }else if (section==4){

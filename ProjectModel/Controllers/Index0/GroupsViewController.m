@@ -117,7 +117,7 @@
         CGFloat actnumbers=([model.discount floatValue]/[model.price floatValue])*10;
         cell.allowance.text=[NSString stringWithFormat:@"%0.1f",actnumbers];
         
-        NSMutableAttributedString *actString =[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@已参团",model.actual_nums]];
+        NSMutableAttributedString *actString =[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@人已抢购",model.actual_nums]];
         
         const CGFloat fontSize1 = 18;
         const CGFloat fontSize2 = 14;
