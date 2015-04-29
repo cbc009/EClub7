@@ -38,7 +38,7 @@
     buyService = [[BuyService alloc] init];
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
-    
+    self.title=self.titletext;
     _tableview.showsVerticalScrollIndicator =NO;
     [_tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self setSegmentedControl:self.seg WithArray:self.subtypes];

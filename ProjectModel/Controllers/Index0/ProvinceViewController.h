@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface ProvinceViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+- (IBAction)quxiao:(id)sender;
 
 @end

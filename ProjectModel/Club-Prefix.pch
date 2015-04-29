@@ -62,6 +62,10 @@ typedef void (^finished)(NSDictionary *info);
 #define Base_Member_Login_URL [PrexURL stringByAppendingString: @"Base/member_login/loginname/%@/password/%@/from/IOS"]
 //免注册登录
 #define Base_Free_Login_URL [PrexURL stringByAppendingString: @"Base/free_login/from/from/IOS"]
+//新的登录接口
+#define Login_Member_Login_URL [PrexURL stringByAppendingString: @"Login/member_login/loginname/%@/password/%@/longitude/%@/latitude/%@/from/IOS"]
+
+
 
 #define UserinfosURL [PrexURL stringByAppendingString: @"Member/userinfo?loginname=%@"]
 #define ValicodeURL [PrexURL stringByAppendingString: @"Base/valid_code/loginname/%@"]
@@ -99,7 +103,7 @@ typedef void (^finished)(NSDictionary *info);
 //抢购分享
 #define Robuy_Share_URL [PrexURL stringByAppendingString: @"Robuy/robuy_goods_share/goods_id/%@"]
 //抢购商品详情
-#define Robuy_Goods_Detail_URL [PrexURL stringByAppendingString: @"Robuy/robuy_goods_detail/goods_id/%@"]
+#define Robuy_Goods_Detail_URL [PrexURL stringByAppendingString: @"Seller/seller_goods_detail/goods_id/%@"]
 //新抢购
 #define Robuy_Goods_Now_URL [PrexURL stringByAppendingString: @"Robuy/robuy_orders/lifehall_id/%@/goods_id/%@/token/%@/user_type/%d/from/IOS"]
 //切换生活馆

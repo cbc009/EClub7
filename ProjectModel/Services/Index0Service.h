@@ -11,11 +11,11 @@
 #import "Index0_3ViewController.h"
 @interface Index0Service : NSObject
 //加载用户信息  loginStatus 为记住的登录状态
--(void)loadUserDefaultsInViewController:(Index0_3ViewController *)viewController witLoginStatus:(NSString *)loginStatus;
+-(void)loadUserDefaultsInViewController:(Index0_3ViewController *)viewController witLoginStatus:(NSString *)loginStatus andLongitude:(NSString *)longitude andLatitude:(NSString *)latitude;
 //加载广告
 -(void)loadAdverPicWithPos:(NSInteger)pos andAgentID:(NSInteger)agent_id inViewController:(UIViewController *)viewController;
 //-(void)GetBalanceWithToken:(NSString *)token andUser_type:(NSInteger )user_type onViewController:(Index0_3ViewController *)viewController;
-
+-(void)loginIndexWithAgentId:(NSInteger)agent_id andLifeHallId:(NSInteger)lifeHall_id inViewCOntroller:(Index0_3ViewController*)viewController;
 -(NSArray *)namesFromPictures:(NSArray *)pictures;
 -(NSArray *)titlesFromPictures:(NSArray *)pictures;
 -(NSArray *)urlsFromPictures:(NSArray *)pictures;

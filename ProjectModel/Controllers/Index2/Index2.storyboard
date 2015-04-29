@@ -6,11 +6,11 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--E小区-->
+        <!--更多-->
         <scene sceneID="4Go-CY-2Y1">
             <objects>
                 <navigationController storyboardIdentifier="Index2NavViewController" id="SiG-io-mgf" customClass="Index2NavViewController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="E小区" image="main_community_light.png" id="Pei-mp-NAg"/>
+                    <tabBarItem key="tabBarItem" title="更多" image="more.png" id="Pei-mp-NAg"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="XVv-3b-Z7a">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1449,7 +1449,7 @@
     <resources>
         <image name="account.png" width="48" height="48"/>
         <image name="backgrount.jpg" width="293" height="220"/>
-        <image name="main_community_light.png" width="28" height="28"/>
+        <image name="more.png" width="30" height="30"/>
         <image name="vegetables.png" width="512" height="297"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

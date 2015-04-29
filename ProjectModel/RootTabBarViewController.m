@@ -8,10 +8,10 @@
 
 #import "RootTabBarViewController.h"
 #import "LoginViewController.h"
-
+#import "AgentViewController.h"
 #import "BuyService.h"
 #import "Index0Service.h"
-@interface RootTabBarViewController ()<UIAlertViewDelegate,LoginViewControllerDelegate>
+@interface RootTabBarViewController ()<UIAlertViewDelegate,LoginViewControllerDelegate,ChangeAgentIdDeleGate>
 
 @end
 
@@ -36,8 +36,8 @@
     [self addChildViewController:index0Nav];
     [self addChildViewController:index1Nav];
     [self addChildViewController:index0Nav4];
-    [self addChildViewController:index3Nav];
     [self addChildViewController:index2Nav];
+    [self addChildViewController:index3Nav];
     
     
     
@@ -109,16 +109,22 @@
 #pragma LoginViewControllerDelegate
 -(void)loginSuccessedActionWithViewController:(UIViewController *)viewController{
      [self.selectedViewController beginAppearanceTransition: YES animated:YES];
-    self.selectedIndex=0;
+        self.selectedIndex=0;
     [viewController.navigationController dismissViewControllerAnimated:YES completion:^{
         UINavigationController *nav = self.viewControllers[0];
         UIViewController *index0ViewController = nav.topViewController;
         SharedData *sharedData = [SharedData sharedInstance];
-        BuyService *buyService = [[BuyService alloc] init];
         Index0Service *index0Service = [Index0Service new];
 //        [buyService loadGoodTypesWithToken:sharedData.user.token andUser_type:sharedData.user.user_type InViewController:index0ViewController];
         [index0Service loadAdverPicWithPos:1 andAgentID:sharedData.user.agent_id inViewController:index0ViewController];
     }];
+}
+-(void)changeAgentId:(NSString *)agentid{
+    Index0Service *index0Service = [Index0Service new];
+     SharedData *sharedData = [SharedData sharedInstance];
+    [index0Service loadAdverPicWithPos:1 andAgentID:sharedData.user.agent_id inViewController:self];
+    [index0Service loginIndexWithAgentId:sharedData.user.agent_id andLifeHallId:sharedData.user.lifehall_id inViewCOntroller:self];
+    
     
 }
 @end

@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "LoginService.h"
 #import "ChooseAreaViewController.h"
+
 @interface LoginViewController ()
 {
     __weak IBOutlet UITextField *loginname;
@@ -31,7 +32,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.title = @"登录";
     keyBoardController = [[UIKeyboardViewController alloc] initWithControllerDelegate:self];
     [keyBoardController addToolbarToKeyboard];
@@ -46,7 +46,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 

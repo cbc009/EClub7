@@ -21,6 +21,7 @@
 #import "UMSocialSinaHandler.h"
 #import <BmobSDK/Bmob.h>
 #import "NSString+MT.h"
+#import <CoreLocation/CoreLocation.h>
 #define IOS_7_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
 #define IOS_8_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 
@@ -43,6 +44,11 @@
     if (!ret) {
         NSLog(@"manager start failed!");
     }
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    if (kCLAuthorizationStatusDenied == status || kCLAuthorizationStatusRestricted == status) {
+        NSLog(@"请打开您的位置服务!");
+    }
+    
 //   [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     return YES;
 }

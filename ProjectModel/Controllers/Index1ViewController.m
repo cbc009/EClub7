@@ -285,6 +285,7 @@
 #pragma UIAlertViewDelegate
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==0) {
+
     }else if(buttonIndex==1) {
         [SharedAction shareWithTitle:alertView.title andDesinationUrl:AppDownLoadURL Text:alertView.message andImageUrl:@"hongbao.jpg" InViewController:self];
     }

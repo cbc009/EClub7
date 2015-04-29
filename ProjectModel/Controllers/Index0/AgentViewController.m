@@ -9,9 +9,11 @@
 #import "AgentViewController.h"
 #import "AgentCell.h"
 #import "Agent_Info.h"
+#import "Index0Service.h"
 @interface AgentViewController ()
 {
     UserInfo *user;
+    Index0Service *index0Service;
 }
 @end
 
@@ -22,6 +24,7 @@
     self.title=self.titles;
     SharedData *sharedData =[SharedData sharedInstance];
     user=sharedData.user;
+    index0Service=[Index0Service new];
     self.tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
     // Do any additional setup after loading the view.
 }
@@ -47,8 +50,17 @@
     Agent_Info_Arr_Agent *object=self.datas[row];
     user.agent_id=[object.agent_id integerValue];
     user.agent_name=object.agent_name;
+    user.city=[object.city integerValue];
+    user.city_name=object.city_name;
+    user.lifehall_id=[object.lifehall_id integerValue];
+    user.lifehall_name=object.lifehall_name;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"AgentReload"
+                                                        object:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
+- (IBAction)quxiao:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end
