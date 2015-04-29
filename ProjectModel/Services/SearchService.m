@@ -30,6 +30,7 @@
 }
 
 -(void)searchLabelwithToken:(NSString *)token andUser_type:(NSInteger )user_type inTabBarController:(UITabBarController*)tabBarController withDone:(doneWithObject)done{
+//    [SVProgressHUD show];
     NSString *urlString =[NSString stringWithFormat:Goods_search_Label_URL,token,user_type];
     [Search_label getModelFromURLWithString:urlString completion:^(Search_label *model,JSONModelError *error){
         [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];

@@ -84,6 +84,7 @@
     buyService=[BuyService new];
     index0Service = [[Index0Service alloc] init];
     self.tableview.separatorStyle=UITableViewCellSeparatorStyleNone;
+    self.tableview.bounces=NO;
     [index0Service loadUserDefaultsInViewController:self witLoginStatus:sharedData.loginStatus andLongitude:@"" andLatitude:@""];
     self.title=user.lifehall_name;
      NSLog(@"%@",sharedData.loginStatus);

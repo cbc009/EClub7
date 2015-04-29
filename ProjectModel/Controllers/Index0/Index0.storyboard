@@ -1921,13 +1921,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="hVr-Ig-5bW" secondAttribute="trailing" constant="-16" id="75X-8T-ayS"/>
-                            <constraint firstItem="L4c-C9-5gS" firstAttribute="top" secondItem="hVr-Ig-5bW" secondAttribute="bottom" id="7KS-sy-K4b"/>
+                            <constraint firstItem="L4c-C9-5gS" firstAttribute="top" secondItem="hVr-Ig-5bW" secondAttribute="bottom" id="7AR-zS-HAM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="A6J-ai-vjc" secondAttribute="trailing" constant="-16" id="AhN-cl-ve3"/>
+                            <constraint firstItem="hVr-Ig-5bW" firstAttribute="top" secondItem="A6J-ai-vjc" secondAttribute="bottom" id="Aik-K1-syW"/>
                             <constraint firstItem="A6J-ai-vjc" firstAttribute="leading" secondItem="Fkf-Ev-79f" secondAttribute="leadingMargin" constant="-16" id="bOR-VH-Y4d"/>
-                            <constraint firstItem="hVr-Ig-5bW" firstAttribute="leading" secondItem="Fkf-Ev-79f" secondAttribute="leadingMargin" constant="-16" id="c0l-ks-NjU"/>
                             <constraint firstItem="A6J-ai-vjc" firstAttribute="top" secondItem="wq1-P0-4hi" secondAttribute="bottom" id="efc-cZ-cYS"/>
-                            <constraint firstItem="hVr-Ig-5bW" firstAttribute="top" secondItem="A6J-ai-vjc" secondAttribute="bottom" id="vhl-vf-nOM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hVr-Ig-5bW" secondAttribute="trailing" constant="-16" id="uKs-j1-1X8"/>
+                            <constraint firstItem="hVr-Ig-5bW" firstAttribute="leading" secondItem="Fkf-Ev-79f" secondAttribute="leadingMargin" constant="-16" id="xiM-eJ-a6w"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="yYt-Vk-ngq"/>
@@ -5065,22 +5065,6 @@
                                     <segue destination="Uxk-gx-2O8" kind="push" identifier="activityRule" id="945-Vx-M0V"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U4f-mT-l2L">
-                                <rect key="frame" x="165" y="339" width="139" height="33"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="33" id="OIH-nN-7XJ"/>
-                                    <constraint firstAttribute="width" constant="139" id="htF-Ic-iFq"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="中奖记录">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="3vE-c0-OoM" kind="push" id="HVL-un-J3V"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.88" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Gi-nb-7Bo">
                                 <rect key="frame" x="16" y="143" width="65" height="21"/>
                                 <constraints>
@@ -5103,6 +5087,22 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U4f-mT-l2L">
+                                <rect key="frame" x="165" y="339" width="139" height="33"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="33" id="OIH-nN-7XJ"/>
+                                    <constraint firstAttribute="width" constant="139" id="htF-Ic-iFq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="中奖记录">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pushTorewarRecord:" destination="Pex-gz-Fya" eventType="touchUpInside" id="PWL-CV-v01"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.98431378599999997" green="0.81176477670000002" blue="0.81176477670000002" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
@@ -5248,6 +5248,7 @@
                         <outlet property="view7" destination="ufZ-4m-vLO" id="PXy-bp-nJd"/>
                         <outlet property="view8" destination="aZM-Ex-rb0" id="xm1-in-Lnf"/>
                         <outlet property="view9" destination="c3R-sf-A05" id="HQ1-uu-vUe"/>
+                        <segue destination="3vE-c0-OoM" kind="push" id="b3T-Ce-idN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bSZ-VU-MEb" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -18,5 +18,6 @@
 
 @property(nonatomic,strong)PrizeIndexInfo *prizeIndexInfo;
 -(void)setLabelWithRotary:(NSArray *)rotary;
+- (IBAction)pushTorewarRecord:(id)sender;
 
 @end
