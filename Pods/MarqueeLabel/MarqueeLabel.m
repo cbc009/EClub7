@@ -16,7 +16,7 @@ NSString *const kMarqueeLabelAnimationCompletionBlock = @"MarqueeLabelAnimationC
 typedef void(^MLAnimationCompletionBlock)(BOOL finished);
 
 // iOS Version check for iOS 8.0.0
-#define SYSTEM_VERSION_IS_8_0_X ([[[UIDevice currentDevice] systemVersion] hasPrefix:@"8.0"])
+#define SYSTEM_VERSION_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
 
 // Helpers
 @interface UIView (MarqueeLabelHelpers)
@@ -985,8 +985,8 @@ CGPoint MLOffsetCGPoint(CGPoint point, CGFloat offset);
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     
-    // Check if device is running iOS 8.0.X
-    if(SYSTEM_VERSION_IS_8_0_X) {
+    // Check if device is running iOS 8.0.0
+    if(SYSTEM_VERSION_EQUAL_TO(@"8.0.0")) {
         // If so, force update because layoutSubviews is not called
         [self updateSublabelAndLocationsAndBeginScroll:!self.orientationWillChange];
     }
@@ -995,8 +995,8 @@ CGPoint MLOffsetCGPoint(CGPoint point, CGFloat offset);
 - (void)setBounds:(CGRect)bounds {
     [super setBounds:bounds];
     
-    // Check if device is running iOS 8.0.X
-    if(SYSTEM_VERSION_IS_8_0_X) {
+    // Check if device is running iOS 8.0.0
+    if(SYSTEM_VERSION_EQUAL_TO(@"8.0.0")) {
         // If so, force update because layoutSubviews is not called
         [self updateSublabelAndLocationsAndBeginScroll:!self.orientationWillChange];
     }

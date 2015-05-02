@@ -715,7 +715,7 @@ QRcode *QRcode_encodeString8bit(const char *string, int version, QRecLevel level
 		errno = EINVAL;
 		return NULL;
 	}
-	return QRcode_encodeDataReal((unsigned char *)string,(int)strlen(string), version, level, 0);
+	return QRcode_encodeDataReal((unsigned char *)string, (int)strlen(string), version, level, 0);
 }
 
 QRcode *QRcode_encodeDataMQR(int size, const unsigned char *data, int version, QRecLevel level)

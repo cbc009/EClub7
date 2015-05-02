@@ -1,7 +1,7 @@
 //
 //  JSONValueTransformer.m
 //
-//  @version 1.0.2
+//  @version 1.0.0
 //  @author Marin Todorov, http://www.touch-code-magazine.com
 //
 
@@ -217,8 +217,7 @@ static NSDateFormatter *_dateFormatter;
     static NSDateFormatter* dateFormatter;
     dispatch_once(&once, ^{
         dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HHmmssZZZ"];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HHmmssZZZZ"];
     });
     return dateFormatter;
 }
@@ -232,7 +231,6 @@ static NSDateFormatter *_dateFormatter;
 -(NSString*)__JSONObjectFromNSDate:(NSDate*)date
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     return [dateFormatter stringFromDate:date];
 }
