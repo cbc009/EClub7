@@ -71,7 +71,7 @@
         }
     else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
         typeString =[NSString stringWithFormat:@"seller_type/%@/seller_sub_type/%@/distance/%@/longitude/%@/latitude/%@",self.seller_type,seller_sub_type,data10[0],longitude,latitude];
-        [self.tableview headerBeginRefreshing];
+        [self headerRereshing];
         NSLog(@"定位功能不可用，提示用户或忽略");
     }
 //    [self.tableview headerBeginRefreshing];    
@@ -91,9 +91,6 @@
         for (int j=0; j<model.sub_type.count; j++) {
           
             Public_Seller_sub_type_info *object =model.sub_type[j];
-            if (j==0&j==0) {
-                seller_sub_type=object.sub_type_id;
-            }
             [matherArray addObject:object.sub_type_name];
             [fatherArray addObject:object.sub_type_id];
         }
@@ -102,7 +99,10 @@
         _data4=[NSMutableArray arrayWithObjects:@{@"title":model.seller_type_name,@"data":matherArray},nil];//这里是单个大类对应的小类数组
         [_data1 addObjectsFromArray:_data4];//这里是将所有的大类以及小类的数组 放到一起
     }
+    Public_Seller_sub_type_info *model =self.seller_type_id_array[0];
+    seller_sub_type=model.sub_type_id;
     data10=self.distanceArray;
+    _data11=_data6[0];
     for (int k=0; k<self.distanceArray.count; k++) {
         if (k==0) {
             [_data2 addObject:@"全部"];
@@ -243,7 +243,7 @@
         _currentData3Index = indexPath.row;
     }
     seller_sub_type=_data11[indexPath.row];
-   typeString =[NSString stringWithFormat:@"seller_type/%@/seller_sub_type/%@/distance/%@/longitude/%@/latitude/%@",self.seller_type,_data11[indexPath.row],@"0",@"0",@"0"];
+   typeString =[NSString stringWithFormat:@"seller_type/%@/seller_sub_type/%@/distance/%@/longitude/%@/latitude/%@",self.seller_type,_data11[indexPath.row],@"0",longitude,latitude];
     [self headerRereshing];
     _currentData2Index = indexPath.row;
 }
@@ -271,13 +271,15 @@
         Result_info *object =model.result[0];
         typeString=[NSString stringWithFormat:@"seller_type/%@/seller_sub_type/%@/distance/%@/longitude/%f/latitude/%f",self.seller_type,seller_sub_type,data10[0],object.x,object.y];
         
-        [self.tableview headerBeginRefreshing];
+        [self headerRereshing];
     }];
      [manager stopUpdatingLocation];
-    }
+}
 
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error{
+    typeString =[NSString stringWithFormat:@"seller_type/%@/seller_sub_type/%@/distance/%@/longitude/%@/latitude/%@",self.seller_type,seller_sub_type,data10[0],longitude,latitude];
+    [self headerRereshing];
     NSLog(@"定位:%@",error);
 }
 
@@ -340,9 +342,7 @@
         [self.data addObjectsFromArray:model.arr_seller];
         [self.tableview reloadData];
     }];
-
-    [self.tableview footerEndRefreshing];
-    
+    [self.tableview footerEndRefreshing];    
 }
 
 @end
