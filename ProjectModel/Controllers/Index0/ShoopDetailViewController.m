@@ -55,7 +55,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title=@"商户列表";
+    _currentData1Index =self.index;
     sellerService=[SellerService new];
+    
     SharedData *sharedData =[SharedData sharedInstance];
     [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
     user =sharedData.user;
@@ -102,7 +104,7 @@
     Public_Seller_sub_type_info *model =self.seller_type_id_array[0];
     seller_sub_type=model.sub_type_id;
     data10=self.distanceArray;
-    _data11=_data6[0];
+    _data11=_data6[self.index];
     for (int k=0; k<self.distanceArray.count; k++) {
         if (k==0) {
             [_data2 addObject:@"全部"];
@@ -159,15 +161,11 @@
 -(NSInteger)currentLeftSelectedRow:(NSInteger)column{
     
     if (column==0) {
-        
         return _currentData1Index;
-        
     }
     if (column==1) {
-        
         return _currentData2Index;
     }
-    
     return 0;
 }
 
@@ -230,6 +228,7 @@
         if(indexPath.leftOrRight==0){
             _currentData1Index = indexPath.row;
             _data11=_data6[indexPath.row];
+            seller_sub_type=_data11[indexPath.row];
             self.seller_type=_data5 [indexPath.row];
             return;
         }
@@ -242,8 +241,9 @@
     } else{
         _currentData3Index = indexPath.row;
     }
+    
     seller_sub_type=_data11[indexPath.row];
-   typeString =[NSString stringWithFormat:@"seller_type/%@/seller_sub_type/%@/distance/%@/longitude/%@/latitude/%@",self.seller_type,_data11[indexPath.row],@"0",longitude,latitude];
+   typeString =[NSString stringWithFormat:@"seller_type/%@/seller_sub_type/%@/distance/%@/longitude/%@/latitude/%@",self.seller_type,seller_sub_type,@"0",longitude,latitude];
     [self headerRereshing];
     _currentData2Index = indexPath.row;
 }
