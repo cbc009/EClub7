@@ -56,6 +56,7 @@
     [super viewDidLoad];
     self.title=@"商户列表";
     _currentData1Index =self.index;
+    self.tableview.tableFooterView =[UIView new];
     sellerService=[SellerService new];
     
     SharedData *sharedData =[SharedData sharedInstance];
