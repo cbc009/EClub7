@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
@@ -80,7 +80,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="pageHeight" destination="Xxk-no-DiK" id="aWf-31-IQC"/>
+                                            <outlet property="pageHeight" destination="Xxk-no-DiK" id="jWj-q1-IZX"/>
                                             <outlet property="pageview" destination="iyA-E7-rm5" id="tth-fu-5t7"/>
                                         </connections>
                                     </tableViewCell>
@@ -734,7 +734,7 @@
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
             </objects>
-            <point key="canvasLocation" x="-2920" y="-1289"/>
+            <point key="canvasLocation" x="-2923" y="-1305"/>
         </scene>
         <!--News Goods View Controller-->
         <scene sceneID="oDe-gx-q7l">
@@ -2068,7 +2068,7 @@
                                         <rect key="frame" x="0.0" y="349" width="320" height="64"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="64" id="9J8-pK-UDv"/>
+                                            <constraint firstAttribute="height" constant="64" id="60n-dk-ldr"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="delegate" destination="B58-PH-AkN" id="cPL-SA-iKJ"/>
@@ -2089,15 +2089,14 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="CB3-kc-XPv" firstAttribute="bottom" secondItem="4TF-3X-q2e" secondAttribute="bottom" id="05R-YS-Efk"/>
+                                    <constraint firstItem="Lo0-Jg-Rkt" firstAttribute="leading" secondItem="BE5-Ah-fQe" secondAttribute="leading" id="0dY-W4-DXM"/>
                                     <constraint firstItem="d6C-x9-WBr" firstAttribute="leading" secondItem="BE5-Ah-fQe" secondAttribute="leading" constant="9" id="1Gc-E1-BFl"/>
-                                    <constraint firstItem="kXo-FT-LmZ" firstAttribute="centerX" secondItem="Lo0-Jg-Rkt" secondAttribute="centerX" id="2xT-EK-C6z"/>
                                     <constraint firstItem="Iuu-iO-TJe" firstAttribute="top" secondItem="d6C-x9-WBr" secondAttribute="bottom" constant="13" id="4ze-Pe-qnN"/>
                                     <constraint firstItem="d6C-x9-WBr" firstAttribute="top" secondItem="wlT-V3-tt2" secondAttribute="bottom" constant="8" id="5A9-YM-9vc"/>
                                     <constraint firstItem="Feb-jI-Rb0" firstAttribute="top" secondItem="T84-38-qVl" secondAttribute="bottom" constant="18" id="639-Te-0i9"/>
-                                    <constraint firstItem="Lo0-Jg-Rkt" firstAttribute="top" secondItem="CB3-kc-XPv" secondAttribute="bottom" constant="8" symbolic="YES" id="76B-pM-oEk"/>
+                                    <constraint firstItem="Lo0-Jg-Rkt" firstAttribute="top" secondItem="CB3-kc-XPv" secondAttribute="bottom" constant="8" id="7Z2-Cw-BZO"/>
                                     <constraint firstItem="QcP-Ua-koy" firstAttribute="baseline" secondItem="d6C-x9-WBr" secondAttribute="baseline" id="D04-wQ-ZJQ"/>
                                     <constraint firstItem="CB3-kc-XPv" firstAttribute="top" secondItem="RgR-Ij-7za" secondAttribute="bottom" constant="12" id="DIf-dF-p0G"/>
-                                    <constraint firstItem="Lo0-Jg-Rkt" firstAttribute="leading" secondItem="BE5-Ah-fQe" secondAttribute="leading" id="Ed0-EC-xBQ"/>
                                     <constraint firstItem="Feb-jI-Rb0" firstAttribute="leading" secondItem="BE5-Ah-fQe" secondAttribute="leading" constant="69" id="F3D-gA-NhD"/>
                                     <constraint firstItem="kXo-FT-LmZ" firstAttribute="top" secondItem="QcP-Ua-koy" secondAttribute="bottom" constant="13" id="HRB-Cn-WEe"/>
                                     <constraint firstItem="RgR-Ij-7za" firstAttribute="top" secondItem="QcP-Ua-koy" secondAttribute="bottom" constant="16" id="Jen-tC-jTt"/>
@@ -2108,6 +2107,7 @@
                                     <constraint firstItem="QcP-Ua-koy" firstAttribute="centerY" secondItem="TZv-4J-eOy" secondAttribute="centerY" id="Tzj-63-TtH"/>
                                     <constraint firstItem="kXo-FT-LmZ" firstAttribute="leading" secondItem="RgR-Ij-7za" secondAttribute="trailing" constant="8" symbolic="YES" id="Utf-Ii-fIJ"/>
                                     <constraint firstItem="Iuu-iO-TJe" firstAttribute="leading" secondItem="BE5-Ah-fQe" secondAttribute="leading" constant="9" id="Yc9-Rp-hlM"/>
+                                    <constraint firstAttribute="trailing" secondItem="Lo0-Jg-Rkt" secondAttribute="trailing" id="ZAf-cX-2W5"/>
                                     <constraint firstItem="CFN-Tk-RJR" firstAttribute="leading" secondItem="QcP-Ua-koy" secondAttribute="trailing" constant="16" id="Zaq-eH-5Tk"/>
                                     <constraint firstItem="wlT-V3-tt2" firstAttribute="top" secondItem="T84-38-qVl" secondAttribute="bottom" constant="8" id="bB2-iv-BCq"/>
                                     <constraint firstAttribute="trailing" secondItem="wGL-pe-Ego" secondAttribute="trailing" constant="155" id="c84-nj-GMT"/>
@@ -2118,7 +2118,6 @@
                                     <constraint firstItem="QcP-Ua-koy" firstAttribute="leading" secondItem="d6C-x9-WBr" secondAttribute="trailing" constant="9" id="ifA-YD-gVF"/>
                                     <constraint firstItem="4TF-3X-q2e" firstAttribute="top" secondItem="Iuu-iO-TJe" secondAttribute="bottom" constant="8" id="kd7-gK-b17"/>
                                     <constraint firstItem="CFN-Tk-RJR" firstAttribute="leading" secondItem="TZv-4J-eOy" secondAttribute="trailing" constant="18" id="kjp-fF-ym6"/>
-                                    <constraint firstAttribute="bottom" secondItem="Lo0-Jg-Rkt" secondAttribute="bottom" constant="42" id="n2J-nO-HJU"/>
                                     <constraint firstItem="QcP-Ua-koy" firstAttribute="top" secondItem="Feb-jI-Rb0" secondAttribute="bottom" constant="18" id="oy0-26-DRf"/>
                                     <constraint firstItem="T84-38-qVl" firstAttribute="top" secondItem="BE5-Ah-fQe" secondAttribute="top" id="rbM-sn-qec"/>
                                     <constraint firstItem="TZv-4J-eOy" firstAttribute="top" secondItem="T84-38-qVl" secondAttribute="bottom" constant="42" id="smY-24-ofG"/>
@@ -2196,7 +2195,7 @@
                         <outlet property="people" destination="CFN-Tk-RJR" id="Led-nS-obx"/>
                         <outlet property="scrollview" destination="BE5-Ah-fQe" id="Dz2-Rz-UBO"/>
                         <outlet property="webview" destination="Lo0-Jg-Rkt" id="Ab6-nh-HPx"/>
-                        <outlet property="webviewHeight" destination="9J8-pK-UDv" id="FOb-gS-YMR"/>
+                        <outlet property="webviewHeight" destination="60n-dk-ldr" id="qf3-4D-ItG"/>
                         <segue destination="IJX-Ey-q4P" kind="push" id="Nge-ZP-C5Q"/>
                     </connections>
                 </viewController>
@@ -2633,7 +2632,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L54-yv-ZeM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1606" y="286"/>
+            <point key="canvasLocation" x="-1562" y="1150"/>
         </scene>
         <!--Shoops View Controller-->
         <scene sceneID="Bb5-FI-Roc">
@@ -2745,7 +2744,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h2F-qJ-tka" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1652" y="1296"/>
+            <point key="canvasLocation" x="-1562" y="344"/>
         </scene>
         <!--Group History View Controller-->
         <scene sceneID="VVF-cF-qfT">
@@ -2899,7 +2898,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Xp-Ph-AXw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-593" y="109"/>
+            <point key="canvasLocation" x="-305" y="-723"/>
         </scene>
         <!--Shoop Detail View Controller-->
         <scene sceneID="LLW-fs-mKx">
@@ -3037,7 +3036,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wth-nS-A3X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-907" y="1949"/>
+            <point key="canvasLocation" x="-847" y="453"/>
         </scene>
         <!--Show View Controller-->
         <scene sceneID="Dbf-Z0-cVF">
@@ -3494,7 +3493,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZP-BK-s5F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-453" y="1974"/>
+            <point key="canvasLocation" x="-221" y="462"/>
         </scene>
         <!--Shoop Goods View Controller-->
         <scene sceneID="SlR-OQ-IqB">
@@ -3831,7 +3830,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Xx-n2-yad" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="543" y="2070"/>
+            <point key="canvasLocation" x="855" y="-165"/>
         </scene>
         <!--整点秒杀-->
         <scene sceneID="9pp-I7-2JB">
@@ -5495,7 +5494,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kgi-Fv-W4x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="22" y="987"/>
+            <point key="canvasLocation" x="270" y="-165"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="MS6-6R-42f">
@@ -5529,7 +5528,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dLZ-gE-KGP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="35" y="2932"/>
+            <point key="canvasLocation" x="339" y="1348"/>
         </scene>
         <!--Remark View Controller-->
         <scene sceneID="bAi-rj-U04">
@@ -5796,7 +5795,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZBz-bJ-nCB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="15" y="2060"/>
+            <point key="canvasLocation" x="295" y="628"/>
         </scene>
         <!--订单确认-->
         <scene sceneID="QB7-vm-dv7">
@@ -6285,7 +6284,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6HP-D1-Uqj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1082" y="1550"/>
+            <point key="canvasLocation" x="1394" y="30"/>
         </scene>
         <!--Point Good View Controller-->
         <scene sceneID="VWy-NJ-4co">
@@ -6600,7 +6599,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hyY-E7-xeQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-889" y="1109"/>
+            <point key="canvasLocation" x="-847" y="1293"/>
         </scene>
         <!--Kill Detail View Controller-->
         <scene sceneID="rMe-NG-g3L">
@@ -7361,7 +7360,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OSt-mx-V3B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-847" y="-648"/>
+            <point key="canvasLocation" x="-855" y="-411"/>
         </scene>
     </scenes>
     <resources>

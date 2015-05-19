@@ -88,14 +88,9 @@
     CGSize mWebViewTextSize = [webView sizeThatFits:CGSizeMake(1.0f, 1.0f)];
     frame.size = mWebViewTextSize;
     self.webview.frame = frame;
-    [self.scrollview setContentSize:CGSizeMake(DeviceFrame.size.width, mWebViewTextSize.height+100+250)];
-     self.webviewHeight.constant = mWebViewTextSize.height;
+    self.webviewHeight.constant = mWebViewTextSize.height;
+    [self.scrollview setContentSize:CGSizeMake(DeviceFrame.size.width, mWebViewTextSize.height+100+250+42)];
 }
-
-//#pragma UIScrollViewDelegate
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-//    NSLog(@"%@",NSStringFromCGSize(scrollView.contentSize));
-//}
 
 -(void)buttonTouchAction
 {

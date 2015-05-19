@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "224B350C1995DAB7009523F6"
-               BuildableName = "E&#x5c0f;&#x533a;.app"
+               BuildableName = "EClub.app"
                BlueprintName = "Club"
                ReferencedContainer = "container:Club.xcodeproj">
             </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "224B350C1995DAB7009523F6"
-            BuildableName = "E&#x5c0f;&#x533a;.app"
+            BuildableName = "EClub.app"
             BlueprintName = "Club"
             ReferencedContainer = "container:Club.xcodeproj">
          </BuildableReference>
@@ -72,11 +72,12 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "224B350C1995DAB7009523F6"
-            BuildableName = "E&#x5c0f;&#x533a;.app"
+            BuildableName = "EClub.app"
             BlueprintName = "Club"
             ReferencedContainer = "container:Club.xcodeproj">
          </BuildableReference>
@@ -95,11 +96,12 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "224B350C1995DAB7009523F6"
-            BuildableName = "E&#x5c0f;&#x533a;.app"
+            BuildableName = "EClub.app"
             BlueprintName = "Club"
             ReferencedContainer = "container:Club.xcodeproj">
          </BuildableReference>

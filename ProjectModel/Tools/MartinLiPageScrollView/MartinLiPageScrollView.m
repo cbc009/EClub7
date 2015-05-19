@@ -68,7 +68,11 @@
     [self setContentOffset:CGPointMake(self.frame.size.width, -self.contentInset.top) animated:NO];
     [self addImgViewsWithImgUrls:self.imgUrls withTitles:self.titles];
     [self addSubview:[self setUpPageControlWithImgCount:imageCount]];
+//    NSLog(@"updateWithImgUrlsInSuperView1:self.frame.size.width:%f",self.frame.size.width);
+
     [self setAutoScrollTimer];
+//    NSLog(@"updateWithImgUrlsInSuperView2:self.frame.size.width:%f",self.frame.size.width);
+
 }
 
 -(void)updateWithImagesInFatherController:(UIViewController *)fatherController{
@@ -197,7 +201,11 @@
 }
 
 -(void)scrollTimer{
-    [self scrollRectToVisible:CGRectMake(self.frame.size.width*(self.pageControl.currentPage+2), self.frame.origin.y, self.frame.size.width, self.frame.size.height) animated:YES];
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, ScreenFrame.width, self.height);
+//    NSLog(@"scrollTimer:self.frame.size.width:%f",self.frame.size.width);
+
+    [self scrollRectToVisible:CGRectMake(DeviceFrame.size.width*(self.pageControl.currentPage+2), self.frame.origin.y, self.frame.size.width, self.frame.size.height) animated:YES];
+
 }
 
 -(UIPageControl *)setUpPageControlWithImgCount:(NSInteger)imgCount{
@@ -223,13 +231,18 @@
     }
     if (page==array.count+1) {
         page=0;
-        [scrollView setContentOffset:CGPointMake((page+1)*scrollView.frame.size.width, -scrollView.contentInset.top) animated:NO];
+        [scrollView setContentOffset:CGPointMake((page+1)*DeviceFrame.size.width, -scrollView.contentInset.top) animated:NO];
     }else if(scrollView.contentOffset.x==0){
         page = array.count;
-        [scrollView setContentOffset:CGPointMake((array.count)*scrollView.frame.size.width, -scrollView.contentInset.top) animated:NO];
+        [scrollView setContentOffset:CGPointMake((array.count)*DeviceFrame.size.width, -scrollView.contentInset.top) animated:NO];
     }
+//    NSLog(@"self.frame.size.width:%f",self.frame.size.width);
+//    NSLog(@"Devicewidth:%f",DeviceFrame.size.width);
+
+//    NSLog(@"scrollView.contentOffset:%@",NSStringFromCGPoint(scrollView.contentOffset));
     self.pageControl.currentPage = page-1;
     self.pageControl.frame = CGRectMake((self.frame.size.width-self.pageControl.frame.size.width)+scrollView.contentOffset.x, self.pageControl.frame.origin.y, self.pageControl.frame.size.width, self.pageControl.frame.size.height);
+    
 }
 
 @end

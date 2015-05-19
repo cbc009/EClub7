@@ -82,10 +82,12 @@
     shoopDetailVic.cateArray=self.data;
     shoopDetailVic.distanceArray=distanceArray0;
     shoopDetailVic.index=row;
+    
     Public_Seller_arr_seller_type_info *object=self.data[row];
     
 //    shoopDetailVic.models=self.data[row];//这里的models就是用来传一组数据过去的
     shoopDetailVic.seller_type=object.seller_type;//seller_type是商家分类
+    shoopDetailVic.seller_type_id_array=object.sub_type;
     [self.navigationController pushViewController:shoopDetailVic animated:YES];
 }
 

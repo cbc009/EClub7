@@ -1,7 +1,7 @@
 //
 //  NSArray+JSONModel.h
 //
-//  @version 1.0.2
+//  @version 1.0.0
 //  @author Marin Todorov, http://www.touch-code-magazine.com
 //
 
