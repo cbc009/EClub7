@@ -39,6 +39,7 @@
 #import "TypeGoods.h"
 #import "ItemDetailViewController.h"
 #import <CoreLocation/CoreLocation.h>
+#import "FeelHapply_View.h"
 @interface Index0_3ViewController ()<LoginViewControllerDelegate,UISearchBarDelegate,TapinViewDelegate,SelectIndexDelegate,SelectedIndexDelegate,CLLocationManagerDelegate>
 {
     Index0Service *index0Service;
@@ -106,8 +107,13 @@
     //是否具有定位权限
     int status=[CLLocationManager authorizationStatus];
     if(!enable || status<3){
-        //请求权限
-        [self.locMgr requestAlwaysAuthorization];
+        NSLog(@"%f",IOS_VERSION);
+        if (IOS_VERSION>8.0) {
+            [self.locMgr requestAlwaysAuthorization];
+        }else{
+//            [self.locMgr requestStateForRegion];
+        }
+        
     }
     [self.locMgr startUpdatingLocation];
 }
@@ -308,8 +314,10 @@
         storyboardName = @"Index3";
         identifier = @"CreatePayViewController";
     }else if (row==1){
-        storyboardName = @"Index0";
-        identifier = @"Index1ViewController";
+        FeelHapply_View *vic =[FeelHapply_View new];
+         vic.hidesBottomBarWhenPushed=YES;
+        [self.navigationController pushViewController:vic animated:YES];
+        return;
     }else if(row==2){
         storyboardName = @"Index0";
         identifier = @"ShoopsViewController";

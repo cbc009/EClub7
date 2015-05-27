@@ -9,15 +9,15 @@
 #import "JSONModel.h"
 
 @interface Type_Goods_info_Good : JSONModel
-@property(nonatomic,strong)NSString *gid;
-@property(nonatomic,strong)NSString *name;
-@property(nonatomic,strong)NSString *picture;
-@property(nonatomic,strong)NSString *price;
-@property(nonatomic,strong)NSString *bigpicture;
-@property(nonatomic,strong)NSString *discount;
-@property(nonatomic,strong)NSString *unit;
-@property(nonatomic,strong)NSString *unit_num;
-@property(nonatomic,strong)NSString *type;
+@property(nonatomic,strong)NSString <Optional>*gid;
+@property(nonatomic,strong)NSString <Optional>*name;
+@property(nonatomic,strong)NSString <Optional>*picture;
+@property(nonatomic,strong)NSString <Optional>*price;
+@property(nonatomic,strong)NSString <Optional>*bigpicture;
+@property(nonatomic,strong)NSString <Optional>*discount;
+@property(nonatomic,strong)NSString <Optional>*unit;
+@property(nonatomic,strong)NSString <Optional>*unit_num;
+@property(nonatomic,strong)NSString <Optional>*type;
 @property(nonatomic,assign)NSInteger goods_new;
 @property(nonatomic,strong)NSString <Optional>*logistics;
 @property(nonatomic,strong)NSString <Optional>*url;

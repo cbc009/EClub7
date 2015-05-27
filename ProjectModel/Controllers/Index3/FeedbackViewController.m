@@ -124,6 +124,7 @@
 }
 -(void)feedbackInCell:(FeedBackCell *)cell{
     [feedbackService submitWithContent:cell.myFeedback.text withToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(Status *model){
+        [SVProgressHUD showErrorWithStatus:model.error];
         
     }];
 }

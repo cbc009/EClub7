@@ -26,7 +26,7 @@
     WebViewController *target = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
     target.urlString = [NSString stringWithFormat:Lifehall_lifehall_info_URL,lifehall_id,token,uesr_type];
     target.title =@"生活馆详情";
-    target.view.frame = CGRectMake(0, 66, DeviceFrame.size.width, DeviceFrame.size.height-100);;
+//    target.view.frame = CGRectMake(0, 66, DeviceFrame.size.width, DeviceFrame.size.height-100);
     target.hidesBottomBarWhenPushed = YES;
     [viewController.navigationController pushViewController:target animated:YES];
 }

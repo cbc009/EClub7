@@ -1,9 +1,9 @@
 //
 //  MyMD5.h
-//  GoodLectures
+//  ProjectModel
 //
-//  Created by yangshangqing on 11-10-11.
-//  Copyright 2011年 __MyCompanyName__. All rights reserved.
+//  Created by dongway on 14-8-9.
+//  Copyright (c) 2014年 martin. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

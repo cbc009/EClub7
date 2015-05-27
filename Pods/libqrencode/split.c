@@ -95,7 +95,7 @@ static int Split_eatNum(const char *string, QRinput *input,QRencodeMode hint)
 	while(isdigit(*p)) {
 		p++;
 	}
-	run = p - string;
+	run = (int)p - (int)string;
 	mode = Split_identifyMode(p, hint);
 	if(mode == QR_MODE_8) {
 		dif = QRinput_estimateBitsModeNum(run) + 4 + ln
@@ -152,7 +152,7 @@ static int Split_eatAn(const char *string, QRinput *input, QRencodeMode hint)
 		}
 	}
 
-	run = (int)p -(int)string;
+	run = (int)p - (int)string;
 
 	if(*p && !isalnum(*p)) {
 		dif = QRinput_estimateBitsModeAn(run) + 4 + la
@@ -249,7 +249,7 @@ static int Split_eat8(const char *string, QRinput *input, QRencodeMode hint)
 		}
 	}
 
-	run =(int) p - (int)string;
+	run = (int)p - (int)string;
 	ret = QRinput_append(input, QR_MODE_8, run, (unsigned char *)string);
 	if(ret < 0) return -1;
 

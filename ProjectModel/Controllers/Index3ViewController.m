@@ -19,7 +19,9 @@
 @interface Index3ViewController () <UITableViewDelegate,UITableViewDataSource,LoginViewControllerDelegate>
 {
     NSArray *images;
+    NSArray *images1;
     NSArray *titles;
+    NSArray *titles1;
     UserInfo *user;
     Index3Service *index3Service;
 }
@@ -50,8 +52,10 @@
     _tableview.tableFooterView = [[UIView alloc] init];
     // Do any additional setup after loading the view.
     images = [[NSArray alloc]
-              initWithObjects:@"account",@"qr_code",@"order",@"main_call_light",@"return_suggest",@"app_load",nil];
-    titles = [[NSArray alloc] initWithObjects:@"我的钱包",@"我的二维码",@"我的订单",@"联系我们",@"意见反馈",@"应用推荐",nil];
+              initWithObjects:@"mywallet",@"code",@"myorder",nil];
+    images1=[[NSArray alloc]initWithObjects:@"feedback",@"sharewith",nil];
+    titles = [[NSArray alloc] initWithObjects:@"我的钱包",@"我的二维码",@"我的订单",nil];
+    titles1 = [[NSArray alloc]initWithObjects:@"意见反馈",@"应用推荐",nil];
     [self.tableview reloadData];
 }
 
@@ -80,7 +84,7 @@
 #pragma UITableviewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 2;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -90,7 +94,13 @@
             return 1;
             break;
         case 1:
-            return 6;
+            return 3;
+            break;
+        case 2:
+            return 1;
+            break;
+        case 3:
+            return 2;
             break;
         default:
             return 0;
@@ -105,18 +115,30 @@
     if (section==0) {
         identifier = @"Index3_2Cell";
         Index3_2Cell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        
+        cell.imgView.layer.masksToBounds = YES;
+        cell.imgView.layer.cornerRadius = 32;
         [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]] placeholderImage:[UIImage imageNamed:@"userIcon.jpg"]];
 //        cell.address.text = user.sname;
         cell.address.hidden=YES;
         cell.nickname.text = user.nickname;
         return cell;
-        
-    }else{
+    }else if(section==1) {
         identifier = @"Index3_1Cell";
         Index3_1Cell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         cell.imgView.image = [UIImage imageNamed:images[row]];
         cell.title.text = titles[row];
+        return cell;
+    }else if(section==2) {
+        identifier = @"Index3_1Cell";
+        Index3_1Cell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        cell.imgView.image = [UIImage imageNamed:@"contactus"];
+        cell.title.text = @"联系我们";
+        return cell;
+    }else{
+        identifier = @"Index3_1Cell";
+        Index3_1Cell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        cell.imgView.image = [UIImage imageNamed:images1[row]];
+        cell.title.text = titles1[row];
         return cell;
     }
 }
@@ -139,13 +161,18 @@
             case 2:
                 [index3Service presentMyOrderViewControllerOnViewController:self];
                 break;
-            case 3:
-                [index3Service callWithPhoneNumber:user.phone InViewController:self];
+            default:
+                [SVProgressHUD showImage:nil status:@"功能尚未开放，敬请期待"];
                 break;
-            case 4:
+        }
+        }else if(section==2){
+                [index3Service callWithPhoneNumber:user.phone InViewController:self];
+        }else{
+            switch (row) {
+            case 0:
                 [index3Service presentFeedBackViewControllerOnViewController:self];
                 break;
-            case 5:
+            case 1:
                 [index3Service presentAppViewControllerOnViewController:self];
                 break;
             default:
@@ -172,7 +199,12 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 4;
+    if (section==1) {
+        return 10;
+    }else{
+        return 8;
+    }
+    
 }
 
 

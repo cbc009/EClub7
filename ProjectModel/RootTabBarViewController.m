@@ -22,8 +22,8 @@
     // Do any additional setup after loading the view.
     UIStoryboard *storyboard0 = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
     UINavigationController *index0Nav = [storyboard0 instantiateViewControllerWithIdentifier:@"Index0NavViewController"];
-    UIStoryboard *storyboard1 = [UIStoryboard storyboardWithName:@"Index1" bundle:nil];
-    UINavigationController *index1Nav = [storyboard1 instantiateViewControllerWithIdentifier:@"Index1NavViewController"];
+//    UIStoryboard *storyboard1 = [UIStoryboard storyboardWithName:@"Index1" bundle:nil];
+//    UINavigationController *index1Nav = [storyboard1 instantiateViewControllerWithIdentifier:@"Index1NavViewController"];
  
     UIStoryboard *storyboard2 = [UIStoryboard storyboardWithName:@"Index2" bundle:nil];
     UINavigationController *index2Nav = [storyboard2 instantiateViewControllerWithIdentifier:@"Index2NavViewController"];
@@ -34,7 +34,7 @@
     UINavigationController *index0Nav4 = [storyboard4 instantiateViewControllerWithIdentifier:@"Index4NavViewController"];
     
     [self addChildViewController:index0Nav];
-    [self addChildViewController:index1Nav];
+//    [self addChildViewController:index1=Nav];
     [self addChildViewController:index0Nav4];
     [self addChildViewController:index2Nav];
     [self addChildViewController:index3Nav];

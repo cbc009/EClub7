@@ -64,6 +64,8 @@
         JoinMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"JoinMemberCell" forIndexPath:indexPath];
         Member_info *model =self.datas[row];
         cell.name.text =model.nickname;
+        cell.picture.layer.masksToBounds = YES;
+        cell.picture.layer.cornerRadius = 21.5;
         [cell.picture sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
         return cell;
     }else{

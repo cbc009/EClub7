@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--更多-->
+        <!--Index2 Nav View Controller-->
         <scene sceneID="4Go-CY-2Y1">
             <objects>
                 <navigationController storyboardIdentifier="Index2NavViewController" id="SiG-io-mgf" customClass="Index2NavViewController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="更多" image="more.png" id="Pei-mp-NAg"/>
+                    <tabBarItem key="tabBarItem" title="" image="more.png" id="Pei-mp-NAg">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="XVv-3b-Z7a">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -246,7 +248,7 @@
                     <navigationItem key="navigationItem" id="5P5-oe-ZiH">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="5ss-tK-emW">
-                            <rect key="frame" x="93.5" y="7" width="133" height="30"/>
+                            <rect key="frame" x="94" y="7" width="133" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="发布物品"/>
@@ -391,18 +393,8 @@
                                                         <action selector="request:" destination="zuk-B0-BZ8" eventType="touchUpInside" id="ala-4Z-EO2"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2015年1月1日" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DdU-g7-gUp">
-                                                    <rect key="frame" x="76" y="127" width="64" height="11"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="11" id="2r0-HT-whC"/>
-                                                        <constraint firstAttribute="width" constant="64" id="Q6y-zv-WDe"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="8"/>
-                                                    <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="IoT-lI-G9i">
-                                                    <rect key="frame" x="76" y="148" width="236" height="113"/>
+                                                    <rect key="frame" x="76" y="146" width="236" height="115"/>
                                                     <prototypes>
                                                         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RequestCell" rowHeight="75" id="S91-Em-dl0" customClass="RequestCell">
                                                             <rect key="frame" x="0.0" y="0.0" width="217" height="44"/>
@@ -435,7 +427,6 @@
                                                                     <constraint firstItem="zk2-ZJ-F82" firstAttribute="leading" secondItem="BlC-5v-wha" secondAttribute="leadingMargin" constant="-8" id="BTf-2z-cxd"/>
                                                                     <constraint firstItem="DUL-Bj-4FF" firstAttribute="top" secondItem="zk2-ZJ-F82" secondAttribute="bottom" constant="2" id="Nfz-Ys-6Jl"/>
                                                                     <constraint firstItem="zk2-ZJ-F82" firstAttribute="top" secondItem="BlC-5v-wha" secondAttribute="topMargin" constant="-2" id="QW2-MO-aCk"/>
-                                                                    <constraint firstItem="DUL-Bj-4FF" firstAttribute="top" secondItem="zk2-ZJ-F82" secondAttribute="bottom" constant="2" id="eFN-F5-lRZ"/>
                                                                     <constraint firstItem="DUL-Bj-4FF" firstAttribute="leading" secondItem="BlC-5v-wha" secondAttribute="leadingMargin" constant="-8" id="ld9-GZ-34h"/>
                                                                     <constraint firstItem="zk2-ZJ-F82" firstAttribute="trailing" secondItem="BlC-5v-wha" secondAttribute="trailingMargin" constant="-19" id="oO9-f5-zGX"/>
                                                                 </constraints>
@@ -452,6 +443,16 @@
                                                         <outlet property="delegate" destination="zuk-B0-BZ8" id="mUZ-i6-JZb"/>
                                                     </connections>
                                                 </tableView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2015年1月1日" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DdU-g7-gUp">
+                                                    <rect key="frame" x="76" y="127" width="64" height="11"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="11" id="2r0-HT-whC"/>
+                                                        <constraint firstAttribute="width" constant="64" id="Q6y-zv-WDe"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                                                    <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="DdU-g7-gUp" firstAttribute="top" secondItem="UzH-Ia-AQA" secondAttribute="bottom" constant="5" id="1EM-NL-dYV"/>
@@ -460,7 +461,7 @@
                                                 <constraint firstItem="y7S-bm-coS" firstAttribute="trailing" secondItem="MyJ-4a-aOg" secondAttribute="trailingMargin" id="6BB-gz-yi0"/>
                                                 <constraint firstItem="IoT-lI-G9i" firstAttribute="leading" secondItem="MyJ-4a-aOg" secondAttribute="leadingMargin" constant="68" id="7m4-oT-Jvz"/>
                                                 <constraint firstAttribute="trailing" secondItem="8re-gm-Zs0" secondAttribute="trailing" constant="8" id="A8C-c0-jb4"/>
-                                                <constraint firstItem="IoT-lI-G9i" firstAttribute="top" secondItem="y7S-bm-coS" secondAttribute="bottom" constant="10" id="CCa-Kv-t1g"/>
+                                                <constraint firstItem="IoT-lI-G9i" firstAttribute="top" secondItem="y7S-bm-coS" secondAttribute="bottom" constant="8" id="CCa-Kv-t1g"/>
                                                 <constraint firstItem="p0r-T0-m76" firstAttribute="top" secondItem="MyJ-4a-aOg" secondAttribute="topMargin" constant="2" id="CUu-lg-dXn"/>
                                                 <constraint firstItem="UzH-Ia-AQA" firstAttribute="top" secondItem="8re-gm-Zs0" secondAttribute="bottom" constant="4" id="Ddy-fQ-OSA"/>
                                                 <constraint firstItem="8re-gm-Zs0" firstAttribute="trailing" secondItem="MyJ-4a-aOg" secondAttribute="trailingMargin" id="Dzu-9B-bnw"/>
@@ -1212,7 +1213,7 @@
                     <navigationItem key="navigationItem" id="jHU-Jk-LFY">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="KT3-wP-5Ru">
-                            <rect key="frame" x="93.5" y="6.5" width="133" height="31"/>
+                            <rect key="frame" x="94" y="7" width="133" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="我的转让"/>

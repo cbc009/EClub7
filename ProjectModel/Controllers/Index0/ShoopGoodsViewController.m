@@ -36,6 +36,7 @@
     self.scrollView.autoresizesSubviews=YES;
     [self setValue];
 }
+
 -(void)setValue{
     [self.bigPicture sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.models.bigpicture]] placeholderImage:[UIImage imageNamed:@"e"]];
     self.goodName.text=self.models.goods_name;
@@ -53,9 +54,11 @@
 - (IBAction)addnumbs:(id)sender {
     self.numbs.text=[SharedAction addNumber:self.numbs];
 }
+
 - (IBAction)reduceNumbs:(id)sender {
     self.numbs.text=[SharedAction reduceNumber:self.numbs];
 }
+
 - (IBAction)share:(id)sender {
     NSString *share_url=[NSString stringWithFormat:Seller_Seller_Goods_Share_URL,self.models.goods_id];
      [SharedAction shareWithTitle:self.title andDesinationUrl:share_url Text:self.models.goods_name andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.models.bigpicture] InViewController:self];

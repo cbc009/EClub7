@@ -31,7 +31,8 @@
     UserInfo *user;
     NSInteger h;
     NSInteger label_height;
-    DataInfo *model;
+   
+    DataInfo *requestModel;
     NSInteger page;
     BodyCell *selectedCellForCommemt;
     UITapGestureRecognizer *tap;
@@ -110,7 +111,7 @@
         if (cell==nil) {
             cell = [[BodyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
-        model = self.datas[indexPath.row];
+        DataInfo *model = self.datas[indexPath.row];
         cell.nickname.text=model.nickname;
         cell.comment.text = model.content;
         cell.time.text = model.regtime;
@@ -124,7 +125,7 @@
             cell.deleteContent.hidden=YES;
         }
         cell.lableHeight.constant =[NSString heightWithString:model.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-84-7, 600)];
-        cell.tableFarm.constant = 8;
+//        cell.tableFarm.constant = 8;
         cell.herad.layer.masksToBounds = YES;
         cell.herad.layer.cornerRadius = 30;
         [cell.herad sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.headpic]] placeholderImage:[UIImage imageNamed:@"userIcon.jpg"]];
@@ -236,7 +237,9 @@
     [self handleAfterKeyboardShown];
      NSIndexPath *indexpath = [self.tableview indexPathForCell:cell];
     [self.tableview scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    model = self.datas[indexpath.row];
+   
+    requestModel = self.datas[indexpath.row];
+    NSLog(@"indexpath:%ld,model:%@",(long)indexpath.row,requestModel);
     selectedCellForCommemt = cell;
     NSLog(@"indexpath:%ld",(long)indexpath.row);
 }
@@ -245,9 +248,9 @@
 -(void)delet:(id)sender InCell:(BodyCell *)cell
 {
    NSIndexPath *indexpath = [self.tableview indexPathForCell:cell];
-    model = self.datas[indexpath.row];
+    requestModel = self.datas[indexpath.row];
     LifecircleService *lifecircleServic = [[LifecircleService alloc] init];
-    [lifecircleServic lifecircleLifedeleteWithToken:user.token andUser_type:user.user_type andXid:model.xid withDone:^(Status *model2){
+    [lifecircleServic lifecircleLifedeleteWithToken:user.token andUser_type:user.user_type andXid:requestModel.xid withDone:^(Status *model2){
         if (model2.status==2) {
             [liveService deleteCellInLiveViewController:self atIndexPath:indexpath];
         }
@@ -405,7 +408,7 @@
     if (self.mytextView.text==nil||[self.mytextView.text isEqualToString:@""]) {
         [SVProgressHUD showErrorWithStatus:@"内容不能为空"];
     }else{
-        [lifecircleService lifecircleLifeCommentWithToken:user.token andUser_type:user.user_type andContent:self.mytextView.text andXid:model.xid withTabBarController:self.tabBarController withDone:^(Status *model){
+        [lifecircleService lifecircleLifeCommentWithToken:user.token andUser_type:user.user_type andContent:self.mytextView.text andXid:requestModel.xid withTabBarController:self.tabBarController withDone:^(Status *model){
             CommentInfo *commentInfo = [CommentInfo new];
             commentInfo.content = self.mytextView.text;
             commentInfo.nickname = user.nickname;

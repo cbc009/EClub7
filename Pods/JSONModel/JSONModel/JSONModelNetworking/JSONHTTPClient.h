@@ -1,7 +1,7 @@
 //
 //  JSONModelHTTPClient.h
 //
-//  @version 1.0.0
+//  @version 1.0.2
 //  @author Marin Todorov, http://www.touch-code-magazine.com
 //
 
@@ -84,15 +84,6 @@ typedef void (^JSONObjectBlock)(id json, JSONModelError* err);
  * @param seconds the amount of seconds to wait before considering the call failed
  */
 +(void)setTimeoutInSeconds:(int)seconds;
-
-/**
- * A method to enable/disable automatic network indicator showing. 
- * Set to YES by default.
- * @param doesControlIndicator if YES, the library shows and hides the
- * system network indicator automatically on begin and end of 
- * network operations
- */
-+(void)setControlsNetworkIndicator:(BOOL)doesControlIndicator;
 
 /**
  * A method to set the default conent type of the request body

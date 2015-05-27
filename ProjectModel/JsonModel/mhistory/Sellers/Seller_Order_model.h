@@ -10,36 +10,38 @@
 @end
 
 @interface Seller_Order_model_arr_order_info : JSONModel
-@property(nonatomic,strong)NSString *goods_name;
-@property(nonatomic,strong)NSString *unit;
-@property(nonatomic,strong)NSString *discount;
-@property(nonatomic,strong)NSString *receive_address;
-@property(nonatomic,strong)NSString *picture;
-@property(nonatomic,strong)NSString *order_id;
-@property(nonatomic,strong)NSString *goods_type_name;
-@property(nonatomic,strong)NSString *price;
-@property(nonatomic,strong)NSString *receive_url;
-@property(nonatomic,strong)NSString *point;
-@property(nonatomic,strong)NSString *goods_id;
-@property(nonatomic,strong)NSString *actual_nums;
-@property(nonatomic,strong)NSString *oprt_time;
-@property(nonatomic,strong)NSString *seller_id;
-@property(nonatomic,strong)NSString *receive_time;
-@property(nonatomic,strong)NSString *regtime;
-@property(nonatomic,strong)NSString *status_name;
-@property(nonatomic,strong)NSString *goods_type;
-@property(nonatomic,strong)NSString *seller_name;
-@property(nonatomic,strong)NSString *status;
-@property(nonatomic,strong)NSString *seller_picture;
-@property(nonatomic,strong)NSString *seller_intro;
+@property(nonatomic,strong)NSString <Optional>*goods_name;
+@property(nonatomic,strong)NSString <Optional>*unit;
+@property(nonatomic,strong)NSString <Optional>*discount;
+@property(nonatomic,strong)NSString <Optional>*receive_address;
+@property(nonatomic,strong)NSString <Optional>*picture;
+@property(nonatomic,strong)NSString <Optional>*order_id;
+@property(nonatomic,strong)NSString<Optional> *goods_type_name;
+@property(nonatomic,strong)NSString <Optional>*price;
+@property(nonatomic,strong)NSString <Optional>*receive_url;
+@property(nonatomic,strong)NSString <Optional>*point;
+@property(nonatomic,strong)NSString <Optional>*goods_id;
+@property(nonatomic,strong)NSString <Optional>*actual_nums;
+@property(nonatomic,strong)NSString <Optional>*oprt_time;
+@property(nonatomic,strong)NSString <Optional>*seller_id;
+@property(nonatomic,strong)NSString <Optional>*receive_time;
+@property(nonatomic,strong)NSString <Optional>*regtime;
+@property(nonatomic,strong)NSString <Optional>*status_name;
+@property(nonatomic,strong)NSString <Optional>*goods_type;
+@property(nonatomic,strong)NSString <Optional>*seller_name;
+@property(nonatomic,strong)NSString <Optional>*status;
+@property(nonatomic,strong)NSString <Optional>*seller_picture;
+@property(nonatomic,strong)NSString <Optional>*seller_intro;
 @property(nonatomic,assign)CGFloat amount_total;
 @property(nonatomic,assign)CGFloat amount;
 @property(nonatomic,assign)CGFloat amount_red;
 @property(nonatomic,assign)CGFloat amount_point;
 @end
 
+
 @interface Seller_Order_model_info : JSONModel 
 @property(nonatomic,strong)NSArray<Seller_Order_model_arr_order_info,Optional> *arr_order;
+
 @end
 
 @interface Seller_Order_model : JSONModel 

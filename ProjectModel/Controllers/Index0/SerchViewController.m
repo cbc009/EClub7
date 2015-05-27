@@ -178,7 +178,7 @@
     }];
     [self.tagView mas_makeConstraints:^(MASConstraintMaker *make) {
         UIView *superView = self.view;
-        make.centerY.equalTo(superView.mas_centerY).mas_offset(-124);
+        make.centerY.equalTo(superView.mas_centerY).mas_offset(-84);
         make.leading.equalTo(superView.mas_leading).with.offset(0);
         make.trailing.equalTo(superView.mas_trailing);
     }];

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -10,7 +10,9 @@
         <scene sceneID="BFG-fo-ItO">
             <objects>
                 <navigationController storyboardIdentifier="Index1NavViewController" title="index2" definesPresentationContext="YES" id="b7Z-0J-AVd" customClass="Index1NavViewController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="E电话" image="phone.png" id="dRS-bN-gDM"/>
+                    <tabBarItem key="tabBarItem" title="" image="phone.png" id="dRS-bN-gDM">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" id="jor-vJ-dRP"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kvy-8f-kh7">
@@ -365,7 +367,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="phone.png" width="30" height="30"/>
+        <image name="phone.png" width="25" height="25"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

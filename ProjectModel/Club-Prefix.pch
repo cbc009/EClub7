@@ -89,6 +89,12 @@ typedef void (^finished)(NSDictionary *info);
 //抽奖
 #define Prize_Prize_Lucky_URL [PrexURL stringByAppendingString: @"Prize/prize_lucky/from/IOS/token/%@/user_type/%d"]
 #define NewluckyURL [PrexURL stringByAppendingString: @"Prize/newlucky/from/IOS"]
+
+//提交抽奖信息
+#define Prize_Prize_Luckies_Reply_URL [PrexURL stringByAppendingString: @"Prize/prize_luckies_reply/prize_id/%d/from/IOS/token/%@/user_type/%d"]
+//新的抽奖 刮刮乐
+#define Prize_Prize_Luckies_URL  [PrexURL stringByAppendingString: @"Prize/prize_luckies/from/IOS/token/%@/user_type/%d"]
+
 //抽奖首页信息
 #define Prize_Prize_Index_URL [PrexURL stringByAppendingString: @"Prize/prize_index/from/IOS/token/%@/user_type/%d"]
 //抽奖记录
@@ -111,7 +117,7 @@ typedef void (^finished)(NSDictionary *info);
 //往期抢购商品
 #define Robuy_Goods_history_URL [PrexURL stringByAppendingString: @"Robuy/robuy_goods_history/from/IOS/lifehall_id/%@/seller_id/%@/page/%@"]
 //我的抢菜记录
-#define Robuy_Myorder_URL [PrexURL stringByAppendingString: @"Robuy/my_robuy_order/from/IOS/token/%@/user_type/%d/page/%@"]
+#define Robuy_Myorder_URL [PrexURL stringByAppendingString: @"Rob/myorder/from/IOS/token/%@/user_type/%d/page/%@"]
 //单商品的抢菜记录
 #define Robuy_Robuy_Member_URL [PrexURL stringByAppendingString: @"Robuy/robuy_member/from/IOS/goods_id/%@/page/%@"]
 

@@ -11,7 +11,9 @@
         <scene sceneID="e6e-7C-Pll">
             <objects>
                 <navigationController storyboardIdentifier="Index3Nav" title="我的" definesPresentationContext="YES" id="Jef-6y-ymL" customClass="Index3Nav" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我" image="mine.png" id="m38-i9-4Qc"/>
+                    <tabBarItem key="tabBarItem" title="" image="mine.png" id="m38-i9-4Qc">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ASR-wg-zB0">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1011,7 +1013,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oRb-Vm-RnU">
-                                                    <rect key="frame" x="8" y="8" width="64" height="63"/>
+                                                    <rect key="frame" x="8" y="8" width="64" height="64"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="64" id="ltq-dt-kk0"/>
                                                     </constraints>
@@ -1032,7 +1034,7 @@
                                                 <constraint firstItem="oRb-Vm-RnU" firstAttribute="leading" secondItem="ZYM-uv-HHL" secondAttribute="leadingMargin" id="HyC-fe-cnW"/>
                                                 <constraint firstItem="SAv-ce-5Eg" firstAttribute="leading" secondItem="oRb-Vm-RnU" secondAttribute="trailing" constant="8" id="Jz1-lU-tUv"/>
                                                 <constraint firstItem="SAv-ce-5Eg" firstAttribute="top" secondItem="ZYM-uv-HHL" secondAttribute="topMargin" constant="14" id="Run-Er-art"/>
-                                                <constraint firstItem="oRb-Vm-RnU" firstAttribute="bottom" secondItem="ZYM-uv-HHL" secondAttribute="bottomMargin" id="S6U-vR-3NJ"/>
+                                                <constraint firstItem="oRb-Vm-RnU" firstAttribute="bottom" secondItem="ZYM-uv-HHL" secondAttribute="bottomMargin" constant="1" id="S6U-vR-3NJ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -1133,7 +1135,7 @@
                                 <segments>
                                     <segment title="买"/>
                                     <segment title="抢"/>
-                                    <segment title="团购"/>
+                                    <segment title="钜惠"/>
                                     <segment title="秒杀"/>
                                     <segment title="商户订单"/>
                                 </segments>

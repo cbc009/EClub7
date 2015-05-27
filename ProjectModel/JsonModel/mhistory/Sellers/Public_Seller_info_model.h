@@ -12,24 +12,24 @@
 @interface Public_Seller_info_model_arr_seller_info : JSONModel
 
 @property(nonatomic,assign)NSInteger attitude_praises;
-@property(nonatomic,strong)NSString *intro;
-@property(nonatomic,strong)NSString *seller_status;
-@property(nonatomic,strong)NSString *phone;
+@property(nonatomic,strong)NSString <Optional>*intro;
+@property(nonatomic,strong)NSString <Optional>*seller_status;
+@property(nonatomic,strong)NSString <Optional>*phone;
 @property(nonatomic,assign)NSInteger neat_praises;
 @property(nonatomic,assign)NSInteger descrip_praises;
-@property(nonatomic,strong)NSString *picture;
-@property(nonatomic,strong)NSString *longitude;
+@property(nonatomic,strong)NSString <Optional>*picture;
+@property(nonatomic,strong)NSString <Optional>*longitude;
 @property(nonatomic,strong)NSString <Optional>*street;
-@property(nonatomic,strong)NSString *latitude;
-@property(nonatomic,strong)NSString *address;
-@property(nonatomic,strong)NSString *sub_type_name;
-@property(nonatomic,strong)NSString *work_time;
+@property(nonatomic,strong)NSString <Optional>*latitude;
+@property(nonatomic,strong)NSString <Optional>*address;
+@property(nonatomic,strong)NSString <Optional>*sub_type_name;
+@property(nonatomic,strong)NSString <Optional>*work_time;
 @property(nonatomic,assign)NSInteger total_praises;
-@property(nonatomic,strong)NSString *receive_time;
-@property(nonatomic,strong)NSString *distance;
-@property(nonatomic,strong)NSString *seller_id;
-@property(nonatomic,strong)NSString *seller_name;
-@property(nonatomic,strong)NSString *logistics;
+@property(nonatomic,strong)NSString <Optional>*receive_time;
+@property(nonatomic,strong)NSString <Optional>*distance;
+@property(nonatomic,strong)NSString <Optional>*seller_id;
+@property(nonatomic,strong)NSString <Optional>*seller_name;
+@property(nonatomic,strong)NSString <Optional>*logistics;
 @end
 
 @interface Public_Seller_info_model_info : JSONModel 

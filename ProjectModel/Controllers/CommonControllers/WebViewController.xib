@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WebViewController">
@@ -19,17 +19,14 @@
                 <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rOZ-nm-ahi">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="320" id="KoM-IV-KvA"/>
-                        <constraint firstAttribute="height" constant="568" id="mux-g6-8dn"/>
-                    </constraints>
                 </webView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="rOZ-nm-ahi" secondAttribute="bottom" id="0Of-ZI-wyG"/>
-                <constraint firstItem="rOZ-nm-ahi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="96s-21-UeI"/>
-                <constraint firstAttribute="trailing" secondItem="rOZ-nm-ahi" secondAttribute="trailing" id="IPp-br-4r4"/>
+                <constraint firstItem="rOZ-nm-ahi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="73u-NF-pdF"/>
+                <constraint firstAttribute="trailing" secondItem="rOZ-nm-ahi" secondAttribute="trailing" id="QM9-h3-uRr"/>
+                <constraint firstAttribute="bottom" secondItem="rOZ-nm-ahi" secondAttribute="bottom" id="gcF-LD-fIB"/>
+                <constraint firstItem="rOZ-nm-ahi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="rG1-bI-cOg"/>
             </constraints>
             <point key="canvasLocation" x="267" y="276"/>
         </view>

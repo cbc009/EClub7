@@ -24,6 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeAgenTReload) name:@"AgentReload" object:nil];
     SharedData *sharedData =[SharedData sharedInstance];
     user=sharedData.user;
 //    self.title=@"商城";
@@ -82,7 +83,10 @@
     }
     return subtypeString;
 }
-
+-(void)changeAgenTReload{
+    buyService =[BuyService new];
+   [buyService loadGoodTypesWithToken:user.token andUser_type:user.user_type InViewController:self];
+}
 /*
 #pragma mark - Navigation
 

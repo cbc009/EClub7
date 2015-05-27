@@ -12,7 +12,7 @@
 #import "PointIndex0Cell.h"
 #import "PointIndex1Cell.h"
 #import "PointIndex2Cell.h"
-#import "RobIndex1_Cell.h"
+#import "KillIndex1_Cell.h"
 #import "KillDetailCell0.h"
 #import "SellerService.h"
 #import "GoodsCountDownModel.h"
@@ -61,7 +61,7 @@
     self.title = self.good.goods_name;
     groupService = [[GroupService alloc] init];
     killService = [[KillService alloc] init];
-//    killService.delegate = self;
+    killService.delegate = self;
     [sellerService sellerCountDownWithGoodsType:@"4" andGoodId:self.good.goods_id inTabBarController:self.tabBarController withDone:^(GoodsCount_Info *model){
         countDownCell.starttime =[model.start_second integerValue];
         countDownSeconds=[model.start_second integerValue];
@@ -111,13 +111,12 @@
         cell.title.text=@"商品提供方";
         cell.detail.hidden=YES;
         return cell;
-        
     }else if(indexPath.section==2){
-        RobIndex1_Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"RobIndex1_Cell" forIndexPath:indexPath];
+        KillIndex1_Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"KillIndex1_Cell" forIndexPath:indexPath];
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
-        cell.sellerName.text=self.good.seller_name;
+        cell.sellername.text=self.good.seller_name;
         [cell.sellerDetails  loadHTMLString:self.good.seller_intro baseURL:nil];
-        [cell.sellerPIc sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.good.seller_picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+        [cell.sellerPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.good.seller_picture]] placeholderImage:[UIImage imageNamed:@"e"]];
         return cell;
     }else if(indexPath.section==3){
         KillDetailCell0 *cell = [tableView dequeueReusableCellWithIdentifier:@"KillDetailCell0" forIndexPath:indexPath];
