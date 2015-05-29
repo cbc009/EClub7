@@ -219,9 +219,15 @@
     return pageControl;
 }
 
-
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    [self.martinLiPageScrollViewDelegate panInViewControllerWithType:YES];
+}
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+    [self.martinLiPageScrollViewDelegate panInViewControllerWithType:YES];
+}
 #pragma UIScrollViewDelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self.martinLiPageScrollViewDelegate panInViewControllerWithType:NO];
     NSInteger page = scrollView.contentOffset.x/self.frame.size.width;
     NSArray *array = nil;
     if (self.imageType==UIImageType) {
@@ -236,10 +242,6 @@
         page = array.count;
         [scrollView setContentOffset:CGPointMake((array.count)*DeviceFrame.size.width, -scrollView.contentInset.top) animated:NO];
     }
-//    NSLog(@"self.frame.size.width:%f",self.frame.size.width);
-//    NSLog(@"Devicewidth:%f",DeviceFrame.size.width);
-
-//    NSLog(@"scrollView.contentOffset:%@",NSStringFromCGPoint(scrollView.contentOffset));
     self.pageControl.currentPage = page-1;
     self.pageControl.frame = CGRectMake((self.frame.size.width-self.pageControl.frame.size.width)+scrollView.contentOffset.x, self.pageControl.frame.origin.y, self.pageControl.frame.size.width, self.pageControl.frame.size.height);
     

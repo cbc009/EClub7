@@ -90,6 +90,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
+        self.tableview.bounces=YES;
         GroupAdCell *cell =[tableView dequeueReusableCellWithIdentifier:@"GroupAdCell" forIndexPath:indexPath];
         cell.pageview.imageType = UIImageUrlType;
         cell.pageview.imgUrls = [index0Service namesFromPictures:self.pageviewDatas];
@@ -164,7 +165,9 @@
     [self.navigationController pushViewController:viewController animated:YES];
     viewController.groupGood = groupGood;
 }
-
+-(void)panInViewControllerWithType:(BOOL)type{
+    self.tableview.bounces=type;
+}
 #pragma MartinLiPageScrollViewDelegate
 -(void)imgViewDidTouchActionAtIndex:(NSInteger)index inArray:(NSArray *)array{
     NSString *url = array[index];

@@ -156,6 +156,7 @@
     NSInteger row =indexPath.row;
     if (indexPath.section==0) {
         Index0_3Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"Index0_3Cell" forIndexPath:indexPath];
+        self.tableView.bounces=YES;
         cell.pageview.imageType = UIImageUrlType;
         cell.pageview.imgUrls = [index0Service namesFromPictures:self.pageviewDatas];
         cell.pageview.titles = [index0Service titlesFromPictures:self.pageviewDatas];
@@ -227,6 +228,9 @@
     [self.navigationController pushViewController:viewController animated:YES];
     viewController.robGoodsMOdel = robuyGood;
 
+}
+-(void)panInViewControllerWithType:(BOOL)type{
+    self.tableView.bounces=type;
 }
 -(void)headerRereshing
 {

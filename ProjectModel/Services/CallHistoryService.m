@@ -65,6 +65,9 @@
     [viewController.pageView updatePageViewInSuperView:viewController.view];
 
 }
+//-(void)panInViewControllerWithType:(BOOL)type{
+//    self.tableview.bounces=type;
+//}
 -(void)presentEmsViewControllerOnViewController:(UIViewController *)viewController{
     WebViewController *target = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
         [viewController.navigationController pushViewController:target animated:YES];

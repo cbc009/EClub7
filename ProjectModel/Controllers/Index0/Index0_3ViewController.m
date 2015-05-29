@@ -70,6 +70,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNaviView];
+    
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeAgenTReload) name:@"AgentReload" object:nil];
     sharedData = [SharedData sharedInstance];
     user= sharedData.user;
@@ -187,6 +188,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger section = indexPath.section;
     if (section==0) {
+        self.tableview.bounces=YES;
         Index0_1Cell *cell = [self.tableview dequeueReusableCellWithIdentifier:@"Index0_1Cell" forIndexPath:indexPath];
         cell.pageview.imageType = UIImageUrlType;
         cell.pageview.imgUrls = [index0Service namesFromPictures:self.pageviewDatas];
@@ -199,7 +201,7 @@
         cell.pageview.pageViewType = MLPageScrollViewAdvertiseMode;//默认是广告模式（可选）
         cell.pageview.timeInterval = 4;//默认自动滚动图片时间为2秒（可选）
         [cell.pageview updatePageViewInSuperView:self.view];
-        cell.pageview.defaultLocationIndex = 2;//这一步必须放在最后。（可选）
+        cell.pageview.defaultLocationIndex = 1;//这一步必须放在最后。（可选）
         NSLog(@"cell.pageview.width:%f",cell.pageview.frame.size.width);
         return cell;
     }else if(section==1){
@@ -381,7 +383,9 @@
         NSLog(@"第%ld张图片暂无url",(long)index);
     }
 }
-
+-(void)panInViewControllerWithType:(BOOL)type{
+    self.tableview.bounces=type;
+}
 -(void)selectIndexInCell:(Index1_7Cell*)cell andGoodsId:(NSString *)goodId{
     
     [buyService goods_Goods_InfoWithGoodId:goodId nTabBarController:self.tabBarController withDone:^(Type_Goods_info *model){

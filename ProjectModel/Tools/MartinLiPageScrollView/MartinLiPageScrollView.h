@@ -21,6 +21,7 @@ enum{
 @optional
 -(void)imgViewDidTouchActionAtIndex:(NSInteger)index inArray:(NSArray *)array;
 -(void)imgViewDidTouchActionAtIndex:(NSInteger)index;//不建议使用
+-(void)panInViewControllerWithType:(BOOL)type;
 @end
 
 @interface MartinLiPageScrollView : UIScrollView<UIScrollViewDelegate>

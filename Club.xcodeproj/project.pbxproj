@@ -4503,7 +4503,7 @@
 					"$(PROJECT_DIR)/Pods/UMengMessage/UMessage_Sdk_All_1.1.0(idfa)/UMessage_Sdk_1.1.0",
 					"$(PROJECT_DIR)/ProjectModel/Tools/BaiduMap_IOSSDK_v2.6.0_Lib",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",

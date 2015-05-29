@@ -368,7 +368,7 @@
     SharedData *sharedData = [SharedData sharedInstance];
     NSString *name = sharedData.loginname;
     NSString *password = sharedData.password;
-    NSString *urlString = [NSString stringWithFormat:Login_Member_Login_URL,name,password];
+    NSString *urlString = [NSString stringWithFormat:Login_Member_Login_URL,name,password,@"0",@"0"];
     [SVProgressHUD showWithStatus:@"正在加载用户信息"];
     [Member_Login getModelFromURLWithString:urlString completion:^(Member_Login *model,JSONModelError *error){
         if (model.status==2) {
