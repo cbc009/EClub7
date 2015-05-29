@@ -11,7 +11,10 @@
 @implementation BuyGoodTypeCell
 
 - (void)awakeFromNib {
-    // Initialization code
+//    self.backView.layer.cornerRadius=5;
+    self.backView.layer.borderWidth=1;
+    [self.backView.layer setBorderColor:[SharedAction colorWithHexString:@"#dddddd"].CGColor];
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

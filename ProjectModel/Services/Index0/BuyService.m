@@ -41,9 +41,9 @@
 /*
     加载商品类别
  */
--(void)loadGoodTypesWithToken:(NSString *)token andUser_type:(NSInteger )user_type InViewController:(GoodTypeViewController *)viewController{
+-(void)loadGoodTypesWithAgent_Id:(NSInteger )agentId inViewController:(GoodTypeViewController *)viewController{
     [SVProgressHUD show];
-    NSString *urlString = [NSString stringWithFormat:GoodsTypeURL,token,user_type];
+    NSString *urlString = [NSString stringWithFormat:GoodsTypeURL,agentId];
     [Goods_type getModelFromURLWithString:urlString completion:^(Goods_type *model,JSONModelError *error){
         if (model.status==2) {
             viewController.goodTypes = model.info.goods_type;
@@ -60,7 +60,7 @@
  */
 
 -(void)type_goodsWithToken:(NSString *)token andUser_type:(NSInteger )user_type andSubtypeId:(NSString *)subtypeId andPageString:(NSString *)pageString inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
-    NSString *urlString = [NSString stringWithFormat:Type_goodsURL,token,user_type,subtypeId,pageString];
+    NSString *urlString = [NSString stringWithFormat:Type_goodsURL,subtypeId,pageString];
     [Type_goods getModelFromURLWithString:urlString completion:^(Type_goods *model,JSONModelError *error){
         [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
     }];

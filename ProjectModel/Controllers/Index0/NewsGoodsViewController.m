@@ -68,7 +68,7 @@
       Login_latest_model_Arr_Goods_Info *model=datas[row];
     [buyService goods_Goods_InfoWithGoodId:model.goods_id nTabBarController:self.tabBarController withDone:^(Type_Goods_info *model){
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index4" bundle:nil];
         ItemDetailViewController *target = [storyboard instantiateViewControllerWithIdentifier:@"ItemDetailViewController"];
         target.goodModel=model.goods;
         target.hidesBottomBarWhenPushed = YES;

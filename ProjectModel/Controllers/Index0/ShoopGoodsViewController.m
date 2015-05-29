@@ -28,7 +28,7 @@
     self.add.layer.borderWidth=1;
     self.add.layer.borderColor=[UIColor redColor].CGColor;
     
-    self.numbs.layer.cornerRadius=2;
+//    self.numbs.layer.cornerRadius=2;
     self.numbs.layer.borderWidth=1;
     self.numbs.layer.borderColor=[UIColor redColor].CGColor;
     

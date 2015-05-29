@@ -29,6 +29,7 @@
 @property(nonatomic,assign)NSInteger lifehall_id;
 @property(nonatomic,strong)NSString *lifehall_name;
 @property(nonatomic,strong)NSString *address;
+@property(nonatomic,strong)NSString *lifehall_address;
 @property(nonatomic,strong)NSString *picture;
 @property(nonatomic,strong)NSString *version_name;
 @property(nonatomic,assign)NSInteger version_key;

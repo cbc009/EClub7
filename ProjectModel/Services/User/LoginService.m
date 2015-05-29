@@ -24,7 +24,7 @@
 -(void)loginWithName:(NSString *)name andPasswd:(NSString *)passwd onViewController:(LoginViewController *)viewController{
     if ([self validateLoginInfosWithName:name andPasswd:passwd]) {
         NSString *password = [MyMD5 md5:passwd];
-        NSString *urlString = [NSString stringWithFormat:Base_Member_Login_URL,name,password];
+        NSString *urlString = [NSString stringWithFormat:Login_Member_Login_URL,name,password,@"0",@"0"];
         NSLog(@"%@",urlString);
         [SVProgressHUD show];
         [Member_Login getModelFromURLWithString:urlString completion:^(Member_Login *model,JSONModelError *error){

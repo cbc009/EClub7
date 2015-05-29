@@ -58,12 +58,26 @@
 {
     [super viewDidLoad];
     [self.scrollview setContentOffset:CGPointMake(15, 0)];
-    self.title = self.goodModel.name;
+//    self.title = self.goodModel.name;
     gid = self.goodModel.gid;
     [self.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.goodModel.bigpicture]] placeholderImage:[UIImage imageNamed:@"e"]];
     self.currentPrice.text = [NSString stringWithFormat:@"%@元/%@",self.goodModel.discount,self.goodModel.unit];
     self.pastPrice.text = [NSString stringWithFormat:@"%@元/%@",self.goodModel.price,self.goodModel.unit];
-    self.people.text = [NSString stringWithFormat:@"已购买人数%@",self.goodModel.nums];
+    
+    self.reduce.layer.cornerRadius=2;
+    self.reduce.layer.borderWidth=1;
+    self.reduce.layer.borderColor=[UIColor redColor].CGColor;
+    
+    self.add.layer.cornerRadius=2;
+    self.add.layer.borderWidth=1;
+    self.add.layer.borderColor=[UIColor redColor].CGColor ;
+    self.recveAddress.text=user.lifehall_address;
+    self.shoopAddress.text=user.lifehall_name;
+    self.count.layer.borderWidth=1;
+    self.count.layer.borderColor=[UIColor redColor].CGColor;
+    
+    self.goodName.text=self.goodModel.name;
+    self.people.text = [NSString stringWithFormat:@"%@人已购买",self.goodModel.nums];
     self.count.text = self.goodModel.unit_num;
     self.Ems.text = self.goodModel.logistics;
     self.floatButton = [MLFloatButton loadFromNibAddTarget :self InSuperView:self.view];
@@ -89,7 +103,7 @@
     frame.size = mWebViewTextSize;
     self.webview.frame = frame;
     self.webviewHeight.constant = mWebViewTextSize.height;
-    [self.scrollview setContentSize:CGSizeMake(DeviceFrame.size.width, mWebViewTextSize.height+100+250+42)];
+    [self.scrollview setContentSize:CGSizeMake(DeviceFrame.size.width, mWebViewTextSize.height+442)];
 }
 
 -(void)buttonTouchAction
@@ -119,7 +133,8 @@
 }
 
 - (IBAction)buyAction:(id)sender {
-   }
+   
+}
 
 - (IBAction)addToPurchaseCar:(id)sender {
     NSString *num = self.count.text;
@@ -131,7 +146,7 @@
     //立即购买
     NSString *count = self.count.text;
     [itemDetailService presentPurchaseCarViewControllerWithToken:user.token andUser_type:user.user_type andGid:self.goodModel.gid andNums:count inTabBarController:self.tabBarController withDone:^(Status *model){
-          UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+          UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index4" bundle:nil];
         PurchaseCarItemsViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"PurchaseCarItemsViewController"];
         [self.navigationController pushViewController:viewController animated:YES];
     }];

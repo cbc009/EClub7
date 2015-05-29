@@ -83,7 +83,6 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 6;
-    
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -182,7 +181,24 @@
     }
 }
 
-
+#pragma UIAlertDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag==3) {
+        if(buttonIndex==1){
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+    }else if (alertView.tag==4){
+        if(buttonIndex == 1){
+            NSString *password = [[alertView textFieldAtIndex:0] text];
+            [self payWithPassword:password];
+        }
+    }else {
+        if(buttonIndex == 1){
+            NSString *password = [[alertView textFieldAtIndex:0] text];
+            [self payWithPassword:password];
+        }
+    }
+}
 - (IBAction)buyNow:(id)sender {
     if ([numberCell.nums.text isEqualToString:@"0"]) {
         [SVProgressHUD showErrorWithStatus:@"购买数量不能为0"];
@@ -209,9 +225,9 @@
 {
     NSString *passwd = [MyMD5 md5:password];
     NSString *lifeHall_id=[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
-    [checkService sellerOrderWithGoodsType:@"3" andGoodsId:self.groupGood.goods_id andGoodsNums:numberCell.nums.text andLifehall_id:lifeHall_id andPay_mode:@"" andPaypassword:passwd andReceive_type:@"" andMessage:@"" andAddress:@"" andMobole:@"" andSend_time:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
+    [checkService sellerOrderWithGoodsType:@"2" andGoodsId:self.groupGood.goods_id andGoodsNums:numberCell.nums.text andLifehall_id:lifeHall_id andPay_mode:@"" andPaypassword:passwd andReceive_type:@"" andMessage:@"" andAddress:@"" andMobole:@"" andSend_time:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
         if ([model[@"status"] isEqualToNumber: @2]) {
-            UIAlertView *aletview=[[UIAlertView alloc]initWithTitle:@"兑换成功" message:@"购买成功请及时到生活馆领取" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            UIAlertView *aletview=[[UIAlertView alloc]initWithTitle:@"下单成功" message:@"购买成功请及时到生活馆领取" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             aletview.tag=3;
             [aletview show];
         }

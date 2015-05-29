@@ -38,12 +38,12 @@
     [[UITabBar appearance] setTintColor:MainTabBarColor];
     [[UINavigationBar appearance] setTintColor:MainNavBarColor];
     
-//    _mapManager = [[BMKMapManager alloc]init];
-//    // 如果要关注网络及授权验证事件，请设定     generalDelegate参数
-//    BOOL ret = [_mapManager start:BaiDuMapAPK  generalDelegate:nil];
-//    if (!ret) {
-//        NSLog(@"manager start failed!");
-//    }
+    _mapManager = [[BMKMapManager alloc]init];
+    // 如果要关注网络及授权验证事件，请设定     generalDelegate参数
+    BOOL ret = [_mapManager start:BaiDuMapAPK  generalDelegate:nil];
+    if (!ret) {
+        NSLog(@"manager start failed!");
+    }
 //    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
 //    if (kCLAuthorizationStatusDenied == status || kCLAuthorizationStatusRestricted == status) {
 //        NSLog(@"请打开您的位置服务!");

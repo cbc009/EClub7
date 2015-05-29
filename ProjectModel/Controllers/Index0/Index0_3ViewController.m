@@ -30,7 +30,6 @@
 #import "Index0_2Cell.h"
 #import "NoticeCell.h"
 #import "LoginViewController.h"
-#import "SerchViewController.h"
 #import "Index0Models.h"
 #import "ShowViewController.h"
 #import "Public_Seller_info_model.h"
@@ -54,6 +53,7 @@
     SharedData *sharedData;
     
 }
+
 @property (nonatomic,strong)CLLocationManager *locMgr;
 @end
 
@@ -322,7 +322,7 @@
         storyboardName = @"Index0";
         identifier = @"ShoopsViewController";
     }else {
-        storyboardName = @"Index0";
+        storyboardName = @"Index4";
         identifier = @"PurchaseCarItemsViewController";
     }
     if (storyboardName!=nil&&identifier!=nil) {
@@ -385,7 +385,7 @@
 -(void)selectIndexInCell:(Index1_7Cell*)cell andGoodsId:(NSString *)goodId{
     
     [buyService goods_Goods_InfoWithGoodId:goodId nTabBarController:self.tabBarController withDone:^(Type_Goods_info *model){
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index4" bundle:nil];
         ItemDetailViewController *target = [storyboard instantiateViewControllerWithIdentifier:@"ItemDetailViewController"];
         target.goodModel=(Type_goods_good*)model.goods;
         target.hidesBottomBarWhenPushed = YES;
@@ -420,7 +420,7 @@
 
 }
 -(void)search{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index4" bundle:nil];
     UIViewController *target = [storyboard instantiateViewControllerWithIdentifier:@"SerchViewController"];
     target.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:target animated:YES];

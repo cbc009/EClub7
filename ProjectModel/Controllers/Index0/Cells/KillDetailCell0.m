@@ -23,9 +23,11 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 }
+
 -(void)countDownTimer{
-    if (self.starttime>0) {
+    if (self.starttime>-6) {
         self.starttime=self.starttime-1;
+        [self.delegate startCountDownActionWithSeconds:self.starttime];
         [self toDetailTime:self.starttime];
         const CGFloat fontSize = 15;
         const CGFloat fontSize1 = 18;
@@ -98,6 +100,9 @@
                            range:NSMakeRange(length1+2+1+length2+2+length3+1+length4, 1)];
         
         self.countDown.attributedText= attrString;
+        
+    }else{
+        [timer timeInterval];
     }
 }
 -(void)toDetailTime:(NSInteger)seconds{

@@ -13,6 +13,12 @@
 @interface ItemDetailViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollview;
 @property (weak, nonatomic) IBOutlet UIWebView *webview;
+@property (weak, nonatomic) IBOutlet UILabel *goodName;
+@property (weak, nonatomic) IBOutlet UIButton *reduce;
+@property (weak, nonatomic) IBOutlet UIButton *add;
+@property (weak, nonatomic) IBOutlet UILabel *recveAddress;
+@property (weak, nonatomic) IBOutlet UILabel *shoopAddress;
+
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webviewHeight;
 @property (weak, nonatomic) IBOutlet UIImageView *imgView;

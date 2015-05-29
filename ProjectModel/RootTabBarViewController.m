@@ -30,7 +30,7 @@
     UIStoryboard *storyboard3 = [UIStoryboard storyboardWithName:@"Index3" bundle:nil];
     UINavigationController *index3Nav = [storyboard3 instantiateViewControllerWithIdentifier:@"Index3Nav"];
  
-    UIStoryboard *storyboard4 = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+    UIStoryboard *storyboard4 = [UIStoryboard storyboardWithName:@"Index4" bundle:nil];
     UINavigationController *index0Nav4 = [storyboard4 instantiateViewControllerWithIdentifier:@"Index4NavViewController"];
     
     [self addChildViewController:index0Nav];

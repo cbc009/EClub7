@@ -58,8 +58,8 @@ typedef void (^finished)(NSDictionary *info);
 #define MainPrexURL [NSString stringWithFormat:@"%@/wap.php/",IP]
 #define PrexImgPath [NSString stringWithFormat:@"%@/Static/Uploads/img/",IP]
 #define PrexURL [NSString stringWithFormat:@"%@/wap.php/",IP]
-//登录
-#define Base_Member_Login_URL [PrexURL stringByAppendingString: @"Base/member_login/loginname/%@/password/%@/from/IOS"]
+////登录
+//#define Base_Member_Login_URL [PrexURL stringByAppendingString: @"Base/member_login/loginname/%@/password/%@/from/IOS"]
 //免注册登录
 #define Base_Free_Login_URL [PrexURL stringByAppendingString: @"Base/free_login/from/from/IOS"]
 //新的登录接口
@@ -170,9 +170,9 @@ typedef void (^finished)(NSDictionary *info);
 
 
 //获取菜的类别
-#define GoodsTypeURL [MainPrexURL stringByAppendingString: @"Goods/goods_type/from/IOS/token/%@/user_type/%d"]
+#define GoodsTypeURL [MainPrexURL stringByAppendingString: @"Goods/goods_type/from/IOS/agent_id/%d"]
 //获取菜
-#define Type_goodsURL [MainPrexURL stringByAppendingString: @"Goods/type_goods/from/IOS/token/%@/user_type/%d/subid/%@/page/%@"]
+#define Type_goodsURL [MainPrexURL stringByAppendingString: @"Goods/type_goods/from/IOS/subid/%@/page/%@"]
 //搜索标签
 #define Goods_search_Label_URL [MainPrexURL stringByAppendingString: @"Goods/search_label/token/%@/user_type/%d/from/IOS"]
 //搜索

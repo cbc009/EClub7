@@ -31,7 +31,7 @@
 #import <UIImageView+WebCache.h>
 #import "Status.h"
 #import <BmobSDK/Bmob.h>
-@interface KillDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface KillDetailViewController ()<UITableViewDataSource,UITableViewDelegate,KillSecondCountDownDelegate>
 {
     NSTimer *timer;
     NSInteger countDownSeconds;
@@ -61,13 +61,11 @@
     self.title = self.good.goods_name;
     groupService = [[GroupService alloc] init];
     killService = [[KillService alloc] init];
-    killService.delegate = self;
     [sellerService sellerCountDownWithGoodsType:@"4" andGoodId:self.good.goods_id inTabBarController:self.tabBarController withDone:^(GoodsCount_Info *model){
         countDownCell.starttime =[model.start_second integerValue];
         countDownSeconds=[model.start_second integerValue];
         [self.tableView reloadData];
     }];
-  
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -120,6 +118,7 @@
         return cell;
     }else if(indexPath.section==3){
         KillDetailCell0 *cell = [tableView dequeueReusableCellWithIdentifier:@"KillDetailCell0" forIndexPath:indexPath];
+        cell.delegate=self;
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         countDownCell=cell;
         return cell;
@@ -188,12 +187,14 @@
         [SharedAction shareWithTitle:self.good.goods_name andDesinationUrl:AppDownLoadURL Text:alertView.message andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.good.bigpicture] InViewController:self];
     }
 }
-
+-(void)startCountDownActionWithSeconds:(NSInteger)seconds{
+    countDownSeconds=seconds;
+}
 
 - (IBAction)buyNow:(id)sender {
-    if (countDownSeconds == -1) {
+    if (countDownSeconds <= -5) {
         [SVProgressHUD showErrorWithStatus:@"商品已过期"];
-    }else if (countDownSeconds==0) {
+    }else if (countDownSeconds<=0&countDownSeconds>-5) {
     NSString *lifeHall_id=[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
     [checkService sellerOrderWithGoodsType:@"4" andGoodsId:self.good.goods_id andGoodsNums:@"1" andLifehall_id:lifeHall_id andPay_mode:@"" andPaypassword:@"" andReceive_type:@"" andMessage:@"" andAddress:@"" andMobole:@"" andSend_time:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
         if ([model[@"status"] isEqualToNumber: @2]) {

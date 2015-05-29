@@ -239,7 +239,7 @@
 - (IBAction)robNow:(id)sender {
     
     NSString *lifehall_id =[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
-        [checkService sellerOrderWithGoodsType:@"4" andGoodsId:self.robGoodsMOdel.goods_id andGoodsNums:@"1" andLifehall_id:lifehall_id andPay_mode:@"" andPaypassword:@"" andReceive_type:@"" andMessage:@"" andAddress:@"" andMobole:@"" andSend_time:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
+        [checkService sellerOrderWithGoodsType:@"3" andGoodsId:self.robGoodsMOdel.goods_id andGoodsNums:@"1" andLifehall_id:lifehall_id andPay_mode:@"" andPaypassword:@"" andReceive_type:@"" andMessage:@"" andAddress:@"" andMobole:@"" andSend_time:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
             if ([model[@"status"] isEqualToNumber: @2]) {
                 NSString *message =[NSString stringWithFormat:@"恭喜你在E小区免费抢到%@赶快去告诉朋友吧",self.robGoodsMOdel.goods_name];
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"抢菜信息" message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去告诉朋友", nil];

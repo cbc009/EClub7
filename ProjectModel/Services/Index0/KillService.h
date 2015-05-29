@@ -10,14 +10,9 @@
 #import "KillListViewController.h"
 #import "KillDetailViewController.h"
 #import "KillHistoryViewController.h"
-@protocol KillServiceDelegate <NSObject>
-//开始倒计时
--(void)startCountDownActionWithSeconds:(NSInteger)seconds;
 
-@end
 
 @interface KillService : NSObject
-@property(nonatomic,weak)id<KillServiceDelegate> delegate;
 //获取秒杀倒计时
 -(void)kill_CountDownWithToken:(NSString *)token andUser_type:(NSInteger )user_type andGid:(NSString *)gid intabBarController:(UITabBarController *)tabBarController withObject:(doneWithObject)done;
 //秒杀
