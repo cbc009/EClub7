@@ -145,6 +145,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (user.user_type!=2) {
+        UIAlertView *aletview=[[UIAlertView alloc]initWithTitle:@"温馨提醒" message:@"由于您还没有登录，为了抢到您心仪的宝贝建议您先登录！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定登录", nil];
+        [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+        aletview.tag=5;
+        [aletview show];
+        return;
+    }
     NSInteger section = indexPath.section;
        [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSInteger row = indexPath.row;
@@ -153,6 +160,7 @@
     }else if(section==1){
         switch (row) {
             case 0:
+                
                 [index3Service presentMyWalletViewControllerOnViewController:self];
                 break;
             case 1:
@@ -181,7 +189,18 @@
         }
     }
 }
-
+#pragma UIAlertDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(alertView.tag==5){
+        if(buttonIndex==1){
+            [self.tabBarController.selectedViewController beginAppearanceTransition: YES animated:YES];
+            self.tabBarController.selectedIndex=0;
+            UINavigationController *nav = self.tabBarController.viewControllers[self.tabBarController.selectedIndex];
+            [nav popToRootViewControllerAnimated:YES];
+            [SharedAction presentLoginViewControllerInViewController:nav];
+        }
+    }
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger section = indexPath.section;
     switch (section) {

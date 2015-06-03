@@ -26,11 +26,12 @@
     // Configure the view for the selected state
 }
 -(void)countDownTimer{
+    
     if (self.end_seconds>0) {
         self.end_seconds=self.end_seconds-1;
         [self toDetailTime:self.end_seconds];
         const CGFloat fontSize = 15;
-        const CGFloat fontSize1 = 18;
+        const CGFloat fontSize1 = 20;
         
         NSUInteger length1 = [[NSString stringWithFormat:@"%d",day] length];
         NSUInteger length2 = [[NSString stringWithFormat:@"%d",hour] length];
@@ -100,6 +101,19 @@
                            range:NSMakeRange(length1+2+1+length2+2+length3+1+length4, 1)];
         
         self.times.attributedText= attrString;
+    }else{
+        
+        NSMutableAttributedString *attrString =[[NSMutableAttributedString alloc] initWithString:@"团购已结束"];
+        const CGFloat fontSize1 = 18;
+        UIFont *baseFont1 = [UIFont systemFontOfSize:fontSize1];
+        UIColor *color = [UIColor redColor];
+        [attrString addAttribute:NSFontAttributeName value:baseFont1
+                           range:NSMakeRange(0, 5)];
+        [attrString addAttribute:(id)NSForegroundColorAttributeName
+                           value:color
+                           range:NSMakeRange(0, 5)];
+        self.times.attributedText =attrString;
+        [timer timeInterval];
     }
 }
 

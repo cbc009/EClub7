@@ -12,7 +12,7 @@
 @protocol SelectedIndexDelegate<NSObject>
 -(void)selectIndexInCell:(Index1_7Cell*)cell andGoodsId:(NSString *)goodId;
 @end
-@interface Index1_7Cell : UITableViewCell
+@interface Index1_7Cell : UITableViewCell<UICollectionViewDelegateFlowLayout>
 @property (nonatomic,weak)id <SelectedIndexDelegate>delegate;
 @property (weak, nonatomic) IBOutlet UICollectionView *collictionView;
 @property (nonatomic,strong)NSArray *datas;

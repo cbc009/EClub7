@@ -17,11 +17,7 @@
     int day;
 }
 - (void)awakeFromNib {
-    second=0;
-    minute=0;
-    hour=0;
-    day=0;
-    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDownTimer) userInfo:nil repeats:YES];
+        timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDownTimer) userInfo:nil repeats:YES];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -97,14 +93,24 @@
                            range:NSMakeRange(length1+2+length2+1+length3+1+length4, 6)];
 
     self.contDown.attributedText= attrString;
-    }else if (self.starttime<-3){
+        return;
+    }else if (self.starttime<=0&self.starttime>-4){
             self.starttime=self.starttime-1;
             self.contDown.text=@"正在进行秒杀";
             self.buyNow.backgroundColor=[UIColor redColor];
     }else{
-        self.contDown.text=@"秒杀已结束";
+         NSMutableAttributedString *attrString =[[NSMutableAttributedString alloc] initWithString:@"秒杀已结束"];
+        const CGFloat fontSize1 = 18;
+        UIFont *baseFont1 = [UIFont systemFontOfSize:fontSize1];
+        UIColor *color = [UIColor redColor];
+        [attrString addAttribute:NSFontAttributeName value:baseFont1
+                           range:NSMakeRange(0, 5)];
+        [attrString addAttribute:(id)NSForegroundColorAttributeName
+                           value:color
+                           range:NSMakeRange(0, 5)];
+        self.contDown.attributedText =attrString;
         self.buyNow.backgroundColor=[UIColor grayColor];
-        [timer invalidate];
+        [timer timeInterval];
     }
 }
 -(void)toDetailTime:(NSInteger)seconds{

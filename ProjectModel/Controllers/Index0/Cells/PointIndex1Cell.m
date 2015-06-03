@@ -19,9 +19,9 @@
     self.addnums.layer.borderWidth=1;
     self.addnums.layer.borderColor=[UIColor redColor].CGColor;
     
-//    self.nums.layer.cornerRadius=2;
     self.nums.layer.borderWidth=1;
     self.nums.layer.borderColor=[UIColor redColor].CGColor;
+    self.nums.text=@"1";
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

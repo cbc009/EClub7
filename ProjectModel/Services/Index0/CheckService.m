@@ -23,4 +23,11 @@
         [SharedAction commonActionWithUrl:urlString andStatus:status andError:error1 andJSONModelError:error andObject:object inTabBarController:tabBarController withDone:done];
     }];
 }
+//跳到充值页面
+-(void)presentCreatePayViewControllerOnViewController:(UIViewController *)viewController{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index3" bundle:nil];
+    CreatePayViewController *createPayViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreatePayViewController"];
+    [viewController.navigationController pushViewController:createPayViewController animated:YES];
+    
+}
 @end

@@ -34,8 +34,23 @@
     return cell;
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
     NSInteger row =indexPath.row;
     Index0Models_Arr_Seller_info *model =self.datas[row];
     [self.delegate selectIndexInCell:self andSellerId:model.seller_id];
+}
+
+//- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+//    [self.delegate scrollViewScrollEnable:YES];
+//}
+#pragma UIScrollViewDelegate
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self.delegate scrollViewScrollEnable:NO];
+}
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    [self.delegate scrollViewScrollEnable:YES];
+}
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+    [self.delegate scrollViewScrollEnable:YES];
 }
 @end

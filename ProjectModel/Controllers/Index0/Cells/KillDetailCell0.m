@@ -25,7 +25,7 @@
 }
 
 -(void)countDownTimer{
-    if (self.starttime>-6) {
+    if (self.starttime>0) {
         self.starttime=self.starttime-1;
         [self.delegate startCountDownActionWithSeconds:self.starttime];
         [self toDetailTime:self.starttime];
@@ -98,10 +98,30 @@
         [attrString addAttribute:(id)NSForegroundColorAttributeName
                            value:color1
                            range:NSMakeRange(length1+2+1+length2+2+length3+1+length4, 1)];
-        
         self.countDown.attributedText= attrString;
-        
-    }else{
+    }else if(self.starttime<=0&self.starttime>-5){
+        self.starttime=self.starttime-1;
+        NSMutableAttributedString *attrString =[[NSMutableAttributedString alloc] initWithString:@"正在进行秒杀"];
+        const CGFloat fontSize1 = 18;
+        UIFont *baseFont1 = [UIFont systemFontOfSize:fontSize1];
+        UIColor *color = [UIColor redColor];
+        [attrString addAttribute:NSFontAttributeName value:baseFont1
+                           range:NSMakeRange(0, 6)];
+        [attrString addAttribute:(id)NSForegroundColorAttributeName
+                           value:color
+                           range:NSMakeRange(0, 6)];
+        self.countDown.attributedText =attrString;
+    }else if(self.starttime<=-5){
+        NSMutableAttributedString *attrString =[[NSMutableAttributedString alloc] initWithString:@"秒杀已结束"];
+        const CGFloat fontSize1 = 18;
+        UIFont *baseFont1 = [UIFont systemFontOfSize:fontSize1];
+        UIColor *color = [UIColor redColor];
+        [attrString addAttribute:NSFontAttributeName value:baseFont1
+                           range:NSMakeRange(0, 5)];
+        [attrString addAttribute:(id)NSForegroundColorAttributeName
+                           value:color
+                           range:NSMakeRange(0, 5)];
+        self.countDown.attributedText =attrString;
         [timer timeInterval];
     }
 }

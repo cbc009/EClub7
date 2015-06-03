@@ -9,7 +9,7 @@
 #import "JSONModel.h"
 @interface GoodsCount_Info : JSONModel
 @property (nonatomic,strong)NSString <Optional>*start_second;
-@property (nonatomic,strong)NSString <Optional>*end_starsecond;
+@property (nonatomic,strong)NSString <Optional>*end_second;
 @end
 @interface GoodsCountDownModel : JSONModel
 @property(nonatomic,assign)NSInteger status;

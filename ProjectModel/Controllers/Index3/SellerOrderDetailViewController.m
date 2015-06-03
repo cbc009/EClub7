@@ -84,7 +84,7 @@
         }else{
             cell.price.text=[NSString stringWithFormat:@"%0.0fE币",self.model.amount_total];
         }
-        
+        cell.discount.text=[NSString stringWithFormat:@"%@元",self.model.discount];
         cell.amount.text=[NSString stringWithFormat:@"%0.2f",self.model.amount];
         cell.amount_red.text=[NSString stringWithFormat:@"%0.2f",self.model.amount_red];
         cell.point.text=[NSString stringWithFormat:@"%0.0f",self.model.amount_point];

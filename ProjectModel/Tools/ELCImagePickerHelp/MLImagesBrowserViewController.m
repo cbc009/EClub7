@@ -32,7 +32,9 @@
     self.pageView.defaultLocationIndex = self.defaultLocationIndex;//这一步必须放在最后。（可选）
 
 }
-
+-(void)panInViewControllerWithType:(BOOL)type{
+    
+}
 #pragma MartinLiPageScrollViewDelegate
 -(void)imgViewDidTouchActionAtIndex:(NSInteger)index inArray:(NSArray *)array{
     [self.navigationController setNavigationBarHidden:!self.navigationController.navigationBarHidden animated:YES];

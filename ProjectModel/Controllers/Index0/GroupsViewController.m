@@ -50,7 +50,7 @@
     user = sharedData.user;
     self.tableview.separatorStyle=UITableViewCellSeparatorStyleNone;
     _tableview.showsVerticalScrollIndicator =NO;
-    self.tableview.tableFooterView =[UIView new];
+//    self.tableview.tableFooterView =[UIView new];
     [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
     [self.tableview headerBeginRefreshing];
     
@@ -118,7 +118,7 @@
         CGFloat actnumbers=([model.discount floatValue]/[model.price floatValue])*10;
         cell.allowance.text=[NSString stringWithFormat:@"%0.1f",actnumbers];
         
-        NSMutableAttributedString *actString =[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@人已抢购",model.actual_nums]];
+        NSMutableAttributedString *actString =[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@人已团购",model.actual_nums]];
         
         const CGFloat fontSize1 = 18;
         const CGFloat fontSize2 = 14;
@@ -144,9 +144,7 @@
                           range:NSMakeRange(length1, 3)];
         
         cell.actnumber.attributedText=actString;
-        
-
-    return cell;
+        return cell;
     }
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

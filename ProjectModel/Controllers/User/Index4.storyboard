@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -710,7 +710,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7RN-FY-roq">
-                                <rect key="frame" x="0.0" y="64" width="320" height="29"/>
+                                <rect key="frame" x="0.0" y="66" width="320" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="kX1-QS-KUH"/>
                                 </constraints>
@@ -724,7 +724,7 @@
                                 </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="123" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="yun-pC-ifM">
-                                <rect key="frame" x="0.0" y="100" width="320" height="419"/>
+                                <rect key="frame" x="0.0" y="96" width="320" height="423"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ItemCell" rowHeight="123" id="04x-Zx-8zc" customClass="ItemCell">
@@ -863,10 +863,10 @@
                             <constraint firstItem="7RN-FY-roq" firstAttribute="leading" secondItem="jpm-JA-DDy" secondAttribute="leadingMargin" constant="-16" id="77D-Y5-9M6"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7RN-FY-roq" secondAttribute="trailing" constant="-16" id="NYG-VK-SUS"/>
                             <constraint firstItem="yun-pC-ifM" firstAttribute="leading" secondItem="jpm-JA-DDy" secondAttribute="leadingMargin" constant="-16" id="i2R-az-IBa"/>
-                            <constraint firstItem="7RN-FY-roq" firstAttribute="top" secondItem="P3R-iG-PQi" secondAttribute="bottom" id="jw7-3z-PBz"/>
+                            <constraint firstItem="7RN-FY-roq" firstAttribute="top" secondItem="P3R-iG-PQi" secondAttribute="bottom" constant="2" id="jw7-3z-PBz"/>
                             <constraint firstItem="VB5-2t-9Tl" firstAttribute="top" secondItem="yun-pC-ifM" secondAttribute="bottom" id="nMg-Oc-NWJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="yun-pC-ifM" secondAttribute="trailing" constant="-16" id="pbk-Jy-1dC"/>
-                            <constraint firstItem="yun-pC-ifM" firstAttribute="top" secondItem="7RN-FY-roq" secondAttribute="bottom" constant="8" id="uj0-3d-3h2"/>
+                            <constraint firstItem="yun-pC-ifM" firstAttribute="top" secondItem="7RN-FY-roq" secondAttribute="bottom" constant="2" id="uj0-3d-3h2"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fOe-2v-QV9">
@@ -1121,9 +1121,9 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tbw-fZ-A2J">
-                                        <rect key="frame" x="92" y="305" width="36" height="20"/>
+                                        <rect key="frame" x="91" y="305" width="38" height="20"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="36" id="QLR-jT-f6c"/>
+                                            <constraint firstAttribute="width" constant="38" id="QLR-jT-f6c"/>
                                             <constraint firstAttribute="height" constant="20" id="R2M-wP-u8k"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -1336,7 +1336,7 @@
                                     <constraint firstItem="ZJB-o5-gHl" firstAttribute="leading" secondItem="xn4-fl-6UP" secondAttribute="trailing" constant="5" id="cmM-Fc-gi7"/>
                                     <constraint firstItem="xSE-CF-bVJ" firstAttribute="leading" secondItem="5OB-qB-H83" secondAttribute="leading" id="dfK-yS-8Ep"/>
                                     <constraint firstItem="Lkp-P7-sbw" firstAttribute="top" secondItem="0D2-CU-791" secondAttribute="bottom" constant="5" id="dm8-Zv-dGl"/>
-                                    <constraint firstItem="Tbw-fZ-A2J" firstAttribute="leading" secondItem="VP9-GY-baX" secondAttribute="trailing" id="e9K-cm-y8I"/>
+                                    <constraint firstItem="Tbw-fZ-A2J" firstAttribute="leading" secondItem="VP9-GY-baX" secondAttribute="trailing" constant="-1" id="e9K-cm-y8I"/>
                                     <constraint firstItem="xn4-fl-6UP" firstAttribute="top" secondItem="kyK-YT-nAd" secondAttribute="bottom" constant="3" id="eX7-fj-sne"/>
                                     <constraint firstItem="QAq-NN-DOW" firstAttribute="top" secondItem="Tbw-fZ-A2J" secondAttribute="bottom" constant="6" id="ftt-CA-HKJ"/>
                                     <constraint firstItem="1dY-75-yyD" firstAttribute="top" secondItem="PjD-6O-1KB" secondAttribute="bottom" constant="1" id="hAX-Ou-AYD"/>
@@ -1349,7 +1349,7 @@
                                     <constraint firstItem="1dY-75-yyD" firstAttribute="top" secondItem="rAQ-Re-Izp" secondAttribute="bottom" constant="19" id="nie-Wi-W1T"/>
                                     <constraint firstItem="akO-zD-VCE" firstAttribute="leading" secondItem="5OB-qB-H83" secondAttribute="leading" constant="9" id="p5x-cm-a69"/>
                                     <constraint firstItem="xSE-CF-bVJ" firstAttribute="top" secondItem="dz8-vR-yWa" secondAttribute="bottom" id="qGL-Lz-2UD"/>
-                                    <constraint firstItem="WKz-Jr-Xfl" firstAttribute="leading" secondItem="Tbw-fZ-A2J" secondAttribute="trailing" id="qKh-kd-zHL"/>
+                                    <constraint firstItem="WKz-Jr-Xfl" firstAttribute="leading" secondItem="Tbw-fZ-A2J" secondAttribute="trailing" constant="-1" id="qKh-kd-zHL"/>
                                     <constraint firstItem="esh-8d-3oc" firstAttribute="leading" secondItem="5OB-qB-H83" secondAttribute="leading" constant="10" id="qLV-M8-8vx"/>
                                     <constraint firstItem="rAQ-Re-Izp" firstAttribute="top" secondItem="9yu-iN-hTS" secondAttribute="bottom" constant="8" symbolic="YES" id="qgw-gL-q5O"/>
                                     <constraint firstAttribute="trailing" secondItem="aej-4j-2GR" secondAttribute="trailing" id="sqY-HS-OCF"/>
@@ -1455,6 +1455,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Hds-cp-2o0"/>
+        <segue reference="9dW-4c-rqb"/>
     </inferredMetricsTieBreakers>
 </document>

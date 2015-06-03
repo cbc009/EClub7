@@ -31,8 +31,8 @@
     self.tableview.tableFooterView = [UIView new];
     index2Service = [[Index2Service alloc] init];
     // Do any additional setup after loading the view.
-    images = [[NSArray alloc] initWithObjects:@"fr",@"lifehalf",@"lifehalf",@"myorder",@"aboutus",nil];
-    titles = [[NSArray alloc]initWithObjects:@"生活圈",@"生活体验馆",@"合作商家",@"快递查询",@"水煤电缴费",nil];
+    images = [[NSArray alloc] initWithObjects:@"fr",@"lifehalf",@"myorder",@"aboutus",nil];
+    titles = [[NSArray alloc]initWithObjects:@"生活圈",@"生活体验馆",@"快递查询",@"水煤电缴费",nil];
     
 }
 
@@ -69,17 +69,19 @@
             [index2Service presenterLifeHallViewControllerOnViewController:self];
             break;
         case 0:
+            
             [index2Service presentLiveViewControllerOnViewController:self];
             break;
         case 2:
-            [index2Service presenterPartnerViewControllerOnViewController:self];
+            [index2Service presentEmsViewControllerOnViewController:self];
+//            [index2Service presenterPartnerViewControllerOnViewController:self];
             break;
         case 3:
-             [index2Service presentEmsViewControllerOnViewController:self];
+             [index2Service presentAlipayViewControllerOnViewController:self];
             break;
-        case 4:
-            [index2Service presentAlipayViewControllerOnViewController:self];
-            break;
+//        case 4:
+           
+//            break;
         default:
             [SVProgressHUD showImage:nil status:@"功能尚未开放，敬请期待"];
             break;

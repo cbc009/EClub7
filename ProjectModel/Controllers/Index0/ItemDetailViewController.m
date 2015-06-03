@@ -82,6 +82,7 @@
     self.Ems.text = self.goodModel.logistics;
     self.floatButton = [MLFloatButton loadFromNibAddTarget :self InSuperView:self.view];
     self.webview.scrollView.scrollEnabled = NO;
+    self.count.text=self.goodModel.unit_num;
     [self loadWebPageWithString:self.goodModel.url inWebView:self.webview];
 }
 
@@ -118,14 +119,11 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)reduceAction:(id)sender {
-
-    if (![self.goodModel.unit_num integerValue]<[self.count.text integerValue]){
+    if ([self.count.text integerValue]<=[self.goodModel.unit_num integerValue]){
         [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"当前商品不能购买低于%@ %@",self.goodModel.unit_num,self.goodModel.unit]];
-        self.count.text=self.goodModel.unit_num;
     }else{
-        self.count.text = [SharedAction reduceNumber:self.count];
+        self.count.text=[SharedAction reduceNumber:self.count];
     }
-    
 }
 
 - (IBAction)addAction:(id)sender {
@@ -137,12 +135,26 @@
 }
 
 - (IBAction)addToPurchaseCar:(id)sender {
+    if (user.user_type!=2) {
+        UIAlertView *aletview=[[UIAlertView alloc]initWithTitle:@"温馨提醒" message:@"由于您还没有登录，为了抢到您心仪的宝贝建议您先登录！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定登录", nil];
+        [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+        aletview.tag=5;
+        [aletview show];
+        return;
+    }
     NSString *num = self.count.text;
     [itemDetailService addToPurchaseCarWithGid:gid andNum:num inTabBarController:self.tabBarController withDone:^(Status *model){
     }];
 }
 
 - (IBAction)buynow:(id)sender {
+    if (user.user_type!=2) {
+        UIAlertView *aletview=[[UIAlertView alloc]initWithTitle:@"温馨提醒" message:@"由于您还没有登录，为了抢到您心仪的宝贝建议您先登录！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定登录", nil];
+        [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+        aletview.tag=5;
+        [aletview show];
+        return;
+    }
     //立即购买
     NSString *count = self.count.text;
     [itemDetailService presentPurchaseCarViewControllerWithToken:user.token andUser_type:user.user_type andGid:self.goodModel.gid andNums:count inTabBarController:self.tabBarController withDone:^(Status *model){
@@ -156,22 +168,18 @@
     [SharedAction shareWithTitle:self.title andDesinationUrl:self.goodModel.share_url Text:self.goodModel.name andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.goodModel.bigpicture] InViewController:self];
 }
 
-//- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
-//    double alph = fabs(velocity.y);
-//    NSLog(@"%f",alph);
-//    if (alph<2.5) {
-//        [self.navigationController setNavigationBarHidden:NO animated:YES];
-//        self.navigationController.navigationBar.alpha=alph*0.3;
-//    }else {
-//        [self.navigationController setNavigationBarHidden:YES animated:YES];
-//        
-//    }
-//    
-//    
-//}
-//- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView;{
-//    NSLog(@"hjhshs");
-//}
+#pragma UIAlertDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(alertView.tag==5){
+        if(buttonIndex==1){
+            [self.tabBarController.selectedViewController beginAppearanceTransition: YES animated:YES];
+            self.tabBarController.selectedIndex=0;
+            UINavigationController *nav = self.tabBarController.viewControllers[self.tabBarController.selectedIndex];
+            [nav popToRootViewControllerAnimated:YES];
+            [SharedAction presentLoginViewControllerInViewController:nav];
+        }
+    }
+}
 
 
 @end

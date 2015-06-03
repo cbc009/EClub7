@@ -108,7 +108,7 @@ typedef void (^finished)(NSDictionary *info);
 #define Public_Info_URL [PrexURL stringByAppendingString: @"Public/Seller_info/agent_id/%@/seller_id/%@"]
 //抢购分享
 #define Robuy_Share_URL [PrexURL stringByAppendingString: @"Robuy/robuy_goods_share/goods_id/%@"]
-//抢购商品详情
+//新的商品详情
 #define Robuy_Goods_Detail_URL [PrexURL stringByAppendingString: @"Seller/seller_goods_detail/goods_id/%@"]
 //新抢购
 #define Robuy_Goods_Now_URL [PrexURL stringByAppendingString: @"Robuy/robuy_orders/lifehall_id/%@/goods_id/%@/token/%@/user_type/%d/from/IOS"]

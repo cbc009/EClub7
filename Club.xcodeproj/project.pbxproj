@@ -282,6 +282,7 @@
 		337570941AE3555600E3118A /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 337570931AE3555600E3118A /* search.png */; };
 		337570961AE3587400E3118A /* triangles.png in Resources */ = {isa = PBXBuildFile; fileRef = 337570951AE3587400E3118A /* triangles.png */; };
 		337570991AE36C9800E3118A /* Index0Models.m in Sources */ = {isa = PBXBuildFile; fileRef = 337570981AE36C9800E3118A /* Index0Models.m */; };
+		337611DB1B1C3E4100698806 /* WebDetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 337611DA1B1C3E4100698806 /* WebDetailViewCell.m */; };
 		33766D781AC390B90083B5E9 /* button-down.png in Resources */ = {isa = PBXBuildFile; fileRef = 33766D6A1AC390B90083B5E9 /* button-down.png */; };
 		33766D791AC390B90083B5E9 /* button-up.png in Resources */ = {isa = PBXBuildFile; fileRef = 33766D6B1AC390B90083B5E9 /* button-up.png */; };
 		33766D7A1AC390B90083B5E9 /* like.png in Resources */ = {isa = PBXBuildFile; fileRef = 33766D6C1AC390B90083B5E9 /* like.png */; };
@@ -1134,6 +1135,8 @@
 		337570951AE3587400E3118A /* triangles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = triangles.png; sourceTree = "<group>"; };
 		337570971AE36C9800E3118A /* Index0Models.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Index0Models.h; sourceTree = "<group>"; };
 		337570981AE36C9800E3118A /* Index0Models.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Index0Models.m; sourceTree = "<group>"; };
+		337611D91B1C3E4100698806 /* WebDetailViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebDetailViewCell.h; sourceTree = "<group>"; };
+		337611DA1B1C3E4100698806 /* WebDetailViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebDetailViewCell.m; sourceTree = "<group>"; };
 		33766D6A1AC390B90083B5E9 /* button-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-down.png"; sourceTree = "<group>"; };
 		33766D6B1AC390B90083B5E9 /* button-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-up.png"; sourceTree = "<group>"; };
 		33766D6C1AC390B90083B5E9 /* like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like.png; sourceTree = "<group>"; };
@@ -2476,6 +2479,8 @@
 				337570891AE3432C00E3118A /* Index1ctionViewCell.m */,
 				338DF58B1B0D8D1000F3E97F /* KillIndex1_Cell.h */,
 				338DF58C1B0D8D1000F3E97F /* KillIndex1_Cell.m */,
+				337611D91B1C3E4100698806 /* WebDetailViewCell.h */,
+				337611DA1B1C3E4100698806 /* WebDetailViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -4084,6 +4089,7 @@
 				8FA247E41A10CC6600456468 /* SharedData.m in Sources */,
 				33766D881AC3944C0083B5E9 /* ShowViewController.m in Sources */,
 				8FE932241A2F3B04000C2105 /* Index0_2Cell.m in Sources */,
+				337611DB1B1C3E4100698806 /* WebDetailViewCell.m in Sources */,
 				336301FD1A6361D5001461A3 /* PostLifecircleViewController.m in Sources */,
 				225E3DE9199B3F8B00BDCAE9 /* SelectItemsTableViewController.m in Sources */,
 				2267B4311999E2F600FA9FED /* PurchaseCarItemsViewController.m in Sources */,

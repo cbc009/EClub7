@@ -119,6 +119,7 @@
        return nil;
     }
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section==1||section==3) {
         return 8;
@@ -126,6 +127,7 @@
         return 0;
     }
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger section =indexPath.section;
   
@@ -166,7 +168,15 @@
         NSString *password = [[alertView textFieldAtIndex:0] text];
         [self payWithPassword:password];
          }
-    }else {
+    }else if(alertView.tag==5){
+        if(buttonIndex==1){
+        [self.tabBarController.selectedViewController beginAppearanceTransition: YES animated:YES];
+        self.tabBarController.selectedIndex=0;
+        UINavigationController *nav = self.tabBarController.viewControllers[self.tabBarController.selectedIndex];
+        [nav popToRootViewControllerAnimated:YES];
+        [SharedAction presentLoginViewControllerInViewController:nav];
+        }
+    }else{
        if(buttonIndex == 1){
         NSString *password = [[alertView textFieldAtIndex:0] text];
         [self payWithPassword:password];
@@ -179,9 +189,10 @@
 {
     NSString *passwd = [MyMD5 md5:password];
     NSString *lifeHall_id=[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
-    [checkService sellerOrderWithGoodsType:@"5" andGoodsId:self.models.goods_id andGoodsNums:numberCell.nums.text andLifehall_id:lifeHall_id andPay_mode:@"" andPaypassword:passwd andReceive_type:@"" andMessage:@"" andAddress:@"" andMobole:@"" andSend_time:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
+    [checkService sellerOrderWithGoodsType:@"5" andGoodsId:self.models.goods_id andGoodsNums:numberCell.nums.text andLifehall_id:lifeHall_id andPay_mode:@"" andPaypassword:passwd andReceive_type:@"" andMessage:@"兑换" andAddress:@"" andMobole:user.loginname andSend_time:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
         if ([model[@"status"] isEqualToNumber: @2]) {
             UIAlertView *aletview=[[UIAlertView alloc]initWithTitle:@"兑换成功" message:@"购买成功请及时到生活馆领取" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
             aletview.tag=3;
             [aletview show];
         }
@@ -190,6 +201,13 @@
 }
 
 - (IBAction)buyNOw:(id)sender {
+    if (user.user_type!=2) {
+        UIAlertView *aletview=[[UIAlertView alloc]initWithTitle:@"未登录" message:@"由于您没有登录请登录后再使用" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+        aletview.tag=5;
+        [aletview show];
+         return;
+        }
     if ([numberCell.nums.text isEqualToString:@"0"]) {
         [SVProgressHUD showErrorWithStatus:@"购买数量不能为0"];
     }else{

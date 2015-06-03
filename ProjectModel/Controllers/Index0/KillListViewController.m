@@ -22,6 +22,7 @@
     KillService *service;
     SellerService *sellerService;
     NSInteger _page;
+    KillGoodCell *countDownCell;
 }
 @end
 
@@ -90,25 +91,13 @@
 }
 -(void)headerRereshing
 {
-    
     _page=1;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
     SharedData *sharedData = [SharedData sharedInstance];
     UserInfo *user = sharedData.user;
     [sellerService sellerSellerGood_typesWith:@"4" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id]  andSeller_id:@"0" andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
         self.datas=(NSMutableArray*)model.arr_goods;
-//        for (int i=0; i<model.arr_goods.count; i++) {
-//            Seller_Seller_Goods_arr_goods_info *good  = self.datas[i];
-//            NSString *startTime2 = [NSString timeType1FromStamp:good.start_time];//yyyy-MM-dd HH:mm:ss
-//            if ([SharedAction notifyTime2:startTime2]) {
-//                [SharedAction removeLocalPushNotificationWithType:@"Kill"];
-//                return ;
-//            }else{
-//                NSString *notifyTime = [NSString dateStringByAddTimeInterval:-120 fromDateString:startTime2 withDateFormatter:@"yyyy-MM-dd HH:mm:ss"];
-//                [SharedAction setLocalNotifyWithAlertBody:[NSString stringWithFormat:@"%@的秒杀马上就要开始了,请留意哦",startTime2] andType:@"Kill" andFireDate:notifyTime];
-//            }
-//        }
-         [self.tableview reloadData];
+        [self.tableview reloadData];
         [self.tableview headerEndRefreshing];
        
     }];

@@ -100,8 +100,13 @@
     }
 }
 -(void)submitAction{
-//    if([finalConfirmService compareCurrentTimeWithTime:@"21:30:00"] == NSOrderedDescending && [finalConfirmService compareCurrentTimeWithTime:@"06:00:00"] == NSOrderedAscending){
-        //如果是卖家送货
+    if (user.user_type!=2) {
+        UIAlertView *aletview=[[UIAlertView alloc]initWithTitle:@"未登录" message:@"由于您没有登录请登录后再使用" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+        aletview.tag=5;
+        [aletview show];
+        return;
+    }
         if (type==1) {
             if ([self.address.text isEqualToString:@""]) {
                 [SVProgressHUD showErrorWithStatus:@"请填写准确送货地址"];
@@ -110,7 +115,6 @@
                 [SVProgressHUD showErrorWithStatus:@"请正确填写手机号码"];
                 return;
             }
-            
         }
         SharedData *sharedData = [SharedData sharedInstance];
         UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"支付密码" message:@"支付密码为登陆密码" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
@@ -118,7 +122,7 @@
         if ([sharedData.fingerIsOpened isEqualToString:@"yes"]) {
             [SharedAction fingerPayWithDone:^(BOOL success,id object){
                 if (success) {
-//                    [self payWithPassword:sharedData.payPassword];
+                    [self payWithPassword:sharedData.payPassword];
                 }else{
                     [alertView show];
                 }
@@ -127,31 +131,72 @@
             [alertView show];
         }
 }
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex==1) {
-        NSString *lifeHall_id=[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
-        NSString *passwd = [MyMD5 md5:[[alertView textFieldAtIndex:0] text]];
-        NSString *payMode;
-        NSString *receive_type;
-        if (type1==1) {
-            payMode = @"1";
-        }else{
-            payMode=@"2";
-        }
-        if (type==0) {
-            receive_type=@"1";
-        }else{
-            receive_type=@"2";
-        }
-        [checkService sellerOrderWithGoodsType:@"1" andGoodsId:self.models.goods_id andGoodsNums:self.numbs andLifehall_id:lifeHall_id andPay_mode:payMode andPaypassword:passwd andReceive_type:receive_type andMessage:self.message.text andAddress:self.address.text andMobole:self.phone.text andSend_time:self.send_time.titleLabel.text andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
-            if ([model[@"status"] isEqualToNumber: @2]) {
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            }
-        }];
-    }
-   
 
+#pragma UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag==1) {
+        if(buttonIndex==1){
+            [checkService presentCreatePayViewControllerOnViewController:self];
+        }
+    }else if (alertView.tag==2) {
+        if(buttonIndex==2){
+        }
+    }else if (alertView.tag==3) {
+        if(buttonIndex==1){
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+    }else if(alertView.tag==4){
+        if(buttonIndex==1){
+            [self payWithPassword:[[alertView textFieldAtIndex:0] text]];
+        }
+    }else if(alertView.tag==5){
+        if(buttonIndex==1){
+            [self.tabBarController.selectedViewController beginAppearanceTransition: YES animated:YES];
+            self.tabBarController.selectedIndex=0;
+            UINavigationController *nav = self.tabBarController.viewControllers[self.tabBarController.selectedIndex];
+            [nav popToRootViewControllerAnimated:YES];
+            [SharedAction presentLoginViewControllerInViewController:nav];
+        }
+    }else{
+
+        if(buttonIndex==1){
+            [self payWithPassword:[[alertView textFieldAtIndex:0] text]];
+        }
+    }
 }
+-(void)payWithPassword:(NSString *)password{
+     __block CheckedViewController *blockSelf =self;
+    NSString *lifeHall_id=[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
+    NSString *passwd =  [MyMD5 md5:password];
+    NSString *payMode;
+    NSString *receive_type;
+    if (type1==1) {
+        payMode = @"1";
+    }else{
+        payMode=@"2";
+    }
+    if (type==0) {
+        receive_type=@"1";
+    }else{
+        receive_type=@"2";
+    }
+    [checkService sellerOrderWithGoodsType:@"1" andGoodsId:self.models.goods_id andGoodsNums:self.numbs andLifehall_id:lifeHall_id andPay_mode:payMode andPaypassword:passwd andReceive_type:receive_type andMessage:self.message.text andAddress:self.address.text andMobole:self.phone.text andSend_time:self.send_time.titleLabel.text andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
+        NSNumber *stat = (NSNumber *)[model objectForKey:@"status"];
+        NSInteger status2 = [stat integerValue];
+        if (status2==806) {
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"密码错误" message:@"支付密码错误请重新输入" delegate:blockSelf cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            alertView.tag=4;
+            alertView.alertViewStyle = UIAlertViewStyleSecureTextInput;
+            [alertView show];
+        }else{
+            UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"购买成功" message:@"购买成功请及时到生活馆领取" delegate:blockSelf cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            alertView.tag=3;
+            [alertView show];
+        }
+    }];
+}
+
+
 #pragma SelectedChildViewControllerDelegate
 -(void)tableView:(UITableView *)tableView didSelectedCell:(UITableViewCell *)tableViewCell withController:(UIViewController *)viewController{
     [self.send_time setTitle:tableViewCell.textLabel.text forState:UIControlStateNormal];

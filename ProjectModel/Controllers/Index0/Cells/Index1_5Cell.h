@@ -11,6 +11,7 @@
 @class Index1_5Cell;
 @protocol SelectIndexDelegate<NSObject>
 -(void)selectIndexInCell:(Index1_5Cell*)cell andSellerId:(NSString *)seller_id;
+-(void)scrollViewScrollEnable:(BOOL)enable;
 @end
 
 @interface Index1_5Cell : UITableViewCell

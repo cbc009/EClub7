@@ -69,14 +69,7 @@
         return cell;
     }
 }
-//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    NSInteger index = indexPath.row/2;
-//    KillGood *good = self.datas[index];
-//    KillDetailViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"KillDetailViewController"];
-////    viewController.good = good;
-//    [self.navigationController pushViewController:viewController animated:YES];
-//}
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row = indexPath.row;

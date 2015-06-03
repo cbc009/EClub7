@@ -24,11 +24,10 @@
             self.endtime=self.endtime-1;
             self.times.text= [NSString stringWithFormat:@"距离结束还有:%@",[self toDetailTime:self.endtime]];
         }else{
+            self.times.text=@"抢购已结束!";
             [timwer invalidate];
         }
     }
-
-    
 }
 /*
  秒转化成详细时间

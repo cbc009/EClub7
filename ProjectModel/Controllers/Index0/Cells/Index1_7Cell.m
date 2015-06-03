@@ -13,7 +13,9 @@
 @implementation Index1_7Cell
 
 - (void)awakeFromNib {
-    // Initialization code
+//    UICollectionViewLayout *layout=[UICollectionViewLayout new];
+//    
+//    self.collictionView.collectionViewLayout=layout;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -24,6 +26,7 @@
     return self.datas.count;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+   
     NSInteger row=indexPath.row;
     Index1ctionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Index1ctionViewCell" forIndexPath:indexPath];
      Index0Models_Arr_Goods_info *model =self.datas[row];
@@ -37,5 +40,15 @@
     NSInteger row=indexPath.row;
    Index0Models_Arr_Goods_info *model =self.datas[row];
     [self.delegate selectIndexInCell:self andGoodsId:model.goods_id];
+}
+#pragma mark --UICollectionViewDelegateFlowLayout
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake((collectionView.frame.size.width-1)/2-8, 153);
+}
+
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(4, 4, 4, 4);
 }
 @end

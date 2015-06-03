@@ -18,7 +18,7 @@
 #import "SellerService.h"
 #import "GroupDetailCell.h"
 #import "MyMD5.h"
-
+#import "WebViewController.h"
 #import "GroupService.h"
 #import "ItemDetailService.h"
 #import "SharedAction.h"
@@ -28,12 +28,13 @@
 #import "WebViewCell.h"
 #import "Status.h"
 #import <BmobSdk/Bmob.h>
+#import "GoodsCountDownModel.h"
 @interface GroupDetailViewController ()<UIWebViewDelegate,UIScrollViewDelegate>
 {
     GroupService *groupService;
     ItemDetailService *itemDetailService;
     NSTimer *timer;
-    int countDownSeconds;
+    NSInteger countDownSeconds;
     NSString *gid;
     NSString *htmlStr;
     CGFloat height1;
@@ -42,6 +43,7 @@
     PointIndex1Cell *numberCell;
     SharedData *sharedData;
     CheckService *checkService;
+    GroupDetailCell *countDownCell;
 }
 @property (weak, nonatomic) IBOutlet UIButton *addGroupButton;
 @end
@@ -63,6 +65,11 @@
     self.title=self.groupGood.goods_name;
     checkService=[CheckService new];
     sellerService =[SellerService new];
+    [sellerService sellerCountDownWithGoodsType:@"2" andGoodId:self.groupGood.goods_id inTabBarController:self.tabBarController withDone:^(GoodsCount_Info *model){
+        countDownCell.end_seconds =[model.end_second integerValue];
+        countDownSeconds=[model.start_second integerValue];
+        [self.tableview reloadData];
+    }];
     sharedData= [SharedData sharedInstance];
     user = sharedData.user;
 }
@@ -86,7 +93,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section==5) {
+    if (section==5||section==1) {
         return 2;
     }
     return 1;
@@ -96,9 +103,9 @@
     NSInteger row =indexPath.row;
     if (indexPath.section==0) {
         PointIndex0Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"PointIndex0Cell" forIndexPath:indexPath];
-        cell.selectionStyle=UITableViewCellSelectionStyleNone;
         [cell.goodPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.groupGood.bigpicture]] placeholderImage:[UIImage imageNamed:@"e"]];
         cell.goodName.text=self.groupGood.goods_name;
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
         cell.title.text=@"团购价:";
         cell.discount.text=[NSString stringWithFormat:@"￥%@/%@",self.groupGood.discount,self.groupGood.unit];
         cell.price.text=[NSString stringWithFormat:@"原价:￥%@/%@",self.groupGood.price,self.groupGood.unit];
@@ -108,10 +115,14 @@
         PointIndex2Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"PointIndex2Cell" forIndexPath:indexPath];
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         cell.title.font=[UIFont fontWithName:@"TrebuchetMS-Bold" size:14];
-        cell.title.text=@"商品提供方";
         cell.detail.hidden=YES;
+        if (row==1) {
+            cell.title.text=@"商品提供方";
+        }else{
+            cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+            cell.title.text=@"图文详情";
+        }
         return cell;
-        
     }else if(indexPath.section==2){
         RobIndex1_Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"RobIndex1_Cell" forIndexPath:indexPath];
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
@@ -121,12 +132,12 @@
         return cell;
     }else if(indexPath.section==3){
         GroupDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GroupDetailCell" forIndexPath:indexPath];
-        cell.end_seconds=[self.groupGood.end_seconds integerValue];
+        countDownCell=cell;
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         return cell;
     }else if(indexPath.section==4){
-        
         PointIndex1Cell *cell =[tableView dequeueReusableCellWithIdentifier:@"PointIndex1Cell" forIndexPath:indexPath];
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
         numberCell=cell;
         return cell;
     }else if(indexPath.section==5){
@@ -144,8 +155,18 @@
         return nil;
     }
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section==2) {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section==1) {
+       if (indexPath.row==0){
+        WebViewController *target = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
+        target.loadType=0;
+        target.urlString = [NSString stringWithFormat:Robuy_Goods_Detail_URL,self.groupGood.goods_id];
+        target.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:target animated:YES];
+       }
+    }else if (indexPath.section==2) {
         UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
         ShowViewController *showVic=[storBoard instantiateViewControllerWithIdentifier:@"ShowViewController"];
         showVic.seller_id=self.groupGood.seller_id;
@@ -154,7 +175,6 @@
             [self.navigationController pushViewController:showVic animated:YES];
         }];
     }
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -192,7 +212,15 @@
             NSString *password = [[alertView textFieldAtIndex:0] text];
             [self payWithPassword:password];
         }
-    }else {
+    }else if(alertView.tag==5){
+        if(buttonIndex==1){
+            [self.tabBarController.selectedViewController beginAppearanceTransition: YES animated:YES];
+            self.tabBarController.selectedIndex=0;
+            UINavigationController *nav = self.tabBarController.viewControllers[self.tabBarController.selectedIndex];
+            [nav popToRootViewControllerAnimated:YES];
+            [SharedAction presentLoginViewControllerInViewController:nav];
+        }
+    }else{
         if(buttonIndex == 1){
             NSString *password = [[alertView textFieldAtIndex:0] text];
             [self payWithPassword:password];
@@ -200,6 +228,13 @@
     }
 }
 - (IBAction)buyNow:(id)sender {
+    if (user.user_type!=2) {
+        UIAlertView *aletview=[[UIAlertView alloc]initWithTitle:@"未登录" message:@"由于您没有登录请登录后再使用" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+        aletview.tag=5;
+        [aletview show];
+        return;
+    }
     if ([numberCell.nums.text isEqualToString:@"0"]) {
         [SVProgressHUD showErrorWithStatus:@"购买数量不能为0"];
     }else{
@@ -225,9 +260,10 @@
 {
     NSString *passwd = [MyMD5 md5:password];
     NSString *lifeHall_id=[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
-    [checkService sellerOrderWithGoodsType:@"2" andGoodsId:self.groupGood.goods_id andGoodsNums:numberCell.nums.text andLifehall_id:lifeHall_id andPay_mode:@"" andPaypassword:passwd andReceive_type:@"" andMessage:@"" andAddress:@"" andMobole:@"" andSend_time:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
+    [checkService sellerOrderWithGoodsType:@"2" andGoodsId:self.groupGood.goods_id andGoodsNums:numberCell.nums.text andLifehall_id:lifeHall_id andPay_mode:@"2" andPaypassword:passwd andReceive_type:@"" andMessage:@"团购" andAddress:@"" andMobole:user.loginname andSend_time:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
         if ([model[@"status"] isEqualToNumber: @2]) {
             UIAlertView *aletview=[[UIAlertView alloc]initWithTitle:@"下单成功" message:@"购买成功请及时到生活馆领取" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
             aletview.tag=3;
             [aletview show];
         }

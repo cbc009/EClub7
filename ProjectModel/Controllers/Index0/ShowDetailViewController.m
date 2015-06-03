@@ -66,7 +66,7 @@
 {
     page=1;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
-    [sellerService sellerSellerGood_typesWith:@"1" andAgentId:@"" andSeller_id:self.seller_id andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
+    [sellerService sellerSellerGood_typesWith:@"1" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id] andSeller_id:self.seller_id andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
         self.datas=(NSMutableArray *)model.arr_goods;
         [self.collectionView reloadData];
         [self.collectionView headerEndRefreshing];
@@ -80,7 +80,7 @@
     page++;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
     
-    [sellerService sellerSellerGood_typesWith:@"1" andAgentId:@"" andSeller_id:self.seller_id andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
+    [sellerService sellerSellerGood_typesWith:@"1" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id] andSeller_id:self.seller_id andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
         [self.datas addObjectsFromArray:model.arr_goods];
         [self.collectionView reloadData];
         [self.collectionView footerEndRefreshing];

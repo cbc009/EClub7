@@ -29,7 +29,7 @@
 {
     RobService *robService;
     NSString *sharurl;
-    NSInteger countDownSeconds;
+//    NSInteger countDownSeconds;
     CheckService *checkService;
     SellerService *sellerService;
     RobTitleCell *countDownCell;
@@ -42,24 +42,28 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    SharedData *sharedData = [SharedData sharedInstance];
+    user = sharedData.user;
     self.title=@"抢购详情";
+    if (user.user_type!=2) {
+        UIAlertView *aletview=[[UIAlertView alloc]initWithTitle:@"温馨提醒" message:@"由于您还没有登录，为了抢到您心仪的宝贝建议您先登录！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定登录", nil];
+        [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+        aletview.tag=5;
+        [aletview show];
+    }
     robService =[RobService new];
     checkService =[CheckService new];
     sellerService =[SellerService new];
-    SharedData *sharedData =[SharedData sharedInstance];
-    user=sharedData.user;
+   
     sharurl = [NSString stringWithFormat:Robuy_Share_URL,self.robGoodsMOdel.goods_id];
     self.tableView.autoresizesSubviews=NO;
     self.tableView.showsVerticalScrollIndicator =NO;
     self.tableView.tableFooterView =[UIView new];
     [sellerService sellerCountDownWithGoodsType:@"3" andGoodId:self.robGoodsMOdel.goods_id inTabBarController:self.tabBarController withDone:^(GoodsCount_Info *model){
-        countDownCell.starttime=[self.robGoodsMOdel.start_seconds integerValue];
-        countDownSeconds=[self.robGoodsMOdel.start_seconds integerValue];
-        countDownCell.endtime=[self.robGoodsMOdel.end_seconds integerValue];
+        countDownCell.starttime=[model.start_second integerValue];
+        countDownCell.endtime=[model.end_second integerValue];
         [self.tableView reloadData];
     }];
-
-//     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.robNowButton.layer.cornerRadius=5;
 }
 - (void)loadWebPageWithString:(NSString*)urlString inWebView:(UIWebView *)webView{
@@ -73,7 +77,7 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 8;
+    return 7;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section==0){
@@ -182,13 +186,13 @@
             cell.title.text =self.robGoodsMOdel.receive_address;
         }
         return cell;
-    }else if(section==7){
-        Index0_Cell *cell=[tableView dequeueReusableCellWithIdentifier:@"Index0_Cell" forIndexPath:indexPath];
-        cell.title.textColor=[UIColor blackColor];
-        cell.title.text=@"查看抢购名单";
-        cell.title.font=[UIFont fontWithName:@"TrebuchetMS-Bold" size:17];
-        cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
-        return cell;
+//    }else if(section==7){
+//        Index0_Cell *cell=[tableView dequeueReusableCellWithIdentifier:@"Index0_Cell" forIndexPath:indexPath];
+//        cell.title.textColor=[UIColor blackColor];
+//        cell.title.text=@"查看抢购名单";
+//        cell.title.font=[UIFont fontWithName:@"TrebuchetMS-Bold" size:17];
+//        cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+//        return cell;
     }else{
 
         return nil;
@@ -237,9 +241,8 @@
 }
 
 - (IBAction)robNow:(id)sender {
-    
     NSString *lifehall_id =[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
-        [checkService sellerOrderWithGoodsType:@"3" andGoodsId:self.robGoodsMOdel.goods_id andGoodsNums:@"1" andLifehall_id:lifehall_id andPay_mode:@"" andPaypassword:@"" andReceive_type:@"" andMessage:@"" andAddress:@"" andMobole:@"" andSend_time:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
+        [checkService sellerOrderWithGoodsType:@"3" andGoodsId:self.robGoodsMOdel.goods_id andGoodsNums:@"1" andLifehall_id:lifehall_id andPay_mode:@"2" andPaypassword:@"" andReceive_type:@"" andMessage:@"抢购" andAddress:@"" andMobole:user.loginname andSend_time:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
             if ([model[@"status"] isEqualToNumber: @2]) {
                 NSString *message =[NSString stringWithFormat:@"恭喜你在E小区免费抢到%@赶快去告诉朋友吧",self.robGoodsMOdel.goods_name];
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"抢菜信息" message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去告诉朋友", nil];
@@ -262,8 +265,18 @@
 
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+ if(alertView.tag==5){
+    if(buttonIndex==1){
+        [self.tabBarController.selectedViewController beginAppearanceTransition: YES animated:YES];
+        self.tabBarController.selectedIndex=0;
+        UINavigationController *nav = self.tabBarController.viewControllers[self.tabBarController.selectedIndex];
+        [nav popToRootViewControllerAnimated:YES];
+        [SharedAction presentLoginViewControllerInViewController:nav];
+    }
+    }else{
     if(buttonIndex==1) {
         [SharedAction shareWithTitle:self.robGoodsMOdel.goods_name andDesinationUrl:sharurl Text:self.robGoodsMOdel.goods_name andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.robGoodsMOdel.bigpicture] InViewController:self];
+        }
     }
 }
 - (IBAction)share:(id)sender {

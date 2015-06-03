@@ -37,7 +37,6 @@
     NSInteger countDownSeconds;
     GroupService *groupService;
     KillService *killService;
-    WebViewController *target;
     UserInfo *user;
     SellerService *sellerService;
     KillDetailCell0 *countDownCell;
@@ -56,6 +55,14 @@
     [super viewDidLoad];
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
+    if (user.user_type!=2) {
+        UIAlertView *aletview=[[UIAlertView alloc]initWithTitle:@"温馨提醒" message:@"由于您还没有登录，为了抢到您心仪的宝贝建议您先登录！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定登录", nil];
+        [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+        aletview.tag=5;
+        [aletview show];
+        return;
+    }
+    
     checkService= [CheckService new];
     sellerService=[SellerService new];
     self.title = self.good.goods_name;
@@ -85,7 +92,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section==4) {
+    if (section==4||section==1) {
         return 2;
     }
     return 1;
@@ -108,6 +115,10 @@
         cell.title.font=[UIFont fontWithName:@"TrebuchetMS-Bold" size:14];
         cell.title.text=@"商品提供方";
         cell.detail.hidden=YES;
+        if (indexPath.row==0) {
+            cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+            cell.title.text=@"商品详情";
+        }
         return cell;
     }else if(indexPath.section==2){
         KillIndex1_Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"KillIndex1_Cell" forIndexPath:indexPath];
@@ -138,6 +149,7 @@
     }
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+      [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section==2) {
         UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
         ShowViewController *showVic=[storBoard instantiateViewControllerWithIdentifier:@"ShowViewController"];
@@ -146,8 +158,16 @@
             showVic.models=model.arr_seller[0];
             [self.navigationController pushViewController:showVic animated:YES];
         }];
+    }else if(indexPath.section==1){
+        if (indexPath.row==0){
+            WebViewController *target = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
+            target.loadType=0;
+            target.urlString = [NSString stringWithFormat:Robuy_Goods_Detail_URL,self.good.goods_id];
+            target.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:target animated:YES];
+        }
     }
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+  
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -175,16 +195,18 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (alertView.tag==1) {
-        if (buttonIndex==0) {
-        }else if(buttonIndex==1) {
-            [SharedAction shareWithTitle:self.good.goods_name andDesinationUrl:AppDownLoadURL Text:alertView.message andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.good.bigpicture] InViewController:self];
+    if(alertView.tag==5){
+        if(buttonIndex==1){
+            [self.tabBarController.selectedViewController beginAppearanceTransition: YES animated:YES];
+            self.tabBarController.selectedIndex=0;
+            UINavigationController *nav = self.tabBarController.viewControllers[self.tabBarController.selectedIndex];
+            [nav popToRootViewControllerAnimated:YES];
+            [SharedAction presentLoginViewControllerInViewController:nav];
         }
-    }
-    if (buttonIndex==0) {
-        
-    }else if(buttonIndex==1) {
+    }else{
+       if(buttonIndex==1) {
         [SharedAction shareWithTitle:self.good.goods_name andDesinationUrl:AppDownLoadURL Text:alertView.message andImageUrl:[NSString stringWithFormat:@"%@%@",IP,self.good.bigpicture] InViewController:self];
+    }
     }
 }
 -(void)startCountDownActionWithSeconds:(NSInteger)seconds{
@@ -192,11 +214,12 @@
 }
 
 - (IBAction)buyNow:(id)sender {
-    if (countDownSeconds <= -5) {
+    if (countDownSeconds<=-4||countDownSeconds==-1) {
         [SVProgressHUD showErrorWithStatus:@"商品已过期"];
+        return;
     }else if (countDownSeconds<=0&countDownSeconds>-5) {
     NSString *lifeHall_id=[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
-    [checkService sellerOrderWithGoodsType:@"4" andGoodsId:self.good.goods_id andGoodsNums:@"1" andLifehall_id:lifeHall_id andPay_mode:@"" andPaypassword:@"" andReceive_type:@"" andMessage:@"" andAddress:@"" andMobole:@"" andSend_time:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
+    [checkService sellerOrderWithGoodsType:@"4" andGoodsId:self.good.goods_id andGoodsNums:@"1" andLifehall_id:lifeHall_id andPay_mode:@"2" andPaypassword:@"" andReceive_type:@"" andMessage:@"秒杀" andAddress:@"" andMobole:user.loginname andSend_time:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
         if ([model[@"status"] isEqualToNumber: @2]) {
                     NSString *message =[NSString stringWithFormat:@"恭喜你在E小区免费抢到%@赶快去告诉朋友吧",self.good.goods_name];
                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"秒杀信息" message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去告诉朋友", nil];

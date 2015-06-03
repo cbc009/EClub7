@@ -10,15 +10,17 @@
 #import "CheckedViewController.h"
 #import <UIImageView+WebCache.h>
 @interface ShoopGoodsViewController ()
-//{
-//    SellerService *SellerService;
-//}
+{
+    UserInfo *user;
+}
 @end
 
 @implementation ShoopGoodsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    SharedData *sharedData =[SharedData sharedInstance];
+    user=sharedData.user;
     self.title=self.models.goods_name;
     self.reduce.layer.cornerRadius=2;
     self.reduce.layer.borderWidth=1;
@@ -31,7 +33,7 @@
 //    self.numbs.layer.cornerRadius=2;
     self.numbs.layer.borderWidth=1;
     self.numbs.layer.borderColor=[UIColor redColor].CGColor;
-    
+    self.numbs.text=@"1";
     self.buyNow.layer.cornerRadius=4;
     self.scrollView.autoresizesSubviews=YES;
     [self setValue];
@@ -65,10 +67,31 @@
 }
 
 - (IBAction)buyNow:(id)sender {
+    if (user.user_type!=2) {
+        UIAlertView *aletview=[[UIAlertView alloc]initWithTitle:@"温馨提醒" message:@"由于您还没有登录，为了买到您心仪的宝贝建议您先登录！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定登录", nil];
+        [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+        aletview.tag=5;
+        [aletview show];
+        return;
+    }
+
+    if ([self.numbs.text isEqualToString:@"0"]) {
+        [SVProgressHUD showErrorWithStatus:@"购买数量不能为0！"];
+        return;
+    }
     UIStoryboard *storyBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
     CheckedViewController *checkedViewController=[storyBoard instantiateViewControllerWithIdentifier:@"CheckedViewController"];
     checkedViewController.models=self.models;
     checkedViewController.numbs=self.numbs.text;
     [self.navigationController pushViewController:checkedViewController animated:YES];
+}
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex==1){
+            [self.tabBarController.selectedViewController beginAppearanceTransition: YES animated:YES];
+            self.tabBarController.selectedIndex=0;
+            UINavigationController *nav = self.tabBarController.viewControllers[self.tabBarController.selectedIndex];
+            [nav popToRootViewControllerAnimated:YES];
+            [SharedAction presentLoginViewControllerInViewController:nav];
+    }
 }
 @end

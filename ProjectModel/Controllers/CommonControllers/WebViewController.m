@@ -40,7 +40,7 @@
     if (self.loadType==1) {
         [_webview loadHTMLString:self.htmlString baseURL:nil];
     }else{
-    [self loadWebPageWithString:self.urlString inWebView:_webview];
+        [self loadWebPageWithString:self.urlString inWebView:_webview];
     }
     
 }

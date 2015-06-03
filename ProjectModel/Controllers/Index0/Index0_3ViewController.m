@@ -60,6 +60,7 @@
 @implementation Index0_3ViewController
 
 -(void)viewWillAppear:(BOOL)animated{
+    
     [super viewWillAppear:animated];
      sharedData= [SharedData sharedInstance];
     user= sharedData.user;
@@ -91,12 +92,12 @@
     self.collectionDatas = [NSArray arrayWithObjects:@"充值",@"抽奖",@"联盟商户",@"购物车",nil];
     self.collectionImgs = [NSArray arrayWithObjects:@"chongzhi.png",@"choujiang.png",@"qianbao.png",@"gouwuche.png", nil];
 }
+
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-//    [self.navigationController.navigationBar setBackgroundColor:[UIColor redColor]];
     [naviBarView removeFromSuperview];
-    
 }
+
 -(void)locationNow{
     self.locMgr = [[CLLocationManager alloc] init];
     self.locMgr.delegate = self;
@@ -258,12 +259,15 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate=self;
         cell.datas=self.objects.arr_goods;
-    
+        
         [cell.collictionView reloadData];
         return cell;
     }
 }
-
+-(void)scrollViewScrollEnable:(BOOL)enable{
+    self.tableview.scrollEnabled=enable;
+    
+}
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath   {
     NSInteger section = indexPath.section;
     if (section==0) {
@@ -300,6 +304,7 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return 4;
 }
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     MainItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MainItemCell" forIndexPath:indexPath];
     NSInteger row = indexPath.row;
@@ -307,6 +312,7 @@
     cell.imgView.image = [UIImage imageNamed:self.collectionImgs[row]];
     return cell;
 }
+
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
      [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     NSInteger row = indexPath.row;
@@ -336,6 +342,7 @@
         NSLog(@"storyboardName为nil，或者identifier为nil");
     }
 }
+
 -(void)tapInViewWithTag:(NSInteger)tag inCell:(Index1_3Cell*)cell{
     NSString *storyboardName = nil;
     NSString *identifier = nil;
@@ -383,11 +390,12 @@
         NSLog(@"第%ld张图片暂无url",(long)index);
     }
 }
+
 -(void)panInViewControllerWithType:(BOOL)type{
     self.tableview.bounces=type;
 }
+
 -(void)selectIndexInCell:(Index1_7Cell*)cell andGoodsId:(NSString *)goodId{
-    
     [buyService goods_Goods_InfoWithGoodId:goodId nTabBarController:self.tabBarController withDone:^(Type_Goods_info *model){
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index4" bundle:nil];
         ItemDetailViewController *target = [storyboard instantiateViewControllerWithIdentifier:@"ItemDetailViewController"];
@@ -423,12 +431,14 @@
     [self.navigationController pushViewController:target animated:YES];
 
 }
+
 -(void)search{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index4" bundle:nil];
     UIViewController *target = [storyboard instantiateViewControllerWithIdentifier:@"SerchViewController"];
     target.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:target animated:YES];
 }
+
 -(void)changeAgenTReload{
 //    Index0Service *index0Service = [Index0Service new];
     [index0Service loadAdverPicWithPos:1 andAgentID:sharedData.user.agent_id inViewController:self];
