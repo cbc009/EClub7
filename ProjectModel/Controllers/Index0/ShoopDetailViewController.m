@@ -324,26 +324,26 @@
 -(void)headerRereshing
 {
     page =1;
-    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
-     NSString *agent_id= [NSString stringWithFormat:@"%ld",(long)user.agent_id];
-    NSString *typeString0 =[NSString stringWithFormat:@"%@/page/%@",typeString,pageString];
-    [sellerService publicSellerInfoWithAgent_id:agent_id anrTypeString:typeString0 inTabBarController:self.tabBarController withDone:^(Public_Seller_info_model_info *model){
-        self.data=(NSMutableArray*)model.arr_seller;
-        [self.tableview reloadData];
-    }];
+    [self loadDataWithPage:page andType:0];
     [self.tableview headerEndRefreshing];
 }
 - (void)footerRereshing
 {
     page++;
-    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
+    [self loadDataWithPage:page andType:1];
+    [self.tableview footerEndRefreshing];    
+}
+-(void)loadDataWithPage:(NSInteger)pages andType:(NSInteger )type{
+    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)pages];
     NSString *agent_id= [NSString stringWithFormat:@"%ld",(long)user.agent_id];
     NSString *typeString0 =[NSString stringWithFormat:@"%@/page/%@",typeString,pageString];
     [sellerService publicSellerInfoWithAgent_id:agent_id anrTypeString:typeString0 inTabBarController:self.tabBarController withDone:^(Public_Seller_info_model_info *model){
-        [self.data addObjectsFromArray:model.arr_seller];
+        if (type==0) {
+             self.data=(NSMutableArray*)model.arr_seller;
+        }else{
+            [self.data addObjectsFromArray:model.arr_seller];
+        }
         [self.tableview reloadData];
     }];
-    [self.tableview footerEndRefreshing];    
 }
-
 @end

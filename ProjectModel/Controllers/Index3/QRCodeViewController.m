@@ -45,7 +45,7 @@
     }
 //    self.address.text = user.sname;
     self.QRImgView.image = [QRCodeGenerator qrImageForString:sharedData.password imageSize:self.QRImgView.frame.size.width];
-    [self.userIcon sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]]  placeholderImage:[UIImage imageNamed:@"userIcon.jpg"]];
+    [self.userIcon sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]]  placeholderImage:[UIImage imageNamed:@"headss.png"]];
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];

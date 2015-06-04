@@ -46,6 +46,7 @@
     NSString *urlString = [NSString stringWithFormat:GoodsTypeURL,agentId];
     [Goods_type getModelFromURLWithString:urlString completion:^(Goods_type *model,JSONModelError *error){
         if (model.status==2) {
+             NSLog(@"urlString%@",urlString);
             viewController.goodTypes = model.info.goods_type;
             [viewController.tableView reloadData];
             [SVProgressHUD dismiss];

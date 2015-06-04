@@ -86,6 +86,12 @@
     }
 }
 
+-(void)presentRobDetailViewControllerIn:(RobViewController*)robViewController and:(Seller_Seller_Goods_arr_goods_info*)robuyGood{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+    RobDetailViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RobDetailViewController"];
+    [robViewController.navigationController pushViewController:viewController animated:YES];
+    viewController.robGoodsMOdel = robuyGood;
+}
 
 
 

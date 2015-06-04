@@ -109,6 +109,13 @@
 
 -(void)buttonTouchAction
 {
+    if (user.user_type!=2) {
+        UIAlertView *aletview=[[UIAlertView alloc]initWithTitle:@"温馨提醒" message:@"由于您还没有登录，该功能需要登录以后才能使用！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定登录", nil];
+        [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+        aletview.tag=5;
+        [aletview show];
+        return;
+    }
     PurchaseCarItemsViewController *purchaseCar = [self.storyboard instantiateViewControllerWithIdentifier:@"PurchaseCarItemsViewController"];
     [self.navigationController pushViewController:purchaseCar animated:YES];
 }

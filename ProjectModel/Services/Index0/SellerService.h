@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "ShoopGoodsViewController.h"
+#import "ShowDetailViewController.h"
+#import "Seller_Seller_Goods.h"
 @interface SellerService : NSObject
 -(void)sellerSellerGood_typesWith:(NSString *)good_type andAgentId:(NSString *)agent_id andSeller_id:(NSString *)seller_id andLifehall_id:(NSString *)lifehall_id andPage:(NSString *)pageString inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 -(void)publickSellerListWithTypeString:(NSString *)typeString inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
@@ -17,4 +19,5 @@
 -(void)sellerOrderReturnwithToken:(NSString *)token andUser_type:(NSInteger)user_type andOrder_id:(NSString *)order_id inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 -(void)sellerCountDownWithGoodsType:(NSString *)goode_type andGoodId:(NSString *)good_id inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 -(void)sellerInfoWithAgentid:(NSString*)agent_id andSeller_type:(NSString *)seller_type andSellerid:(NSString *)seller_id inRootTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
+-(void)presentShoopGoodsViewControllerIn:(ShowDetailViewController*)viewController and:(Seller_Seller_Goods_arr_goods_info*)model;
 @end

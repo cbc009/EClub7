@@ -145,5 +145,23 @@
         return nil;
     }
 }
+-(void)presentChangeAgentViewControllerIn:(Index0_3ViewController*)viewController{
+    UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"ChangeAgent" bundle:nil];
+    ChangeAgentViewController *changeAgentVIewController =[storBoard instantiateViewControllerWithIdentifier:@"ChangeAgentViewController"];
+    [viewController presentViewController:changeAgentVIewController animated:YES completion:nil];
 
+}
+-(void)presentMorePush_historyIn:(Index0_3ViewController*)viewController{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+    UIViewController *target = [storyboard instantiateViewControllerWithIdentifier:@"MorePush_history"];
+    target.navigationController.navigationItem.leftBarButtonItem.title=@"首页";
+    target.hidesBottomBarWhenPushed = YES;
+    [viewController.navigationController pushViewController:target animated:YES];
+}
+-(void)prensentSerchViewControllerIn:(Index0_3ViewController*)viewController{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index4" bundle:nil];
+    UIViewController *target = [storyboard instantiateViewControllerWithIdentifier:@"SerchViewController"];
+    target.hidesBottomBarWhenPushed = YES;
+    [viewController.navigationController pushViewController:target animated:YES];
+}
 @end

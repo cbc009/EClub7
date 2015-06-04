@@ -22,6 +22,7 @@
     KillService *service;
     SellerService *sellerService;
     NSInteger _page;
+    UserInfo *user;
     KillGoodCell *countDownCell;
 }
 @end
@@ -35,6 +36,8 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    SharedData *sharedData = [SharedData sharedInstance];
+    user= sharedData.user;
     self.tableview.tableFooterView =[UIView new];
     sellerService=[SellerService new];
     _tableview.showsVerticalScrollIndicator =NO;
@@ -89,32 +92,31 @@
         return 95;
     }
 }
--(void)headerRereshing
-{
-    _page=1;
-    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
+
+-(void)headerRereshing{
+    _page =1;
+    [self loadSellerSellerGoodsTypeWithPage:_page andType:0];
+}
+
+-(void)loadSellerSellerGoodsTypeWithPage:(NSInteger)pages andType:(NSInteger)type{
+    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)pages];
     [sellerService sellerSellerGood_typesWith:@"4" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id]  andSeller_id:@"0" andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
-        self.datas=(NSMutableArray*)model.arr_goods;
+        if (type==0) {
+            self.datas=(NSMutableArray*)model.arr_goods;
+            [self.tableview headerEndRefreshing];
+        }else{
+            [self.datas addObjectsFromArray:model.arr_goods];
+            [self.tableview footerEndRefreshing];
+        }
         [self.tableview reloadData];
-        [self.tableview headerEndRefreshing];
-       
+        
     }];
 }
 
 - (void)footerRereshing
 {
     _page++;
-    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
-    [sellerService sellerSellerGood_typesWith:@"4" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id]  andSeller_id:@"0" andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
-        [self.datas addObjectsFromArray:model.arr_goods];
-        [self.tableview reloadData];
-        [self.tableview footerEndRefreshing];
-    }];
-
+    [self loadSellerSellerGoodsTypeWithPage:_page andType:1];
 }
 
 @end

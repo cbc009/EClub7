@@ -13,9 +13,9 @@
 #import <SVProgressHUD.h>
 @implementation LifeHallService
 //生活馆
--(void)lifehalllifehalllistWithToken:(NSString *)token andUer_type:(NSInteger )user_type andTabbarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done
+-(void)lifehalllifehalllistWithAgent_id:(NSInteger )agent_id andTabbarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done
 {
-    NSString *urlString =[NSString stringWithFormat:Lifehall_lifehall_list_URL,token,user_type];
+    NSString *urlString =[NSString stringWithFormat:Lifehall_lifehall_list_URL,agent_id];
     [LifehallModel getModelFromURLWithString:urlString completion:^(LifehallModel *model,JSONModelError *error){
         [SVProgressHUD show];
         [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];

@@ -117,7 +117,7 @@
         Index3_2Cell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         cell.imgView.layer.masksToBounds = YES;
         cell.imgView.layer.cornerRadius = 32;
-        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]] placeholderImage:[UIImage imageNamed:@"userIcon.jpg"]];
+        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]] placeholderImage:[UIImage imageNamed:@"headss.png"]];
 //        cell.address.text = user.sname;
         cell.address.hidden=YES;
         cell.nickname.text = user.nickname;
@@ -146,7 +146,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (user.user_type!=2) {
-        UIAlertView *aletview=[[UIAlertView alloc]initWithTitle:@"温馨提醒" message:@"由于您还没有登录，为了抢到您心仪的宝贝建议您先登录！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定登录", nil];
+        UIAlertView *aletview=[[UIAlertView alloc]initWithTitle:@"温馨提醒" message:@"由于您还没有登录，该功能需要登录以后才能使用！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定登录", nil];
         [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
         aletview.tag=5;
         [aletview show];

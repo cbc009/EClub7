@@ -23,6 +23,7 @@
     PointVIewControllerService *pointViewControllerService;
     NSMutableDictionary *dic;
     SellerService *sellerService;
+    UserInfo *user;
 }
 
 @end
@@ -33,6 +34,8 @@
     [super viewDidLoad];
     self.title = @"商品兑换";
     self.page = 1;
+    SharedData *sharedData = [SharedData sharedInstance];
+    user= sharedData.user;
     sellerService =[SellerService new];
     self.datas=[NSMutableArray new];
     pointViewControllerService  = [[PointVIewControllerService alloc] init];
@@ -104,32 +107,31 @@
     _collectionview
     .footerRefreshingText = @"正在帮你加载中";
 }
--(void)headerRereshing
-{
-    _page=1;
-    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
-    [sellerService sellerSellerGood_typesWith:@"5" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id]  andSeller_id:@"" andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
-        self.datas=(NSMutableArray*)model.arr_goods;
+
+
+-(void)loadSellerSellerGoodsTypeWithPage:(NSInteger)pages andType:(NSInteger)type{
+    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)pages];
+    [sellerService sellerSellerGood_typesWith:@"5" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id] andSeller_id:@"0" andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
+        if (type==0) {
+            self.datas=(NSMutableArray*)model.arr_goods;
+            [self.collectionview headerEndRefreshing];
+        }else{
+            [self.datas addObjectsFromArray:model.arr_goods];
+            [self.collectionview footerEndRefreshing];
+        }
         [self.collectionview reloadData];
-        [self.collectionview headerEndRefreshing];
     }];
 }
-
-
+-(void)headerRereshing{
+    _page=1;
+    [self loadSellerSellerGoodsTypeWithPage:_page andType:0];
+}
 - (void)footerRereshing
 {
     _page++;
-    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)_page];
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
-    [sellerService sellerSellerGood_typesWith:@"5" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id] andSeller_id:@"" andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
-        self.datas=(NSMutableArray*)model.arr_goods;
-        [self.collectionview reloadData];
-        [self.collectionview footerEndRefreshing];
-    }];
+    [self loadSellerSellerGoodsTypeWithPage:_page andType:1];
 }
+
 #pragma UIAlertDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {

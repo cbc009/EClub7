@@ -138,8 +138,12 @@
 }
 -(void)changeAgenTReload{
     buyService =[BuyService new];
+    SharedData *sharedData =[SharedData sharedInstance];
+    user=sharedData.user;
     [buyService loadGoodTypesWithAgent_Id:user.agent_id inViewController:self];
+    NSLog(@"%@",self);
 }
+
 /*
 #pragma mark - Navigation
 

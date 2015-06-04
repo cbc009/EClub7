@@ -93,7 +93,7 @@
         BackGroundCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BackGroundCell" forIndexPath:indexPath];
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         backCell=cell;
-        [cell.herad sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]] placeholderImage:[UIImage imageNamed:@"userIcon.jpg"]];
+        [cell.herad sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]] placeholderImage:[UIImage imageNamed:@"headss.png"]];
         cell.herad.userInteractionEnabled =YES;
         UITapGestureRecognizer *chageHead = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapChangeHeard)];
         [cell.herad addGestureRecognizer:chageHead];
@@ -128,7 +128,7 @@
 //        cell.tableFarm.constant = 8;
         cell.herad.layer.masksToBounds = YES;
         cell.herad.layer.cornerRadius = 30;
-        [cell.herad sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.headpic]] placeholderImage:[UIImage imageNamed:@"userIcon.jpg"]];
+        [cell.herad sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,model.headpic]] placeholderImage:[UIImage imageNamed:@"headss.png"]];
         if (model.picture.count>0) {
             cell.collectionviewHeight.constant=64;
         }else{
@@ -200,7 +200,7 @@
     page = 1;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
     [SVProgressHUD show];
-    [liveService loadLiveDataWithToken:user.token andUser_type:user.user_type andPageString:pageString withTabBarViewController:self.tabBarController doneObject:^(LiveModelInfo *model1){
+    [liveService loadLiveDataWithAgent_id:user.agent_id andPageString:pageString withTabBarViewController:self.tabBarController doneObject:^(LiveModelInfo *model1){
         self.datas = (NSMutableArray *)model1.data;
         heardPicture=model1.headpic;
         lifeBackPicture=model1.life_picture;
@@ -214,7 +214,7 @@
 {
     page++;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
-    [liveService loadLiveDataWithToken:user.token andUser_type:user.user_type andPageString:pageString withTabBarViewController:self.tabBarController doneObject:^(LiveModelInfo *model1){
+    [liveService loadLiveDataWithAgent_id:user.agent_id andPageString:pageString withTabBarViewController:self.tabBarController doneObject:^(LiveModelInfo *model1){
         [self.datas addObjectsFromArray:model1.data];
         [liveService countSizeWithData:self.datas inViewController:self];
         [self.tableview footerEndRefreshing];

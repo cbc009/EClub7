@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface LifeHallService : NSObject
--(void)lifehalllifehalllistWithToken:(NSString *)token andUer_type:(NSInteger )user_type andTabbarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
+-(void)lifehalllifehalllistWithAgent_id:(NSInteger )agent_id andTabbarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done;
 -(void)presentLifeHallDetailwithToken:(NSString *)token andUser_type:(NSInteger )uesr_type andLifeHall_id:(NSString*)lifehall_id inViewControllerOnViewController:(UIViewController *)viewController;
 
 @end

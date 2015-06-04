@@ -14,9 +14,9 @@
 #import "NSString+MT.h"
 @implementation LiveService
 //加载生活圈信息
--(void)loadLiveDataWithToken:(NSString *)token andUser_type:(NSInteger )user_type andPageString:(NSString *)pageString withTabBarViewController:(UITabBarController*)tabBarController doneObject:(doneWithObject)done
+-(void)loadLiveDataWithAgent_id:(NSInteger )agent_id andPageString:(NSString *)pageString withTabBarViewController:(UITabBarController*)tabBarController doneObject:(doneWithObject)done
 {
-    NSString *urlString = [NSString stringWithFormat:LiveURL,token,user_type,pageString];
+    NSString *urlString = [NSString stringWithFormat:LiveURL,agent_id,pageString];
     [LiveModel getModelFromURLWithString:urlString completion:^(LiveModel *model,JSONModelError *error){
         [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
     }];

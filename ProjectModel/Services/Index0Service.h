@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MartinLiPageScrollView.h"
 #import "Index0_3ViewController.h"
+#import "ChangeAgentViewController.h"
 @interface Index0Service : NSObject
 //加载用户信息  loginStatus 为记住的登录状态
 -(void)loadUserDefaultsInViewController:(Index0_3ViewController *)viewController witLoginStatus:(NSString *)loginStatus andLongitude:(NSString *)longitude andLatitude:(NSString *)latitude;
@@ -19,4 +20,7 @@
 -(NSArray *)namesFromPictures:(NSArray *)pictures;
 -(NSArray *)titlesFromPictures:(NSArray *)pictures;
 -(NSArray *)urlsFromPictures:(NSArray *)pictures;
+-(void)presentChangeAgentViewControllerIn:(Index0_3ViewController*)viewController;
+-(void)prensentSerchViewControllerIn:(Index0_3ViewController*)viewController;
+-(void)presentMorePush_historyIn:(Index0_3ViewController*)viewController;
 @end

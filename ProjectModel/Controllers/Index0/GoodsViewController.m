@@ -65,8 +65,25 @@
 
 -(void)buttonTouchAction
 {
+    if (user.user_type!=2) {
+        UIAlertView *aletview=[[UIAlertView alloc]initWithTitle:@"温馨提醒" message:@"由于您还没有登录，该功能需要登录以后才能使用！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定登录", nil];
+        [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+        aletview.tag=5;
+        [aletview show];
+        return;
+    }
     PurchaseCarItemsViewController *purchaseCar = [self.storyboard instantiateViewControllerWithIdentifier:@"PurchaseCarItemsViewController"];
     [self.navigationController pushViewController:purchaseCar animated:YES];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex==1){
+        [self.tabBarController.selectedViewController beginAppearanceTransition: YES animated:YES];
+        self.tabBarController.selectedIndex=0;
+        UINavigationController *nav = self.tabBarController.viewControllers[self.tabBarController.selectedIndex];
+        [nav popToRootViewControllerAnimated:YES];
+        [SharedAction presentLoginViewControllerInViewController:nav];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -116,18 +133,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
 }
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-//if (alertView.tag==5) {
-//    if(buttonIndex==1){
-//        [SharedAction loginAggane];
-//        NSArray *viewControllers = self.navigationController.viewControllers;
-//        [self.navigationController popToViewController:[viewControllers objectAtIndex:0] animated:YES];
-//    }
-//}else if (alertView.tag==2) {
-    if(buttonIndex==2){
-    }
-//    }
-}
+
 
 - (IBAction)segAction:(UISegmentedControl *)sender {
     NSInteger index = sender.selectedSegmentIndex;

@@ -49,7 +49,7 @@
     user = sharedData.user;
      searchService= [[SearchService alloc] init];
     self.tableview.hidden=YES;
-    [searchService searchLabelwithToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(Search_Label_Info *object){
+    [searchService searchLabelwithAgent_id:[NSString stringWithFormat:@"%ld",(long)user.agent_id] inTabBarController:self.tabBarController withDone:^(Search_Label_Info *object){
         for (int i=0; i<object.goods.count; i++) {
             Search_Goods_Info *model =object.goods[i];
             [labelArray addObject:model.name];
@@ -83,7 +83,7 @@
 {
     [self.tagView removeFromSuperview];
 //    searchBar.keyboardType = UIKeyboardTypeDefault;
-    [searchService goodsSearchWithToken:user.token andUser_type:user.user_type anName:self.search.text inTabBarController:self.tabBarController withDoneObject:^(Type_goods_info *model){
+    [searchService goodsSearchWithAgent_id:user.agent_id anName:self.search.text inTabBarController:self.tabBarController withDoneObject:^(Type_goods_info *model){
         self.datas =(NSArray *)model;
         [self.tableview reloadData];
         self.tableview.hidden=NO;
@@ -187,7 +187,7 @@
 - (void)handleBtn:(SKTagButton *)btn
 {
     self.search.text = btn.mTag.text;
-    [searchService goodsSearchWithToken:user.token andUser_type:user.user_type anName:self.search.text inTabBarController:self.tabBarController withDoneObject:^(Type_goods_info *model){
+    [searchService goodsSearchWithAgent_id:user.agent_id anName:self.search.text inTabBarController:self.tabBarController withDoneObject:^(Type_goods_info *model){
         self.datas =(NSArray *)model;
         [self.tableview reloadData];
         self.tableview.hidden=NO;

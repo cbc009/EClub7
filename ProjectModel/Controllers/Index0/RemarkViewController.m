@@ -44,6 +44,7 @@
         ratingbar = [[BigRatingBar alloc] initWithFrame:CGRectMake(75, 15+42*i, 160, 20)];
         ratingbar.frame=CGRectMake(90, 15+42*i, 140, 20);
         ratingbar.tag=i;
+        ratingbar.starNumber=3;
         ratingbar.delegate=self;
         [self.backView addSubview:ratingbar];
     }

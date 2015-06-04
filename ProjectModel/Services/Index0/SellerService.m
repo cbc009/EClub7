@@ -75,5 +75,11 @@
     }];
     
 }
-
+-(void)presentShoopGoodsViewControllerIn:(ShowDetailViewController*)viewController and:(Seller_Seller_Goods_arr_goods_info*)model{
+    
+    UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+    ShoopGoodsViewController *shoopGoodVic=[storBoard instantiateViewControllerWithIdentifier:@"ShoopGoodsViewController"];
+    shoopGoodVic.models=model;
+    [viewController.navigationController pushViewController:shoopGoodVic animated:YES];
+}
 @end

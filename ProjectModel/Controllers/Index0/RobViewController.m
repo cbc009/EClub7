@@ -232,39 +232,31 @@
 -(void)panInViewControllerWithType:(BOOL)type{
     self.tableView.bounces=type;
 }
+
 -(void)headerRereshing
 {
     page =1;
-    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
-    [sellerServicel sellerSellerGood_typesWith:@"3" andAgentId:@""  andSeller_id:@"" andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
-        self.datas=(NSMutableArray*)model.arr_goods;
-        [self.tableView reloadData];
-        [self.tableView headerEndRefreshing];
-    }];
-    
+    [self loadSellerSellerGoodsTypeWithPage:page andType:0];
 }
 - (void)footerRereshing
 {
     page++;
-    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
-    [sellerServicel sellerSellerGood_typesWith:@"3" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id]  andSeller_id:@"" andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
-        [self.datas addObjectsFromArray:model.arr_goods];
-        [self.tableView reloadData];
-        [self.tableView headerEndRefreshing];
-    }];
-
+    [self loadSellerSellerGoodsTypeWithPage:page andType:1];
 }
-//-(void)loadDataWithLifehallid:(NSString *)lifehall_id andGoods:(NSString *)goodsId andType:(NSInteger )type{
-//    
-//    [robService setRobModelWithLifehallid:lifehall_id orDetail:@"" inRootTabBarController:self.tabBarController withDone:^(Robuy_Goods_info *model){
-//        if (type==0) {
-//            aBlockSelf.goodNums=(NSMutableArray *)model.arr_goods;
-//        }else{
-//            [aBlockSelf.goodNums addObjectsFromArray:model.arr_goods];
-//        }
-//        [aBlockSelf.tableView reloadData];
-//    }];
-//}
+
+-(void)loadSellerSellerGoodsTypeWithPage:(NSInteger)pages andType:(NSInteger)type{
+    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)pages];
+    [sellerServicel sellerSellerGood_typesWith:@"3" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id]  andSeller_id:@"0" andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
+        if (type==0) {
+            self.datas=(NSMutableArray*)model.arr_goods;
+            [self.tableView headerEndRefreshing];
+        }else{
+            [self.datas addObjectsFromArray:model.arr_goods];
+            [self.tableView footerEndRefreshing];
+        }
+        [self.tableView reloadData];
+    }];
+}
 #pragma mark - RMPickerViewController Delegates
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
     return 1;

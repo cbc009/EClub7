@@ -31,6 +31,8 @@
             if (model.status==2) {
                 [self setSharedDataWithUser:model.info andUserName:name andPassWord:password];
                 [SharedAction setUMessageTagsWithUser:model.info];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"AgentReload"
+                                                                    object:nil];
                 [self handlesWhenDismissLoginViewController:viewController];
                 [SVProgressHUD dismiss];
             }else if (model==nil) {
@@ -73,6 +75,7 @@
 
 //dismiss LoginViewController时处理操作
 -(void)handlesWhenDismissLoginViewController:(LoginViewController *)loginViewContrller{
+    
     [loginViewContrller.delegate loginSuccessedActionWithViewController:loginViewContrller];  //dismiss viewcontroller
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadData" object:self];  //loadData
 }

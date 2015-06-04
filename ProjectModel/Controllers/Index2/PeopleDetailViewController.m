@@ -77,7 +77,7 @@
     if (indexPath.section==0) {
         BackGroundCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BackGroundCell" forIndexPath:indexPath];
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
-       [cell.herad sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,object.headpic]] placeholderImage:[UIImage imageNamed:@"userIcon.jpg"]];
+       [cell.herad sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,object.headpic]] placeholderImage:[UIImage imageNamed:@"headss.png"]];
         cell.herad.layer.masksToBounds = YES;
         cell.herad.layer.cornerRadius = 30;
         [cell.back sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,object.life_picture]] placeholderImage:[UIImage imageNamed:@"e"]];

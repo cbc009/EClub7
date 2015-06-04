@@ -16,10 +16,10 @@
 #import "Search_label.h"
 @implementation SearchService
 
--(void)goodsSearchWithToken:(NSString *)token andUser_type:(NSInteger )user_type anName:(NSString *)name inTabBarController:(UITabBarController *)tabBarController withDoneObject:(doneWithObject)done
+-(void)goodsSearchWithAgent_id:(NSInteger )agent_id anName:(NSString *)name inTabBarController:(UITabBarController *)tabBarController withDoneObject:(doneWithObject)done
 {
-    NSString *user_type1 =  [NSString stringWithFormat: @"%ld",(long)user_type];;
-    NSDictionary *dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:user_type1,token,name,nil] forKeys:[NSArray arrayWithObjects:@"user_type",@"token",@"name", nil]];
+    NSString *agentId =[NSString stringWithFormat:@"%ld",(long)agent_id];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:agentId,name,nil] forKeys:[NSArray arrayWithObjects:@"agent_id",@"name", nil]];
     [JSONHTTPClient postJSONFromURLWithString:Goods_search_URL params:dict completion:^(id object ,JSONModelError *error){
         NSInteger status1 =[ (NSNumber *)[object objectForKey:@"status"] integerValue];
         NSString *error1 = (NSString *)[object objectForKey:@"error"];
@@ -29,9 +29,9 @@
     }];
 }
 
--(void)searchLabelwithToken:(NSString *)token andUser_type:(NSInteger )user_type inTabBarController:(UITabBarController*)tabBarController withDone:(doneWithObject)done{
+-(void)searchLabelwithAgent_id:(NSString *)agent_id inTabBarController:(UITabBarController*)tabBarController withDone:(doneWithObject)done{
 //    [SVProgressHUD show];
-    NSString *urlString =[NSString stringWithFormat:Goods_search_Label_URL,token,user_type];
+    NSString *urlString =[NSString stringWithFormat:Goods_search_Label_URL,agent_id];
     [Search_label getModelFromURLWithString:urlString completion:^(Search_label *model,JSONModelError *error){
         [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
     }];

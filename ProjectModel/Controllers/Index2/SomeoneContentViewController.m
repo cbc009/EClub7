@@ -45,7 +45,7 @@
     SomeoneContentService *someoneContentService =[[SomeoneContentService alloc] init];
     [someoneContentService lifecircleLifeInfoWithToken:user.token andXid:self.model.xid andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(SomeoneContentModelInfo *model){
         object1=model.data;
-        [self.heardPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,object1.headpic]] placeholderImage:[UIImage imageNamed:@"userIcon.jpg"]];
+        [self.heardPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,object1.headpic]] placeholderImage:[UIImage imageNamed:@"headss.png"]];
         self.nickName.text = object1.nickname;
         self.content.text=object1.content;
         self.contenHeight.constant =[NSString heightWithString:object1.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-92, 600)];

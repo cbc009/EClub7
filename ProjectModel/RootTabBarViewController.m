@@ -12,13 +12,16 @@
 #import "BuyService.h"
 #import "Index0Service.h"
 @interface RootTabBarViewController ()<UIAlertViewDelegate,LoginViewControllerDelegate,ChangeAgentIdDeleGate>
-
+{
+    BuyService *buySerVice;
+}
 @end
 
 @implementation RootTabBarViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    buySerVice =[BuyService new];
     // Do any additional setup after loading the view.
     UIStoryboard *storyboard0 = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
     UINavigationController *index0Nav = [storyboard0 instantiateViewControllerWithIdentifier:@"Index0NavViewController"];
@@ -38,9 +41,6 @@
     [self addChildViewController:index0Nav4];
     [self addChildViewController:index2Nav];
     [self addChildViewController:index3Nav];
-    
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -109,22 +109,30 @@
 #pragma LoginViewControllerDelegate
 -(void)loginSuccessedActionWithViewController:(UIViewController *)viewController{
      [self.selectedViewController beginAppearanceTransition: YES animated:YES];
-        self.selectedIndex=0;
+    
     [viewController.navigationController dismissViewControllerAnimated:YES completion:^{
+      SharedData *sharedData = [SharedData sharedInstance];
+       
+        
+//        self.selectedIndex=1;
+//        UINavigationController *nav1 = self.viewControllers[0];
+//        UIViewController *index2ViewController = nav1.topViewController;
+//        [buySerVice loadGoodTypesWithAgent_Id:sharedData.user.agent_id inViewController:index2ViewController];
+        
+        self.selectedIndex=0;
         UINavigationController *nav = self.viewControllers[0];
         UIViewController *index0ViewController = nav.topViewController;
-        SharedData *sharedData = [SharedData sharedInstance];
+        
         Index0Service *index0Service = [Index0Service new];
-//        [buyService loadGoodTypesWithToken:sharedData.user.token andUser_type:sharedData.user.user_type InViewController:index0ViewController];
         [index0Service loadAdverPicWithPos:1 andAgentID:sharedData.user.agent_id inViewController:index0ViewController];
+        [index0Service loginIndexWithAgentId:sharedData.user.agent_id andLifeHallId:sharedData.user.lifehall_id inViewCOntroller:index0ViewController];
+        
     }];
 }
--(void)changeAgentId:(NSString *)agentid{
-    Index0Service *index0Service = [Index0Service new];
-     SharedData *sharedData = [SharedData sharedInstance];
-    [index0Service loadAdverPicWithPos:1 andAgentID:sharedData.user.agent_id inViewController:self];
-    [index0Service loginIndexWithAgentId:sharedData.user.agent_id andLifeHallId:sharedData.user.lifehall_id inViewCOntroller:self];
-    
-    
-}
+//-(void)changeAgentId:(NSString *)agentid{
+//    Index0Service *index0Service = [Index0Service new];
+//     SharedData *sharedData = [SharedData sharedInstance];
+//    [index0Service loadAdverPicWithPos:1 andAgentID:sharedData.user.agent_id inViewController:self];
+//    [index0Service loginIndexWithAgentId:sharedData.user.agent_id andLifeHallId:sharedData.user.lifehall_id inViewCOntroller:self];
+//}
 @end

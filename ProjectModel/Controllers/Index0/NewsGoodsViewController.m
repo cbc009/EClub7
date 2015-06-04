@@ -74,6 +74,5 @@
         target.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:target animated:YES];
     }];
-    
 }
 @end

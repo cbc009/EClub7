@@ -174,7 +174,7 @@ typedef void (^finished)(NSDictionary *info);
 //获取菜
 #define Type_goodsURL [MainPrexURL stringByAppendingString: @"Goods/type_goods/from/IOS/subid/%@/page/%@"]
 //搜索标签
-#define Goods_search_Label_URL [MainPrexURL stringByAppendingString: @"Goods/search_label/token/%@/user_type/%d/from/IOS"]
+#define Goods_search_Label_URL [MainPrexURL stringByAppendingString: @"Goods/search_label/agent_id/%@/from/IOS"]
 //搜索
 #define Goods_search_URL [MainPrexURL stringByAppendingString: @"Goods/goods_search/from/IOS"]
 
@@ -287,11 +287,11 @@ typedef void (^finished)(NSDictionary *info);
 //发布中的求购信息
 #define MySecondBuyChangeURL [PrexURL stringByAppendingString: @"Second/mybuy/from/IOS/mid/%d/page/%@"]
 //生活圈
-#define LiveURL [PrexURL stringByAppendingString: @"Lifecircle/index/from/IOS/token/%@/user_type/%d/page/%@"]
+#define LiveURL [PrexURL stringByAppendingString: @"Lifecircle/index/from/IOS/agent_id/%d/page/%@"]
 //应用推荐二维码
 #define QRCode_Guide_code [PrexURL stringByAppendingString: @"Base/guide_code/from/IOS/token/%@/user_type/%d"]
 //生活体验馆
-#define Lifehall_lifehall_list_URL [PrexURL stringByAppendingString: @"Lifehall/lifehall_list/from/IOS/token/%@/user_type/%d"]
+#define Lifehall_lifehall_list_URL [PrexURL stringByAppendingString: @"Lifehall/lifehall_list/from/IOS/agent_id/%d"]
 //生活馆详情
 #define Lifehall_lifehall_info_URL [PrexURL stringByAppendingString: @"Lifehall/lifehall_info/from/IOS/lifehall_id/%@/token/%@/user_type/%d"]
 

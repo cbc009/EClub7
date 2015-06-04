@@ -332,6 +332,13 @@
     }else {
         storyboardName = @"Index4";
         identifier = @"PurchaseCarItemsViewController";
+        if (user.user_type!=2) {
+            UIAlertView *aletview=[[UIAlertView alloc]initWithTitle:@"温馨提醒" message:@"由于您还没有登录，该功能需要登录以后才能使用！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定登录", nil];
+            [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+            aletview.tag=5;
+            [aletview show];
+            return;
+        }
     }
     if (storyboardName!=nil&&identifier!=nil) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
@@ -342,7 +349,15 @@
         NSLog(@"storyboardName为nil，或者identifier为nil");
     }
 }
-
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex==1){
+        [self.tabBarController.selectedViewController beginAppearanceTransition: YES animated:YES];
+        self.tabBarController.selectedIndex=0;
+        UINavigationController *nav = self.tabBarController.viewControllers[self.tabBarController.selectedIndex];
+        [nav popToRootViewControllerAnimated:YES];
+        [SharedAction presentLoginViewControllerInViewController:nav];
+    }
+}
 -(void)tapInViewWithTag:(NSInteger)tag inCell:(Index1_3Cell*)cell{
     NSString *storyboardName = nil;
     NSString *identifier = nil;
@@ -371,6 +386,7 @@
         default:
             break;
     }
+    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
     UIViewController *target = [storyboard instantiateViewControllerWithIdentifier:identifier];
     target.hidesBottomBarWhenPushed = YES;
@@ -418,31 +434,24 @@
 }
 
 -(void)changeCity{
-    UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"ChangeAgent" bundle:nil];
-    ChangeAgentViewController *changeAgentVIewController =[storBoard instantiateViewControllerWithIdentifier:@"ChangeAgentViewController"];
-    [self presentViewController:changeAgentVIewController animated:YES completion:nil];
+    [index0Service presentChangeAgentViewControllerIn:self];
 }
 
 -(void)message{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
-    UIViewController *target = [storyboard instantiateViewControllerWithIdentifier:@"MorePush_history"];
-    target.navigationController.navigationItem.leftBarButtonItem.title=@"首页";
-    target.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:target animated:YES];
-
+    [index0Service presentMorePush_historyIn:self];
 }
 
 -(void)search{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index4" bundle:nil];
-    UIViewController *target = [storyboard instantiateViewControllerWithIdentifier:@"SerchViewController"];
-    target.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:target animated:YES];
+    [index0Service prensentSerchViewControllerIn:self];
 }
 
 -(void)changeAgenTReload{
-//    Index0Service *index0Service = [Index0Service new];
-    [index0Service loadAdverPicWithPos:1 andAgentID:sharedData.user.agent_id inViewController:self];
-    [index0Service loginIndexWithAgentId:sharedData.user.agent_id andLifeHallId:sharedData.user.lifehall_id inViewCOntroller:self];
+    Index0Service *index0Service1 = [Index0Service new];
+    sharedData= [SharedData sharedInstance];
+    user= sharedData.user;
+    [index0Service1 loadAdverPicWithPos:1 andAgentID:sharedData.user.agent_id inViewController:self];
+    [index0Service1 loginIndexWithAgentId:sharedData.user.agent_id andLifeHallId:sharedData.user.lifehall_id inViewCOntroller:self];
+    NSLog(@"self:%@",self);
 
 }
 @end

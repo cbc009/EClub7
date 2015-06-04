@@ -21,6 +21,8 @@
 +(void)presentLoginViewControllerInViewController:(UIViewController<LoginViewControllerDelegate> *)viewController{
     SharedData *sharedData = [SharedData sharedInstance];
     sharedData.loginStatus = @"NO";
+    sharedData.loginname=@"";
+    sharedData.password=@"";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"User" bundle:nil];
     UINavigationController *userNavigationController = [[UINavigationController alloc] init];
     userNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"UserNavigationController"];

@@ -87,7 +87,7 @@
         identifier = @"index3_3Cell";
         cell1.selectionStyle = UITableViewCellSelectionStyleNone;
         cell1= [tableView dequeueReusableCellWithIdentifier:identifier];
-        [cell1.imageview sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]] placeholderImage:[UIImage imageNamed:@"userIcon.jpg"]];
+        [cell1.imageview sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]] placeholderImage:[UIImage imageNamed:@"headss.png"]];
         cell1.nickname.text=user.nickname;
 //        [cell1.backImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.life_picture]] placeholderImage:[UIImage imageNamed:@"e"]];
 //        cell1.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backgrount.jpg"]];

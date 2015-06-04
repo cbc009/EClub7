@@ -21,6 +21,7 @@
  2,调出loginViewController界面
  */
 -(void)loginoutActionInViewController:(UserDetailViewController *)viewController inTabBarController:(UITabBarController *)tabBarController{
+    
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     [SharedAction presentLoginViewControllerInViewController:viewController];
 }

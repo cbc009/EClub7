@@ -62,31 +62,31 @@
     self.collectionView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
     self.collectionView.footerRefreshingText = @"正在帮你加载中";
 }
--(void)headerRereshing
-{
-    page=1;
-    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
+
+
+-(void)loadSellerSellerGoodsTypeWithPage:(NSInteger)pages andType:(NSInteger)type{
+    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)pages];
     [sellerService sellerSellerGood_typesWith:@"1" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id] andSeller_id:self.seller_id andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
-        self.datas=(NSMutableArray *)model.arr_goods;
+        if (type==0) {
+            self.datas=(NSMutableArray*)model.arr_goods;
+            [self.collectionView headerEndRefreshing];
+        }else{
+            [self.datas addObjectsFromArray:model.arr_goods];
+            [self.collectionView footerEndRefreshing];
+        }
         [self.collectionView reloadData];
-        [self.collectionView headerEndRefreshing];
     }];
-   
 }
-
-
+-(void)headerRereshing{
+    page=1;
+    [self loadSellerSellerGoodsTypeWithPage:page andType:0];
+}
 - (void)footerRereshing
 {
     page++;
-    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
-    
-    [sellerService sellerSellerGood_typesWith:@"1" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id] andSeller_id:self.seller_id andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
-        [self.datas addObjectsFromArray:model.arr_goods];
-        [self.collectionView reloadData];
-        [self.collectionView footerEndRefreshing];
-    }];
+    [self loadSellerSellerGoodsTypeWithPage:page andType:1];
+}
 
-   }
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger row =indexPath.row;
@@ -100,14 +100,13 @@
     cell.discount.text=[NSString stringWithFormat:@"%0.1f折",[model.discount floatValue]/[model.price floatValue]*10];
     return cell;
 }
+
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     NSInteger row = indexPath.row;
-    UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
-    ShoopGoodsViewController *shoopGoodVic=[storBoard instantiateViewControllerWithIdentifier:@"ShoopGoodsViewController"];
-    shoopGoodVic.models=self.datas[row];
-//    shoopGoodVic.addresss =self;
-    [self.navigationController pushViewController:shoopGoodVic animated:YES];
+    Seller_Seller_Goods_arr_goods_info *models=self.datas[row];
+    [sellerService presentShoopGoodsViewControllerIn:self and:models];
 }
 
 @end

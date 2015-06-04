@@ -43,8 +43,13 @@
 //- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
 //    [self.delegate scrollViewScrollEnable:YES];
 //}
+
 #pragma UIScrollViewDelegate
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    [self.delegate scrollViewScrollEnable:YES];
+}
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     [self.delegate scrollViewScrollEnable:NO];
 }
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
