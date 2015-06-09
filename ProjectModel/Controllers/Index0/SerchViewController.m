@@ -52,7 +52,11 @@
     [searchService searchLabelwithAgent_id:[NSString stringWithFormat:@"%ld",(long)user.agent_id] inTabBarController:self.tabBarController withDone:^(Search_Label_Info *object){
         for (int i=0; i<object.goods.count; i++) {
             Search_Goods_Info *model =object.goods[i];
+            if (model.name.length>4) {
+                [labelArray addObject:[model.name substringToIndex:4]];
+            }else{
             [labelArray addObject:model.name];
+            }
         }
         [self setupTagView];
     }];

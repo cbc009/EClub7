@@ -13,7 +13,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *cardId;
 @property (weak, nonatomic) IBOutlet UILabel *amount;
 @property (weak, nonatomic) IBOutlet UILabel *redbag;
-
 @property (weak, nonatomic) IBOutlet UILabel *Point;
+
+
+
 @property(nonatomic,strong)NSArray<Trade>* datas;
 @end

@@ -9,7 +9,7 @@
 #import "ShoopGoodsViewController.h"
 #import "CheckedViewController.h"
 #import <UIImageView+WebCache.h>
-@interface ShoopGoodsViewController ()
+@interface ShoopGoodsViewController ()<UIWebViewDelegate>
 {
     UserInfo *user;
 }
@@ -35,10 +35,33 @@
     self.numbs.layer.borderColor=[UIColor redColor].CGColor;
     self.numbs.text=@"1";
     self.buyNow.layer.cornerRadius=4;
-    self.scrollView.autoresizesSubviews=YES;
+//    self.scrollView.autoresizesSubviews=YES;
+    [self loadWebPageWithString:[NSString stringWithFormat:Robuy_Goods_Detail_URL,self.models.goods_id] inWebView:self.webView];
     [self setValue];
 }
 
+
+- (void)loadWebPageWithString:(NSString*)urlString inWebView:(UIWebView *)webView{
+    NSURL *url =[NSURL URLWithString:urlString];
+    NSURLRequest *request =[NSURLRequest requestWithURL:url];
+    [webView loadRequest:request];
+}
+
+#pragma UIWebViewDelegate
+- (void)webViewDidStartLoad:(UIWebView *)webView{
+    [SVProgressHUD show];
+}
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [SVProgressHUD dismiss];
+    CGRect frame = webView.frame;
+    CGSize mWebViewTextSize = [webView sizeThatFits:CGSizeMake(1.0f, 1.0f)];
+    frame.size = mWebViewTextSize;
+    self.webView.frame = frame;
+    self.myWebViewHeight.constant = mWebViewTextSize.height;
+    [self.scrollView setContentSize:CGSizeMake(DeviceFrame.size.width, mWebViewTextSize.height+442)];
+    NSLog(@"%f",self.scrollView.frame.size.height);
+}
 -(void)setValue{
     [self.bigPicture sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.models.bigpicture]] placeholderImage:[UIImage imageNamed:@"e"]];
     self.goodName.text=self.models.goods_name;

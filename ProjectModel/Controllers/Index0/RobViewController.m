@@ -137,8 +137,8 @@
     int second = seconds % 60;
     int minute = (seconds-second)/60%60;
     int hour = (seconds-second-minute*60)/60/60%24;
-//    int day = (seconds-second-minute*60-hour*60*24)/60/60/24%24;
-    NSString *detailTime = [NSString stringWithFormat:@"%d:%d:%d",hour,minute,second];
+    int day = (seconds-second-minute*60-hour*60*24)/60/60/24%24;
+    NSString *detailTime = [NSString stringWithFormat:@"%d:%d:%d:%d",day,hour,minute,second];
     return detailTime;
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -199,7 +199,6 @@
                 [cell.robNow setTitle:@"抢购结束" forState:UIControlStateNormal];
                 cell.robNow.backgroundColor=[UIColor grayColor];
             }
-            
         }
         [cell.goodNum.layer setBorderColor:[UIColor redColor].CGColor];//边框颜色
         [cell.goodNum.layer setBorderWidth:0.5];   //边框宽度
@@ -209,6 +208,7 @@
         return nil;
     }
 }
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath   {
     NSInteger section = indexPath.section;
     if (section==0) {

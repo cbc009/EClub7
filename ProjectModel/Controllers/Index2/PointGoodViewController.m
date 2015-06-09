@@ -21,6 +21,7 @@
 #import "PointGoodViewControllerService.h"
 #import "Status.h"
 #import <UIImageView+WebCache.h>
+#import "WebViewController.h"
 @interface PointGoodViewController ()<UIAlertViewDelegate>
 {
     NSInteger sum;
@@ -67,7 +68,7 @@
     return 5;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section==4) {
+    if (section==4||section==1) {
         return 2;
     }
     return 1;
@@ -81,14 +82,18 @@
          [cell.goodPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.models.bigpicture]] placeholderImage:[UIImage imageNamed:@"e"]];
         cell.goodName.text=self.models.goods_name;
         cell.discount.text=[NSString stringWithFormat:@"%@E币/%@",self.models.point,self.models.unit];
-        cell.nums.text=[NSString stringWithFormat:@"%@已兑换",self.models.actual_nums];
+        cell.nums.text=[NSString stringWithFormat:@"%@人已兑换",self.models.actual_nums];
         return cell;
     }else if (indexPath.section==1){
         PointIndex2Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"PointIndex2Cell" forIndexPath:indexPath];
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
-        cell.title.text=@"商品提供方";
         cell.detail.hidden=YES;
-        return cell;
+        cell.title.text=@"商品提供方";
+        if (indexPath.row==0) {
+            cell.title.text=@"商品详情";
+            cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+        }
+            return cell;
 
     }else if(indexPath.section==2){
         RobIndex1_Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"RobIndex1_Cell" forIndexPath:indexPath];
@@ -146,6 +151,17 @@
     }
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section==1&indexPath.row==0) {
+        if (indexPath.section==1) {
+            if (indexPath.row==0){
+                WebViewController *target = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
+                target.loadType=0;
+                target.urlString = [NSString stringWithFormat:Robuy_Goods_Detail_URL,self.models.goods_id];
+                target.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:target animated:YES];
+            }
+        }
+    }
     if (indexPath.section==2) {
         UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
         ShowViewController *showVic=[storBoard instantiateViewControllerWithIdentifier:@"ShowViewController"];

@@ -42,7 +42,6 @@
 		224B354E1995DD60009523F6 /* Index1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 224B354D1995DD60009523F6 /* Index1ViewController.m */; };
 		224B35511995DD6B009523F6 /* Index3ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 224B35501995DD6B009523F6 /* Index3ViewController.m */; };
 		224B35541995DD78009523F6 /* Index2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 224B35531995DD78009523F6 /* Index2ViewController.m */; };
-		224B35761995F00F009523F6 /* UserinfosDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 224B35751995F00F009523F6 /* UserinfosDao.m */; };
 		225579FF19964597001B5FCC /* RobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 225579FE19964597001B5FCC /* RobViewController.m */; };
 		22557A05199645A3001B5FCC /* carota2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 22557A02199645A3001B5FCC /* carota2.jpg */; };
 		22557A06199645A3001B5FCC /* lotteryDraw.png in Resources */ = {isa = PBXBuildFile; fileRef = 22557A03199645A3001B5FCC /* lotteryDraw.png */; };
@@ -670,8 +669,6 @@
 		224B35501995DD6B009523F6 /* Index3ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Index3ViewController.m; path = Controllers/Index3ViewController.m; sourceTree = "<group>"; };
 		224B35521995DD78009523F6 /* Index2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Index2ViewController.h; path = Controllers/Index2ViewController.h; sourceTree = "<group>"; };
 		224B35531995DD78009523F6 /* Index2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Index2ViewController.m; path = Controllers/Index2ViewController.m; sourceTree = "<group>"; };
-		224B35741995F00F009523F6 /* UserinfosDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserinfosDao.h; path = Dao/UserinfosDao.h; sourceTree = "<group>"; };
-		224B35751995F00F009523F6 /* UserinfosDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserinfosDao.m; path = Dao/UserinfosDao.m; sourceTree = "<group>"; };
 		225579FD19964597001B5FCC /* RobViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RobViewController.h; sourceTree = "<group>"; };
 		225579FE19964597001B5FCC /* RobViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RobViewController.m; sourceTree = "<group>"; };
 		22557A02199645A3001B5FCC /* carota2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = carota2.jpg; sourceTree = "<group>"; };
@@ -1983,7 +1980,6 @@
 				227240A119B352F8005210B2 /* Services */,
 				22F1E52C19A0A34600E66885 /* Tools */,
 				22B4981719AF54A400901ED6 /* JsonModel */,
-				224B35591995DF9E009523F6 /* Dao */,
 				222CC398199866E40091AA1D /* Models */,
 				22557A00199645A3001B5FCC /* Resource */,
 				224B35481995DD29009523F6 /* Controllers */,
@@ -2050,15 +2046,6 @@
 				3307C2281A1C95DE00C21D5A /* RootTabBarViewController.m */,
 			);
 			name = Controllers;
-			sourceTree = "<group>";
-		};
-		224B35591995DF9E009523F6 /* Dao */ = {
-			isa = PBXGroup;
-			children = (
-				224B35741995F00F009523F6 /* UserinfosDao.h */,
-				224B35751995F00F009523F6 /* UserinfosDao.m */,
-			);
-			name = Dao;
 			sourceTree = "<group>";
 		};
 		225579FC19964597001B5FCC /* Index0 */ = {
@@ -4191,7 +4178,6 @@
 				8FEAA2711A19FB9C001E792C /* openssl_wrapper.m in Sources */,
 				336302001A636428001461A3 /* LifecircleService.m in Sources */,
 				2267B49B199A14D400FA9FED /* PurchaseCarItemCell.m in Sources */,
-				224B35761995F00F009523F6 /* UserinfosDao.m in Sources */,
 				3332189C1A31563200E6B77E /* PointOdrCell.m in Sources */,
 				33766D8E1AC394E90083B5E9 /* Shoop_1Cell.m in Sources */,
 				33C46DDF1AE5E67800D7F3F0 /* Agent_Info.m in Sources */,
@@ -4340,6 +4326,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ProjectModel/Tools/AlixPaySDK",
@@ -4421,6 +4408,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ProjectModel/Tools/AlixPaySDK",
@@ -4453,7 +4441,7 @@
 					"$(PROJECT_DIR)/Pods/UMengMessage/UMessage_Sdk_All_1.1.0(idfa)/UMessage_Sdk_1.1.0",
 					"$(PROJECT_DIR)/ProjectModel/Tools/BaiduMap_IOSSDK_v2.6.0_Lib",
 				);
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",

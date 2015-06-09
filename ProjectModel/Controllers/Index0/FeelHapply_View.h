@@ -10,5 +10,6 @@
 
 
 @interface FeelHapply_View : UIViewController
-
+@property (nonatomic,strong)NSString *luckString;
+@property (nonatomic,assign)NSInteger prize_id;
 @end

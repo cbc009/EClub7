@@ -36,8 +36,8 @@
     int second = seconds % 60;
     int minute = (seconds-second)/60%60;
     int hour = (seconds-second-minute*60)/60/60%24;
-    //    int day = (seconds-second-minute*60-hour*60*24)/60/60/24%24;
-    NSString *detailTime = [NSString stringWithFormat:@"%d:%d:%d",hour,minute,second];
+    int day = (seconds-second-minute*60-hour*60*24)/60/60/24%24;
+    NSString *detailTime = [NSString stringWithFormat:@"%d天:%d:%d:%d",day,hour,minute,second];
     return detailTime;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

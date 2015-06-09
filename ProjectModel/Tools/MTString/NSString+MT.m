@@ -36,6 +36,11 @@
     return size.height+3;
 }
 
++(float)widthWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize{
+    NSDictionary *dict = @{NSFontAttributeName: font};
+    CGSize size = [str boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+    return size.width;
+}
 
 +(NSString *)timeType4FromStamp:(NSString *)stamp{
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];

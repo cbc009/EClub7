@@ -9,20 +9,31 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleVersion</key>
-	<string>2.07</string>
+	<string>2.08</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.07</string>
+	<string>2.08</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-	<key>CFBundleExecutable</key>
-	<string>${EXECUTABLE_NAME}</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
+	</array>
+	<key>CFBundleExecutable</key>
+	<string>${EXECUTABLE_NAME}</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>CFBundleIdentifier</key>
+	<string>com.club.EClub</string>
+	<key>LSApplicationCategoryType</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string></string>
+		</dict>
 	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
@@ -77,19 +88,8 @@
 			<string>Editor</string>
 		</dict>
 	</array>
-	<key>CFBundleIdentifier</key>
-	<string>com.club.EClub</string>
-	<key>LSApplicationCategoryType</key>
-	<array>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string></string>
-		</dict>
-	</array>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>CFBundleDisplayName</key>

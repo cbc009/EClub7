@@ -17,11 +17,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *request;
 @property (weak, nonatomic) IBOutlet UIImageView *contentBack;
 @property (weak, nonatomic) IBOutlet UIImageView *requestback;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentHight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *requestheght;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentBackHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *requestHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentWeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *requestWeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *reauestWidth;
+
 
 @end

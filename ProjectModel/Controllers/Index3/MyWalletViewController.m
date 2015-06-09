@@ -14,9 +14,9 @@
 #import "Member_Login.h"
 #import "BalanceModel.h"
 @interface MyWalletViewController ()
-{
-    Index3Service *service;
-}
+//{
+//    Index3Service *service;
+//}
 @end
 
 @implementation MyWalletViewController
@@ -25,19 +25,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    SharedData *sharedData = [SharedData sharedInstance];
-    UserInfo *user = sharedData.user;
-    self.title = @"我的钱包";
-    [SharedAction baseBalanceWithToken:user.token andUser_type:user.user_type withTabBarViewController:self.tabBarController doneObject:^(BalanceIfo *model){
-        user.phone_minute = model.phone_minute;
-        user.amount = model.amount;
-        user.point = model.point;
-        user.amount_red = model.amount_red;
+    SharedData *sharedData =[SharedData sharedInstance];
+    UserInfo *user =sharedData.user;
         self.redbag.text =[NSString stringWithFormat:@"%0.2f",user.amount_red];
         self.amount.text = [NSString stringWithFormat:@"%0.2f",user.amount];
         self.cardId.text = user.iccard;
         self.Point.text = [NSString stringWithFormat:@"%ld",(long)user.point];
-    }];
 
 }
 

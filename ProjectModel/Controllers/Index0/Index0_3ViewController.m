@@ -39,6 +39,8 @@
 #import "ItemDetailViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import "FeelHapply_View.h"
+#import "Prize_luckService.h"
+#import "PrizeLuckiesModel.h"
 @interface Index0_3ViewController ()<LoginViewControllerDelegate,UISearchBarDelegate,TapinViewDelegate,SelectIndexDelegate,SelectedIndexDelegate,CLLocationManagerDelegate>
 {
     Index0Service *index0Service;
@@ -51,7 +53,7 @@
     NSString *longitude;//经度
     NSString *latitude;//纬度
     SharedData *sharedData;
-    
+    Prize_luckService *prizeService;
 }
 
 @property (nonatomic,strong)CLLocationManager *locMgr;
@@ -71,7 +73,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNaviView];
-    
+     prizeService=[Prize_luckService new];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeAgenTReload) name:@"AgentReload" object:nil];
     sharedData = [SharedData sharedInstance];
     user= sharedData.user;
@@ -322,9 +324,14 @@
         storyboardName = @"Index3";
         identifier = @"CreatePayViewController";
     }else if (row==1){
-        FeelHapply_View *vic =[FeelHapply_View new];
-         vic.hidesBottomBarWhenPushed=YES;
-        [self.navigationController pushViewController:vic animated:YES];
+         [prizeService prizePrizeLuckiesWithToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController WithDone:^(PrizeLuckiesInfo *model){
+             FeelHapply_View *vic =[FeelHapply_View new];
+             vic.luckString=model.prize_amount;
+             vic.prize_id =model.prize_id;
+             vic.hidesBottomBarWhenPushed=YES;
+             [self.navigationController pushViewController:vic animated:YES];
+         }];
+        
         return;
     }else if(row==2){
         storyboardName = @"Index0";

@@ -16,7 +16,7 @@
 {
     UserInfo *user;
     Prize_luckService *prizeService;
-    NSInteger prize_id;
+    
 }
 @property (nonatomic, strong) UITableView *feelHappyTableView;
 @property (nonatomic, strong) NSMutableArray *imageMuArray;
@@ -49,15 +49,13 @@
     UIView *view =[[UIView alloc] initWithFrame:CGRectMake(30, DeviceFrame.size.height/2+36, DeviceFrame.size.width-60, 80)];
     [bg_View addSubview:view];
   [[self view] addSubview:bg_View];
-   
-    [prizeService prizePrizeLuckiesWithToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController WithDone:^(PrizeLuckiesInfo *model){
+
         [[self view] setBackgroundColor:[UIColor grayColor]];
         DrawBoard *d = [[DrawBoard alloc] initWithFrame:view.bounds];
-        d.prize=model.prize_amount;
-        prize_id=model.prize_id;
+        d.prize=self.luckString;
+    
         d.backgroundColor = [UIColor whiteColor];
         [view addSubview:d];
-    }];
         scratchView = [[STScratchView alloc] init];
         scratchView.delegate=self;
         [scratchView setContentMode:UIViewContentModeScaleAspectFit];
@@ -71,7 +69,7 @@
 }
 
 -(void)postPrizeidinView:(STScratchView*)view{
-    [prizeService prizePrizeLuckiesReplyWithprize_id:prize_id andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController WithDone:^(prize_Lucky_Reoly_Model_Info*model){
+    [prizeService prizePrizeLuckiesReplyWithprize_id:self.prize_id andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController WithDone:^(prize_Lucky_Reoly_Model_Info*model){
     }];
 }
 - (void)didReceiveMemoryWarning

@@ -92,7 +92,6 @@
         Public_Seller_arr_seller_type_info *model=self.cateArray[i];
         [_data5 addObject:model.seller_type];
         for (int j=0; j<model.sub_type.count; j++) {
-          
             Public_Seller_sub_type_info *object =model.sub_type[j];
             [matherArray addObject:object.sub_type_name];
             [fatherArray addObject:object.sub_type_id];
@@ -229,9 +228,10 @@
         if(indexPath.leftOrRight==0){
             _currentData1Index = indexPath.row;
             _data11=_data6[indexPath.row];
-            seller_sub_type=_data11[indexPath.row];
+            seller_sub_type=_data11[0];
             self.seller_type=_data5 [indexPath.row];
             return;
+        }else{
         }
     } else if(indexPath.column == 1){
        typeString =[NSString stringWithFormat:@"seller_type/%@/seller_sub_type/%@/distance/%@/longitude/%@/latitude/%@",self.seller_type,seller_sub_type,data10[indexPath.row],longitude,latitude];

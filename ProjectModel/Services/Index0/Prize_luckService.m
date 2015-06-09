@@ -13,6 +13,7 @@
 #import "SVProgressHUD.h"
 @implementation Prize_luckService
 -(void)prizePrizeLuckiesWithToken:(NSString*)token andUser_type:(NSInteger)user_type inTabBarController:(UITabBarController*)tabBarController WithDone:(doneWithObject)done{
+    [SVProgressHUD show];
     NSString *urlString =[NSString stringWithFormat:Prize_Prize_Luckies_URL,token,user_type];
     [PrizeLuckiesModel getModelFromURLWithString:urlString completion:^(PrizeLuckiesModel *model,JSONModelError *error){
         [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];

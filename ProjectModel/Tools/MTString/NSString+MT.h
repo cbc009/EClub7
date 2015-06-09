@@ -18,5 +18,6 @@
 +(NSString *)dateStringFromDate0:(NSDate *)date;
 +(NSString *)dateStringFromDate1:(NSDate *)date;
 +(float)heightWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize;
++(float)widthWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize;
 -(BOOL) isValidateMobile:(NSString *)mobile;
 @end

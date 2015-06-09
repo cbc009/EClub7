@@ -18,6 +18,7 @@
 #import "MyOrderViewController.h"
 #import "AppViewController.h"
 #import "SVProgressHUD.h"
+#import "BalanceModel.h"
 @implementation Index3Service
 
 /*
@@ -35,10 +36,25 @@
     我的钱包
  */
 -(void)presentMyWalletViewControllerOnViewController:(UIViewController *)viewController{
-    
+    [SVProgressHUD show];
+    SharedData *sharedData=[SharedData sharedInstance];
+    UserInfo *user = sharedData.user;
     MyWalletViewController *walletViewController = [viewController.storyboard instantiateViewControllerWithIdentifier:@"MyWalletViewController"];
-    walletViewController.hidesBottomBarWhenPushed = YES;
-    [viewController.navigationController pushViewController:walletViewController animated:YES];
+    [SharedAction baseBalanceWithToken:user.token andUser_type:user.user_type withTabBarViewController:viewController.tabBarController doneObject:^(BalanceIfo *model){
+        user.phone_minute = model.phone_minute;
+        user.amount = model.amount;
+        user.point = model.point;
+        user.amount_red = model.amount_red;
+//        walletViewController.redbags=[NSString stringWithFormat:@"%0.2f",user.amount_red];
+//        walletViewController.amounts =[NSString stringWithFormat:@"%0.2f",user.amount];
+//        walletViewController.cardIds= user.iccard;
+//        walletViewController.Points=[NSString stringWithFormat:@"%ld",(long)user.point];
+       
+        walletViewController.hidesBottomBarWhenPushed = YES;
+        [viewController.navigationController pushViewController:walletViewController animated:YES];
+    }];
+   
+    
 }
 
 

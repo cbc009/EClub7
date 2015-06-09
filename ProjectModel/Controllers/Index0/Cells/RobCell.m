@@ -24,6 +24,7 @@
     if (self.starttime>0) {
         self.starttime=self.starttime-1;
         self.times.text= [NSString stringWithFormat:@"距离开始还有:%@",[self toDetailTime:self.starttime]];
+        self.robNow.backgroundColor=[UIColor grayColor];
     }else{
         if (self.endtime>0){
         self.endtime=self.endtime-1;
@@ -31,6 +32,7 @@
     }else{
         self.times.text=@"今天抢购已结束";
         self.robNow.backgroundColor=[UIColor grayColor];
+        [self.robNow setTitle:@"抢购结束" forState:UIControlStateNormal];
         [timer invalidate];
     }
     }
@@ -39,8 +41,8 @@
     int second = seconds % 60;
     int minute = (seconds-second)/60%60;
     int hour = (seconds-second-minute*60)/60/60%24;
-    //    int day = (seconds-second-minute*60-hour*60*24)/60/60/24%24;
-    NSString *detailTime = [NSString stringWithFormat:@"%d:%d:%d",hour,minute,second];
+    int day = (seconds-second-minute*60-hour*60*24)/60/60/24%24;
+    NSString *detailTime = [NSString stringWithFormat:@"%d天:%d:%d:%d",day,hour,minute,second];
     return detailTime;
 }
 @end

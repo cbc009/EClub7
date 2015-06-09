@@ -42,6 +42,7 @@
 {
     [super viewDidLoad];
     self.title = @"意见反馈";
+    self.tableview.separatorStyle=UITableViewCellSeparatorStyleNone;
     feedbackService = [[FeedbackService alloc] init];
     [feedbackService baseMyadviceWithToken:user.token andUser_Type:user.user_type intabBarController:self.tabBarController withDone:^(Feedback_info *model){
         self.datas = (NSArray *)model.advice;
@@ -78,24 +79,31 @@
         FeedRequestCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedRequestCell" forIndexPath:indexPath];
         cell.regtime.text = object.regtime;
         [cell.heard sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.picture]] placeholderImage:[UIImage imageNamed:@"e"]];
+        cell.heard.layer.masksToBounds = YES;
+        cell.heard.layer.cornerRadius = 20;
+        cell.heard2.layer.masksToBounds=YES;
+         cell.heard2.layer.cornerRadius = 20;
         cell.content.text=object.content;
-        cell.contentHight.constant =[NSString heightWithString:object.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-(70), 600)]; 
-        cell.contentBackHeight.constant = cell.contentHight.constant+20;
+         cell.contentBackHeight.constant =[NSString heightWithString:object.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(212, 600)]+10;
+        cell.contentWidth.constant=[NSString widthWithString:object.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(212, 600)]+27;
         if ([object.reply isEqualToString:@""]) {
             cell.requestback.hidden=YES;
             cell.request.hidden=YES;
             cell.heard2.hidden = YES;
             cell.retime.hidden=YES;
+             cell.selectionStyle=UITableViewCellSelectionStyleNone;
             return cell;
         }else {
             cell.retime.text = object.oprttime;
             cell.request.text=object.reply;
-            cell.requestheght.constant =[NSString heightWithString:object.reply font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-(70), 600)];
-            cell.requestHeight.constant = cell.requestheght.constant+20;
+            
+            cell.requestHeight.constant =[NSString heightWithString:object.reply font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(212, 600)]+10;
+            cell.reauestWidth.constant=[NSString widthWithString:object.reply font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(212, 600)]+33;
             cell.heard2.hidden = NO;
             cell.retime.hidden=NO;
             cell.request.hidden=NO;
             cell.requestback.hidden=NO;
+             cell.selectionStyle=UITableViewCellSelectionStyleNone;
             return cell;
         }
     }
@@ -116,15 +124,19 @@
     }else{
         Advice_Info *object = self.datas[indexPath.row];
         if ([object.reply isEqualToString:@""]) {
-            return [NSString heightWithString:object.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-(70), 600)]+90;
+            return [NSString heightWithString:object.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(212, 600)]+60;
         }else{
-            return [NSString heightWithString:object.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(DeviceFrame.size.width-(70), 600)]+50+[NSString heightWithString:object.reply font:[UIFont systemFontOfSize:13] maxSize:CGSizeMake(DeviceFrame.size.width-(70), 600)]+30+60;
+            return [NSString heightWithString:object.content font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(212, 600)]+50+[NSString heightWithString:object.reply font:[UIFont systemFontOfSize:12] maxSize:CGSizeMake(190, 600)]+40;
         }
     }
 }
 -(void)feedbackInCell:(FeedBackCell *)cell{
-    [feedbackService submitWithContent:cell.myFeedback.text withToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(Status *model){
-        [SVProgressHUD showErrorWithStatus:model.error];
+    [feedbackService submitWithContent:cell.myFeedback.text withToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
+        if ([model[@"status"] isEqualToNumber: @2]) {
+            [SVProgressHUD showSuccessWithStatus:@" 感谢您的反馈!"];
+        }else{
+            [SVProgressHUD showErrorWithStatus:model[@"error"]];
+        }
         
     }];
 }

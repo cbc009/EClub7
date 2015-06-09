@@ -11,7 +11,9 @@
 @interface ShoopGoodsViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIButton *reduce;
 - (IBAction)reduceNumbs:(id)sender;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *myWebViewHeight;
 
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIButton *add;
 - (IBAction)addnumbs:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *numbs;
