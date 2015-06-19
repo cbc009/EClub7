@@ -301,12 +301,10 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Cdl-Ol-XLj" id="HWt-UT-Ltp">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgrount.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="1sQ-MA-xPB">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="135"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="135" id="4af-4A-ctb"/>
-                                                    </constraints>
-                                                </imageView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2pl-HG-YqQ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="155"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vegetables.png" translatesAutoresizingMaskIntoConstraints="NO" id="bud-L2-bQK">
                                                     <rect key="frame" x="252" y="87" width="60" height="60"/>
                                                     <constraints>
@@ -317,14 +315,15 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="bud-L2-bQK" firstAttribute="trailing" secondItem="HWt-UT-Ltp" secondAttribute="trailingMargin" id="4MO-WA-x3U"/>
-                                                <constraint firstItem="1sQ-MA-xPB" firstAttribute="leading" secondItem="HWt-UT-Ltp" secondAttribute="leadingMargin" constant="-8" id="KKS-ng-zWr"/>
-                                                <constraint firstItem="1sQ-MA-xPB" firstAttribute="top" secondItem="HWt-UT-Ltp" secondAttribute="topMargin" constant="-8" id="Qhf-gC-XOu"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="2pl-HG-YqQ" secondAttribute="bottom" constant="-8" id="4xZ-fq-faC"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="2pl-HG-YqQ" secondAttribute="trailing" constant="-8" id="P1n-cZ-KK3"/>
+                                                <constraint firstItem="2pl-HG-YqQ" firstAttribute="top" secondItem="HWt-UT-Ltp" secondAttribute="topMargin" constant="-8" id="SYd-pr-AFp"/>
+                                                <constraint firstItem="2pl-HG-YqQ" firstAttribute="leading" secondItem="HWt-UT-Ltp" secondAttribute="leadingMargin" constant="-8" id="cJH-s3-yFX"/>
                                                 <constraint firstItem="bud-L2-bQK" firstAttribute="bottom" secondItem="HWt-UT-Ltp" secondAttribute="bottomMargin" id="muq-ih-pl4"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="1sQ-MA-xPB" secondAttribute="trailing" constant="-8" id="nux-ED-Vtz"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="back" destination="1sQ-MA-xPB" id="ewL-u2-TvT"/>
+                                            <outlet property="backView" destination="2pl-HG-YqQ" id="BA8-XV-kWT"/>
                                             <outlet property="herad" destination="bud-L2-bQK" id="wYu-rX-qxX"/>
                                         </connections>
                                     </tableViewCell>
@@ -704,9 +703,6 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xtl-nw-rKN" id="mhs-GY-odT">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgrount.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Kcz-tp-KDx">
-                                                    <rect key="frame" x="-20" y="-10" width="360" height="131"/>
-                                                </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vegetables.png" translatesAutoresizingMaskIntoConstraints="NO" id="lwm-Q2-xX1">
                                                     <rect key="frame" x="252" y="87" width="60" height="60"/>
                                                     <constraints>
@@ -716,16 +712,11 @@
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="Kcz-tp-KDx" secondAttribute="trailing" constant="-20" id="6KQ-qs-lff"/>
-                                                <constraint firstItem="Kcz-tp-KDx" firstAttribute="leading" secondItem="mhs-GY-odT" secondAttribute="leading" constant="-20" id="C86-DA-2ra"/>
-                                                <constraint firstItem="Kcz-tp-KDx" firstAttribute="top" secondItem="mhs-GY-odT" secondAttribute="topMargin" constant="-18" id="KK8-Eo-6hU"/>
                                                 <constraint firstItem="lwm-Q2-xX1" firstAttribute="bottom" secondItem="mhs-GY-odT" secondAttribute="bottomMargin" id="nWV-ag-3Ei"/>
                                                 <constraint firstItem="lwm-Q2-xX1" firstAttribute="trailing" secondItem="mhs-GY-odT" secondAttribute="trailingMargin" id="rrq-HL-91H"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Kcz-tp-KDx" secondAttribute="bottom" constant="26" id="sne-Zh-cUq"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="back" destination="Kcz-tp-KDx" id="UU8-vE-fkb"/>
                                             <outlet property="herad" destination="lwm-Q2-xX1" id="UL0-lQ-Emp"/>
                                         </connections>
                                     </tableViewCell>
@@ -1449,7 +1440,6 @@
     </scenes>
     <resources>
         <image name="account.png" width="48" height="48"/>
-        <image name="backgrount.jpg" width="293" height="220"/>
         <image name="more.png" width="30" height="30"/>
         <image name="vegetables.png" width="512" height="297"/>
     </resources>

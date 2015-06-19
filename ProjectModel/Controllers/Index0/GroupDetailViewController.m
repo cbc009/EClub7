@@ -34,7 +34,6 @@
     GroupService *groupService;
     ItemDetailService *itemDetailService;
     NSTimer *timer;
-    NSInteger countDownSeconds;
     NSString *gid;
     NSString *htmlStr;
     CGFloat height1;
@@ -43,7 +42,6 @@
     PointIndex1Cell *numberCell;
     SharedData *sharedData;
     CheckService *checkService;
-    GroupDetailCell *countDownCell;
 }
 @property (weak, nonatomic) IBOutlet UIButton *addGroupButton;
 @end
@@ -65,13 +63,9 @@
     self.title=self.groupGood.goods_name;
     checkService=[CheckService new];
     sellerService =[SellerService new];
-    [sellerService sellerCountDownWithGoodsType:@"2" andGoodId:self.groupGood.goods_id inTabBarController:self.tabBarController withDone:^(GoodsCount_Info *model){
-        countDownCell.end_seconds =[model.end_second integerValue];
-        countDownSeconds=[model.start_second integerValue];
-        [self.tableview reloadData];
-    }];
     sharedData= [SharedData sharedInstance];
     user = sharedData.user;
+    
 }
 
 - (void)loadWebPageWithString:(NSString*)urlString inWebView:(UIWebView *)webView{
@@ -132,7 +126,7 @@
         return cell;
     }else if(indexPath.section==3){
         GroupDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GroupDetailCell" forIndexPath:indexPath];
-        countDownCell=cell;
+        cell.end_seconds=self.end_seconds;
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         return cell;
     }else if(indexPath.section==4){
@@ -235,8 +229,8 @@
         [aletview show];
         return;
     }
-    if ([numberCell.nums.text isEqualToString:@"0"]) {
-        [SVProgressHUD showErrorWithStatus:@"购买数量不能为0"];
+    if ([numberCell.nums.text isEqualToString:@"0"]||numberCell==nil) {
+        [SVProgressHUD showErrorWithStatus:@"请确认购买数量"];
     }else{
         NSInteger totalPoint = [numberCell.nums.text integerValue]* [self.groupGood.discount integerValue];
         NSString *message = [NSString stringWithFormat:@"您即将支付%ld元购买%@,支付密码为手机号码后六位",(long)totalPoint,self.title];

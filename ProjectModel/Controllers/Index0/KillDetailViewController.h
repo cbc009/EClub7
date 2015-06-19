@@ -18,4 +18,6 @@
 - (IBAction)buyNow:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *killeNOw;
 - (IBAction)share:(id)sender;
+@property (nonatomic,assign) NSInteger end_seconds;
+@property (nonatomic,assign) NSInteger countDownSeconds;
 @end

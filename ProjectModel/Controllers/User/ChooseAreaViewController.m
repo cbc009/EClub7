@@ -8,11 +8,13 @@
 
 #import "ChooseAreaViewController.h"
 #import "LoginService.h"
+#import "LoginViewController.h"
 #import "SVProgressHUD.h"
 #import "InternetRequest.h"
 #import "SharedData.h"
 #import "Member_Login.h"
 #import "RegisterService.h"
+#import "Status.h"
 @interface ChooseAreaViewController ()<LoginViewControllerDelegate>
 {
     __weak IBOutlet UITableView *tableview;
@@ -114,7 +116,15 @@
 }
 
 - (IBAction)submitAction:(id)sender {
-    [registerService registerWithName:self.loginname andCode:self.code andPasswd:self.password1 andPasswordConfirm:self.password2 andGuide:self.guide andLifehall_id:lifeHallIdSelected onViewController:self];
+    [registerService registerWithName:self.loginname andCode:self.code andPasswd:self.password1 andPasswordConfirm:self.password2 andGuide:self.guide andLifehall_id:lifeHallIdSelected inTabBarController:self.tabBarController withDone:^(Status *model){
+            [SVProgressHUD showSuccessWithStatus:@"注册成功"];
+            if ([self.navigationController.viewControllers[0] isKindOfClass:[LoginViewController class]]) {
+                LoginViewController *loginviewController=self.navigationController.viewControllers[0];
+                loginviewController.loginname1=self.loginname;
+                loginviewController.password1=self.password1;
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
+        }];
 }
 
 #pragma DatasTableViewControllerDelegate

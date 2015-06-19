@@ -17,7 +17,7 @@
 {
     NSString *urlString =[NSString stringWithFormat:Lifehall_lifehall_list_URL,agent_id];
     [LifehallModel getModelFromURLWithString:urlString completion:^(LifehallModel *model,JSONModelError *error){
-        [SVProgressHUD show];
+       
         [SharedAction commonActionWithUrl:urlString andStatus:model.status andError:model.error andJSONModelError:error andObject:model.info inTabBarController:tabBarController withDone:done];
     }];
 }

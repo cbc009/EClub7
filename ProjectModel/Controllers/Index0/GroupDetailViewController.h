@@ -17,6 +17,6 @@
 @property(nonatomic,strong)Seller_Seller_Goods_arr_goods_info *groupGood;
 - (IBAction)buyNow:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *buyAction;
-
-
+@property (nonatomic,assign) NSInteger end_seconds;
+@property (nonatomic,assign) NSInteger countDownSeconds;
 @end

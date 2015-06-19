@@ -539,6 +539,8 @@
 		33F73F351A1D8D0000EB73CB /* ChangeAdressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33F73F311A1D8D0000EB73CB /* ChangeAdressViewController.m */; };
 		33F73F3A1A1D8F1000EB73CB /* UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 33F73F391A1D8F1000EB73CB /* UserDefaults.m */; };
 		33F7608B1A00ABEA0058FC6C /* Kill_CountDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 33F7608A1A00ABEA0058FC6C /* Kill_CountDown.m */; };
+		33F79DDC1B28076500F4EEF9 /* ELogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 33F79DDB1B28076500F4EEF9 /* ELogo.png */; };
+		33F79DDE1B280F4800F4EEF9 /* 1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 33F79DDD1B280F4800F4EEF9 /* 1024.png */; };
 		33FBC6DD1A724BEE007F005C /* people.png in Resources */ = {isa = PBXBuildFile; fileRef = 33FBC6DC1A724BEE007F005C /* people.png */; };
 		33FFA03419BADB0E00EFFC8D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 33FFA02219BAB60200EFFC8D /* libz.dylib */; };
 		8F03C9811AA6A02100082E32 /* SetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F03C9801AA6A02100082E32 /* SetViewController.m */; };
@@ -648,7 +650,7 @@
 		223E97CC19B4C155005AF6A3 /* SubMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubMenuCell.h; sourceTree = "<group>"; };
 		223E97CD19B4C155005AF6A3 /* SubMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubMenuCell.m; sourceTree = "<group>"; };
 		223E97CF19B4C160005AF6A3 /* SubMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubMenuCell.xib; sourceTree = "<group>"; };
-		224B350D1995DAB7009523F6 /* EClub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EClub.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		224B350D1995DAB7009523F6 /* E小区.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "E小区.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		224B35101995DAB7009523F6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		224B35121995DAB7009523F6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		224B35141995DAB7009523F6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -1516,6 +1518,8 @@
 		33F73F391A1D8F1000EB73CB /* UserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaults.m; sourceTree = "<group>"; };
 		33F760891A00ABEA0058FC6C /* Kill_CountDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kill_CountDown.h; sourceTree = "<group>"; };
 		33F7608A1A00ABEA0058FC6C /* Kill_CountDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Kill_CountDown.m; sourceTree = "<group>"; };
+		33F79DDB1B28076500F4EEF9 /* ELogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ELogo.png; sourceTree = "<group>"; };
+		33F79DDD1B280F4800F4EEF9 /* 1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1024.png; sourceTree = "<group>"; };
 		33FBC6DC1A724BEE007F005C /* people.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = people.png; sourceTree = "<group>"; };
 		33FFA01819BAB5D000EFFC8D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		33FFA01A19BAB5D800EFFC8D /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -1940,7 +1944,7 @@
 		224B350E1995DAB7009523F6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				224B350D1995DAB7009523F6 /* EClub.app */,
+				224B350D1995DAB7009523F6 /* E小区.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2120,6 +2124,8 @@
 		22557A01199645A3001B5FCC /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				33F79DDD1B280F4800F4EEF9 /* 1024.png */,
+				33F79DDB1B28076500F4EEF9 /* ELogo.png */,
 				338F65E71B1FF0C100411006 /* headss.png */,
 				33BB768B1B1EFEB400F4E2EE /* moresss@2x.png */,
 				33BB76851B1E95EE00F4E2EE /* home@2x.png */,
@@ -3550,7 +3556,7 @@
 			);
 			name = Club;
 			productName = ProjectModel;
-			productReference = 224B350D1995DAB7009523F6 /* EClub.app */;
+			productReference = 224B350D1995DAB7009523F6 /* E小区.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -3698,6 +3704,7 @@
 				33E7CFAE19F79AE200D49EA6 /* killsmall2.png in Resources */,
 				335D22CF19EE434000EB99B5 /* miao.png in Resources */,
 				33DCB3301A38471100214F66 /* bg_keyboard_delete_selected@2x.png in Resources */,
+				33F79DDE1B280F4800F4EEF9 /* 1024.png in Resources */,
 				3356C5971A3FBB03009EEA6B /* icon_search_suggest@2x.png in Resources */,
 				33DCB3421A384FA600214F66 /* bg_keyboard9_selected@2x.png in Resources */,
 				2267B49E199A14D400FA9FED /* RobedRecordCell.xib in Resources */,
@@ -3782,6 +3789,7 @@
 				336302141A63D594001461A3 /* project.png in Resources */,
 				33BF42941AB1713E0061A52D /* tuangou.png in Resources */,
 				338DF5881B0D766D00F3E97F /* myorder.png in Resources */,
+				33F79DDC1B28076500F4EEF9 /* ELogo.png in Resources */,
 				8F56D6F61A0F96C400035A0C /* future_kill_bg.png in Resources */,
 				339CB04B1B0C3ABC00473E0A /* Default@2x.png in Resources */,
 				333A5F8F1A26A90D00CA54A5 /* point_green.png in Resources */,
@@ -4312,6 +4320,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4359,7 +4368,7 @@
 					"$(PROJECT_DIR)/Pods/UMengMessage/UMessage_Sdk_All_1.1.0(idfa)/UMessage_Sdk_1.1.0",
 					"$(PROJECT_DIR)/ProjectModel/Tools/BaiduMap_IOSSDK_v2.6.0_Lib",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",
@@ -4391,7 +4400,7 @@
 					"-isystem",
 					"\"${PODS_ROOT}/Headers/Public/libqrencode\"",
 				);
-				PRODUCT_NAME = EClub;
+				PRODUCT_NAME = "E小区";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 arm64 armv7s";
@@ -4473,7 +4482,7 @@
 					"-isystem",
 					"\"${PODS_ROOT}/Headers/Public/libqrencode\"",
 				);
-				PRODUCT_NAME = EClub;
+				PRODUCT_NAME = "E小区";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 arm64 armv7s";

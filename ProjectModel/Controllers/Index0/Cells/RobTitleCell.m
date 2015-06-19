@@ -18,12 +18,16 @@
 -(void)countDownTimer{
     if (self.starttime>0) {
         self.starttime=self.starttime-1;
+        self.endtime=self.endtime-1;
+        [self.delegate countDownActionWithStartSeconds:self.starttime andEndSencond:self.endtime];
         self.times.text= [NSString stringWithFormat:@"距离开始还有:%@",[self toDetailTime:self.starttime]];
     }else{
         if (self.endtime>0){
             self.endtime=self.endtime-1;
+            [self.delegate countDownActionWithStartSeconds:-5 andEndSencond:self.endtime];
             self.times.text= [NSString stringWithFormat:@"距离结束还有:%@",[self toDetailTime:self.endtime]];
         }else{
+            [self.delegate countDownActionWithStartSeconds:-5 andEndSencond:-5];
             self.times.text=@"抢购已结束!";
             [timwer invalidate];
         }

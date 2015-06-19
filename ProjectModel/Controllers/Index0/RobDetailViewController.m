@@ -25,14 +25,13 @@
 #import "RobService.h"
 #import "Status.h"
 #import <BmobSDK/Bmob.h>
-@interface RobDetailViewController ()<UIWebViewDelegate>
+@interface RobDetailViewController ()<UIWebViewDelegate,SecondCountDownDelegate>
 {
     RobService *robService;
     NSString *sharurl;
 //    NSInteger countDownSeconds;
     CheckService *checkService;
     SellerService *sellerService;
-    RobTitleCell *countDownCell;
 }
 @end
 
@@ -59,11 +58,7 @@
     self.tableView.autoresizesSubviews=NO;
     self.tableView.showsVerticalScrollIndicator =NO;
     self.tableView.tableFooterView =[UIView new];
-    [sellerService sellerCountDownWithGoodsType:@"3" andGoodId:self.robGoodsMOdel.goods_id inTabBarController:self.tabBarController withDone:^(GoodsCount_Info *model){
-        countDownCell.starttime=[model.start_second integerValue];
-        countDownCell.endtime=[model.end_second integerValue];
-        [self.tableView reloadData];
-    }];
+   
     self.robNowButton.layer.cornerRadius=5;
 }
 - (void)loadWebPageWithString:(NSString*)urlString inWebView:(UIWebView *)webView{
@@ -113,7 +108,9 @@
             cell.price.text=[NSString stringWithFormat:@"￥:%@",self.robGoodsMOdel.discount];
         }
         cell.goodNum.text =[NSString stringWithFormat:@"抢购数量:%@",self.robGoodsMOdel.provider_nums];
-        countDownCell=cell;
+        cell.delegate=self;
+        cell.starttime=self.starttime;
+        cell.endtime=self.endtime;
         cell.marketPrice.text=[NSString stringWithFormat:@"￥:%@",self.robGoodsMOdel.price];
         [cell.goodPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.robGoodsMOdel.bigpicture]] placeholderImage:[UIImage imageNamed:@"e"]];
         [cell.goodNum.layer setBorderWidth:1];   //边框宽度
@@ -141,7 +138,6 @@
         return cell;
     }else if (section==4){
         Index0_Cell *cell=[tableView dequeueReusableCellWithIdentifier:@"Index0_Cell" forIndexPath:indexPath];
-        
         cell.accessoryType=UITableViewCellAccessoryNone;
         if (row==0) {
             cell.title.textColor=[UIColor blackColor];
@@ -212,7 +208,7 @@
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section==3||section==0||section==1) {
+    if (section==3||section==0||section==1||section==4) {
         return 0;
     }else{
        return 8;
@@ -236,11 +232,27 @@
         target.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:target animated:YES];
     }
-
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+-(void)countDownActionWithStartSeconds:(NSInteger)seconds andEndSencond:(NSInteger )endSconds{
+    
+    self.starttime=seconds;
+    self.endtime=endSconds;
+    if (self.starttime>=0) {
+        self.robNowButton.backgroundColor=[UIColor grayColor];
+    }else if (self.endtime>=-5){
+        self.robNowButton.backgroundColor=[UIColor redColor];
+    }else{
+        self.robNowButton.backgroundColor=[UIColor grayColor];
+    }
+}
+
 - (IBAction)robNow:(id)sender {
+    if (self.endtime==-5) {
+        [SVProgressHUD showErrorWithStatus:@"商品已过期"];
+        return;
+    }else if (self.endtime>-5&self.starttime==-5) {
     NSString *lifehall_id =[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
         [checkService sellerOrderWithGoodsType:@"3" andGoodsId:self.robGoodsMOdel.goods_id andGoodsNums:@"1" andLifehall_id:lifehall_id andPay_mode:@"2" andPaypassword:@"" andReceive_type:@"" andMessage:@"抢购" andAddress:@"" andMobole:user.loginname andSend_time:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
             if ([model[@"status"] isEqualToNumber: @2]) {
@@ -259,7 +271,9 @@
                 }];
             }
         }];
-
+    }else{
+        [SVProgressHUD showErrorWithStatus:@"还没到时间请耐心等候"];
+    }
 }
 
 

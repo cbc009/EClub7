@@ -111,6 +111,7 @@
 
 -(void)loadSellerSellerGoodsTypeWithPage:(NSInteger)pages andType:(NSInteger)type{
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)pages];
+    [SVProgressHUD show];
     [sellerService sellerSellerGood_typesWith:@"5" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id] andSeller_id:@"0" andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
         if (type==0) {
             self.datas=(NSMutableArray*)model.arr_goods;
@@ -124,6 +125,7 @@
 }
 -(void)headerRereshing{
     _page=1;
+    
     [self loadSellerSellerGoodsTypeWithPage:_page andType:0];
 }
 - (void)footerRereshing

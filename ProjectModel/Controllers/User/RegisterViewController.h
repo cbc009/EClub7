@@ -10,6 +10,7 @@
 #import "UIKeyboardViewController.h"
 
 @interface RegisterViewController : UIViewController<UIKeyboardViewControllerDelegate>
+@property (weak, nonatomic) IBOutlet UIButton *time;
 @property (weak, nonatomic) IBOutlet UIButton *checkButton;
 
 @end

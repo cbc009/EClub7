@@ -18,6 +18,7 @@
 #import "Index0Service.h"
 #import "SellerService.h"
 #import "Seller_Seller_Goods.h"
+#import "GoodsCountDownModel.h"
 @interface GroupsViewController ()
 {
     GroupService *groupService;
@@ -118,7 +119,7 @@
         CGFloat actnumbers=([model.discount floatValue]/[model.price floatValue])*10;
         cell.allowance.text=[NSString stringWithFormat:@"%0.1f",actnumbers];
         
-        NSMutableAttributedString *actString =[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@人已团购",model.actual_nums]];
+        NSMutableAttributedString *actString =[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@人已抢购",model.actual_nums]];
         
         const CGFloat fontSize1 = 18;
         const CGFloat fontSize2 = 14;
@@ -161,8 +162,11 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
     GroupDetailViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"GroupDetailViewController"];
      viewController.groupGood = groupGood;
-    [self.navigationController pushViewController:viewController animated:YES];
-   
+    [sellerService sellerCountDownWithGoodsType:@"2" andGoodId:groupGood.goods_id inTabBarController:self.tabBarController withDone:^(GoodsCount_Info *model){
+        viewController.end_seconds =[model.end_second integerValue];
+       viewController.countDownSeconds=[model.start_second integerValue];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }];   
 }
 -(void)panInViewControllerWithType:(BOOL)type{
     self.tableview.bounces=type;

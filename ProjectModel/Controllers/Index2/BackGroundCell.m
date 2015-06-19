@@ -7,47 +7,43 @@
 //
 
 #import "BackGroundCell.h"
-
+#import <UIImageView+WebCache.h>
 @implementation BackGroundCell
 {
-    float intervalTime;
-    float moveWidth;
-    float moveWidthReight;
-    NSInteger movetypy;
+     UIImageView *backImage;
 }
 - (void)awakeFromNib {
-    moveWidth=0.0;
-    moveWidthReight=0.0;
-    movetypy=0;
-    self.moveTimer = [NSTimer scheduledTimerWithTimeInterval:intervalTime target:self selector:@selector(startMoveTimer:) userInfo:nil repeats:YES];
-}
--(void)viewDidDisappear:(BOOL)animated{
     
-    
+
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    intervalTime=4;
     [super setSelected:selected animated:animated];
+    backImage=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, DeviceFrame.size.width+20,135)];
+    [backImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,self.imageName]] placeholderImage:[UIImage imageNamed:@"e"]];
+    [backImage.layer addAnimation:[self moveX:4 X:@10] forKey:nil];
    
-    // Configure the view for the selected state
-}
--(void)startMoveTimer:(id)sender{
-    [self moveType:movetypy];
-}
--(void)moveType:(NSInteger)type{
-    if (type==0) {
-        self.back.frame=CGRectMake(-20+moveWidth, 0, DeviceFrame.size.width+40, 131);
-          moveWidth=moveWidth+0.005;
-        if (moveWidth>20) {
-            movetypy=1;
-        }
-    }else if (type==1){
-        self.back.frame=CGRectMake(-20+moveWidth, 0, DeviceFrame.size.width+40, 131);
-        moveWidth=moveWidth-0.005;
-        if (moveWidth<-20) {
-            movetypy=0;
-        }
-    }
+    [self.backView addSubview:backImage];
 }
 
+-(CABasicAnimation *)moveX:(float)time X:(NSNumber *)x //横向移动
+
+{
+    
+    CABasicAnimation *animation=[CABasicAnimation animationWithKeyPath:@"transform.translation.x"];
+    
+    animation.duration=time;
+    
+    animation.autoreverses=YES;
+    
+    animation.repeatCount=100;
+    
+    animation.toValue=[NSNumber numberWithInt:-10];
+    
+    animation.fromValue=[NSNumber numberWithInt:-26];
+    
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    
+    return animation;
+    
+}
 @end

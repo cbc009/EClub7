@@ -100,6 +100,7 @@
                            range:NSMakeRange(length1+2+1+length2+2+length3+1+length4, 1)];
         self.countDown.attributedText= attrString;
     }else if(self.starttime<=0&self.starttime>-5){
+        [self.delegate startCountDownActionWithSeconds:self.starttime];
         self.starttime=self.starttime-1;
         NSMutableAttributedString *attrString =[[NSMutableAttributedString alloc] initWithString:@"正在进行秒杀"];
         const CGFloat fontSize1 = 18;

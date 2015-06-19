@@ -34,7 +34,7 @@ static SVProgressHUDMaskType SVProgressHUDDefaultMaskType;
 static UIView *SVProgressHUDExtensionView;
 
 static const CGFloat SVProgressHUDRingRadius = 18;
-static const CGFloat SVProgressHUDRingNoTextRadius = 24;
+static const CGFloat SVProgressHUDRingNoTextRadius = 16;
 static const CGFloat SVProgressHUDParallaxDepthPoints = 10;
 static const CGFloat SVProgressHUDUndefinedProgress = -1;
 
@@ -252,8 +252,10 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
 		self.alpha = 0.0f;
         self.activityCount = 0;
         
-        SVProgressHUDBackgroundColor = [UIColor whiteColor];
-        SVProgressHUDForegroundColor = [UIColor blackColor];
+        SVProgressHUDBackgroundColor = [UIColor blackColor];
+        
+        SVProgressHUDForegroundColor = [UIColor whiteColor];
+        
         if ([UIFont respondsToSelector:@selector(preferredFontForTextStyle:)]) {
             SVProgressHUDFont = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         } else {
@@ -323,8 +325,8 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
 
 - (void)updatePosition {
 	
-    CGFloat hudWidth = 100.0f;
-    CGFloat hudHeight = 100.0f;
+    CGFloat hudWidth = 80.0f;
+    CGFloat hudHeight = 80.0f;
     CGFloat stringHeightBuffer = 20.0f;
     CGFloat stringAndContentHeightBuffer = 80.0f;
     
@@ -658,21 +660,21 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
                                                           userInfo:userInfo];
         
         [self registerNotifications];
-        self.hudView.transform = CGAffineTransformScale(self.hudView.transform, 1.3, 1.3);
+        self.hudView.transform = CGAffineTransformScale(self.hudView.transform, 0.2, 0.2);
         
         if(self.isClear) {
             self.alpha = 1;
-            self.hudView.alpha = 0;
+            self.hudView.alpha = 0.7;
         }
         
         [UIView animateWithDuration:0.15
                               delay:0
                             options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
-                             self.hudView.transform = CGAffineTransformScale(self.hudView.transform, 1/1.3, 1/1.3);
+                             self.hudView.transform = CGAffineTransformScale(self.hudView.transform, 1/0.2f, 1/0.2);
                              
                              if(self.isClear) // handle iOS 7 and 8 UIToolbar which not answers well to hierarchy opacity change
-                                 self.hudView.alpha = 1;
+                                 self.hudView.alpha = 0.7;
                              else
                                  self.alpha = 1;
                          }
@@ -746,11 +748,11 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
                                                       userInfo:userInfo];
     
     self.activityCount = 0;
-    [UIView animateWithDuration:0.15
-                          delay:0
+    [UIView animateWithDuration:0.25
+                          delay:0.2
                         options:UIViewAnimationCurveEaseIn | UIViewAnimationOptionAllowUserInteraction
                      animations:^{
-                         self.hudView.transform = CGAffineTransformScale(self.hudView.transform, 0.8f, 0.8f);
+                         self.hudView.transform = CGAffineTransformScale(self.hudView.transform, 0.2f, 0.2f);
                          if(self.isClear) // handle iOS 7 UIToolbar not answer well to hierarchy opacity change
                              self.hudView.alpha = 0.0f;
                          else

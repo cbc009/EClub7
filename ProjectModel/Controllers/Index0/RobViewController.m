@@ -25,6 +25,7 @@
 #import "MJRefresh.h"
 #import "ChangeLifeService.h"
 #import "Public_lifehall.h"
+#import "GoodsCountDownModel.h"
 @interface RobViewController ()<RMPickerViewControllerDelegate>
 {
     RobService *robService;
@@ -34,7 +35,6 @@
         int count;
     NSMutableArray *timeArray;
     NSMutableArray *timeEndArray;
-    NSTimer *timwer;
     NSInteger page;
     NSInteger ChangeUp;//防止重复点击切换生活馆按钮出现多个pickview
     ChangeLifeService *changeLifeService;
@@ -219,16 +219,21 @@
         return 0;
     }
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSInteger row = indexPath.row;
     Seller_Seller_Goods_arr_goods_info *robuyGood = [self.datas objectAtIndex:row];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Index0" bundle:nil];
     RobDetailViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RobDetailViewController"];
-    [self.navigationController pushViewController:viewController animated:YES];
-    viewController.robGoodsMOdel = robuyGood;
-
+     viewController.robGoodsMOdel = robuyGood;
+    [sellerServicel sellerCountDownWithGoodsType:@"3" andGoodId:robuyGood.goods_id inTabBarController:self.tabBarController withDone:^(GoodsCount_Info *model){
+        viewController.starttime=[model.start_second integerValue];
+        viewController.endtime=[model.end_second integerValue];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }];
 }
+
 -(void)panInViewControllerWithType:(BOOL)type{
     self.tableView.bounces=type;
 }
@@ -257,14 +262,17 @@
         [self.tableView reloadData];
     }];
 }
+
 #pragma mark - RMPickerViewController Delegates
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
     return 1;
 }
+
 -(NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
    
     return [self.components count];
 }
+
 -(NSString*) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
     return self.components[row];
 }
@@ -275,9 +283,11 @@
    
     [self changeLifeId:lifeIDValue andLifeHallName:value];
 }
+
 - (void)pickerViewControllerDidCancel:(RMPickerViewController *)vc{
     ChangeUp=0;
 }
+
 -(NSString *)valueFromSelectedRows:(NSArray *)selectedRows andComponents:(NSArray *)components{
     NSMutableString *value = [[NSMutableString alloc] init];
     for (int i=0; i<selectedRows.count; i++) {
@@ -286,6 +296,7 @@
          }
     return value;
 }
+
 -(void)changeLifeId:(NSString *)lifeHallId andLifeHallName:(NSString *)lifehallName{
     user.lifehall_id=[lifeHallId integerValue];
     user.lifehall_name=lifehallName;

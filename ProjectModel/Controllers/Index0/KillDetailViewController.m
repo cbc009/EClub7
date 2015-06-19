@@ -34,12 +34,10 @@
 @interface KillDetailViewController ()<UITableViewDataSource,UITableViewDelegate,KillSecondCountDownDelegate>
 {
     NSTimer *timer;
-    NSInteger countDownSeconds;
     GroupService *groupService;
     KillService *killService;
     UserInfo *user;
     SellerService *sellerService;
-    KillDetailCell0 *countDownCell;
     CheckService *checkService;
 
 }
@@ -68,11 +66,11 @@
     self.title = self.good.goods_name;
     groupService = [[GroupService alloc] init];
     killService = [[KillService alloc] init];
-    [sellerService sellerCountDownWithGoodsType:@"4" andGoodId:self.good.goods_id inTabBarController:self.tabBarController withDone:^(GoodsCount_Info *model){
-        countDownCell.starttime =[model.start_second integerValue];
-        countDownSeconds=[model.start_second integerValue];
-        [self.tableView reloadData];
-    }];
+//    [sellerService sellerCountDownWithGoodsType:@"4" andGoodId:self.good.goods_id inTabBarController:self.tabBarController withDone:^(GoodsCount_Info *model){
+//        countDownCell.starttime =[model.start_second integerValue];
+//        countDownSeconds=[model.start_second integerValue];
+//        [self.tableView reloadData];
+//    }];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -131,16 +129,19 @@
         KillDetailCell0 *cell = [tableView dequeueReusableCellWithIdentifier:@"KillDetailCell0" forIndexPath:indexPath];
         cell.delegate=self;
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
-        countDownCell=cell;
+        cell.starttime=self.countDownSeconds;
+        cell.endtime=self.end_seconds;
         return cell;
     }else if(indexPath.section==4){
         PointIndex2Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"PointIndex2Cell" forIndexPath:indexPath];
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         if (row==0) {
             cell.title.text=@"领取方式:";
+            cell.detail.font=[UIFont systemFontOfSize:10];
             cell.detail.text=self.good.receive_from;
         }else{
             cell.title.text=@"领取地址:";
+            cell.detail.font=[UIFont systemFontOfSize:10];
             cell.detail.text=self.good.receive_address;
         }
         return cell;
@@ -210,22 +211,29 @@
     }
 }
 -(void)startCountDownActionWithSeconds:(NSInteger)seconds{
-    countDownSeconds=seconds;
+    self.countDownSeconds=seconds;
+    if (seconds>=0) {
+        self.killeNOw.backgroundColor=[UIColor grayColor];
+    }if (0>=seconds||seconds>=-4) {
+        self.killeNOw.backgroundColor=[UIColor redColor];
+    } else{
+        self.killeNOw.backgroundColor=[UIColor grayColor];
+    }
 }
 
 - (IBAction)buyNow:(id)sender {
-    if (countDownSeconds<=-4||countDownSeconds==-1) {
+    if (self.countDownSeconds==-5) {
         [SVProgressHUD showErrorWithStatus:@"商品已过期"];
         return;
-    }else if (countDownSeconds<=0&countDownSeconds>-5) {
+    }else if (self.countDownSeconds<=0&self.countDownSeconds>-5) {
     NSString *lifeHall_id=[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
     [checkService sellerOrderWithGoodsType:@"4" andGoodsId:self.good.goods_id andGoodsNums:@"1" andLifehall_id:lifeHall_id andPay_mode:@"2" andPaypassword:@"" andReceive_type:@"" andMessage:@"秒杀" andAddress:@"" andMobole:user.loginname andSend_time:@"" andToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withDone:^(id model){
         if ([model[@"status"] isEqualToNumber: @2]) {
+            self.killeNOw.backgroundColor=[UIColor grayColor];
                     NSString *message =[NSString stringWithFormat:@"恭喜你在E小区免费抢到%@赶快去告诉朋友吧",self.good.goods_name];
                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"秒杀信息" message:message delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去告诉朋友", nil];
                     alertView.tag=1;
                     [alertView show];
-                    self.killeNOw.backgroundColor = [UIColor grayColor];
                     //存储到Bmob后台
                     BmobObject *object = [BmobObject objectWithClassName:@"KillOrder"];
                     [object setObject:user.loginname forKey:@"loginname"];

@@ -39,6 +39,7 @@
     BackGroundCell *backCell;
     NSString *heardPicture;
     NSString *lifeBackPicture;
+    NSInteger number;//这是1头像那一行
   
 }
 @property(nonatomic,strong)UIToolbar *toolBar;
@@ -62,6 +63,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    number=0;
     [SharedAction setupRefreshWithTableView:self.tableview toTarget:self];
     [self.tableview headerBeginRefreshing];
     self.title=@"生活圈";
@@ -81,7 +83,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section ==0) {
-        return  1;
+        return  number;
     }else{
         return self.datas.count;
     }
@@ -99,10 +101,10 @@
         [cell.herad addGestureRecognizer:chageHead];
         cell.herad.layer.masksToBounds = YES;
         cell.herad.layer.cornerRadius = 30;
-        [cell.back sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IP,user.life_picture]] placeholderImage:[UIImage imageNamed:@"e"]];
-        cell.back.userInteractionEnabled =YES;
+        cell.imageName=user.life_picture;
+        cell.backView.userInteractionEnabled =YES;
         UITapGestureRecognizer *chageBack = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tpaChangebackGround)];
-        [cell.back addGestureRecognizer:chageBack];
+        [cell.backView addGestureRecognizer:chageBack];
         return cell;
     }else{
         static NSString *CellIdentifier =@"BodyCell";
@@ -205,7 +207,9 @@
         heardPicture=model1.headpic;
         lifeBackPicture=model1.life_picture;
         [liveService countSizeWithData: self.datas inViewController:self];
+        number=1;
         [self.tableview headerEndRefreshing];
+        
         [self.tableview reloadData];
     }];
 }
@@ -214,6 +218,7 @@
 {
     page++;
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)page];
+    [SVProgressHUD show];
     [liveService loadLiveDataWithAgent_id:user.agent_id andPageString:pageString withTabBarViewController:self.tabBarController doneObject:^(LiveModelInfo *model1){
         [self.datas addObjectsFromArray:model1.data];
         [liveService countSizeWithData:self.datas inViewController:self];

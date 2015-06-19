@@ -11,6 +11,7 @@
 #import "Index1Service.h"
 #import "ChooseAreaViewController.h"
 #import "NSString+MT.h"
+#import "Status.h"
 @interface RegisterViewController ()<UIAlertViewDelegate>
 {
     __weak IBOutlet UITextField *loginname;
@@ -18,8 +19,10 @@
     __weak IBOutlet UITextField *password;
     __weak IBOutlet UITextField *Passwd;
     __weak IBOutlet UITextField *guide;
+    NSTimer *timer;
     RegisterService *registerService;
     UIKeyboardViewController *keyBoardController;
+    NSInteger countDownSecond;
 }
 @end
 
@@ -49,9 +52,27 @@
 
 - (IBAction)sendCodeAction:(id)sender {
     NSString *name = loginname.text;
-    [registerService sendCodeActionWithLoginname:name onViewController:self];
+    [registerService sendCodeACtionWithLoginname:name inTabBarController:self.tabBarController withDone:^(Status *model){
+        if (model.status==802) {
+            UIAlertView  *alertView = [[UIAlertView alloc] initWithTitle:@"用户已存在" message:@"该手机已注册请直接登录" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"现在去登录", nil];
+            alertView.alertViewStyle = UIAlertViewStyleDefault;
+            [alertView show];
+        }else{
+        timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDownTimer) userInfo:nil repeats:YES];
+            countDownSecond=50;
+        }
+    }];
 }
 
+-(void)countDownTimer{
+    if (countDownSecond>0) {
+        countDownSecond--;
+        [self.time setTitle:[NSString stringWithFormat:@"%ld",(long)countDownSecond] forState:UIControlStateNormal];
+    }else{
+        [timer invalidate];
+        [self.time setTitle:@"发送" forState:UIControlStateNormal];
+    }
+}
 
 - (IBAction)registerAction:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"User" bundle:nil];

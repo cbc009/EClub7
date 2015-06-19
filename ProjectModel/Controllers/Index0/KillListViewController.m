@@ -17,6 +17,7 @@
 #import "KillIconCell.h"
 #import "NSString+MT.h"
 #import "SellerService.h"
+#import "GoodsCountDownModel.h"
 @interface KillListViewController ()
 {
     KillService *service;
@@ -81,7 +82,11 @@
     Seller_Seller_Goods_arr_goods_info *good = self.datas[index];
     KillDetailViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"KillDetailViewController"];
     viewController.good = good;
-    [self.navigationController pushViewController:viewController animated:YES];
+    [sellerService sellerCountDownWithGoodsType:@"4" andGoodId:good.goods_id inTabBarController:self.tabBarController withDone:^(GoodsCount_Info *model){
+        viewController.end_seconds =[model.end_second integerValue];
+        viewController.countDownSeconds=[model.start_second integerValue];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -100,6 +105,7 @@
 
 -(void)loadSellerSellerGoodsTypeWithPage:(NSInteger)pages andType:(NSInteger)type{
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)pages];
+    
     [sellerService sellerSellerGood_typesWith:@"4" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id]  andSeller_id:@"0" andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
         if (type==0) {
             self.datas=(NSMutableArray*)model.arr_goods;

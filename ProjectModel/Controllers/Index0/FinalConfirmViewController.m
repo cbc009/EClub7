@@ -32,6 +32,7 @@
     __weak IBOutlet UILabel *amount;
     __weak IBOutlet UILabel *redbag;
     UIKeyboardViewController *keyBoardController;
+    float delivery_limits;
 }
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableviewHeight;
@@ -79,6 +80,7 @@
         self.delivery_scope.text = [NSString stringWithFormat:@"(%@)",model.delivery_scope];
         self.shipping_fee.text = [NSString stringWithFormat:@"%ld元",(long)model.shipping_fee];
         self.delivery_limit.text = [NSString stringWithFormat:@"小贴士:免费配送的最低交易金额为:￥%@元",model.delivery_limit];
+        delivery_limits=[model.delivery_limit floatValue];
         if (self.timeArray.count>0) {
             [self.sendTime setTitle:self.timeArray[0] forState:UIControlStateNormal];
         }else{
@@ -228,8 +230,7 @@
 
 
 -(void)submitAction{
-    if([finalConfirmService compareCurrentTimeWithTime:@"21:30:00"] == NSOrderedDescending && [finalConfirmService compareCurrentTimeWithTime:@"06:00:00"] == NSOrderedAscending){
-        //如果是卖家送货
+//        如果是卖家送货
         if (self.sendMethod2.tag==1) {
             if ([self.sendAddress.text isEqualToString:@""]) {
                 [SVProgressHUD showErrorWithStatus:@"请填写准确送货地址"];
@@ -237,13 +238,13 @@
             }else if(![self.userPhone.text isValidateMobile:self.userPhone.text]){
                 [SVProgressHUD showErrorWithStatus:@"请正确填写手机号码"];
                 return;
-            }else if ([self.totalPriceString floatValue]<30){
-                [SVProgressHUD showErrorWithStatus:@"不足30元消费，暂不提供送货上门服务"];
+            }else if ([self.totalPriceString floatValue]<delivery_limits){
+                [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"不足%f元消费，暂不提供送货上门服务",delivery_limits]];
                 return;
             }
         }
         SharedData *sharedData = [SharedData sharedInstance];
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"支付密码" message:@"支付密码为登陆密码" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"支付密码" message:@"支付密码为默认为手机号后六位" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
         alertView.alertViewStyle = UIAlertViewStyleSecureTextInput;
         if ([sharedData.fingerIsOpened isEqualToString:@"yes"]) {
             [SharedAction fingerPayWithDone:^(BOOL success,id object){
@@ -256,10 +257,9 @@
         }else{
             [alertView show];
         }
-        
-    }else{
-        [SVProgressHUD showErrorWithStatus:@"下单时间:每天6:00-21:30"];
-    }
+//    }else{
+////        [SVProgressHUD showErrorWithStatus:@"下单时间:每天6:00-21:30"];
+//    }
 }
 
 

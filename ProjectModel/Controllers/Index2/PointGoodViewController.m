@@ -164,6 +164,7 @@
     }
     if (indexPath.section==2) {
         UIStoryboard *storBoard =[UIStoryboard storyboardWithName:@"Index0" bundle:nil];
+        [SVProgressHUD show];
         ShowViewController *showVic=[storBoard instantiateViewControllerWithIdentifier:@"ShowViewController"];
         showVic.seller_id=self.models.seller_id;
         [sellerService sellerInfoWithAgentid:[NSString stringWithFormat:@"%ld",(long)user.agent_id] andSeller_type:@"" andSellerid:self.models.seller_id inRootTabBarController:self.tabBarController withDone:^(Public_Seller_info_model_info *model){

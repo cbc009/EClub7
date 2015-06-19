@@ -12,5 +12,5 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property(nonatomic,strong)NSMutableArray *datas;
-;
+
 @end

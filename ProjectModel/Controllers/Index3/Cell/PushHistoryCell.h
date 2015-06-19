@@ -12,5 +12,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *news;
 @property (weak, nonatomic) IBOutlet UILabel *time;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelHeight;
+@property (weak, nonatomic) IBOutlet UIView *bgView;
+@property (weak, nonatomic) IBOutlet UILabel *title;
 
 @end

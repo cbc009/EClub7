@@ -12,5 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *herad;
 @property (weak, nonatomic) IBOutlet UIImageView *back;
 @property (nonatomic,strong)  NSTimer *moveTimer;
+@property (weak, nonatomic) IBOutlet UIView *backView;
+@property (nonatomic,strong) NSString *imageName;
 
 @end

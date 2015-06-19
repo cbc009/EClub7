@@ -23,11 +23,15 @@
 -(void)countDownTimer{
     if (self.starttime>0) {
         self.starttime=self.starttime-1;
-        self.times.text= [NSString stringWithFormat:@"距离开始还有:%@",[self toDetailTime:self.starttime]];
+        self.endtime=self.endtime-1;
         self.robNow.backgroundColor=[UIColor grayColor];
+        self.times.text= [NSString stringWithFormat:@"距离开始还有:%@",[self toDetailTime:self.starttime]];
+        self.robNow.backgroundColor=[UIColor redColor];
     }else{
         if (self.endtime>0){
+        self.robNow.backgroundColor=[UIColor redColor];
         self.endtime=self.endtime-1;
+        self.starttime=-1;
         self.times.text= [NSString stringWithFormat:@"距离结束还有:%@",[self toDetailTime:self.endtime]];
     }else{
         self.times.text=@"今天抢购已结束";

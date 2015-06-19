@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol SecondCountDownDelegate <NSObject>
+//开始倒计时
+-(void)countDownActionWithStartSeconds:(NSInteger)seconds andEndSencond:(NSInteger )endSconds;
+@end
 @interface RobTitleCell : UITableViewCell
+@property (weak, nonatomic)id<SecondCountDownDelegate>delegate;
 @property (weak, nonatomic) IBOutlet UIImageView *goodPic;
 @property (weak, nonatomic) IBOutlet UILabel *goodName;
 @property (weak, nonatomic) IBOutlet UILabel *saleNum;

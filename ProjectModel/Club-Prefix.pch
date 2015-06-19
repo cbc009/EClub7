@@ -68,7 +68,7 @@ typedef void (^finished)(NSDictionary *info);
 
 
 #define UserinfosURL [PrexURL stringByAppendingString: @"Member/userinfo?loginname=%@"]
-#define ValicodeURL [PrexURL stringByAppendingString: @"Base/valid_code/loginname/%@"]
+#define ValicodeURL [PrexURL stringByAppendingString: @"Base/reg_valid_code/loginname/%@"]
 //协议
 #define ProtocolURL [PrexURL stringByAppendingString: @"Member/agree"]
 //注册

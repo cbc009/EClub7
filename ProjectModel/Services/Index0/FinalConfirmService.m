@@ -104,6 +104,7 @@
     NSString *passwd = [MyMD5 md5:password];
     NSString *user_Type =[NSString stringWithFormat:@"%ld",(long)user_type];
     NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:token, @"token",user_Type,@"user_type",datas,@"info",payType,@"paymenttype",sendType,@"sendtype",sendid,@"sendtime",passwd,@"paypassword",address,@"address",mobile,@"mobile",message    ,@"message",nil];
+    NSLog(@"%@",dict);
     [SVProgressHUD show];
     [JSONHTTPClient postJSONFromURLWithString:SubmitItemsURL params:dict completion:^(id object, JSONModelError *err) {
         NSNumber *status1 = (NSNumber *)[object objectForKey:@"status"];

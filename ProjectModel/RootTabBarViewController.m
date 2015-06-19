@@ -103,7 +103,12 @@
             [nav popToRootViewControllerAnimated:YES];
             [SharedAction presentLoginViewControllerInViewController:nav];
         }
+    }else if (alertView.tag==7){
+        if (buttonIndex==1) {
+        [[UIApplication sharedApplication].keyWindow.rootViewController.navigationController popToRootViewControllerAnimated:YES];
+        }
     }
+
 }
 
 #pragma LoginViewControllerDelegate

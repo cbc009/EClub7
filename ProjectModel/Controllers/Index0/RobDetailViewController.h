@@ -13,4 +13,6 @@
 - (IBAction)robNow:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *robNowButton;
 @property(nonatomic,strong)Seller_Seller_Goods_arr_goods_info *robGoodsMOdel;
+@property (nonatomic,assign) NSInteger starttime;
+@property (nonatomic,assign) NSInteger endtime;
 @end

@@ -152,7 +152,7 @@
         ShowViewController *showVic=[storBoard instantiateViewControllerWithIdentifier:@"ShowViewController"];
         
         NSString *typeString =[NSString stringWithFormat:@"seller_id/%@",self.model.seller_id];
-        NSString *agent_id =[NSString stringWithFormat:@"%ld",(long)user.agent_id];
+        NSString *agent_id =[NSString stringWithFormat:@"%ld",(long)0];
         
         [sellerService publicSellerInfoWithAgent_id:agent_id anrTypeString:typeString inTabBarController:self.tabBarController withDone:^(Public_Seller_info_model_info *model){
             showVic.seller_id=self.model.seller_id;

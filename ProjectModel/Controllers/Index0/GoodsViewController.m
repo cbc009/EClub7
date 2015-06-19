@@ -140,6 +140,8 @@
     Goods_type_subType *subtype = self.subtypes[index];
     subtypeId = subtype.subid;
     page = 1;
+    self.datas=nil;
+    [self.tableview reloadData];
     [self.tableview headerBeginRefreshing];
 }
 
