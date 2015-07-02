@@ -28,7 +28,6 @@
 -(CABasicAnimation *)moveX:(float)time X:(NSNumber *)x //横向移动
 
 {
-    
     CABasicAnimation *animation=[CABasicAnimation animationWithKeyPath:@"transform.translation.x"];
     
     animation.duration=time;

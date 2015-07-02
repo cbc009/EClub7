@@ -55,6 +55,7 @@
     
 }
 
+#pragma UITableViewDelegate
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row=indexPath.row;
     if (indexPath.section==0) {

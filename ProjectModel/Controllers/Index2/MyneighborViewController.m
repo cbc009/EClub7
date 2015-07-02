@@ -93,8 +93,7 @@
 //    
 //    _tableview.footerPullToRefreshText = @"上拉可以加载更多数据了";
 //    _tableview.footerReleaseToRefreshText = @"松开马上加载更多数据了";
-//    _tableview
-//    .footerRefreshingText = @"正在帮你加载中";
+//    _tableview.footerRefreshingText = @"正在帮你加载中";
 //}
 //-(void)headerRereshing
 //{

@@ -27,11 +27,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    keyBoardController = [[UIKeyboardViewController alloc] initWithControllerDelegate:self];
+//    [keyBoardController addToolbarToKeyboard];
     self.title = @"修改昵称";
     SharedData *sharedData = [SharedData sharedInstance];
     user1 = sharedData.user;
-    keyBoardController = [[UIKeyboardViewController alloc] initWithControllerDelegate:self];
-    [keyBoardController addToolbarToKeyboard];
+    self.newname.text = user1.nickname;
+    [self.newname becomeFirstResponder];
     changeUserName = [[ChangeUserNameService alloc] init];
     user = [[UserDetailViewController alloc] init];
    
@@ -41,14 +43,18 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-- (IBAction)OK:(id)sender {
+- (IBAction)saveActions:(id)sender {
     NSString *nicname = _newname.text;
+
     [SVProgressHUD show];
     [changeUserName changeUserNameService:nicname withToken:user1.token andUser_type:user1.user_type inTabBarController:self.tabBarController withdone:^(Status *model){
         user1.nickname = nicname;
         [self.navigationController popViewControllerAnimated:YES];
     }];
+
+}
+
+- (IBAction)deleteAction:(id)sender {
+    self.newname.text =@" ";
 }
 @end

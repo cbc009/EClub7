@@ -17,6 +17,7 @@
 #import "JSONModelLib.h"
 
 #import "SVProgressHUD.h"
+
 @implementation ChangePayPasswordService
 -(void)changePassword:(NSString *)oldpassword andnewPassword:(NSString *)newpasswd andnewpassword2:(NSString *)newpassword2 onChangePayPasswordViewcontroller:(ChangePayPasswordViewController *)ChangePayPasswordViewController
 {
@@ -26,8 +27,9 @@
         NSString *passwd2 = [MyMD5 md5:newpasswd];
         SharedData *sharedData = [SharedData sharedInstance];
         UserInfo *user = sharedData.user;
-        NSString *urlString = [NSString stringWithFormat:ChangePassword,user.token,user.user_type,passwd2,passwd1];
+        NSString *urlString = [NSString stringWithFormat:ChangePayPassword,user.token,user.user_type,passwd2,passwd1];
         [Status getModelFromURLWithString:urlString completion:^(Status *model,JSONModelError *error){
+            NSLog(@"%@",urlString);
             if (model.status==2) {
                 [SVProgressHUD showSuccessWithStatus:model.error];
                 [ChangePayPasswordViewController.navigationController popViewControllerAnimated:YES];

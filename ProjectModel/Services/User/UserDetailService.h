@@ -16,9 +16,9 @@
 //上传用户头像
 -(void)updateHeaderImage:(UIImage *)image withCompletion:(finished)finished;
 //修改支付密码
--(void)presentChangePayPasswordViewControllerOnViewController:(UIViewController *)viewController;
+-(void)presentChangePayPasswordWithOldPassword:(NSString *)oldPassword inViewControllerOnViewController:(UIViewController *)viewController;
 //修改登录密码
--(void)presentChangePasswordViewControllerOnViewController:(UIViewController *)viewController;
+-(void)presentChangePasswordWithOldPassword:(NSString *)oldPassword inViewControllerOnViewController:(UIViewController *)viewController;
 //修改昵称
 -(void)presentChangeNameViewControllerOnViewController:(UIViewController *)viewController;
 //修改地址

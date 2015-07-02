@@ -31,7 +31,8 @@
     self.title = @"修改地址";
     SharedData *sharedData = [SharedData sharedInstance];
     user = sharedData.user;
-    _newaddress.placeholder =user.address;
+    _newaddress.text =user.address;
+    [self.newaddress becomeFirstResponder];
     changeAddressService = [[ChangeAddressService alloc] init];
 }
 
@@ -39,7 +40,8 @@
     [super didReceiveMemoryWarning];
 }
 
-- (IBAction)go:(id)sender {
+
+- (IBAction)save:(id)sender {
     NSString *adress= _newaddress.text;
     [changeAddressService changeAddressService:adress withToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController withdone:^(Status *model){
         user.address = self.newaddress.text;

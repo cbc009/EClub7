@@ -10,7 +10,9 @@
 #import "UIKeyboardViewController.h"
 @interface ChangeNameViewController : UIViewController<UIKeyboardViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *newname;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *save;
+- (IBAction)saveActions:(id)sender;
+- (IBAction)deleteAction:(id)sender;
 
-- (IBAction)OK:(id)sender;
 
 @end

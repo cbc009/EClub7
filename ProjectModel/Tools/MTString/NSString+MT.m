@@ -30,17 +30,7 @@
     [formatter setDateFormat:@"yyyy-MM-dd"];
     return [NSString timeFromStamp:stamp withFormatter:formatter];
 }
-+(float)heightWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize{
-    NSDictionary *dict = @{NSFontAttributeName: font};
-    CGSize size = [str boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-    return size.height+3;
-}
 
-+(float)widthWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize{
-    NSDictionary *dict = @{NSFontAttributeName: font};
-    CGSize size = [str boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-    return size.width;
-}
 
 +(NSString *)timeType4FromStamp:(NSString *)stamp{
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
@@ -82,7 +72,17 @@
     NSString *dateString = [dateFormatter stringFromDate:date];
     return dateString;
 }
++(float)heightWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize{
+    NSDictionary *dict = @{NSFontAttributeName: font};
+    CGSize size = [str boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+    return size.height+3;
+}
 
++(float)widthWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize{
+    NSDictionary *dict = @{NSFontAttributeName: font};
+    CGSize size = [str boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+    return size.width;
+}
 /*手机号码验证 MODIFIED BY HELENSONG*/
 -(BOOL) isValidateMobile:(NSString *)mobile
 {

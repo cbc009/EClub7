@@ -512,6 +512,7 @@
     Seller_Seller_Comment_arr_comment_info *model = self.datas[indexpath.row];
     [self.tablewView scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionTop animated:YES];
     model = self.datas[indexpath.row];
+    
     selectCell=cell;
 }
 -(void)callWithPhoneNumber:(NSString *)phoneNumber {

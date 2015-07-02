@@ -12,7 +12,7 @@
 @interface ChangePasswordViewController ()
 {
     ChangePasswordService *changePassword;
-    UIKeyboardViewController *keyBoardController;
+    UserInfo *user;
 }
 @end
 
@@ -20,28 +20,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    keyBoardController = [[UIKeyboardViewController alloc] initWithControllerDelegate:self];
-    [keyBoardController addToolbarToKeyboard];
     self.title = @"修改登录密码";
-    _oldpassword.secureTextEntry = YES;
+    SharedData *sharedData =[SharedData sharedInstance];
+    user=sharedData.user;
+    self.nickName.text=user.nickname;
     _newpassword.secureTextEntry =YES;
     _newpassword2.secureTextEntry =YES;
     changePassword = [[ChangePasswordService alloc] init];
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
 }
 
-
-
-- (IBAction)go:(id)sender {
-    NSString *oldpassword = _oldpassword.text;
+- (IBAction)save:(id)sender {
     NSString *newpassword = _newpassword.text;
     NSString *newpassword2 = _newpassword2.text;
-    [changePassword changePassword:oldpassword andnewPassword:newpassword andnewpassword2:newpassword2 onChangePasswordViewcontroller:self];
-    
+    [changePassword changePassword:self.oldPassword andnewPassword:newpassword andnewpassword2:newpassword2 onChangePasswordViewcontroller:self];
 }
 @end

@@ -562,10 +562,11 @@
 +(void)confirmPssswordWithToken:(NSString *)token andUser_type:(NSInteger )user_type andType:(NSString *)type andPassword:(NSString *)password inTabBarController:(UITabBarController *)tabBarController withDone:(doneWithObject)done{
     NSString *urlString =[NSString stringWithFormat:Confirm_Psssword,password,type,token,user_type];
     [Status getModelFromURLWithString:urlString completion:^(Status *model,JSONModelError *error){
+        NSLog(@"urlString:%@",urlString);
         if (!error) {
             if (model.status==806) {
                 done(model);
-                [SVProgressHUD showSuccessWithStatus:model.error];
+                [SVProgressHUD showErrorWithStatus:model.error];
             }else if(model.status==2){
                 done(model);
                 [SVProgressHUD dismiss];

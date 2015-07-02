@@ -45,11 +45,6 @@
         user.amount = model.amount;
         user.point = model.point;
         user.amount_red = model.amount_red;
-//        walletViewController.redbags=[NSString stringWithFormat:@"%0.2f",user.amount_red];
-//        walletViewController.amounts =[NSString stringWithFormat:@"%0.2f",user.amount];
-//        walletViewController.cardIds= user.iccard;
-//        walletViewController.Points=[NSString stringWithFormat:@"%ld",(long)user.point];
-       
         walletViewController.hidesBottomBarWhenPushed = YES;
         [viewController.navigationController pushViewController:walletViewController animated:YES];
     }];

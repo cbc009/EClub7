@@ -72,6 +72,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+   
     [self setNaviView];
      prizeService=[Prize_luckService new];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeAgenTReload) name:@"AgentReload" object:nil];
@@ -88,11 +89,13 @@
     index0Service = [[Index0Service alloc] init];
     self.tableview.separatorStyle=UITableViewCellSeparatorStyleNone;
     [index0Service loadUserDefaultsInViewController:self witLoginStatus:sharedData.loginStatus andLongitude:@"" andLatitude:@""];
+     user= sharedData.user;
     self.title=user.lifehall_name;
      NSLog(@"%@",sharedData.loginStatus);
     [self locationNow];
     self.collectionDatas = [NSArray arrayWithObjects:@"充值",@"抽奖",@"联盟商户",@"购物车",nil];
     self.collectionImgs = [NSArray arrayWithObjects:@"chongzhi.png",@"choujiang.png",@"qianbao.png",@"gouwuche.png", nil];
+   
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -317,6 +320,8 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
      [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    sharedData =[SharedData sharedInstance];
+    UserInfo *users=sharedData.user;
     NSInteger row = indexPath.row;
     NSString *storyboardName = nil;
     NSString *identifier = nil;
@@ -324,7 +329,7 @@
         storyboardName = @"Index3";
         identifier = @"CreatePayViewController";
     }else if (row==1){
-         [prizeService prizePrizeLuckiesWithToken:user.token andUser_type:user.user_type inTabBarController:self.tabBarController WithDone:^(PrizeLuckiesInfo *model){
+         [prizeService prizePrizeLuckiesWithToken:users.token andUser_type:users.user_type inTabBarController:self.tabBarController WithDone:^(PrizeLuckiesInfo *model){
              FeelHapply_View *vic =[FeelHapply_View new];
              vic.luckString=model.prize_amount;
              vic.prize_id =model.prize_id;
@@ -339,7 +344,7 @@
     }else {
         storyboardName = @"Index4";
         identifier = @"PurchaseCarItemsViewController";
-        if (user.user_type!=2) {
+        if (users.user_type!=2) {
             UIAlertView *aletview=[[UIAlertView alloc]initWithTitle:@"温馨提醒" message:@"由于您还没有登录，该功能需要登录以后才能使用！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定登录", nil];
             [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
             aletview.tag=5;
@@ -393,7 +398,6 @@
         default:
             break;
     }
-    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
     UIViewController *target = [storyboard instantiateViewControllerWithIdentifier:identifier];
     target.hidesBottomBarWhenPushed = YES;

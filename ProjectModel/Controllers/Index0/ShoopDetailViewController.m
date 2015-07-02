@@ -334,7 +334,7 @@
     [self.tableview footerEndRefreshing];    
 }
 -(void)loadDataWithPage:(NSInteger)pages andType:(NSInteger )type{
-    NSString *pageString = [NSString stringWithFormat:@"%ld",(long)pages];
+    NSString *pageString = [NSString stringWithFormat:@"%2ld",(long)pages];
     NSString *agent_id= [NSString stringWithFormat:@"%ld",(long)user.agent_id];
     NSString *typeString0 =[NSString stringWithFormat:@"%@/page/%@",typeString,pageString];
     [sellerService publicSellerInfoWithAgent_id:agent_id anrTypeString:typeString0 inTabBarController:self.tabBarController withDone:^(Public_Seller_info_model_info *model){

@@ -66,7 +66,6 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     if (self.orderType==TradeOrderType) {
         TradeOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TradeOrderCell"];
         NSInteger row = indexPath.row;

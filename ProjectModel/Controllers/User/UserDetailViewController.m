@@ -7,7 +7,7 @@
 //
 
 #import "UserDetailViewController.h"
-
+#import "MyMD5.h"
 #import "UserDetailService.h"
 #import "UserDefaults.h"
 #import "SharedData.h"
@@ -19,7 +19,8 @@
 #import <UIImageView+WebCache.h>
 #import "ChooseAreaViewController.h"
 #import <SVProgressHUD.h>
-@interface UserDetailViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,LoginViewControllerDelegate>
+#import "Status.h"
+@interface UserDetailViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,LoginViewControllerDelegate,UIAlertViewDelegate>
 {
     UserDetailService *userDetailService;
     Index3_3Cell *cell1;
@@ -65,7 +66,7 @@
 
 #pragma UITableviewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 4;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -114,7 +115,7 @@
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
-    }else  if (section==3) {
+    }else  if (section==4) {
         identifier = @"index3_8Cell";
         index3_8Cell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         if ([shareData.loginStatus isEqualToString:@"YES"]) {
@@ -124,7 +125,14 @@
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
-    }else {
+    }else if(section==3) {
+        identifier = @"index3_8Cell";
+        index3_8Cell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        cell.userId.text = @"修改地址";
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        return cell;
+
+    }else{
         return nil;
     }
 }
@@ -146,15 +154,52 @@
             [userDetailService presentChangeNameViewControllerOnViewController:self];
     }else if (section == 2) {
         if (indexPath.row ==1){
-            [userDetailService presentChangePasswordViewControllerOnViewController:self];
+            UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"验证原密码" message:@"为保障你的数据安全，修改密码前请填写原密码" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            alertView.alertViewStyle = UIAlertViewStyleSecureTextInput;
+            alertView.tag=1;
+            [alertView show];
         } else{
-           [userDetailService presentChangePayPasswordViewControllerOnViewController:self];
+            UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"验证原支付密码密码" message:@"为保障你的数据安全，修改支付密码前请填写原支付密码密码" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            alertView.alertViewStyle = UIAlertViewStyleSecureTextInput;
+            alertView.tag=2;
+            [alertView show];
         }
-    }else if (section == 3) {
-        [userDetailService loginoutActionInViewController:self inTabBarController:self.tabBarController];
+    }else if (section == 4) {
+        UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"切换账号" message:@"是否要退出当前账号" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        alertView.tag=3;
+        [alertView show];
+    }else if(section ==3){
+        [userDetailService presentChangeAdressViewControllerOnViewController:self];
     }
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag==1) {
+        if (buttonIndex==1) {
+        NSString *passwd= [MyMD5 md5:[[alertView textFieldAtIndex:0] text]];
+            [SharedAction confirmPssswordWithToken:user.token andUser_type:user.user_type andType:@"1" andPassword:passwd inTabBarController:self.tabBarController withDone:^(Status *model){
+                if (model.status==2) {
+                    [userDetailService presentChangePasswordWithOldPassword:[[alertView textFieldAtIndex:0] text] inViewControllerOnViewController:self];
+                }
+            }];
+        }
+    }else if(alertView.tag==2){
+        if (buttonIndex==1) {
+            NSString *passwd= [MyMD5 md5:[[alertView textFieldAtIndex:0] text]];
+            [SharedAction confirmPssswordWithToken:user.token andUser_type:user.user_type andType:@"2" andPassword:passwd inTabBarController:self.tabBarController withDone:^(Status *model){
+                if (model.status==2) {
+                     [userDetailService presentChangePayPasswordWithOldPassword:[[alertView textFieldAtIndex:0] text] inViewControllerOnViewController:self];
+                }
+            }];
+        }
+    }else{
+        if (buttonIndex==1) {
+            [userDetailService loginoutActionInViewController:self inTabBarController:self.tabBarController];
+        }
+    }
+}
+             
+             
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger section = indexPath.section;
     switch (section) {
@@ -162,7 +207,7 @@
             return 145;
             break;
         default:
-            return 50;
+            return 41;
     }
 }
 

@@ -375,6 +375,7 @@
 		339CB0501B0C3ABC00473E0A /* line.png in Resources */ = {isa = PBXBuildFile; fileRef = 339CB0491B0C3ABC00473E0A /* line.png */; };
 		339CB0721B0C885700473E0A /* FeelHapply_View.m in Sources */ = {isa = PBXBuildFile; fileRef = 339CB0711B0C885700473E0A /* FeelHapply_View.m */; };
 		339CB0741B0C8A1C00473E0A /* Feel_ScrathcView-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 339CB0731B0C8A1C00473E0A /* Feel_ScrathcView-Info.plist */; };
+		339CE52C1B3BAEF1003520FF /* delete2.png in Resources */ = {isa = PBXBuildFile; fileRef = 339CE52B1B3BAEF1003520FF /* delete2.png */; };
 		339EE32E1AE0B94B0038C1CE /* notice.png in Resources */ = {isa = PBXBuildFile; fileRef = 339EE32D1AE0B94B0038C1CE /* notice.png */; };
 		339EE3311AE0B9AD0038C1CE /* NoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 339EE3301AE0B9AD0038C1CE /* NoticeCell.m */; };
 		339EE5361AE1025E0038C1CE /* kele.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 339EE5351AE1025E0038C1CE /* kele.jpg */; };
@@ -1260,6 +1261,7 @@
 		339CB0701B0C885700473E0A /* FeelHapply_View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeelHapply_View.h; sourceTree = "<group>"; };
 		339CB0711B0C885700473E0A /* FeelHapply_View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeelHapply_View.m; sourceTree = "<group>"; };
 		339CB0731B0C8A1C00473E0A /* Feel_ScrathcView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Feel_ScrathcView-Info.plist"; sourceTree = "<group>"; };
+		339CE52B1B3BAEF1003520FF /* delete2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete2.png; sourceTree = "<group>"; };
 		339EE32D1AE0B94B0038C1CE /* notice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notice.png; sourceTree = "<group>"; };
 		339EE32F1AE0B9AD0038C1CE /* NoticeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoticeCell.h; sourceTree = "<group>"; };
 		339EE3301AE0B9AD0038C1CE /* NoticeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoticeCell.m; sourceTree = "<group>"; };
@@ -1891,8 +1893,8 @@
 				3365BADB1A709760003C220C /* CreatePayViewController.m */,
 				3365BADD1A70A012003C220C /* UPPayViewController.h */,
 				3365BADE1A70A012003C220C /* UPPayViewController.mm */,
-				33F73F2B1A1D8D0000EB73CB /* ChangePasswordViewController.m */,
 				33F73F2A1A1D8D0000EB73CB /* ChangePasswordViewController.h */,
+				33F73F2B1A1D8D0000EB73CB /* ChangePasswordViewController.m */,
 				33F73F2C1A1D8D0000EB73CB /* ChangePayPasswordViewController.h */,
 				33F73F2D1A1D8D0000EB73CB /* ChangePayPasswordViewController.m */,
 				33F73F2E1A1D8D0000EB73CB /* ChangeNameViewController.h */,
@@ -2124,6 +2126,7 @@
 		22557A01199645A3001B5FCC /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				339CE52B1B3BAEF1003520FF /* delete2.png */,
 				33F79DDD1B280F4800F4EEF9 /* 1024.png */,
 				33F79DDB1B28076500F4EEF9 /* ELogo.png */,
 				338F65E71B1FF0C100411006 /* headss.png */,
@@ -3683,6 +3686,7 @@
 				338DF5851B0D766D00F3E97F /* feedback.png in Resources */,
 				22156C0219B44BA400D0EEB6 /* logo.png in Resources */,
 				33C46DEA1AE5EC1700D7F3F0 /* ChangeAgent.storyboard in Resources */,
+				339CE52C1B3BAEF1003520FF /* delete2.png in Resources */,
 				33BB768C1B1EFEB400F4E2EE /* moresss@2x.png in Resources */,
 				33AA2AB81AE8982B00D0A32A /* 1.png in Resources */,
 				3398797C1ADBB6EC00E545DC /* Index0.storyboard in Resources */,
@@ -4269,8 +4273,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Gao Huang (96YJH245G7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Gao Huang (96YJH245G7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gao Huang (736TRZPDTD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gao Huang (736TRZPDTD)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -4308,8 +4312,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Gao Huang (96YJH245G7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Gao Huang (96YJH245G7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gao Huang (736TRZPDTD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gao Huang (736TRZPDTD)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4368,7 +4372,7 @@
 					"$(PROJECT_DIR)/Pods/UMengMessage/UMessage_Sdk_All_1.1.0(idfa)/UMessage_Sdk_1.1.0",
 					"$(PROJECT_DIR)/ProjectModel/Tools/BaiduMap_IOSSDK_v2.6.0_Lib",
 				);
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",

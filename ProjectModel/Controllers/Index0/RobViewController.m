@@ -32,12 +32,14 @@
     SellerService *sellerServicel;
     Index0Service *index0Service;
     UserInfo *user;
+    UserInfo *user1;
         int count;
     NSMutableArray *timeArray;
     NSMutableArray *timeEndArray;
     NSInteger page;
     NSInteger ChangeUp;//防止重复点击切换生活馆按钮出现多个pickview
     ChangeLifeService *changeLifeService;
+    NSInteger Type;
 }
 @property(nonatomic,assign)NSInteger second1;
 @property(nonatomic,strong)NSTimer *timer;
@@ -69,6 +71,7 @@
 {
     [super viewDidLoad];
     ChangeUp=0;
+    Type=0;
     sellerServicel=[SellerService new];
     self.datas=[NSMutableArray new];
     timeArray=[NSMutableArray new];
@@ -102,6 +105,7 @@
         }];
     }
 }
+
 -(void)setPickwithDatas:(NSArray *)datas{
     self.pickerVC = [RMPickerViewController pickerController];
     count = (int)datas.count;
@@ -251,7 +255,13 @@
 
 -(void)loadSellerSellerGoodsTypeWithPage:(NSInteger)pages andType:(NSInteger)type{
     NSString *pageString = [NSString stringWithFormat:@"%ld",(long)pages];
-    [sellerServicel sellerSellerGood_typesWith:@"3" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id]  andSeller_id:@"0" andLifehall_id:[NSString stringWithFormat:@"%ld",(long)user.lifehall_id] andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
+    NSString *lifehallid;
+    if (Type==0) {
+        lifehallid=[NSString stringWithFormat:@"%ld",(long)user.lifehall_id];
+    }else{
+        lifehallid=[NSString stringWithFormat:@"%ld",(long)user1.lifehall_id];
+    }
+    [sellerServicel sellerSellerGood_typesWith:@"3" andAgentId:[NSString stringWithFormat:@"%ld",(long)user.agent_id]  andSeller_id:@"0" andLifehall_id:lifehallid andPage:pageString inTabBarController:self.tabBarController withDone:^(Seller_Seller_Goods_info*model){
         if (type==0) {
             self.datas=(NSMutableArray*)model.arr_goods;
             [self.tableView headerEndRefreshing];
@@ -280,7 +290,6 @@
 - (void)pickerViewController:(RMPickerViewController *)vc didSelectRows:(NSArray *)selectedRows {
     NSString *value = [self valueFromSelectedRows:selectedRows andComponents:self.components];
     NSString *lifeIDValue =[self valueFromSelectedRows:selectedRows andComponents:self.lifeIdArray];
-   
     [self changeLifeId:lifeIDValue andLifeHallName:value];
 }
 
@@ -289,17 +298,19 @@
 }
 
 -(NSString *)valueFromSelectedRows:(NSArray *)selectedRows andComponents:(NSArray *)components{
+
     NSMutableString *value = [[NSMutableString alloc] init];
     for (int i=0; i<selectedRows.count; i++) {
-        NSString *value = components[i];
-        return value;
-         }
+    NSString *value =  components[[selectedRows[i] integerValue]];
+    return value;
+    }
     return value;
 }
 
 -(void)changeLifeId:(NSString *)lifeHallId andLifeHallName:(NSString *)lifehallName{
-    user.lifehall_id=[lifeHallId integerValue];
-    user.lifehall_name=lifehallName;
+    user1=[UserInfo new];
+    Type=1;
+    user1.lifehall_id=[lifeHallId integerValue];
     self.title=lifehallName;
     ChangeUp=0;
     [self headerRereshing];

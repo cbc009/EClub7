@@ -40,15 +40,17 @@
 }
 
 //修改支付密码
--(void)presentChangePayPasswordViewControllerOnViewController:(UIViewController *)viewController{
+-(void)presentChangePayPasswordWithOldPassword:(NSString *)oldPassword inViewControllerOnViewController:(UIViewController *)viewController{
     ChangePayPasswordViewController *changePayViewController = [viewController.storyboard instantiateViewControllerWithIdentifier:@"ChangePayPasswordViewController"];
     changePayViewController.hidesBottomBarWhenPushed = YES;
+    changePayViewController.oldPassword=oldPassword;
     [viewController.navigationController pushViewController:changePayViewController animated:YES];
 }
 //修改登录密码
--(void)presentChangePasswordViewControllerOnViewController:(UIViewController *)viewController{
+-(void)presentChangePasswordWithOldPassword:(NSString *)oldPassword inViewControllerOnViewController:(UIViewController *)viewController{
     ChangePasswordViewController *changePassworViewController = [viewController.storyboard instantiateViewControllerWithIdentifier:@"ChangePasswordViewController"];
     changePassworViewController.hidesBottomBarWhenPushed = YES;
+    changePassworViewController.oldPassword=oldPassword;
     [viewController.navigationController pushViewController:changePassworViewController animated:YES];
 }
 //修改昵称

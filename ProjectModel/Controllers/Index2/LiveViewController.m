@@ -209,7 +209,6 @@
         [liveService countSizeWithData: self.datas inViewController:self];
         number=1;
         [self.tableview headerEndRefreshing];
-        
         [self.tableview reloadData];
     }];
 }

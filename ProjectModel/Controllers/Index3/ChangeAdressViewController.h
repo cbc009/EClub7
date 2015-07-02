@@ -1,4 +1,4 @@
-//
+   //
 //  ChangeAdressViewController.h
 //  Club
 //
@@ -10,6 +10,6 @@
 #import "UIKeyboardViewController.h"
 @interface ChangeAdressViewController : UIViewController<UIKeyboardViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *newaddress;
-- (IBAction)go:(id)sender;
+- (IBAction)save:(id)sender;
 
 @end

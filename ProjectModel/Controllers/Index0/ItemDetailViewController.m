@@ -94,17 +94,17 @@
 
 #pragma UIWebViewDelegate
 - (void)webViewDidStartLoad:(UIWebView *)webView{
-    [SVProgressHUD show];
+//    [SVProgressHUD show];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    [SVProgressHUD dismiss];
+//    [SVProgressHUD dismiss];
     CGRect frame = webView.frame;
     CGSize mWebViewTextSize = [webView sizeThatFits:CGSizeMake(1.0f, 1.0f)];
     frame.size = mWebViewTextSize;
     self.webview.frame = frame;
     self.webviewHeight.constant = mWebViewTextSize.height;
-    [self.scrollview setContentSize:CGSizeMake(DeviceFrame.size.width, mWebViewTextSize.height+442)];
+    [self.scrollview setContentSize:CGSizeMake(DeviceFrame.size.width, mWebViewTextSize.height+504)];
 }
 
 -(void)buttonTouchAction

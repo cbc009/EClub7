@@ -11,7 +11,7 @@
 @interface ChangePayPasswordViewController ()
 {
     ChangePayPasswordService *changePayPassword;
-    UIKeyboardViewController *keyBoardController;
+    UserInfo *user;
 }
 @end
 
@@ -19,28 +19,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    keyBoardController = [[UIKeyboardViewController alloc] initWithControllerDelegate:self];
-    [keyBoardController addToolbarToKeyboard];
     self.title = @"修改支付密码";
-    _oldpassword.secureTextEntry = YES;
+    SharedData *sharedData =[SharedData sharedInstance];
+    user=sharedData.user;
+    self.nickName.text=user.nickname;
     _newpassword1.secureTextEntry =YES;
     _newpassword2.secureTextEntry =YES;
     changePayPassword = [[ChangePayPasswordService alloc] init];
     
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-
-
-- (IBAction)go:(id)sender {
-    NSString *oldpassword = _oldpassword.text;
+- (IBAction)save:(id)sender {
     NSString *newpassword = _newpassword1.text;
     NSString *newpassword2 = _newpassword2.text;
-    [changePayPassword changePassword:oldpassword andnewPassword:newpassword andnewpassword2:newpassword2 onChangePayPasswordViewcontroller:self];
-    
+    [changePayPassword changePassword:self.oldPassword andnewPassword:newpassword andnewpassword2:newpassword2 onChangePayPasswordViewcontroller:self];
+
 }
 @end

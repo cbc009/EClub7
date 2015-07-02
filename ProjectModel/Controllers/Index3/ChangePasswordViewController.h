@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "UIKeyboardViewController.h"
 @interface ChangePasswordViewController : UIViewController <UIKeyboardViewControllerDelegate>
-@property (weak, nonatomic) IBOutlet UITextField *oldpassword;
+@property (nonatomic,strong)NSString *oldPassword;
 @property (weak, nonatomic) IBOutlet UITextField *newpassword;
 @property (weak, nonatomic) IBOutlet UITextField *newpassword2;
-- (IBAction)go:(id)sender;
+- (IBAction)save:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *nickName;
 
 @end
